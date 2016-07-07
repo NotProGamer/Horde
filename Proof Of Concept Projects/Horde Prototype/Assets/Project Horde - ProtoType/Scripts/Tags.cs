@@ -6,6 +6,7 @@ using System.Collections;
 public class Tags : MonoBehaviour {
 
     public static string Zombie = "Zombie";
+    //public static string ZombieZero = "ZombieZero";
     public static string Human = "Human";
     public static string Barricade = "Barricade";
     public static string ZombieLure = "ZombieLure";

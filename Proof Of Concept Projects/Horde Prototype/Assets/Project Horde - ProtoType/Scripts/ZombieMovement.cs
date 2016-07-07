@@ -11,7 +11,7 @@ public class ZombieMovement : MonoBehaviour {
     public Queue<Vector3> m_destinations = new Queue<Vector3>();
     public Vector3 currentDestination;
     public int lastCount = 0;
-
+    public int m_maxQueueSize = 5;
 
     public float baseSpeed = 3.5f;
     public float baseAngularSpeed = 120;
@@ -103,19 +103,21 @@ public class ZombieMovement : MonoBehaviour {
                         m_nav.SetDestination(currentDestination);
                         m_nav.speed = baseSpeed * m_destinations.Count;
                     }
-
-
                 }
+            }
 
-                if (m_destinations.Count > 1)
+            if (m_destinations.Count > 1)
+            {
+
+
+                if (Time.time > m_nextExpire)
                 {
-                    if (Time.time > m_nextExpire)
-                    {
-                        SetNextExpire();
-                        Debug.Log("Dequeue: " + m_destinations.Dequeue().ToString());
-                    }
+                    SetNextExpire();
+                    Vector3 removedDestination = m_destinations.Dequeue();
+                    Debug.Log("Dequeue: " + removedDestination.ToString());
                 }
 
+                
             }
 
 
@@ -160,7 +162,7 @@ public class ZombieMovement : MonoBehaviour {
 
         }
 
-        
+
 
 
 
@@ -179,6 +181,13 @@ public class ZombieMovement : MonoBehaviour {
             SetNextExpire();
         }
         m_destinations.Enqueue(pDestination);
+        if(m_destinations.Count > (int)Mathf.Abs(Mathf.Max(1, m_maxQueueSize)))
+        {
+            Vector3 removedDestination = m_destinations.Dequeue();
+            Debug.Log("Dequeue: " + removedDestination.ToString());
+        }
+
+
         //m_recalculateDestination = true;
         //if (m_nextExpire <= Time.time)
         //{

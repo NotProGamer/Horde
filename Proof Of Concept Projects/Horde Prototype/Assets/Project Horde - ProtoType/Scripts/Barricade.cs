@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: Mobile and PC
+///  Notes: simple barricade Controller. barricade disables and offmesh links enable when barricade destroyed
+///  Status: Complete
+/// </summary>
 
 public class Barricade : MonoBehaviour {
 

@@ -2,6 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: Mobile and PC
+///  Notes: Basic Zombie Movement Script. Zombies maybe be given multiple destinations, these are used to calculate the average destination and modify zombie movement
+///  Notes: this could be further tweaked using navmesh agent , speed, acceleration, angularspeed, etc.
+///  Status: Complete
+/// </summary>
+/// 
+
 public class ZombieMovement : MonoBehaviour {
 
     private Transform m_destinationTarget;

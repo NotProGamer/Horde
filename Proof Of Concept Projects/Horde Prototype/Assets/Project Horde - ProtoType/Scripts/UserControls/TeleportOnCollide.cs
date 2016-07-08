@@ -1,6 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: (Mobile) and PC
+///  Notes: horde velocity movement
+///  Status: Incomplete, still need to implement mobile controls
+/// </summary>
+
 public class TeleportOnCollide : MonoBehaviour {
 
     private Transform m_controllerArea;

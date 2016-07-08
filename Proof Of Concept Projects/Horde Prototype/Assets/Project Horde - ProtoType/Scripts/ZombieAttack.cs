@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: Mobile and PC
+///  Notes: zombies attack enemies when they are in range.
+///  Status: Complete
+/// </summary>
+/// 
 public class ZombieAttack : MonoBehaviour {
 
     public float m_attackDelay = 0.5f;

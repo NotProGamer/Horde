@@ -1,6 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: Mobile and PC
+///  Notes: Camera Follows Target based on Original Camera Offset
+///  Status: Complete
+/// </summary>
+
+
+
 public class CameraFollow : MonoBehaviour {
 
     public Transform target;            // The position that that camera will be following.

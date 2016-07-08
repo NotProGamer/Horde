@@ -2,6 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: (Mobile) and PC
+///  Notes: Controls camera movement and zombie movement
+///  Status: Incomplete, still need to implement mobile controls
+/// </summary>
+
+
 //using UnitySampleAssets.CrossPlatformInput;
 
 // Notes: Optimization

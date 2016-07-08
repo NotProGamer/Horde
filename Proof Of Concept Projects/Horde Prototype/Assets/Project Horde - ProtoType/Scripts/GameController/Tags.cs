@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+/// <summary>
+///  Code Author: Reece Howe
+///  Project: Horde
+///  Engine: Unity
+///  Platform: Mobile and PC
+///  Notes: 
+///  Status: Complete
+/// </summary>
 
 public class Tags : MonoBehaviour {
 
@@ -29,5 +36,9 @@ public class Tags : MonoBehaviour {
     public static bool IsDestructible(GameObject other)
     {
         return other.CompareTag(Barricade);
+    }
+    public static bool CanbeInfected(GameObject other)
+    {
+        return IsHuman(other);
     }
 }

@@ -5,8 +5,9 @@ using System.Collections;
 ///  Code Author: Reece Howe
 ///  Project: Horde
 ///  Engine: Unity
-///  Platform: Mobile
+///  Platform: Mobile and PC
 ///  Notes: This is an incomplete piece of code to be used for making buildings transparent when mobs are behind them.
+///  Status: Incomplete
 /// </summary>
 
 public class ClearSight : MonoBehaviour {

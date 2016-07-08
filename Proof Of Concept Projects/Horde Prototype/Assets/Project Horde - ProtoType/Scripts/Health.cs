@@ -16,8 +16,13 @@ public class Health : MonoBehaviour {
     public int m_health = 100;
     public bool m_healToFullOnStart = true;
     public bool m_vulnerable = true;
-    public bool m_infected = false;
+    private bool m_infected = false;
     private bool m_canBeInfected = false;
+    private bool m_isDevourable = false;
+    private bool m_turned = false;
+    public float m_turnDelay = 3.0f;
+    private float m_turnTime = 0.0f;
+    public bool m_extendTurnTimerIfBeingDevoured = true;
 
     // Use this for initialization
     void Start()
@@ -27,13 +32,19 @@ public class Health : MonoBehaviour {
             m_health = m_maxHealth;
         }
         m_infected = false;
-        m_canBeInfected = Tags.CanbeInfected(gameObject);
+        m_canBeInfected = Tags.CanBeInfected(gameObject);
+        m_isDevourable = Tags.IsDevourable(gameObject);
     }
 
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        // if dead and infected and turnTime expired then turn human
+        if (IsDead() & m_infected && Time.time > m_turnTime)
+        {
+            m_turned = true;
+        }
+    }
 
     //public void ApplyDamage(int damage)
     //{
@@ -52,6 +63,12 @@ public class Health : MonoBehaviour {
             {
                 m_infected = infectious;
             }
+            // if dead and infected start turn countdown
+            if (IsDead() & m_infected)
+            {
+                // set turn timer
+                m_turnTime = Time.time + m_turnDelay;
+            }
         }
     }
 
@@ -63,7 +80,7 @@ public class Health : MonoBehaviour {
 
     public bool IsDead()
     {
-        return m_health < 0;
+        return m_health <= 0;
     }
 
     public bool IsDamaged()
@@ -71,5 +88,42 @@ public class Health : MonoBehaviour {
         return m_health < m_maxHealth;
     }
 
+    public bool IsDevoured()
+    {
+        return m_health <= -m_maxHealth;
+    }
+
+    public bool IsTurned()
+    {
+        return m_turned;
+    }
+
+    public bool IsInfected()
+    {
+        return m_infected;
+    }
+    /// <summary>
+    /// Eat Corpse to Gain Health
+    /// Apply damage to corpse 
+    /// </summary>
+    /// <param name="pDamage"></param>
+    /// <returns> health recovered. </returns>
+    public int Devour(int pDamage)
+    {
+        int healthRecovered = 0;
+        // check if is devourable AND dead AND not devoured AND not turned
+        if (m_isDevourable && IsDead() && !IsDevoured() && !m_turned)
+        {
+            int damage = (Mathf.Abs(pDamage));
+            healthRecovered = damage; // could change to only recover a portion of damage dealt
+            m_health -= damage;
+            // extend turn timer
+            if (m_extendTurnTimerIfBeingDevoured)
+            {
+                m_turnTime = Time.time + m_turnDelay;
+            }
+        }
+        return healthRecovered;
+    }
 
 }

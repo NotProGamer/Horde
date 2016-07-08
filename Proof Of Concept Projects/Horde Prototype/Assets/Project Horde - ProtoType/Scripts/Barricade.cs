@@ -34,6 +34,7 @@ public class Barricade : MonoBehaviour {
         {
             Debug.Log("Health script not included.");
         }
+        m_gate.SetActive(false);
         SetGateDestroyed(false);
     }
 

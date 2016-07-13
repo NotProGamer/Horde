@@ -1,16 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-/// <summary>
-///  Code Author: Reece Howe
-///  Project: Horde
-///  Engine: Unity
-///  Platform: Mobile and PC
-///  Notes: zombies attack enemies when they are in range.
-///  Status: Complete
-/// </summary>
-/// 
-public class ZombieAttack : MonoBehaviour {
+
+public class HumanAttack : MonoBehaviour {
 
     public float m_attackDelay = 0.5f;
     public int m_attackDamage = 10;
@@ -27,8 +18,8 @@ public class ZombieAttack : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -39,17 +30,15 @@ public class ZombieAttack : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        bool infectious = false;
-
         if (m_health)
         {
             if (m_health.IsDead())
             {
                 return; // if dead you can't attack;
             }
-            infectious = m_health.IsInfected();
         }
-        if (Tags.IsDestructible(other.gameObject) || Tags.IsHuman(other.gameObject))
+
+        if (Tags.IsZombie(other.gameObject))
         {
             // if can attack
             if (Time.time > m_nextAttack)
@@ -62,7 +51,7 @@ public class ZombieAttack : MonoBehaviour {
                     if (!otherHealthScript.IsDead())
                     {
                         //then attack
-                        otherHealthScript.ApplyDamage(m_attackDamage, infectious);
+                        otherHealthScript.ApplyDamage(m_attackDamage);
                         m_nextAttack = Time.time + m_attackDelay;
                         Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
                     }

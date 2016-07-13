@@ -24,6 +24,16 @@ public class Health : MonoBehaviour {
     private float m_turnTime = 0.0f;
     public bool m_extendTurnTimerIfBeingDevoured = true;
 
+
+    void OnEnable()
+    {
+        if (m_healToFullOnStart)
+        {
+            m_health = m_maxHealth;
+        }
+        m_infected = Tags.IsZombie(gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -31,7 +41,7 @@ public class Health : MonoBehaviour {
         {
             m_health = m_maxHealth;
         }
-        m_infected = false;
+        m_infected = Tags.IsZombie(gameObject);
         m_canBeInfected = Tags.CanBeInfected(gameObject);
         m_isDevourable = Tags.IsDevourable(gameObject);
     }

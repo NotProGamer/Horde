@@ -53,7 +53,6 @@ public class HumanMovement : MonoBehaviour {
             m_currentDestination = transform.position;
             //m_currentDestination = new Vector3(0, 0, 0);
         }
-
     }
 
     void OnEnable()

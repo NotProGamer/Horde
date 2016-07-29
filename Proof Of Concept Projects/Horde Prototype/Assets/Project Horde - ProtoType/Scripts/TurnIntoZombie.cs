@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Depreciated
+
 public class TurnIntoZombie : MonoBehaviour {
 
     private CharacterPool m_characterPool = null;
@@ -39,14 +41,14 @@ public class TurnIntoZombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_health && m_characterPool)
-        {
-            if (m_health.IsTurned())
-            {
-                Vector3 position = transform.position;
-                gameObject.SetActive(false);
-                m_characterPool.RequestZombieAtPosition(position);
-            }
-        }
+        //if (m_health && m_characterPool)
+        //{
+        //    if (m_health.IsTurned())
+        //    {
+        //        Vector3 position = transform.position;
+        //        gameObject.SetActive(false);
+        //        m_characterPool.RequestZombieAtPosition(position);
+        //    }
+        //}
 	}
 }

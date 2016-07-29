@@ -17,6 +17,7 @@ public class ZombieAttack : MonoBehaviour {
     private float m_nextAttack = 0.0f;
 
     private Health m_health = null;
+    private InfectionStatus m_infectionStatus = null;
 
     void Awake()
     {
@@ -25,10 +26,17 @@ public class ZombieAttack : MonoBehaviour {
         {
             Debug.Log("Health not included");
         }
+
+        m_infectionStatus = GetComponent<InfectionStatus>();
+        if (m_infectionStatus == null)
+        {
+            Debug.Log("InfectionStatus not included");
+        }
+
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -39,7 +47,6 @@ public class ZombieAttack : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        bool infectious = false;
 
         if (m_health)
         {
@@ -47,9 +54,17 @@ public class ZombieAttack : MonoBehaviour {
             {
                 return; // if dead you can't attack;
             }
-            infectious = m_health.IsInfected();
+            
         }
-        if (Tags.IsDestructible(other.gameObject) || Tags.IsHuman(other.gameObject))
+
+        //bool infectious = false;
+        //if (m_infectionStatus)
+        //{
+        //    infectious = m_infectionStatus.IsInfected();
+        //}
+
+        bool targetIsHuman = Tags.IsHuman(other.gameObject);
+        if (Tags.IsDestructible(other.gameObject) || targetIsHuman)
         {
             // if can attack
             if (Time.time > m_nextAttack)
@@ -62,7 +77,24 @@ public class ZombieAttack : MonoBehaviour {
                     if (!otherHealthScript.IsDead())
                     {
                         //then attack
-                        otherHealthScript.ApplyDamage(m_attackDamage, infectious);
+                        otherHealthScript.ApplyDamage(m_attackDamage);
+                        //otherHealthScript.ApplyDamage(m_attackDamage, infectious);
+
+                        // if target can be infected 
+                        if (targetIsHuman)
+                        {
+                            InfectionStatus otherInfectionScript = other.gameObject.GetComponent<InfectionStatus>();
+                            if (otherInfectionScript)
+                            {
+                                // if target is not infected
+                                if (!otherInfectionScript.IsInfected())
+                                {
+                                    // infect
+                                    otherInfectionScript.Infect();
+                                    Debug.Log(name + " infected " + other.gameObject.name);
+                                }
+                            }
+                        }
                         m_nextAttack = Time.time + m_attackDelay;
                         Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
                     }

@@ -11,9 +11,9 @@ using System.Collections.Generic;
 public class HumanMovement : MonoBehaviour {
 
     private NavMeshAgent m_navMeshAgent = null;
-    private Vector3 m_currentDestination;
+    private Vector3 m_currentDestination/* = new Vector3()*/;
     private int m_destinationIterator;
-    public List<Transform> m_patrolPoints;
+    public List<Transform> m_patrolPoints/* = new List<Transform>()*/;
     public bool m_patrolling = true;
 
     private Health m_health = null;
@@ -32,6 +32,8 @@ public class HumanMovement : MonoBehaviour {
         {
             Debug.Log("Health not included");
         }
+
+        //m_patrolPoints = new List<Transform>();
 
     }
 

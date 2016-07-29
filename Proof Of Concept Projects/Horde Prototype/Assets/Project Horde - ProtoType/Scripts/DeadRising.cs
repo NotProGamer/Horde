@@ -47,14 +47,26 @@ public class DeadRising : MonoBehaviour {
             Debug.Log("CharacterPool not included on GameController");
         }
 
+        m_health = GetComponent<Health>();
+        if (m_health == null)
+        {
+            Debug.Log("Health not included");
+        }
+
+        m_infectionStatus = GetComponent<InfectionStatus>();
+        if (m_infectionStatus == null)
+        {
+            Debug.Log("InfectionStatus not included");
+        }
+
 
     }
 
- //   // Use this for initialization
- //   void Start () {}
-	
-	// Update is called once per frame
-	void Update () {
+    //   // Use this for initialization
+    //   void Start () {}
+
+    // Update is called once per frame
+    void Update () {
         if (!m_turned)
         {
             if (m_health && m_infectionStatus)
@@ -69,7 +81,7 @@ public class DeadRising : MonoBehaviour {
 
         if (m_rising)
         {
-            if (Time.deltaTime > m_timeToRise)
+            if (Time.time > m_timeToRise)
             {
                 Rise();
             }
@@ -82,7 +94,7 @@ public class DeadRising : MonoBehaviour {
     public void SetRiseTimer()
     {
         m_rising = true;
-        m_timeToRise = m_riseDelay;
+        m_timeToRise = Time.time + m_riseDelay;
     }
 
     void Rise()

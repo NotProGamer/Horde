@@ -98,6 +98,25 @@ public class ZombieAttack : MonoBehaviour {
                         m_nextAttack = Time.time + m_attackDelay;
                         Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
                     }
+                    else
+                    {
+                        //if target is dead and i am damaged
+                        if (m_health)
+                        {
+                            if (m_health.IsDamaged())
+                            {
+                                // if the target is human and not devoured
+                                if (targetIsHuman && !otherHealthScript.IsDevoured())
+                                {
+                                    // i will devour human for health and delay my next attack
+                                    otherHealthScript.Devour(m_attackDamage);
+                                    m_health.RecoverHealth(m_attackDamage);
+                                    m_nextAttack = Time.time + m_attackDelay;
+                                    Debug.Log(name + " devoured " + other.gameObject.name + " for " + m_attackDamage + " damage.");
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

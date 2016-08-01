@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
+// references: https://unity3d.com/learn/tutorials/topics/scripting/object-pooling
+
 public class CharacterPool : MonoBehaviour {
 
     [System.Serializable]
@@ -45,7 +47,7 @@ public class CharacterPool : MonoBehaviour {
                     obj = m_pooledObjects[i];
                 }
             }
-            if (m_willGrow)
+            if (obj == null && m_willGrow)
             {
                 if (m_prefab != null)
                 {
@@ -56,6 +58,17 @@ public class CharacterPool : MonoBehaviour {
             }
             return obj;
         }
+        //public void EnableObjectAtLocation(Vector3 pPosition)
+        //{
+        //    for (int i = 0; i < m_pooledObjects.Count; i++)
+        //    {
+        //        if (!m_pooledObjects[i].activeInHierarchy)
+        //        {
+        //            obj = m_pooledObjects[i];
+        //        }
+        //    }
+
+        //}
     }
 
     public ObjectPool m_zombiePool;
@@ -78,7 +91,8 @@ public class CharacterPool : MonoBehaviour {
 
     public GameObject RequestZombieAtPosition(Vector3 pPosition)
     {
-        GameObject obj = m_zombiePool.GetPooledObject();
+        GameObject obj = null;
+        obj = m_zombiePool.GetPooledObject();
         obj.transform.position = pPosition;
         obj.SetActive(true);
         return obj;
@@ -86,7 +100,8 @@ public class CharacterPool : MonoBehaviour {
 
     public GameObject RequestHumaneAtPosition(Vector3 pPosition)
     {
-        GameObject obj = m_humanPool.GetPooledObject();
+        GameObject obj = null;
+        obj = m_humanPool.GetPooledObject();
         obj.transform.position = pPosition;
         obj.SetActive(true);
         return obj;

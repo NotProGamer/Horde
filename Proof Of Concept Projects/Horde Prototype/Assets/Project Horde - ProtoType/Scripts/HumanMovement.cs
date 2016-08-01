@@ -45,16 +45,70 @@ public class HumanMovement : MonoBehaviour {
 
     void InitialiseDestination()
     {
+        Transform currentPatrolPoint = null;
+        m_destinationIterator = 0;
+
         if (m_patrolPoints.Count > 0)
         {
-            m_destinationIterator = 0;
+            currentPatrolPoint = m_patrolPoints[m_destinationIterator];
+        }
+
+        if (currentPatrolPoint != null)
+        {
             m_currentDestination = m_patrolPoints[m_destinationIterator].position;
         }
         else
         {
             m_currentDestination = transform.position;
+            m_patrolling = false;
             //m_currentDestination = new Vector3(0, 0, 0);
         }
+    }
+
+    private bool SetNextDestination()
+    {
+
+        bool result = false;
+
+        // get next interator
+        m_destinationIterator++;
+        if (m_destinationIterator >= m_patrolPoints.Count)
+        {
+            m_destinationIterator = 0;
+        }
+
+        // Get Next Patrol Point
+        Transform currentPatrolPoint = null;
+        if (m_patrolPoints.Count > 0)
+        {
+            currentPatrolPoint = m_patrolPoints[m_destinationIterator];
+        }
+        else
+        {
+            Debug.Log("Patrol Point list is empty");
+        }
+
+        // if current patrol point is valid 
+        if (currentPatrolPoint != null)
+        {
+            //set it
+            m_currentDestination = m_patrolPoints[m_destinationIterator].position;
+            result = true;
+        }
+        else
+        {
+            // use current position
+            Debug.Log("invalid patrol point on " + gameObject.name);
+            m_currentDestination = transform.position; //m_currentDestination = new Vector3(0, 0, 0);
+            m_patrolling = false;
+        }
+
+        if (m_navMeshAgent)
+        {
+            m_navMeshAgent.SetDestination(m_currentDestination);
+        }
+
+        return result;
     }
 
     void OnEnable()
@@ -75,9 +129,10 @@ public class HumanMovement : MonoBehaviour {
         {
             if (m_health.IsDead())
             {
-                m_patrolPoints.Clear();
-                SetNextDestination();
-                return;
+                //m_patrolPoints.Clear();
+                //SetNextDestination();
+                Stop();
+                //return;
             }
         }
         if (m_patrolling)
@@ -95,31 +150,13 @@ public class HumanMovement : MonoBehaviour {
         return distanceFromDestination != Mathf.Infinity && m_navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && distanceFromDestination <= float.Epsilon;
     }
 
-    private bool SetNextDestination()
+    private void Stop()
     {
-        if (m_patrolPoints.Count < 1)
-        {
-            m_currentDestination = transform.position;
-            if (m_navMeshAgent)
-            {
-                m_navMeshAgent.SetDestination(m_currentDestination);
-            }
-            return false; // early exit
-        }
-
-        m_destinationIterator++;
-        if (m_destinationIterator >= m_patrolPoints.Count)
-        {
-            m_destinationIterator = 0;
-        }
-
-        m_currentDestination = m_patrolPoints[m_destinationIterator].position;
+        m_patrolling = false;
         if (m_navMeshAgent)
         {
-            m_navMeshAgent.SetDestination(m_currentDestination);
-        }
-
-        return true;
+            m_navMeshAgent.SetDestination(transform.position);
+        } 
     }
 
 }

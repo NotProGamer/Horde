@@ -654,6 +654,7 @@ GameObject:
   - 4: {fileID: 103231090}
   - 114: {fileID: 103231089}
   - 114: {fileID: 103231091}
+  - 114: {fileID: 103231092}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -698,14 +699,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_zombiePool:
     m_prefab: {fileID: 161470, guid: d80001d1e5fbfe9468dfebbf3834ccc8, type: 2}
-    m_pooledAmount: 20
+    m_pooledAmount: 1
     m_willGrow: 1
     m_poolContainer: {fileID: 530938551}
   m_humanPool:
     m_prefab: {fileID: 163450, guid: a8d329973517be4448a106da6ca16376, type: 2}
-    m_pooledAmount: 20
+    m_pooledAmount: 1
     m_willGrow: 1
     m_poolContainer: {fileID: 511431485}
+--- !u!114 &103231092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 103231088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6363a2db2f735f748be0d53d9d3bf278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &106530557
 Prefab:
   m_ObjectHideFlags: 0
@@ -2559,6 +2571,10 @@ Prefab:
       propertyPath: m_patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 590167408}
+    - target: {fileID: 11404240, guid: a8d329973517be4448a106da6ca16376, type: 2}
+      propertyPath: m_patrolling
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8d329973517be4448a106da6ca16376, type: 2}
   m_IsPrefabParent: 0

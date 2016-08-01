@@ -33,6 +33,7 @@ GameObject:
   - 114: {fileID: 11425598}
   - 114: {fileID: 11414204}
   - 114: {fileID: 11473770}
+  - 114: {fileID: 11402880}
   m_Layer: 0
   m_Name: Zombie_CrashTestDummy
   m_TagString: Zombie
@@ -115,6 +116,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &11402880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c00e94c237c5c43bc2ab5ca9e4a0e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cleanUpDelay: 3
+  m_cleanUpTime: 0
 --- !u!114 &11414204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,7 +144,6 @@ MonoBehaviour:
   m_health: 100
   m_healToFullOnStart: 1
   m_vulnerable: 1
-  m_turnDelay: 3
   m_extendTurnTimerIfBeingDevoured: 1
 --- !u!114 &11425598
 MonoBehaviour:

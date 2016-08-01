@@ -42,7 +42,7 @@ public class DeadRising : MonoBehaviour {
             Debug.Log("Unable to Find GameController");
         }
 
-        if (m_characterPool = null)
+        if (m_characterPool == null)
         {
             Debug.Log("CharacterPool not included on GameController");
         }

@@ -32,7 +32,6 @@ GameObject:
   - 114: {fileID: 11426150}
   - 114: {fileID: 11404240}
   - 114: {fileID: 11416316}
-  - 114: {fileID: 11400186}
   - 114: {fileID: 11465498}
   - 114: {fileID: 11449122}
   m_Layer: 0
@@ -117,17 +116,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &11400186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163450}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c27ce04ad21a5244923830a04fd81e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11404240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,12 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6ee174734d7fd4fb3ac2503100c42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_patrolling: 1
+  m_patrolPoints: []
+  m_patrolling: 0
 --- !u!114 &11416316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,7 +157,6 @@ MonoBehaviour:
   m_health: 100
   m_healToFullOnStart: 1
   m_vulnerable: 1
-  m_turnDelay: 3
   m_extendTurnTimerIfBeingDevoured: 1
 --- !u!114 &11449122
 MonoBehaviour:

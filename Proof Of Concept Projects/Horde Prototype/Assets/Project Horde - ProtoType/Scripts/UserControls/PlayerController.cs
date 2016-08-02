@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour {
                 if (zombieMovementScript)
                 {
                     zombieMovementScript.SetDestination(destination);
-                    Debug.Log("Set Zombie Destination");
+                    //Debug.Log("Set Zombie Destination");
                 }
 
             }

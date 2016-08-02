@@ -18,7 +18,7 @@ public class ZombieMovement : MonoBehaviour {
 
     private Transform m_destinationTarget;
 
-    private NavMeshAgent m_nav;
+    private NavMeshAgent m_nav = null;
 
     public Queue<Vector3> m_destinations = new Queue<Vector3>();
     public Vector3 currentDestination;
@@ -32,15 +32,38 @@ public class ZombieMovement : MonoBehaviour {
     private float m_nextExpire = 0.0f;
     // calculate average destination
 
-    
-    
 
+    private Health m_health = null;
+
+    void OnEnable()
+    {
+        if (m_nav)
+        {
+            m_recalculateDestination = true;
+            m_nav.Resume();
+        }
+    }
+
+    void OnDisable()
+    {
+        m_destinations = new Queue<Vector3>();
+    }
 
     void Awake()
     {
         //m_destination
 
         m_nav = GetComponent<NavMeshAgent>();
+        if (m_nav == null)
+        {
+            Debug.Log("NavMeshAgent not included");
+        }
+        m_health = GetComponent<Health>();
+        if (m_health == null)
+        {
+            Debug.Log("Health not included");
+        }
+
     }
 
     // Use this for initialization
@@ -54,9 +77,20 @@ public class ZombieMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
+
         // if zombie has a destination. move to destination
         if (m_nav)
         {
+            if (m_health)
+            {
+                if (m_health.IsDead())
+                {
+                    m_nav.Stop();
+                    return; // if dead you can't move;
+                }
+            }
+
             if (m_destinationTarget)
             {
                 m_nav.SetDestination(m_destinationTarget.position);
@@ -113,8 +147,8 @@ public class ZombieMovement : MonoBehaviour {
                     {
                         // be aware of y axis in that it might not find the right area
                         m_recalculateDestination = false;
-                        Debug.Log("New Destination : " + currentDestination.ToString());
                         currentDestination = hit.position;
+                        Debug.Log("New Destination : " + currentDestination.ToString());
                         currentDestination.y = 0.0f;
                         m_nav.SetDestination(currentDestination);
                         m_nav.speed = baseSpeed * m_destinations.Count;

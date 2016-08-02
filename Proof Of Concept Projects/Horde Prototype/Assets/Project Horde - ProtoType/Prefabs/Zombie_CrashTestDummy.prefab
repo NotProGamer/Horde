@@ -31,13 +31,16 @@ GameObject:
   - 135: {fileID: 13558246}
   - 114: {fileID: 11479552}
   - 114: {fileID: 11425598}
+  - 114: {fileID: 11414204}
+  - 114: {fileID: 11473770}
+  - 114: {fileID: 11402880}
   m_Layer: 0
   m_Name: Zombie_CrashTestDummy
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &418548
 Transform:
   m_ObjectHideFlags: 1
@@ -47,6 +50,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 422296}
   m_RootOrder: 0
@@ -59,6 +63,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 418548}
   m_Father: {fileID: 0}
@@ -111,6 +116,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &11402880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c00e94c237c5c43bc2ab5ca9e4a0e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cleanUpDelay: 3
+  m_cleanUpTime: 0
+--- !u!114 &11414204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c4b10aec5d92845ad61cb1d3a1e486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 100
+  m_health: 100
+  m_healToFullOnStart: 1
+  m_vulnerable: 1
+  m_extendTurnTimerIfBeingDevoured: 1
 --- !u!114 &11425598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +158,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_attackDelay: 0.5
   m_attackDamage: 10
+--- !u!114 &11473770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25df73f67f59a14c929c99cf230990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11479552
 MonoBehaviour:
   m_ObjectHideFlags: 1

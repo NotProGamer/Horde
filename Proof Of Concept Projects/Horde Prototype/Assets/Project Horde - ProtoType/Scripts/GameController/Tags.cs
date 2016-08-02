@@ -37,7 +37,11 @@ public class Tags : MonoBehaviour {
     {
         return other.CompareTag(Barricade);
     }
-    public static bool CanbeInfected(GameObject other)
+    public static bool CanBeInfected(GameObject other)
+    {
+        return IsHuman(other);
+    }
+    public static bool IsDevourable(GameObject other)
     {
         return IsHuman(other);
     }

@@ -1280,7 +1280,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 54.12, y: 0.11, z: -30.064192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1861,7 +1861,7 @@ Transform:
   m_GameObject: {fileID: 162944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.14, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 482016}
@@ -1970,7 +1970,9 @@ MonoBehaviour:
   m_patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  m_patrolling: 1
+  - {fileID: 0}
+  - {fileID: 0}
+  m_patrolling: 0
 --- !u!114 &11416316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2161,7 +2163,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 163450}
   m_Enabled: 1
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

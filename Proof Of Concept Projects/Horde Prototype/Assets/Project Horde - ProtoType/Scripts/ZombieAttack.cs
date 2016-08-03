@@ -59,7 +59,10 @@ public class ZombieAttack : MonoBehaviour {
 
         if (other.isTrigger)
         {
-            return; // early exit if is trigger
+            if (!Tags.IsDestructible(other.gameObject))
+            {
+                return; // early exit if is trigger
+            }
         }
 
         //bool infectious = false;

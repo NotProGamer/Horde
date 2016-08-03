@@ -3200,6 +3200,10 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 451728, guid: 86ce9aff4c18e5c4598e6ad4aba35729, type: 2}
   m_PrefabInternal: {fileID: 679263138}
+--- !u!1 &693628888 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 163450, guid: 66678bf0712aaaf469108b74490a91d1, type: 2}
+  m_PrefabInternal: {fileID: 873558666}
 --- !u!1001 &694925925
 Prefab:
   m_ObjectHideFlags: 0
@@ -9052,12 +9056,13 @@ GameObject:
   - 4: {fileID: 2035955041}
   - 65: {fileID: 2035955040}
   - 114: {fileID: 2035955042}
+  - 114: {fileID: 2035955043}
   m_Layer: 0
   m_Name: GuardTower_CrashTestDummy
   m_TagString: GuardTower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &2035955040
 BoxCollider:
@@ -9103,6 +9108,19 @@ MonoBehaviour:
   m_extendTurnTimerIfBeingDevoured: 1
   m_damageColor: {r: 1, g: 0, b: 0, a: 1}
   m_art: {fileID: 704954486}
+--- !u!114 &2035955043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2035955039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c7a5a50f4040c4293a16f1851254fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_guardsInTower:
+  - {fileID: 693628888}
 --- !u!1001 &2036583049
 Prefab:
   m_ObjectHideFlags: 0

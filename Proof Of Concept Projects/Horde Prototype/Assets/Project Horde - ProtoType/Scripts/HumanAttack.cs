@@ -38,26 +38,54 @@ public class HumanAttack : MonoBehaviour {
             }
         }
 
+        if (other.isTrigger)
+        {
+            return; // early exit if is trigger
+        }
+
         if (Tags.IsZombie(other.gameObject))
         {
-            // if can attack
-            if (Time.time > m_nextAttack)
+            Attack(other);
+            //// if can attack
+            //if (Time.time > m_nextAttack)
+            //{
+            //    Health otherHealthScript = other.gameObject.GetComponent<Health>();
+            //    // if has health 
+            //    if (otherHealthScript)
+            //    {
+            //        // if not dead
+            //        if (!otherHealthScript.IsDead())
+            //        {
+            //            //then attack
+            //            otherHealthScript.ApplyDamage(m_attackDamage);
+            //            m_nextAttack = Time.time + m_attackDelay;
+            //            Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
+            //        }
+            //    }
+            //}
+        }
+
+    }
+
+    private void Attack(Collider other)
+    {
+
+        // if can attack
+        if (Time.time > m_nextAttack)
+        {
+            Health otherHealthScript = other.gameObject.GetComponent<Health>();
+            // if has health 
+            if (otherHealthScript)
             {
-                Health otherHealthScript = other.gameObject.GetComponent<Health>();
-                // if has health 
-                if (otherHealthScript)
+                // if not dead
+                if (!otherHealthScript.IsDead())
                 {
-                    // if not dead
-                    if (!otherHealthScript.IsDead())
-                    {
-                        //then attack
-                        otherHealthScript.ApplyDamage(m_attackDamage);
-                        m_nextAttack = Time.time + m_attackDelay;
-                        Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
-                    }
+                    //then attack
+                    otherHealthScript.ApplyDamage(m_attackDamage);
+                    m_nextAttack = Time.time + m_attackDelay;
+                    Debug.Log(name + " attacked " + other.gameObject.name + " for " + m_attackDamage + " damage.");
                 }
             }
         }
-
     }
 }

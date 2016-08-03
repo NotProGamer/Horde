@@ -35,6 +35,23 @@ public class ZombieMovement : MonoBehaviour {
 
     private Health m_health = null;
 
+
+    public Animator m_anim = null;
+    void UpdateAnimator()
+    {
+        Vector3 velocity = new Vector3();
+        if (m_nav)
+        {
+            velocity = m_nav.velocity;
+        }
+
+        if (m_anim)
+        {
+            m_anim.SetFloat("Velocity", velocity.magnitude);
+        }
+    }
+
+
     void OnEnable()
     {
         if (m_nav)
@@ -64,6 +81,7 @@ public class ZombieMovement : MonoBehaviour {
             Debug.Log("Health not included");
         }
 
+        
     }
 
     // Use this for initialization
@@ -77,7 +95,7 @@ public class ZombieMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
+        UpdateAnimator();
 
         // if zombie has a destination. move to destination
         if (m_nav)

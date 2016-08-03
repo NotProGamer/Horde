@@ -19,6 +19,7 @@ public class Tags : MonoBehaviour {
     public static string ZombieLure = "ZombieLure";
     public static string Player = "Player";
     public static string GameController = "GameController";
+    public static string GuardTower = "GuardTower";
 
     public class Layers
     {
@@ -35,7 +36,7 @@ public class Tags : MonoBehaviour {
     }
     public static bool IsDestructible(GameObject other)
     {
-        return other.CompareTag(Barricade);
+        return other.CompareTag(Barricade) || other.CompareTag(GuardTower);
     }
     public static bool CanBeInfected(GameObject other)
     {

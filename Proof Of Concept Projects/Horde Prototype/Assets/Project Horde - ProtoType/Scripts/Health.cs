@@ -71,6 +71,7 @@ public class Health : MonoBehaviour {
         if (m_vulnerable)
         {
             m_health -= (Mathf.Abs(damage));
+            DamageFlash();
         }
     }
 
@@ -91,6 +92,29 @@ public class Health : MonoBehaviour {
     //        }
     //    }
     //}
+
+    public Color m_damageColor = Color.red;
+    public MeshRenderer m_art = null;
+    void DamageFlash()
+    {
+        StartCoroutine("collideFlash");
+    }
+    IEnumerator collideFlash()
+    {
+        if (m_art)
+        {
+            Material m = m_art.material;
+            Color32 c = m_art.material.color;
+            m_art.material = null;
+            m_art.material.color = m_damageColor;
+            yield return new WaitForSeconds(0.1f);
+            m_art.material = m;
+            m_art.material.color = c;
+            //Debug.Log("test");
+        }
+
+    }
+
 
     public void RecoverHealth(int health)
     {
@@ -156,5 +180,6 @@ public class Health : MonoBehaviour {
         }
         return healthRecovered;
     }
+
 
 }

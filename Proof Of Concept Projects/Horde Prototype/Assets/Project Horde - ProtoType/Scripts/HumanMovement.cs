@@ -18,7 +18,20 @@ public class HumanMovement : MonoBehaviour {
 
     private Health m_health = null;
 
+    public Animator m_anim = null;
+    void UpdateAnimator()
+    {
+        Vector3 velocity = new Vector3();
+        if (m_navMeshAgent)
+        {
+            velocity = m_navMeshAgent.velocity;
+        }
 
+        if (m_anim)
+        {
+            m_anim.SetFloat("Velocity", velocity.magnitude);
+        }
+    }
 
     void Awake()
     {
@@ -125,6 +138,8 @@ public class HumanMovement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        UpdateAnimator();
+
         if (m_health)
         {
             if (m_health.IsDead())
@@ -159,4 +174,10 @@ public class HumanMovement : MonoBehaviour {
         } 
     }
 
+    //public void FallToGround()
+    //{
+    //    Vector3 start = transform.position;
+    //    Vector3 end = new Vector3(start.x, 0, start.z);
+    //    transform.position = end; //Vector3.Lerp(start, end, 1.0f);
+    //}
 }

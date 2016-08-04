@@ -110,7 +110,7 @@ public class Health : MonoBehaviour {
         for (int i = 0; i < m_meshRendererList.Count; i++)
         {
             MeshRenderer art = null;
-            art = m_meshRendererList[i];
+            art = m_skinnedMeshRendererList[i];
             StartCoroutine("SkinnedMeshRendererFlash", art);
         }
         //StartCoroutine("collideFlash", );

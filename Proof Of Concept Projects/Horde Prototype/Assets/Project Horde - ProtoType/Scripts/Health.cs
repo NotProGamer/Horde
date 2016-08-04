@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 ///  Code Author: Reece Howe
@@ -23,6 +24,10 @@ public class Health : MonoBehaviour {
     //public float m_turnDelay = 3.0f;
     //private float m_turnTime = 0.0f;
     public bool m_extendTurnTimerIfBeingDevoured = true;
+
+    public Color m_damageColor = Color.red;
+    public List<MeshRenderer> m_artList = new List<MeshRenderer>();
+    //public MeshRenderer m_art = null;
 
     private DeadRising m_deadRisingScript = null;
 
@@ -93,26 +98,44 @@ public class Health : MonoBehaviour {
     //    }
     //}
 
-    public Color m_damageColor = Color.red;
-    public MeshRenderer m_art = null;
     void DamageFlash()
     {
-        StartCoroutine("collideFlash");
-    }
-    IEnumerator collideFlash()
-    {
-        if (m_art)
+        for (int i = 0; i < m_artList.Count; i++)
         {
-            Material m = m_art.material;
-            Color32 c = m_art.material.color;
-            m_art.material = null;
-            m_art.material.color = m_damageColor;
+            MeshRenderer art = null;
+            art = m_artList[i];
+            StartCoroutine("collideFlash", art);
+        }
+        //StartCoroutine("collideFlash", );
+    }
+    //IEnumerator collideFlash()
+    //{
+    //    if (m_art)
+    //    {
+    //        Material m = m_art.material;
+    //        Color32 c = m_art.material.color;
+    //        m_art.material = null;
+    //        m_art.material.color = m_damageColor;
+    //        yield return new WaitForSeconds(0.1f);
+    //        m_art.material = m;
+    //        m_art.material.color = c;
+    //        //Debug.Log("test");
+    //    }
+    //}
+
+    IEnumerator collideFlash(MeshRenderer art)
+    {
+        if (art)
+        {
+            Material m = art.material;
+            Color32 c = art.material.color;
+            art.material = null;
+            art.material.color = m_damageColor;
             yield return new WaitForSeconds(0.1f);
-            m_art.material = m;
-            m_art.material.color = c;
+            art.material = m;
+            art.material.color = c;
             //Debug.Log("test");
         }
-
     }
 
 

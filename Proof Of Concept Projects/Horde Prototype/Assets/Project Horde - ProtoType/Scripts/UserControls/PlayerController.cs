@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour {
     private bool m_mousePressed = false;
     private bool m_mouseUp = false;
     private Vector3 m_mousePosition = new Vector3(0.0f, 0.0f, 0.0f);
+    private float m_sphereRadius = 10.0f;
 
     void Awake()
     {
@@ -66,6 +67,17 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Unable to locate ZombieLure");
         }
 
+        SphereCollider zombieSelectionCollider = null;
+        zombieSelectionCollider = GetComponent<SphereCollider>();
+        if (zombieSelectionCollider)
+        {
+            m_sphereRadius = zombieSelectionCollider.radius;
+        }
+        else
+        {
+            Debug.Log("Unable to locate SphereCollider Trigger for Player Controller");
+        }
+        
     }
 	
 	// Update is called once per frame
@@ -98,7 +110,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         RaycastHit[] hits;
-        float sphereRadius = 10.0f;
+        
+
+
 
         // on mouse down
         // select nearby zombies
@@ -108,7 +122,7 @@ public class PlayerController : MonoBehaviour {
             ZombieSelectorMovement(); // Player
 
             m_hordeList.Clear();
-            hits = Physics.SphereCastAll(transform.position, sphereRadius, Vector3.up, 0);
+            hits = Physics.SphereCastAll(transform.position, m_sphereRadius, Vector3.up, 0);
             foreach (RaycastHit hit in hits)
             {
                 GameObject other = hit.transform.gameObject;

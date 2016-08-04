@@ -1349,8 +1349,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163450}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.12, y: 0.11, z: -30.064192}
+  m_LocalRotation: {x: 0, y: -0.7071066, z: 0, w: -0.70710695}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409688}
@@ -1938,7 +1938,9 @@ MonoBehaviour:
   m_vulnerable: 1
   m_extendTurnTimerIfBeingDevoured: 1
   m_damageColor: {r: 1, g: 0, b: 0, a: 1}
-  m_artList: []
+  m_meshRendererList: []
+  m_skinnedMeshRendererList:
+  - {fileID: 13746760}
 --- !u!114 &11449122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2115,6 +2117,18 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_patrolPoints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

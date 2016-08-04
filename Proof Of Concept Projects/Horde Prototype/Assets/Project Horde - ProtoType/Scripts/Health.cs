@@ -107,9 +107,9 @@ public class Health : MonoBehaviour {
             art = m_meshRendererList[i];
             StartCoroutine("MeshRendererFlash", art);
         }
-        for (int i = 0; i < m_meshRendererList.Count; i++)
+        for (int i = 0; i < m_skinnedMeshRendererList.Count; i++)
         {
-            MeshRenderer art = null;
+            SkinnedMeshRenderer art = null;
             art = m_skinnedMeshRendererList[i];
             StartCoroutine("SkinnedMeshRendererFlash", art);
         }

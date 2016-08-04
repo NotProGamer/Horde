@@ -25,8 +25,9 @@ public class Health : MonoBehaviour {
     //private float m_turnTime = 0.0f;
     public bool m_extendTurnTimerIfBeingDevoured = true;
 
-    public Color m_damageColor = Color.red;
-    public List<MeshRenderer> m_artList = new List<MeshRenderer>();
+    public Color m_damageColor = Color.red; 
+    public List<MeshRenderer> m_meshRendererList = new List<MeshRenderer>();
+    public List<SkinnedMeshRenderer> m_skinnedMeshRendererList = new List<SkinnedMeshRenderer>();
     //public MeshRenderer m_art = null;
 
     private DeadRising m_deadRisingScript = null;
@@ -100,11 +101,17 @@ public class Health : MonoBehaviour {
 
     void DamageFlash()
     {
-        for (int i = 0; i < m_artList.Count; i++)
+        for (int i = 0; i < m_meshRendererList.Count; i++)
         {
             MeshRenderer art = null;
-            art = m_artList[i];
-            StartCoroutine("collideFlash", art);
+            art = m_meshRendererList[i];
+            StartCoroutine("MeshRendererFlash", art);
+        }
+        for (int i = 0; i < m_meshRendererList.Count; i++)
+        {
+            MeshRenderer art = null;
+            art = m_meshRendererList[i];
+            StartCoroutine("SkinnedMeshRendererFlash", art);
         }
         //StartCoroutine("collideFlash", );
     }
@@ -123,7 +130,7 @@ public class Health : MonoBehaviour {
     //    }
     //}
 
-    IEnumerator collideFlash(MeshRenderer art)
+    IEnumerator MeshRendererFlash(MeshRenderer art)
     {
         if (art)
         {
@@ -137,6 +144,22 @@ public class Health : MonoBehaviour {
             //Debug.Log("test");
         }
     }
+
+    IEnumerator SkinnedMeshRendererFlash(SkinnedMeshRenderer art)
+    {
+        if (art)
+        {
+            Material m = art.material;
+            Color32 c = art.material.color;
+            art.material = null;
+            art.material.color = m_damageColor;
+            yield return new WaitForSeconds(0.1f);
+            art.material = m;
+            art.material.color = c;
+            //Debug.Log("test");
+        }
+    }
+
 
 
     public void RecoverHealth(int health)

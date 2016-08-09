@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour {
 	}
 
     private Vector3 startPosition;
-
+    private Vector3 lerpToPosition; 
 
 	// Update is called once per frame
 	void Update ()
@@ -41,29 +41,39 @@ public class CameraMovement : MonoBehaviour {
                 // if you have not selected a rigidbody, then set camera drag start position
                 if (hit.rigidbody == null)
                 {
-                    startPosition = hit.point;
+                    startPosition = new Vector3(hit.point.x, 0, hit.point.z);
                     m_state = State.Moving;
                 }
             }
         }
-        Vector3 cameraMovement = new Vector3();
 
-        if (Input.GetMouseButton(0))
+        if (m_state == State.Moving)
         {
-            transform.position = startPosition;
-            //m_state = State.Moving;
-            if (Physics.Raycast(ray, out hit, 10000))
+            Vector3 cameraMovement = new Vector3();
+
+            if (Input.GetMouseButton(0))
             {
-                cameraMovement = hit.point;
+                ////transform.position = startPosition;
+                ////m_state = State.Moving;
+                if (Physics.Raycast(ray, out hit, 10000))
+                {
+                    cameraMovement = new Vector3(hit.point.x, 0, hit.point.z);
+                }
+
+                //transform.position = startPosition - cameraMovement;// - cameraMovement;
+
+                lerpToPosition = cameraMovement - startPosition;
+                Debug.Log(lerpToPosition);
+                transform.position = transform.position + startPosition - lerpToPosition;
             }
-            
-            transform.position += cameraMovement - startPosition;// - cameraMovement;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                m_state = State.Idle;
+
+            }
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            m_state = State.Idle;
-        }
 
 
 

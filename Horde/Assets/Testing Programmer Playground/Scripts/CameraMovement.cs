@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -74,7 +75,20 @@ public class CameraMovement : MonoBehaviour
                     Vector3 dragOffset = hit.point;
                     dragOffset.y = m_rigOrigin.y;
                     Vector3 direction = dragOffset - m_grabWorldPosition;
-                    transform.position -= direction;
+
+                    //clamp movement to playArea
+                    Vector3 proposedPosition = transform.position - direction;
+
+                    Vector3 proposedScreenPosition = Camera.main.WorldToScreenPoint(proposedPosition);
+                    ray = Camera.main.ScreenPointToRay(proposedScreenPosition);
+                    if (Physics.Raycast(ray, out hit, 1000, m_layerMask))
+                    {
+                        transform.position = proposedPosition;
+                    }
+                    else
+                    {
+                        transform.position = currentRigPosition;
+                    }
                     //transform.position = Vector3.Lerp(transform.position, transform.position - direction, m_smoothing * Time.deltaTime);
                 }
                 else

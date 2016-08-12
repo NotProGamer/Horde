@@ -8,17 +8,23 @@ public class Noise
     public Vector3 m_position;
     public float m_volume;
     public float m_reductionOverTime;
+
+    private static int m_id = 0;
     public Noise(Vector3 position, float volume, float reduction)
     {
         m_position = position;
         m_volume = volume;
         m_reductionOverTime = reduction;
+        m_id += 1; 
     }
 
+    public int GetNoiseID()
+    {
+        return m_id;
+    }
     public float CalculateAudabilityFromPosition(Vector3 audiencePosition)
     {
         float audible = 0f;
-        Vector3 directionFromAudience = m_position - audiencePosition;
         float distance = (m_position - audiencePosition).sqrMagnitude;
         audible = m_volume / (0.1f + distance);
         return audible;
@@ -125,25 +131,42 @@ public class NoiseManager : MonoBehaviour {
                 m_noises.Remove(noise);
             }
         }
+
+        public bool IsEmpty()
+        {
+            return m_noises.Count < 1;
+        }
     }
 
     public NoiseLibrary m_noiseLibrary = new NoiseLibrary();
 
-	// Use this for initialization
-	void Start ()
+    //// Use this for initialization
+    //void Start ()
+    //{
+
+    //}
+
+    // Update is called once per frame
+    void Update()
     {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        m_noiseLibrary.Update(Time.deltaTime);
+    }
 
     public Noise GetMostAudibleNoise(Vector3 position)
     {
         return m_noiseLibrary.GetMostAudibleNoise(position);
     }
-    
 
+    public Noise Add(Vector3 position, float volume, float reduction)
+    {
+        return m_noiseLibrary.Add(position, volume, reduction);
+    }
+
+    public void Remove(Noise noise)
+    {
+        if (!m_noiseLibrary.IsEmpty())
+        {
+            m_noiseLibrary.Remove(noise);
+        }
+    }
 }

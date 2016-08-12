@@ -5,8 +5,8 @@ using System.Collections;
 public class MaterialsPostProcessor : AssetPostprocessor
 {
     //The path where you keep your "Standard" library of materials
-    public string StandardPath = "Assets/Models/Materials/";
-    public string TempPath = "Assets/Models/Materials/Temp/";
+    public string StandardPath = "/Assets/Project Horde/Models/Materials";
+    public string TempPath = "/Assets/Project Horde/Models/MaterialsTemp/";
 
     Material OnAssignMaterialModel (Material material, Renderer renderer)
     {

@@ -6,7 +6,7 @@ public class MaterialsPostProcessor : AssetPostprocessor
 {
     //The path where you keep your "Standard" library of materials
     public string StandardPath = "Assets/Models/Materials/";
-    public string TempPath = "Assets/Models/Materials/Temp";
+    public string TempPath = "Assets/Models/Materials/Temp/";
 
     Material OnAssignMaterialModel (Material material, Renderer renderer)
     {

@@ -3,30 +3,54 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
+public enum NoisePriority
+{
+    NoPriority, // Ignored by Zombie
+    LowestPriority, // Amibent
+    LowPriority, // Other , car alarm etc.
+    MediumPrioritty, // Human
+    HighPriority, // User Taps
+    MaxPriority, // GameOverride
+}
+
 public class Noise
 {
     public Vector3 m_position;
-    public float m_volume;
+    public float m_volume; // is like a range or radius of the sound
     public float m_reductionOverTime;
+    private NoisePriority m_priority = NoisePriority.NoPriority;
+    //private float m_timeStamp = 0f;
 
-    private static int m_id = 0;
-    public Noise(Vector3 position, float volume, float reduction)
+    //private static int m_id = 0;
+    //public int GetID()
+    //{
+    //    return m_id;
+    //}
+
+    public Noise(Vector3 position, float volume, float reduction, NoisePriority priority = NoisePriority.NoPriority)
     {
         m_position = position;
         m_volume = volume;
         m_reductionOverTime = reduction;
-        m_id += 1; 
+        m_priority = priority;
+        //m_timeStamp = Time.time;
+        //m_id += 1; 
     }
 
-    public int GetNoiseID()
-    {
-        return m_id;
-    }
     public float CalculateAudabilityFromPosition(Vector3 audiencePosition)
     {
         float audible = 0f;
         float distance = (m_position - audiencePosition).sqrMagnitude;
-        audible = m_volume / (0.1f + distance);
+        if (m_volume > distance)
+        {
+            // can be heard
+            audible = m_volume - distance;
+        }
+        if (audible < 0)
+        {
+            audible = 0;
+        }
+        //audible = m_volume / (0.1f + distance);
         return audible;
     }
 
@@ -41,10 +65,13 @@ public class Noise
             m_volume = 0;
         }
     }
-
     public bool IsExpired()
     {
         return m_volume == 0;
+    }
+    public NoisePriority Priority()
+    {
+        return m_priority;
     }
 }
 
@@ -61,9 +88,9 @@ public class NoiseManager : MonoBehaviour {
             return m_noises.Count;
         }
 
-        public Noise Add(Vector3 position, float volume, float reduction)
+        public Noise Add(Vector3 position, float volume, float reduction, NoisePriority priority = NoisePriority.NoPriority)
         {
-            Noise noise = new Noise(position, volume, reduction);
+            Noise noise = new Noise(position, volume, reduction, priority);
             m_noises.Add(noise);
             return noise;
         }
@@ -92,7 +119,7 @@ public class NoiseManager : MonoBehaviour {
         //    return mostAudible.m_position;
         //}
 
-        public Noise GetMostAudibleNoise(Vector3 audiencePosition)
+        public Noise GetMostAudibleNoise(Vector3 audiencePosition, bool usingNoisePriority = false)
         {
             Noise mostAudible = null;
             float mostAudibleNoiseLevel = 0f;
@@ -101,10 +128,28 @@ public class NoiseManager : MonoBehaviour {
             {
                 float noiseLevel = noise.CalculateAudabilityFromPosition(audiencePosition);
 
-                if (mostAudible == null || mostAudibleNoiseLevel < noiseLevel)
+                //if (mostAudible == null || mostAudibleNoiseLevel < noiseLevel)
+                //{
+                //    mostAudible = noise;
+                //    mostAudibleNoiseLevel = noiseLevel;
+                //}
+                if (mostAudibleNoiseLevel < noiseLevel)
                 {
-                    mostAudible = noise;
-                    mostAudibleNoiseLevel = noiseLevel;
+                    if (mostAudible != null && usingNoisePriority)
+                    {
+                        // find audible noise of the highest priority
+                        if (noise.Priority() >= mostAudible.Priority())
+                        {
+                            mostAudible = noise;
+                            mostAudibleNoiseLevel = noiseLevel;
+                        }
+                    }
+                    else
+                    {
+                        // find most audible noise
+                        mostAudible = noise;
+                        mostAudibleNoiseLevel = noiseLevel;
+                    }
                 }
             }
 
@@ -152,14 +197,14 @@ public class NoiseManager : MonoBehaviour {
         m_noiseLibrary.Update(Time.deltaTime);
     }
 
-    public Noise GetMostAudibleNoise(Vector3 position)
+    public Noise GetMostAudibleNoise(Vector3 position, bool usingNoisePriority = false)
     {
-        return m_noiseLibrary.GetMostAudibleNoise(position);
+        return m_noiseLibrary.GetMostAudibleNoise(position, usingNoisePriority);
     }
 
-    public Noise Add(Vector3 position, float volume, float reduction)
+    public Noise Add(Vector3 position, float volume, float reduction, NoisePriority priority = NoisePriority.NoPriority)
     {
-        return m_noiseLibrary.Add(position, volume, reduction);
+        return m_noiseLibrary.Add(position, volume, reduction, priority);
     }
 
     public void Remove(Noise noise)

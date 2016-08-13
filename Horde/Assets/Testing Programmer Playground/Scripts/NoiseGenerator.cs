@@ -62,13 +62,13 @@ public class NoiseGenerator : MonoBehaviour {
 
     void OnDisable()
     {
-        if (m_noiseManager)
-        {
-            foreach (Noise noise in m_myNoises)
-            {
-                m_noiseManager.Remove(noise);
-            }
-        }
+        //if (m_noiseManager)
+        //{
+        //    foreach (Noise noise in m_myNoises)
+        //    {
+        //        m_noiseManager.Remove(noise);
+        //    }
+        //}
     }
 
     /// <summary>
@@ -76,11 +76,11 @@ public class NoiseGenerator : MonoBehaviour {
     /// </summary>
     /// <param name="volume"> initial volume of the noise</param>
     /// <param name="reduction"> reduction of the noise over time </param>
-    public void GenerateNoise(float volume, float reduction)
+    public void GenerateNoise(float volume, float reduction, NoisePriority priority = NoisePriority.NoPriority)
     {
         if (m_noiseManager)
         {
-            m_myNoises.Add(m_noiseManager.Add(transform.position, volume, reduction));
+            m_myNoises.Add(m_noiseManager.Add(transform.position, volume, reduction, priority));
         }
     }
 

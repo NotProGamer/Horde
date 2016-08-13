@@ -49,7 +49,7 @@ public class Tapper : MonoBehaviour {
             // Generate noise
             if (m_noiseGenerator != null)
             {
-                m_noiseGenerator.GenerateNoise(m_tapVolume, m_noiseReduction);
+                m_noiseGenerator.GenerateNoise(m_tapVolume, m_noiseReduction, NoisePriority.HighPriority);
                 Debug.Log("Tapper Noise Volume: " + m_tapVolume + " Noise Reduction: " + m_noiseReduction);
             }
             //Reset Tapper

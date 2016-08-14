@@ -16,6 +16,11 @@ public class Tapper : MonoBehaviour {
     private LayerMask m_layerMask;
     public Transform m_zombieLure = null;
 
+    public int m_maxTaps = 10;
+    public GameObject m_spotLight = null;
+    public GameObject m_areaEffect = null;
+
+
     void Awake()
     {
         m_noiseGenerator = GetComponent<NoiseGenerator>();
@@ -44,12 +49,13 @@ public class Tapper : MonoBehaviour {
             MoveLure();
             GenerateTapNoise();
         }
-        if (m_tapCount > 0 && Time.time > m_lastTap + m_tapTimeOutDelay)
+        if ((m_tapCount > 0 && Time.time > m_lastTap + m_tapTimeOutDelay)|| m_tapCount >= 10)
         {
             // Generate noise
             if (m_noiseGenerator != null)
             {
                 m_noiseGenerator.GenerateNoise(m_tapVolume, m_noiseReduction, NoisePriority.HighPriority);
+                HighLightNoise();
                 Debug.Log("Tapper Noise Volume: " + m_tapVolume + " Noise Reduction: " + m_noiseReduction);
             }
             //Reset Tapper
@@ -94,6 +100,25 @@ public class Tapper : MonoBehaviour {
             }
 
         }
+    }
+
+    void HighLightNoise()
+    {
+        Vector3 test = m_zombieLure.transform.position;
+        test.y = 1f + m_tapVolume / 10f;
+        m_spotLight.transform.position = test;
+
+        Vector3 test2 = m_zombieLure.transform.position;
+        test2.y = 1f;/* + m_tapVolume / 10f;*/
+
+        m_areaEffect.transform.position = test2;
+        //SphereCollider sc = m_areaEffect.GetComponent<SphereCollider>();
+        //sc.radius = m_tapVolume;
+        float scale = m_tapVolume / 20f;
+        m_areaEffect.transform.localScale = new Vector3(scale, scale, scale);
+
+        //m_areaEffect.GetComponent<Mesh>().;
+
 
     }
 }

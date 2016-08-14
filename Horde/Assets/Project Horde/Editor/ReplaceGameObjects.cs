@@ -5,6 +5,7 @@ using System.Collections;
 public class ReplaceGameObjects : ScriptableWizard
 
 {
+    public Vector3 m_scale = new Vector3(1, 1, 1);
     public GameObject useGameObject;
 
     [MenuItem("Custom/Replace GameObjects")]
@@ -23,7 +24,8 @@ public class ReplaceGameObjects : ScriptableWizard
 
             newT.position = t.position;
             newT.rotation = t.rotation;
-            newT.localScale = t.localScale;
+            //newT.localScale = t.localScale;
+            newT.localScale = m_scale;
             newT.parent = t.parent;
 
         }

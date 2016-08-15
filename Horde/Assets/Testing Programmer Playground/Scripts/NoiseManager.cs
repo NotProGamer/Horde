@@ -40,17 +40,29 @@ public class Noise
     public float CalculateAudabilityFromPosition(Vector3 audiencePosition)
     {
         float audible = 0f;
-        float distance = (m_position - audiencePosition).sqrMagnitude;
+        float distance = (m_position - audiencePosition).magnitude;
         if (m_volume > distance)
         {
             // can be heard
             audible = m_volume - distance;
+            
         }
+
+        //float sqrDistance = (m_position - audiencePosition).sqrMagnitude;
+        //float sqrVolume = m_volume * m_volume;
+        //if (sqrVolume > sqrDistance)
+        //{
+        //    // can be heard
+        //    audible = sqrVolume - sqrDistance;
+
+        //}
+
         if (audible < 0)
         {
             audible = 0;
         }
         //audible = m_volume / (0.1f + distance);
+        //Debug.Log(sqrVolume + " - " + sqrDistance + " = " + audible);
         return audible;
     }
 
@@ -214,4 +226,5 @@ public class NoiseManager : MonoBehaviour {
             m_noiseLibrary.Remove(noise);
         }
     }
+
 }

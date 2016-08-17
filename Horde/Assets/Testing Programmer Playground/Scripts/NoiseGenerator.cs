@@ -76,12 +76,15 @@ public class NoiseGenerator : MonoBehaviour {
     /// </summary>
     /// <param name="volume"> initial volume of the noise</param>
     /// <param name="reduction"> reduction of the noise over time </param>
-    public void GenerateNoise(float volume, float reduction, NoisePriority priority = NoisePriority.NoPriority)
+    public Noise GenerateNoise(float volume, float expiryDelay, NoiseIdentifier identifier = NoiseIdentifier.Silent)
     {
+        Noise noise = null;
         if (m_noiseManager)
         {
-            m_myNoises.Add(m_noiseManager.Add(transform.position, volume, reduction, priority));
+            noise = m_noiseManager.Add(transform.position, volume, expiryDelay, identifier);
+            m_myNoises.Add(noise);
         }
+        return noise;
     }
 
 
@@ -93,7 +96,6 @@ public class NoiseGenerator : MonoBehaviour {
         List<Noise> deathRow = new List<Noise>();
         foreach (Noise noise in m_myNoises)
         {
-            noise.Update(Time.deltaTime);
             if (noise.IsExpired())
             {
                 deathRow.Add(noise);

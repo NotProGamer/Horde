@@ -4,23 +4,25 @@ using System.Collections;
 public class Tapper : MonoBehaviour {
 
     public float m_tapTimeOutDelay = 0.5f;
-    private float m_lastTap = 0f;
+    private float m_lastTapTime = 0f;
+    private Vector3 m_currentTapPosition = new Vector3();
+    private float m_tapRadius = 5f;
     private int m_tapCount = 0;
 
     private float m_tapVolume = 0f;
     public float m_baseVolume = 4f;
     public float m_volumeIncrementPerTap = 1f;
-    public float m_noiseReduction = 1f;
+    public float m_expiryDelay = 1f;
 
     private NoiseGenerator m_noiseGenerator = null;
+    private Noise m_currentNoise = null;
 
     private LayerMask m_layerMask;
-    public Transform m_zombieLure = null;
+    
 
     public int m_maxTaps = 10;
-    public GameObject m_spotLight = null;
-    public GameObject m_areaEffect = null;
 
+    private bool m_userTapped = false;
 
     void Awake()
     {
@@ -28,11 +30,6 @@ public class Tapper : MonoBehaviour {
         if (m_noiseGenerator == null)
         {
             Debug.Log("NoiseGenerator not included.");
-        }
-
-        if (m_zombieLure == null)
-        {
-            Debug.Log("Zombie Lure not included.");
         }
     }
 
@@ -45,79 +42,73 @@ public class Tapper : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            MoveLure();
-            GenerateTapNoise();
-        }
-        if ((m_tapCount > 0 && Time.time > m_lastTap + m_tapTimeOutDelay)|| m_tapCount >= 10)
-        {
-            // Generate noise
-            if (m_noiseGenerator != null)
-            {
-                m_noiseGenerator.GenerateNoise(m_tapVolume, m_noiseReduction, NoisePriority.HighPriority);
-                HighLightNoise();
-                Debug.Log("Tapper Noise Volume: " + m_tapVolume + " Noise Reduction: " + m_noiseReduction);
-            }
-            //Reset Tapper
-            m_tapCount = 0;
-            m_tapVolume = 0f;
-        }
+        // Check for Input
+        m_userTapped = Input.GetMouseButtonUp(0);
 
-
+        // Act
+        MoveLure(); // Move Lure To Tap Position
+        TapNoise(); // Generate or modify tap noise
     }
 
-    private void GenerateTapNoise()
-    {
-        if (Time.time < m_lastTap + m_tapTimeOutDelay)
-        {
-            // Increment Tapper
-            m_tapVolume += m_volumeIncrementPerTap;
-            m_tapCount += 1;
-        }
-        else
-        {
-            // Start Tapper
-            m_tapVolume = m_baseVolume;
-            m_tapCount = 1;
-        }
-        m_lastTap = Time.time;
-    }
     private void MoveLure()
     {
         Vector3 position = new Vector3();
-
-        if (m_zombieLure)
+        if (m_userTapped)
         {
-
             RaycastHit hit;
             Ray ray;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 1000/*, m_layerMask*/))
             {
                 position = hit.point;
-                m_zombieLure.transform.position = position;
+                if (m_currentNoise == null)
+                {
+                    m_currentTapPosition = hit.point;
+                }
+                else
+                {
+                    float sqrDistance = (position - m_currentTapPosition).sqrMagnitude;
+                    float sqrRadius = m_tapRadius * m_tapRadius;
+                    // if tapping outside of current tap space
+                    if (sqrDistance > sqrRadius)
+                    {
+                        // initialise for new noise
+                        m_currentTapPosition = hit.point;
+                        m_currentNoise = null;
+                    }
+                }
+                transform.position = m_currentTapPosition;
             }
-
         }
     }
 
-    void HighLightNoise()
+    void TapNoise()
     {
+        if (m_noiseGenerator != null)
+        {
+            if (m_userTapped)
+            {
+                if (m_currentNoise == null)
+                {
+                    //Make Noise
+                    m_currentNoise = m_noiseGenerator.GenerateNoise(m_tapVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+                }
+                else
+                {
+                    // Increase Volume
+                    m_currentNoise.m_volume += m_volumeIncrementPerTap;
+                    m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+                }
+                m_lastTapTime = Time.time;
+            }
 
-        //float areaRadius = m_tapVolume * m_tapVolume;
-        //Vector3 test = m_zombieLure.transform.position;
-        //test.y = 1f + areaRadius;
-        //m_spotLight.transform.position = test;
-
-        Vector3 test2 = m_zombieLure.transform.position;
-        test2.y = 1f;/* + m_tapVolume / 10f;*/
-        m_areaEffect.transform.position = test2;
-        float scale = m_tapVolume * 2;
-        m_areaEffect.transform.localScale = new Vector3(scale, scale, scale);
-
-
-
+            if (Time.time > m_lastTapTime + m_tapTimeOutDelay)
+            {
+                m_currentNoise = null;
+            }
+        }
     }
+
+    
 }
 

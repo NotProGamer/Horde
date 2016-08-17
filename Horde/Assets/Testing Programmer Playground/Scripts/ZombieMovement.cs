@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ZombieMovement : MonoBehaviour {
 
@@ -10,7 +11,17 @@ public class ZombieMovement : MonoBehaviour {
 
     public float m_minSpeed = 1f;
     public float m_maxSpeed = 10f;
-    private float m_currentSpeed = 1;
+    private float m_currentSpeed = 1f;
+
+    public Vector3 m_currentDestination = new Vector3();
+
+
+    public enum State
+    {
+        Idle,
+        Moving,
+    }
+    public State m_state = State.Idle;
 
     void Awake()
     {
@@ -25,7 +36,6 @@ public class ZombieMovement : MonoBehaviour {
         {
             m_noiseManager = obj.GetComponent<NoiseManager>();
         }
-        
     }
 
 
@@ -33,83 +43,37 @@ public class ZombieMovement : MonoBehaviour {
 	void Start ()
     {
         m_currentSpeed = m_minSpeed;
+        m_currentDestination = transform.position;
+        m_audibleNoises = new List<Noise>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        //SetDestination(GetCurrentTargetPosition());
+        Think();
         if (m_nav)
         {
-            // This will need to be tested further
-            m_nav.speed = m_currentSpeed;
-            m_nav.SetDestination(GetCurrentTargetPosition());
-            
-        }
-        //if (m_mostAudibleNoise != null && ReachedDestination())
-        //{
-        //    m_mostAudibleNoise = null;
-        //    Debug.Log("ReachedDestination");
-        //}
-        if (m_noiseManager)
-        {
-            // if there is a more audible noise generated it will overrate the current most audible noise
-            Noise mostAudibleNoise = m_noiseManager.GetMostAudibleNoise(transform.position, true);
-            if (mostAudibleNoise != null)
+            if (ReachedDestination())
             {
-                //Debug.Log((mostAudibleNoise.m_position - transform.position).sqrMagnitude);
-                m_mostAudibleNoise = mostAudibleNoise;
-                //m_currentSpeed = CalculateSpeed(m_mostAudibleNoise.m_volume);
-                m_currentSpeed = m_maxSpeed;
+                m_state = State.Idle;
+                //m_nav.Stop();
             }
         }
-
-
-
-        //DetermineCurrentSpeed();
-
     }
 
 
-
-    float m_test = 0f;
-    float m_delay = 5f;
-
-
-    private Vector3 GetCurrentTargetPosition()
+    void SetDestination(Vector3 position)
     {
-        
-        Vector3 currentTarget = transform.position;
-        if (m_mostAudibleNoise != null)
+        if (m_nav)
         {
-            // hunt
-            currentTarget = m_mostAudibleNoise.m_position;
-            //Debug.Log("hunt to: " + currentTarget);
+            m_state = State.Moving;
+            m_currentDestination = position;
+            m_nav.speed = m_currentSpeed;
+            m_nav.SetDestination(m_currentDestination);
+            //m_nav.Resume();
         }
-        else
-        {
-            //// wander
-            //if (Time.time > m_test)
-            //{
-            //    m_test = Time.time + m_delay;
-                
-            //    Vector2 test2 = Random.insideUnitCircle * 10f;
-            //    Vector3 randomTarget = transform.position + new Vector3(test2.x, 0, test2.y);
-            //    //Debug.Log(randomTarget);
-            //    NavMeshHit hit;
-            //    if (NavMesh.SamplePosition(randomTarget, out hit, 100f, NavMesh.AllAreas))
-            //    {
-            //        currentTarget = hit.position;
-            //        currentTarget.y = 1.0f;
-            //    }
-            //    else
-            //    {
-            //        currentTarget = transform.position;
-            //    }
-            //    Debug.Log("wander to: " + currentTarget);
-            //}
-        }
-        return currentTarget;
     }
-
     private bool ReachedDestination()
     {
         bool result = false;
@@ -121,6 +85,111 @@ public class ZombieMovement : MonoBehaviour {
         return result;
     }
 
+
+    private List<Noise> m_audibleNoises = null;
+    public Noise m_currentTargetNoise = null;
+
+
+    void Think()
+    {
+        List<Noise> audibleNoises = new List<Noise>();
+        if (m_noiseManager)
+        {
+            m_noiseManager.GetAudibleNoisesAtLocation(audibleNoises, transform.position);
+        }
+        m_audibleNoises = audibleNoises;
+        m_currentTargetNoise = SelectTargetNoise();
+        if (m_currentTargetNoise != null)
+        {
+            DetermineCurrentSpeed(); // this should be based on target/ behaviour
+            SetDestination(m_currentTargetNoise.m_position);
+        }
+    }
+
+    Noise SelectTargetNoise()
+    {
+        Noise targetNoise = null;
+
+        foreach (Noise noise in m_audibleNoises)
+        {
+            if (targetNoise == null)
+            {
+                targetNoise = noise;
+            }
+            else
+            {
+                // if noise if of higher priority then chase it
+                if ((noise.m_identifier > targetNoise.m_identifier) ||
+                    (noise.m_identifier == targetNoise.m_identifier && noise.m_volume > targetNoise.m_volume))
+                {
+                    targetNoise = noise;
+                }
+            }
+        }
+
+        return targetNoise;
+    }
+
+    public void SetCurrentNoiseTarget(Noise noise)
+    {
+        // This should be a much smarter check system.
+        if (noise.m_identifier == NoiseIdentifier.UserTap)
+        {
+            m_currentTargetNoise = noise;
+        }
+    }
+
+    private float DetermineCurrentSpeed()
+    {
+        float result = m_minSpeed;
+        if (m_currentTargetNoise != null)
+        {
+            result = m_maxSpeed;
+        }
+        return result;
+    }
+    //float m_test = 0f;
+    //float m_delay = 5f;
+
+
+    //private Vector3 GetCurrentTargetPosition()
+    //{
+
+    //    Vector3 currentTarget = transform.position;
+    //    if (m_mostAudibleNoise != null)
+    //    {
+    //        // hunt
+    //        currentTarget = m_mostAudibleNoise.m_position;
+    //        //Debug.Log("hunt to: " + currentTarget);
+    //    }
+    //    else
+    //    {
+    //        //// wander
+    //        //if (Time.time > m_test)
+    //        //{
+    //        //    m_test = Time.time + m_delay;
+
+    //        //    Vector2 test2 = Random.insideUnitCircle * 10f;
+    //        //    Vector3 randomTarget = transform.position + new Vector3(test2.x, 0, test2.y);
+    //        //    //Debug.Log(randomTarget);
+    //        //    NavMeshHit hit;
+    //        //    if (NavMesh.SamplePosition(randomTarget, out hit, 100f, NavMesh.AllAreas))
+    //        //    {
+    //        //        currentTarget = hit.position;
+    //        //        currentTarget.y = 1.0f;
+    //        //    }
+    //        //    else
+    //        //    {
+    //        //        currentTarget = transform.position;
+    //        //    }
+    //        //    Debug.Log("wander to: " + currentTarget);
+    //        //}
+    //    }
+    //    return currentTarget;
+    //}
+
+
+
     //private float CalculateSpeed(float volumeMultiplier)
     //{
     //    float result = m_minSpeed;
@@ -129,14 +198,5 @@ public class ZombieMovement : MonoBehaviour {
     //    return result;
     //}
 
-    private float DetermineCurrentSpeed()
-    {
-        float result = m_minSpeed;
-        if (m_mostAudibleNoise != null)
-        {
-            result = m_maxSpeed;
-        }
-        return result;
-    }
 }
 

@@ -11,8 +11,8 @@ public class Tapper : MonoBehaviour {
 
     //private float m_tapVolume = 0f;
     public float m_baseVolume = 4f;
-    public float m_volumeIncrementPerTap = 1f;
-    public float m_expiryDelay = 1f;
+    public float m_volumeIncrementPerTap = 2f;
+    public float m_expiryDelay = 5f;
 
     private NoiseGenerator m_noiseGenerator = null;
     private Noise m_currentNoise = null;

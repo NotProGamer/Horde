@@ -101,7 +101,7 @@ public class ZombieMovement : MonoBehaviour {
         m_currentTargetNoise = SelectTargetNoise();
         if (m_currentTargetNoise != null)
         {
-            DetermineCurrentSpeed(); // this should be based on target/ behaviour
+            m_currentSpeed = DetermineCurrentSpeed(); // this should be based on target/ behaviour
             SetDestination(m_currentTargetNoise.m_position);
         }
     }

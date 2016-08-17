@@ -9,7 +9,7 @@ public class Tapper : MonoBehaviour {
     private float m_tapRadius = 5f;
     private int m_tapCount = 0;
 
-    private float m_tapVolume = 0f;
+    //private float m_tapVolume = 0f;
     public float m_baseVolume = 4f;
     public float m_volumeIncrementPerTap = 1f;
     public float m_expiryDelay = 1f;
@@ -91,18 +91,23 @@ public class Tapper : MonoBehaviour {
                 if (m_currentNoise == null)
                 {
                     //Make Noise
-                    m_currentNoise = m_noiseGenerator.GenerateNoise(m_tapVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+                    m_currentNoise = m_noiseGenerator.GenerateNoise(m_baseVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+                    m_tapCount = 1;
                 }
                 else
                 {
-                    // Increase Volume
-                    m_currentNoise.m_volume += m_volumeIncrementPerTap;
-                    m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+                    if (m_tapCount < m_maxTaps)
+                    {
+                        // Increase Volume
+                        m_currentNoise.m_volume += m_volumeIncrementPerTap;
+                        m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+                        m_tapCount++;
+                    }
                 }
                 m_lastTapTime = Time.time;
             }
 
-            if (Time.time > m_lastTapTime + m_tapTimeOutDelay)
+            if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
             {
                 m_currentNoise = null;
             }

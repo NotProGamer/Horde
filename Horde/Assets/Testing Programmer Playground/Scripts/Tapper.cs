@@ -23,6 +23,8 @@ public class Tapper : MonoBehaviour {
     public int m_maxTaps = 10;
 
     private bool m_userTapped = false;
+    private UserController m_userController = null;
+
 
     void Awake()
     {
@@ -31,6 +33,16 @@ public class Tapper : MonoBehaviour {
         {
             Debug.Log("NoiseGenerator not included.");
         }
+        GameObject obj = GameObject.FindGameObjectWithTag(Tags.GameController);
+        if (obj)
+        {
+            m_userController = obj.GetComponent<UserController>();
+            if (m_userController == null)
+            {
+                Debug.Log("User Controller not included");
+            }
+        }
+
     }
 
     // Use this for initialization
@@ -39,11 +51,18 @@ public class Tapper : MonoBehaviour {
         m_layerMask = LayerMask.GetMask("Ground");
     }
 	
+
 	// Update is called once per frame
 	void Update ()
     {
+        //if (m_userController.m_interfaceState == UserController.UserControllerState.Tapped)
+
+        //{ }
+
+
         // Check for Input
-        m_userTapped = Input.GetMouseButtonUp(0);
+        //m_userTapped = Input.GetMouseButtonUp(0);
+        m_userTapped = m_userController.m_interfaceState == UserController.UserControllerState.Tapped;
 
         // Act
         MoveLure(); // Move Lure To Tap Position
@@ -52,18 +71,15 @@ public class Tapper : MonoBehaviour {
 
     private void MoveLure()
     {
-        Vector3 position = new Vector3();
+        //Vector3 position = new Vector3();
         if (m_userTapped)
         {
-            RaycastHit hit;
-            Ray ray;
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 1000/*, m_layerMask*/))
+            if (m_userController.m_tappedObject != null)
             {
-                position = hit.point;
+                Vector3 position = m_userController.m_tappedObject.hitPosition;
                 if (m_currentNoise == null)
                 {
-                    m_currentTapPosition = hit.point;
+                    m_currentTapPosition = position;
                 }
                 else
                 {
@@ -73,7 +89,7 @@ public class Tapper : MonoBehaviour {
                     if (sqrDistance > sqrRadius)
                     {
                         // initialise for new noise
-                        m_currentTapPosition = hit.point;
+                        m_currentTapPosition = position;
                         m_currentNoise = null;
                     }
                 }
@@ -81,6 +97,39 @@ public class Tapper : MonoBehaviour {
             }
         }
     }
+
+    //private void MoveLure()
+    //{
+    //    Vector3 position = new Vector3();
+    //    if (m_userTapped)
+    //    {
+    //        RaycastHit hit;
+    //        Ray ray;
+    //        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        if (Physics.Raycast(ray, out hit, 1000/*, m_layerMask*/))
+    //        {
+    //            position = hit.point;
+    //            if (m_currentNoise == null)
+    //            {
+    //                m_currentTapPosition = hit.point;
+    //            }
+    //            else
+    //            {
+    //                float sqrDistance = (position - m_currentTapPosition).sqrMagnitude;
+    //                float sqrRadius = m_tapRadius * m_tapRadius;
+    //                // if tapping outside of current tap space
+    //                if (sqrDistance > sqrRadius)
+    //                {
+    //                    // initialise for new noise
+    //                    m_currentTapPosition = hit.point;
+    //                    m_currentNoise = null;
+    //                }
+    //            }
+    //            transform.position = m_currentTapPosition;
+    //        }
+    //    }
+    //}
+
 
     void TapNoise()
     {

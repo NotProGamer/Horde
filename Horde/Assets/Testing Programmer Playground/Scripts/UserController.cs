@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System;
 
 public class Button
 {
@@ -88,7 +89,7 @@ public class UserController : MonoBehaviour {
     public UserControllerState m_interfaceState = UserControllerState.Idle;
 
     public Drag m_lastDrag = null;
-    public Button m_touch;
+    public Button m_touch = new Button();
     private Vector2 m_touchOrigin = -Vector2.one;
     private Vector2 m_touchEnd = -Vector2.one;
     public float m_mouseMovementThreshold = 1f;
@@ -99,7 +100,7 @@ public class UserController : MonoBehaviour {
     // reference stop raycasting through UI
     // http://answers.unity3d.com/questions/1079066/how-can-i-prevent-my-raycast-from-passing-through.html
 
-    private Collider m_selectedObject = null;
+    
 
     //#if !MOBILE_INPUT
     //    // use keyboard and mouse conrtols
@@ -126,9 +127,9 @@ public class UserController : MonoBehaviour {
         // touch update
         m_touch.Update(); // This changes the buttons states from was to is
 
-        if (!EventSystem.current.IsPointerOverGameObject(0))
-        {
-        }
+        //if (!EventSystem.current.IsPointerOverGameObject(0))
+        //{
+        //}
 
 #if !MOBILE_INPUT
 
@@ -251,8 +252,9 @@ public class UserController : MonoBehaviour {
         // update interface controls
         InterfaceUpdate();
 
-        SelectObject();
+        RayCastToGame();
     }
+
 
     public bool Touched()
     {
@@ -307,22 +309,64 @@ public class UserController : MonoBehaviour {
         }
     }
 
-    void SelectObject()
+    public class SelectedObject
     {
+        public GameObject m_gameObject = null;
+        public Vector3 hitPosition = Vector3.zero;
+        public SelectedObject(GameObject pGameObject, Vector3 pHitPosition)
+        {
+            m_gameObject = pGameObject;
+            hitPosition = pHitPosition;
+        }
+    }
+
+    public SelectedObject m_touchedObject = null;
+    public SelectedObject m_tappedObject = null;
+
+    public SelectedObject SelectObject(Vector2 position, LayerMask layerMask )
+    {
+        SelectedObject selectedObject = null;
         RaycastHit hit;
         Ray ray;
 
-        if (Touched())
+        ray = Camera.main.ScreenPointToRay(position);
+        if (Physics.Raycast(ray, out hit, 1000, layerMask))
         {
-            //ray = Camera.main.ScreenPointToRay(m_startMousePosition);
-            //if (Physics.Raycast(ray, out hit, 1000, m_layerMask))
-            //{
-            //    m_state = State.Moving;
-            //    m_grabWorldPosition = hit.point;
-            //    m_grabWorldPosition.y = m_rigOrigin.y;
-            //}
-
+            selectedObject = new SelectedObject(hit.collider.gameObject, hit.point);
         }
-
+        return selectedObject;
     }
+
+
+    //This works but should really consider making movement work in the ground layer instead of the default layer. 
+    // would need to factor in the ground height.
+    private void RayCastToGame()
+    {
+        switch (m_interfaceState)
+        {
+            case UserControllerState.Touched:
+                // if you have touched the game world tell me what you touched and where you touched it
+                m_touchedObject = SelectObject(m_touchOrigin, LayerMask.GetMask("Default"));
+                break;
+            case UserControllerState.Touching:
+                break;
+            case UserControllerState.Tapped:
+                // if you have tapped an interactable object, tell me what you tapped and where you tapped it.
+                m_tappedObject = SelectObject(m_touchEnd, LayerMask.GetMask("Default"));
+                if (m_tappedObject!=null) Debug.Log(m_tappedObject.hitPosition);
+                break;
+            case UserControllerState.Dragging:
+                break;
+            case UserControllerState.Dragged:
+                break;
+            case UserControllerState.Idle:
+                // if you are not interacting, then reset all 
+                m_touchedObject = null;
+                m_tappedObject = null;
+                break;
+            default:
+                break;
+        }
+    }
+
 }

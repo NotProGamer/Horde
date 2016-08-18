@@ -57,23 +57,23 @@ public class CameraMovement : MonoBehaviour
         RaycastHit hit;
         Ray ray;
 
-        switch (m_userController.m_interfaceState)
-        {
-            case UserController.UserControllerState.Touched:
-                break;
-            case UserController.UserControllerState.Touching:
-                break;
-            case UserController.UserControllerState.Tapped:
-                break;
-            case UserController.UserControllerState.Dragging:
-                break;
-            case UserController.UserControllerState.Dragged:
-                break;
-            case UserController.UserControllerState.Idle:
-                break;
-            default:
-                break;
-        }
+        //switch (m_userController.m_interfaceState)
+        //{
+        //    case UserController.UserControllerState.Touched:
+        //        break;
+        //    case UserController.UserControllerState.Touching:
+        //        break;
+        //    case UserController.UserControllerState.Tapped:
+        //        break;
+        //    case UserController.UserControllerState.Dragging:
+        //        break;
+        //    case UserController.UserControllerState.Dragged:
+        //        break;
+        //    case UserController.UserControllerState.Idle:
+        //        break;
+        //    default:
+        //        break;
+        //}
 
 
 

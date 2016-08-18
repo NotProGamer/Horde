@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class CameraMovement : MonoBehaviour
 {
+    private UserController m_userController = null;
 
     // note create input controller
 
@@ -23,6 +24,23 @@ public class CameraMovement : MonoBehaviour
     private Vector3 m_rigOrigin;
     private Vector3 m_grabWorldPosition;
     public float m_smoothing = 5f;
+
+
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag(Tags.GameController);
+        if (obj)
+        {
+            m_userController = obj.GetComponent<UserController>();
+            if (m_userController == null)
+            {
+                Debug.Log("User Controller not included");
+            }
+        }
+        
+    }
+
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +56,26 @@ public class CameraMovement : MonoBehaviour
 
         RaycastHit hit;
         Ray ray;
+
+        switch (m_userController.m_interfaceState)
+        {
+            case UserController.UserControllerState.Touched:
+                break;
+            case UserController.UserControllerState.Touching:
+                break;
+            case UserController.UserControllerState.Tapped:
+                break;
+            case UserController.UserControllerState.Dragging:
+                break;
+            case UserController.UserControllerState.Dragged:
+                break;
+            case UserController.UserControllerState.Idle:
+                break;
+            default:
+                break;
+        }
+
+
 
         if (Input.GetMouseButtonDown(0))
         {

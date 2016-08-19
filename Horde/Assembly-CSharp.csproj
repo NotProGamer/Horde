@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_1;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_1;UNITY_5_3;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -45,20 +45,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Project Horde\Scripts\Empty.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\CameraTargetMovement.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\FollowTarget.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\NavTest.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\CameraMovement.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\CameraRigFolllow.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\NoiseGenerator.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\NoiseManager.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\Scaler.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Tags.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Tapper.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraFollow.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraMovement.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraRigFolllow.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\Scaler.cs" />
-     <Compile Include="Assets\Testing Programmer Playground\Scripts\UserController.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\ZombieMovement.cs" />
-     <None Include="Assets\Testing Programmer Playground\Scripts\Unused\reserved.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Humans\Law Enforcement\staying alive.txt" />
+     <None Include="Assets\Project Horde\Animations\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Vehicles\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Humans\Civilians\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Environment\Vehicles\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Humans\Soldiers\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Humans\Survivors\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Horde\Abnormals\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Buildings\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Humans\Soldiers\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Props\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Fortifications\Walls\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Humans\Survivors\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Humans\Civilians\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Horde\Zombies\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Horde\Abnormals\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Road\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Characters\Horde\Zombies\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Flora\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Environment\Roads\staying alive.txt" />
+     <None Include="Assets\Project Horde\Models\Characters\Humans\Law Enforcement\staying alive.txt" />
+     <None Include="Assets\Project Horde\Prefabs\Environment\Effects\staying alive.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

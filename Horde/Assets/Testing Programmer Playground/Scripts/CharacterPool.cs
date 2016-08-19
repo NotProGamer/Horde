@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tags : MonoBehaviour {
+public class CharacterPool : MonoBehaviour {
 
-    public static string GameController = "GameController";
 	// Use this for initialization
 	void Start () {
 	
@@ -13,4 +12,9 @@ public class Tags : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void RequestZombieAtPosition(Vector3 test)
+    {
+        // not yet implemented
+    }
 }

@@ -20,7 +20,7 @@ public class CameraTargetMovement : MonoBehaviour {
 
     void Awake()
     {
-        GameObject obj = GameObject.FindGameObjectWithTag(Tags.GameController);
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
         {
             m_userController = obj.GetComponent<UserController>();

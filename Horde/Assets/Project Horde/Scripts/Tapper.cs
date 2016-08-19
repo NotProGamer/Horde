@@ -33,7 +33,7 @@ public class Tapper : MonoBehaviour {
         {
             Debug.Log("NoiseGenerator not included.");
         }
-        GameObject obj = GameObject.FindGameObjectWithTag(Tags.GameController);
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
         {
             m_userController = obj.GetComponent<UserController>();

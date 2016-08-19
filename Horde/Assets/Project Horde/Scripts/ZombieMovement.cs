@@ -31,7 +31,7 @@ public class ZombieMovement : MonoBehaviour {
             Debug.Log("NavMeshAgent not included");
         }
 
-        GameObject obj = GameObject.FindGameObjectWithTag(Tags.GameController);
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
         {
             m_noiseManager = obj.GetComponent<NoiseManager>();

@@ -83,31 +83,34 @@ public class UserController : MonoBehaviour {
         public Vector2 m_start = -Vector2.one;
         public Vector2 m_end = -Vector2.one;
     }
+
+    public class SelectedObject
+    {
+        public GameObject m_gameObject = null;
+        public Vector3 hitPosition = Vector3.zero;
+        public SelectedObject(GameObject pGameObject, Vector3 pHitPosition)
+        {
+            m_gameObject = pGameObject;
+            hitPosition = pHitPosition;
+        }
+    }
+
+    private Vector2 m_touchOrigin = -Vector2.one;
+    private Vector2 m_touchEnd = -Vector2.one;
+    private float m_currentThreshold = 0f;
+
     public UserControllerState m_state = UserControllerState.Idle;
 
     public Drag m_lastDrag = null;
-    public Button m_touch = new Button();
-    private Vector2 m_touchOrigin = -Vector2.one;
-    private Vector2 m_touchEnd = -Vector2.one;
     public float m_mouseMovementThreshold = 0.5f;
     public float m_touchMovementThreshold = 1f;
-    private float m_currentThreshold = 0f;
-
+    public Button m_touch = new Button();
+    public SelectedObject m_touchedObject = null;
+    public SelectedObject m_tappedObject = null;
 
     // reference stop raycasting through UI
     // http://answers.unity3d.com/questions/1079066/how-can-i-prevent-my-raycast-from-passing-through.html
 
-    public Vector2 GetDragStart()
-    {
-        if (m_lastDrag != null)
-        {
-            return m_lastDrag.m_start;
-        }
-        else
-        {
-            return m_touchOrigin;
-        }
-    }
 
     //#if !MOBILE_INPUT
     //    // use keyboard and mouse conrtols
@@ -115,28 +118,11 @@ public class UserController : MonoBehaviour {
     //    //mobile code
     //#endif
 
-    void UpdateThreshold()
-    {
-#if !MOBILE_INPUT
-        if (m_currentThreshold != m_mouseMovementThreshold)
-        {
-            m_currentThreshold = m_mouseMovementThreshold;
-        }
-#else
-        if (m_currentThreshold != m_touchMovementThreshold)
-        {
-            currentThreshold = m_touchMovementThreshold;
-        }
-        
-#endif
 
-    }
-
-    // Use this for initialization
-    void Start ()
-    {
-
-    }
+    //// Use this for initialization
+    //void Start ()
+    //{
+    //}
 	
 	// Update is called once per frame
 	void Update ()
@@ -272,6 +258,32 @@ public class UserController : MonoBehaviour {
         RayCastToGame();
     }
 
+    private void UpdateThreshold()
+    {
+#if !MOBILE_INPUT
+        if (m_currentThreshold != m_mouseMovementThreshold)
+        {
+            m_currentThreshold = m_mouseMovementThreshold;
+        }
+#else
+        if (m_currentThreshold != m_touchMovementThreshold)
+        {
+            currentThreshold = m_touchMovementThreshold;
+        }
+#endif
+    }
+
+    public Vector2 GetDragStart()
+    {
+        if (m_lastDrag != null)
+        {
+            return m_lastDrag.m_start;
+        }
+        else
+        {
+            return m_touchOrigin;
+        }
+    }
 
     public bool Touched()
     {
@@ -298,7 +310,7 @@ public class UserController : MonoBehaviour {
     }
 
 
-    void InterfaceUpdate()
+    private void InterfaceUpdate()
     {
         if (Touched())
         {
@@ -326,26 +338,12 @@ public class UserController : MonoBehaviour {
         }
     }
 
-    public class SelectedObject
-    {
-        public GameObject m_gameObject = null;
-        public Vector3 hitPosition = Vector3.zero;
-        public SelectedObject(GameObject pGameObject, Vector3 pHitPosition)
-        {
-            m_gameObject = pGameObject;
-            hitPosition = pHitPosition;
-        }
-    }
 
-    public SelectedObject m_touchedObject = null;
-    public SelectedObject m_tappedObject = null;
-
-    public SelectedObject SelectObject(Vector2 position, LayerMask layerMask )
+    public SelectedObject SelectObject(Vector2 position, LayerMask layerMask)
     {
         SelectedObject selectedObject = null;
         RaycastHit hit;
         Ray ray;
-
         ray = Camera.main.ScreenPointToRay(position);
         if (Physics.Raycast(ray, out hit, 1000, layerMask))
         {

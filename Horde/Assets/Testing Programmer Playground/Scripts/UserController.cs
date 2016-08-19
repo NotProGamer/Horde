@@ -61,8 +61,15 @@ public class Button
         }
     }
 }
-
-
+public enum UserControllerState
+{
+    Touched,
+    Touching,
+    Tapped,
+    Dragging,
+    Dragged,
+    Idle, // Not Touching or Dragging
+}
 
 
 public class UserController : MonoBehaviour {
@@ -76,23 +83,13 @@ public class UserController : MonoBehaviour {
         public Vector2 m_start = -Vector2.one;
         public Vector2 m_end = -Vector2.one;
     }
-
-    public enum UserControllerState
-    {
-        Touched,
-        Touching,
-        Tapped,
-        Dragging,
-        Dragged,
-        Idle, // Not Touching or Dragging
-    }
-    public UserControllerState m_interfaceState = UserControllerState.Idle;
+    public UserControllerState m_state = UserControllerState.Idle;
 
     public Drag m_lastDrag = null;
     public Button m_touch = new Button();
     private Vector2 m_touchOrigin = -Vector2.one;
     private Vector2 m_touchEnd = -Vector2.one;
-    public float m_mouseMovementThreshold = 1f;
+    public float m_mouseMovementThreshold = 0.5f;
     public float m_touchMovementThreshold = 1f;
     private float m_currentThreshold = 0f;
 
@@ -100,7 +97,17 @@ public class UserController : MonoBehaviour {
     // reference stop raycasting through UI
     // http://answers.unity3d.com/questions/1079066/how-can-i-prevent-my-raycast-from-passing-through.html
 
-    
+    public Vector2 GetDragStart()
+    {
+        if (m_lastDrag != null)
+        {
+            return m_lastDrag.m_start;
+        }
+        else
+        {
+            return m_touchOrigin;
+        }
+    }
 
     //#if !MOBILE_INPUT
     //    // use keyboard and mouse conrtols
@@ -108,16 +115,26 @@ public class UserController : MonoBehaviour {
     //    //mobile code
     //#endif
 
+    void UpdateThreshold()
+    {
+#if !MOBILE_INPUT
+        if (m_currentThreshold != m_mouseMovementThreshold)
+        {
+            m_currentThreshold = m_mouseMovementThreshold;
+        }
+#else
+        if (m_currentThreshold != m_touchMovementThreshold)
+        {
+            currentThreshold = m_touchMovementThreshold;
+        }
+        
+#endif
 
+    }
 
     // Use this for initialization
     void Start ()
     {
-#if !MOBILE_INPUT
-        m_currentThreshold = m_mouseMovementThreshold;
-#else
-        currentThreshold = touchMovementThreshold;
-#endif
 
     }
 	
@@ -126,7 +143,7 @@ public class UserController : MonoBehaviour {
     {
         // touch update
         m_touch.Update(); // This changes the buttons states from was to is
-
+        UpdateThreshold();
         //if (!EventSystem.current.IsPointerOverGameObject(0))
         //{
         //}
@@ -285,27 +302,27 @@ public class UserController : MonoBehaviour {
     {
         if (Touched())
         {
-            m_interfaceState = UserControllerState.Touched;
+            m_state = UserControllerState.Touched;
         }
         else if (Touching())
         {
-            m_interfaceState = UserControllerState.Touching;
+            m_state = UserControllerState.Touching;
         }
         else if (Tapped())
         {
-            m_interfaceState = UserControllerState.Tapped;
+            m_state = UserControllerState.Tapped;
         }
         else if (Dragging())
         {
-            m_interfaceState = UserControllerState.Dragging;
+            m_state = UserControllerState.Dragging;
         }
         else if (Dragged())
         {
-            m_interfaceState = UserControllerState.Dragged;
+            m_state = UserControllerState.Dragged;
         }
         else
         {
-            m_interfaceState = UserControllerState.Idle;
+            m_state = UserControllerState.Idle;
         }
     }
 
@@ -342,7 +359,7 @@ public class UserController : MonoBehaviour {
     // would need to factor in the ground height.
     private void RayCastToGame()
     {
-        switch (m_interfaceState)
+        switch (m_state)
         {
             case UserControllerState.Touched:
                 // if you have touched the game world tell me what you touched and where you touched it
@@ -353,7 +370,7 @@ public class UserController : MonoBehaviour {
             case UserControllerState.Tapped:
                 // if you have tapped an interactable object, tell me what you tapped and where you tapped it.
                 m_tappedObject = SelectObject(m_touchEnd, LayerMask.GetMask("Default"));
-                if (m_tappedObject!=null) Debug.Log(m_tappedObject.hitPosition);
+                //if (m_tappedObject!=null) Debug.Log(m_tappedObject.hitPosition);
                 break;
             case UserControllerState.Dragging:
                 break;

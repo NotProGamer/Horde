@@ -55,46 +55,71 @@ public class Tapper : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //if (m_userController.m_interfaceState == UserController.UserControllerState.Tapped)
+        // if user tapped
+            // move lure
+            // generate tap noise
+        if (m_userController != null)
+        {
+            if (m_userController.m_state == UserControllerState.Tapped)
+            {
+                MoveLure();
+                NoiseMaker();
+            }
+        }
 
-        //{ }
-
-
-        // Check for Input
-        //m_userTapped = Input.GetMouseButtonUp(0);
-        m_userTapped = m_userController.m_interfaceState == UserController.UserControllerState.Tapped;
-
-        // Act
-        MoveLure(); // Move Lure To Tap Position
-        TapNoise(); // Generate or modify tap noise
+        // clear current noise if tap timeOut exceeded
+        // if there is a current noise and time is passed is remove the current noise
+        if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
+        {
+            m_currentNoise = null;
+        }
     }
 
     private void MoveLure()
     {
-        //Vector3 position = new Vector3();
-        if (m_userTapped)
+        if (m_userController.m_tappedObject != null)
         {
-            if (m_userController.m_tappedObject != null)
+            Vector3 position = m_userController.m_tappedObject.hitPosition;
+            if (m_currentNoise == null)
             {
-                Vector3 position = m_userController.m_tappedObject.hitPosition;
-                if (m_currentNoise == null)
-                {
-                    m_currentTapPosition = position;
-                }
-                else
-                {
-                    float sqrDistance = (position - m_currentTapPosition).sqrMagnitude;
-                    float sqrRadius = m_tapRadius * m_tapRadius;
-                    // if tapping outside of current tap space
-                    if (sqrDistance > sqrRadius)
-                    {
-                        // initialise for new noise
-                        m_currentTapPosition = position;
-                        m_currentNoise = null;
-                    }
-                }
-                transform.position = m_currentTapPosition;
+                m_currentTapPosition = position;
             }
+            else
+            {
+                float sqrDistance = (position - m_currentTapPosition).sqrMagnitude;
+                float sqrRadius = m_tapRadius * m_tapRadius;
+                // if tapping outside of current tap space
+                if (sqrDistance > sqrRadius)
+                {
+                    // initialise for new noise
+                    m_currentTapPosition = position;
+                    m_currentNoise = null;
+                }
+            }
+            transform.position = m_currentTapPosition;
+        }
+    }
+    private void NoiseMaker()
+    {
+        if (m_noiseGenerator != null)
+        {
+            if (m_currentNoise == null)
+            {
+                //Make Noise
+                m_currentNoise = m_noiseGenerator.GenerateNoise(m_baseVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+                m_tapCount = 1;
+            }
+            else
+            {
+                if (m_tapCount < m_maxTaps)
+                {
+                    // Increase Volume
+                    m_currentNoise.m_volume += m_volumeIncrementPerTap;
+                    m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+                    m_tapCount++;
+                }
+            }
+            m_lastTapTime = Time.time;
         }
     }
 
@@ -131,38 +156,38 @@ public class Tapper : MonoBehaviour {
     //}
 
 
-    void TapNoise()
-    {
-        if (m_noiseGenerator != null)
-        {
-            if (m_userTapped)
-            {
-                if (m_currentNoise == null)
-                {
-                    //Make Noise
-                    m_currentNoise = m_noiseGenerator.GenerateNoise(m_baseVolume, m_expiryDelay, NoiseIdentifier.UserTap);
-                    m_tapCount = 1;
-                }
-                else
-                {
-                    if (m_tapCount < m_maxTaps)
-                    {
-                        // Increase Volume
-                        m_currentNoise.m_volume += m_volumeIncrementPerTap;
-                        m_currentNoise.m_expiry = Time.time + m_expiryDelay;
-                        m_tapCount++;
-                    }
-                }
-                m_lastTapTime = Time.time;
-            }
+    //void TapNoise()
+    //{
+    //    if (m_noiseGenerator != null)
+    //    {
+    //        if (m_userTapped)
+    //        {
+    //            if (m_currentNoise == null)
+    //            {
+    //                //Make Noise
+    //                m_currentNoise = m_noiseGenerator.GenerateNoise(m_baseVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+    //                m_tapCount = 1;
+    //            }
+    //            else
+    //            {
+    //                if (m_tapCount < m_maxTaps)
+    //                {
+    //                    // Increase Volume
+    //                    m_currentNoise.m_volume += m_volumeIncrementPerTap;
+    //                    m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+    //                    m_tapCount++;
+    //                }
+    //            }
+    //            m_lastTapTime = Time.time;
+    //        }
 
-            if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
-            {
-                m_currentNoise = null;
-            }
-        }
-    }
+    //        if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
+    //        {
+    //            m_currentNoise = null;
+    //        }
+    //    }
+    //}
 
-    
+
 }
 

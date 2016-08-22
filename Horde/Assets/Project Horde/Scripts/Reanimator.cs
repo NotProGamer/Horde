@@ -5,7 +5,7 @@ public class Reanimator : MonoBehaviour {
 
     public float m_reanimationDelay = 3.0f;
 
-    private CharacterPool m_characterPoolScript = null;
+    private ObjectPoolManager m_objectPoolManagerScript = null;
     private Health m_healthScript = null;
     private HealthCondition m_conditionScript = null;
 
@@ -20,16 +20,16 @@ public class Reanimator : MonoBehaviour {
 
         if (gameController)
         {
-            m_characterPoolScript = gameController.GetComponent<CharacterPool>();
+            m_objectPoolManagerScript = gameController.GetComponent<ObjectPoolManager>();
         }
         else
         {
             Debug.Log("Unable to Find GameController");
         }
 
-        if (m_characterPoolScript == null)
+        if (m_objectPoolManagerScript == null)
         {
-            Debug.Log("CharacterPool not included on GameController");
+            Debug.Log("ObjectPoolManager not included on GameController");
         }
 
         m_healthScript = GetComponent<Health>();
@@ -96,13 +96,13 @@ public class Reanimator : MonoBehaviour {
 
     private void Reanimate()
     {
-        if (m_characterPoolScript)
+        if (m_objectPoolManagerScript)
         {
             if (m_healthScript)
             {
                 if (!m_healthScript.IsDevoured())
                 {
-                    m_characterPoolScript.RequestZombieAtPosition(transform.position);
+                    m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Zombie, transform.position);
                 }
             }
             gameObject.SetActive(false);

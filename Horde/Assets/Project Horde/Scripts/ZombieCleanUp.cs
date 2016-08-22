@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ZombieCleanUp : MonoBehaviour {
 
-    private CharacterPool m_characterPoolScript = null;
+    //private ObjectPoolManager m_objectPoolManagerScript = null;
     private Health m_healthScript = null;
     public float m_cleanUpDelay = 3.0f;
     public float m_cleanUpTime = 0.0f;
@@ -11,21 +11,21 @@ public class ZombieCleanUp : MonoBehaviour {
 
     void Awake()
     {
-        GameObject gameController = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+        //GameObject gameController = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
 
-        if (gameController)
-        {
-            m_characterPoolScript = gameController.GetComponent<CharacterPool>();
-        }
-        else
-        {
-            Debug.Log("Unable to Find GameController");
-        }
+        //if (gameController)
+        //{
+        //    m_objectPoolManagerScript = gameController.GetComponent<ObjectPoolManager>();
+        //}
+        //else
+        //{
+        //    Debug.Log("Unable to Find GameController");
+        //}
 
-        if (m_characterPoolScript == null)
-        {
-            Debug.Log("CharacterPool not included on GameController");
-        }
+        //if (m_objectPoolManagerScript == null)
+        //{
+        //    Debug.Log("ObjectPoolManager not included on GameController");
+        //}
 
         m_healthScript = GetComponent<Health>();
         if (m_healthScript == null)

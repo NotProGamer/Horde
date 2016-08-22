@@ -7024,6 +7024,18 @@ Prefab:
       propertyPath: m_objectPools.Array.data[0].m_container
       value: 
       objectReference: {fileID: 1911278623}
+    - target: {fileID: 11447528, guid: 163498974d835c04797f6a3a0ed77f5a, type: 2}
+      propertyPath: m_objectPools.Array.data[1].m_prefab
+      value: 
+      objectReference: {fileID: 1422919922}
+    - target: {fileID: 11447528, guid: 163498974d835c04797f6a3a0ed77f5a, type: 2}
+      propertyPath: m_objectPools.Array.data[1].m_pool.Array.data[0]
+      value: 
+      objectReference: {fileID: 1446068261}
+    - target: {fileID: 11447528, guid: 163498974d835c04797f6a3a0ed77f5a, type: 2}
+      propertyPath: m_objectPools.Array.data[1].m_container
+      value: 
+      objectReference: {fileID: 782001872}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 163498974d835c04797f6a3a0ed77f5a, type: 2}
   m_IsPrefabParent: 0
@@ -7098,7 +7110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7126,6 +7138,10 @@ Prefab:
 --- !u!4 &1422919921 stripped
 Transform:
   m_PrefabParentObject: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
+  m_PrefabInternal: {fileID: 1422919920}
+--- !u!1 &1422919922 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 179614, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
   m_PrefabInternal: {fileID: 1422919920}
 --- !u!1001 &1426239769
 Prefab:

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class ZombieMovement : MonoBehaviour {
 
     private NavMeshAgent m_nav = null;
-    private Noise m_mostAudibleNoise = null;
-    private NoiseManager m_noiseManager = null;
     private float m_touchRange = 1f; // may need to get this from attackRange or moveRange
 
     public float m_minSpeed = 1f;
@@ -35,6 +33,15 @@ public class ZombieMovement : MonoBehaviour {
         if (obj)
         {
             m_noiseManager = obj.GetComponent<NoiseManager>();
+            if (m_noiseManager == null)
+            {
+                Debug.Log("NoiseManager not included!");
+            }
+
+        }
+        else
+        {
+            Debug.Log("GameController not included!");
         }
     }
 
@@ -85,7 +92,15 @@ public class ZombieMovement : MonoBehaviour {
         return result;
     }
 
+    public void SetSpeed(float speed)
+    {
+        m_currentSpeed = Mathf.Clamp(speed, m_minSpeed, m_maxSpeed);
+    }
 
+
+    // The following code is more to do with behaviour and will later be move out of this script
+    private Noise m_mostAudibleNoise = null;
+    private NoiseManager m_noiseManager = null;
     private List<Noise> m_audibleNoises = null;
     public Noise m_currentTargetNoise = null;
 
@@ -148,6 +163,8 @@ public class ZombieMovement : MonoBehaviour {
         }
         return result;
     }
+
+
     //float m_test = 0f;
     //float m_delay = 5f;
 

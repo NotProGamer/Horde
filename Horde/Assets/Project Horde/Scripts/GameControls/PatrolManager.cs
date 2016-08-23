@@ -9,6 +9,10 @@ public class PatrolManager : MonoBehaviour {
     {
         public string m_identifier = "";
         public List<Transform> m_patrolPoints;
+        public bool IsEmpty()
+        {
+            return m_patrolPoints.Count == 0;
+        }
     }
     public List<PatrolRoute> m_patrolRoutes;
 

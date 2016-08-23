@@ -31,6 +31,7 @@ GameObject:
   - 114: {fileID: 11489450}
   - 114: {fileID: 11465392}
   - 114: {fileID: 11429536}
+  - 114: {fileID: 11485074}
   m_Layer: 8
   m_Name: Human
   m_TagString: Human
@@ -58,7 +59,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -136,6 +137,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8c34b2e33af894f9427bc60e7a2d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11485074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6baa704af92fd1748bfc4186271276b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentDestination: {x: 0, y: 0, z: 0}
+  m_minSpeed: 3
+  m_maxSpeed: 10
+  m_state: 0
+  m_patrolRoute:
+    m_identifier: 
+    m_patrolPoints: []
+  m_patrolIdentifier: TestRoute
+  m_currentPatrolPointIndex: -1
 --- !u!114 &11489450
 MonoBehaviour:
   m_ObjectHideFlags: 1

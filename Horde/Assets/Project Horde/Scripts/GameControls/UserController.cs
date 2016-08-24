@@ -268,7 +268,7 @@ public class UserController : MonoBehaviour {
 #else
         if (m_currentThreshold != m_touchMovementThreshold)
         {
-            currentThreshold = m_touchMovementThreshold;
+            m_currentThreshold = m_touchMovementThreshold;
         }
 #endif
     }

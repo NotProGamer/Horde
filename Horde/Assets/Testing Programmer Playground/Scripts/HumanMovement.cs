@@ -134,10 +134,10 @@ public class HumanMovement : MonoBehaviour {
                     // Set Destination
                     //SetDestination(nextDestination);
                 }
-                else
-                {
-                    Debug.Log("Invalid PatrolRoute: no patrol points in " + m_patrolRoute.m_identifier + "!");
-                }
+            }
+            else
+            {
+                Debug.Log("Invalid PatrolRoute: no patrol points in " + m_patrolRoute.m_identifier + "!");
             }
         }
     }

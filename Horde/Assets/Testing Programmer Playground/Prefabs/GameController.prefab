@@ -8,8 +8,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 416274}
-  - 114: {fileID: 11466080}
+  - 114: {fileID: 11476270}
+  - 114: {fileID: 11458840}
   - 114: {fileID: 11407402}
+  - 114: {fileID: 11488610}
+  - 114: {fileID: 11447528}
   - 114: {fileID: 11403558}
   m_Layer: 0
   m_Name: GameController
@@ -27,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,7 +61,7 @@ MonoBehaviour:
   m_state: 5
   m_mouseMovementThreshold: 0.5
   m_touchMovementThreshold: 1
---- !u!114 &11466080
+--- !u!114 &11447528
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,9 +69,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 108628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c99f965cff6c4d6469404b1dda2fc097, type: 3}
+  m_Script: {fileID: 11500000, guid: 3188dd7b96f62bf4588e77b765bf88f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_objectPools:
+  - m_identifier: Zombie
+    m_prefab: {fileID: 0}
+    m_pool:
+    - {fileID: 0}
+    m_size: 5
+    m_willGrow: 0
+    m_container: {fileID: 0}
+  - m_identifier: Human
+    m_prefab: {fileID: 0}
+    m_pool:
+    - {fileID: 0}
+    m_size: 5
+    m_willGrow: 0
+    m_container: {fileID: 0}
+--- !u!114 &11458840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f0cfd0329ee844cbd4ea17b188e115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11476270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef519a1a2f591642822257f4e6e189a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11488610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20503fe99f7341f4e8fe4c945960d30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_patrolRoutes: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -89,11 +83,13 @@
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\GameController\ObjectiveManager.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\GameController\OptionsController.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\GameController\Tags.cs" />
+    <Compile Include="Assets\Project Horde - ProtoType\Scripts\GuardAttack.cs" />
+    <Compile Include="Assets\Project Horde - ProtoType\Scripts\GuardTowerDestruction.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\Health.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\HumanAttack.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\HumanMovement.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\InfectionStatus.cs" />
-    <Compile Include="Assets\Project Horde - ProtoType\Scripts\TurnIntoZombie.cs" />
+    <Compile Include="Assets\Project Horde - ProtoType\Scripts\Trash\TurnIntoZombie.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\UserControls\PlayerController.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\UserControls\SphereController.cs" />
     <Compile Include="Assets\Project Horde - ProtoType\Scripts\UserControls\TeleportOnCollide.cs" />

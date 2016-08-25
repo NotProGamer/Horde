@@ -45,19 +45,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Project Horde\Scripts\CameraTargetMovement.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\FollowTarget.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\CameraTargetMovement.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\FollowTarget.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\Labels.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\NoiseGenerator.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\NoiseManager.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\ObjectPoolManager.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\ObjectiveManager.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\ObjectiveUpdater.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\OptionsController.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\PatrolManager.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\GameControls\UserController.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\Health.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\HealthCondition.cs" />
      <Compile Include="Assets\Project Horde\Scripts\NavTest.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\NoiseGenerator.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\NoiseManager.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\Tags.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\Tapper.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\UserController.cs" />
-     <Compile Include="Assets\Project Horde\Scripts\ZombieMovement.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\Reanimator.cs" />
+     <Compile Include="Assets\Project Horde\Scripts\ZombieCleanUp.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\HumanMovement.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\Movement.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\Tapper.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraFollow.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraMovement.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\CameraRigFolllow.cs" />
      <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\Scaler.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\Unused\Tags.cs" />
+     <Compile Include="Assets\Testing Programmer Playground\Scripts\ZombieMovement.cs" />
      <None Include="Assets\Project Horde\Prefabs\Characters\Humans\Law Enforcement\staying alive.txt" />
      <None Include="Assets\Project Horde\Animations\staying alive.txt" />
      <None Include="Assets\Project Horde\Prefabs\Environment\Vehicles\staying alive.txt" />

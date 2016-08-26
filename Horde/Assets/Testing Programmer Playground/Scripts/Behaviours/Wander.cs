@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Wander : MonoBehaviour {
+public class Wander : Behaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public override float Evaluate()
+    {
+        return m_weight;
+    }
+
+    // Update is called once per frame
+    public override void Update()
+    {
+        // calculate nearby desitination, 
+        // find closest destination is on nav mesh
+    }
 }

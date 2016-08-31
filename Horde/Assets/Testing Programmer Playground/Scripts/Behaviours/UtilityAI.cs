@@ -233,9 +233,9 @@ public class UtilityAI : MonoBehaviour {
         public enum OperatorType
         {
             Addition,
-            Subtraction,
+            //Subtraction,
             Multiplication,
-            Division,
+            //Division,
         }
         private OperatorType m_operator = OperatorType.Multiplication;
         private UtilityInfo m_utilityA = null;
@@ -264,15 +264,15 @@ public class UtilityAI : MonoBehaviour {
                         case OperatorType.Addition:
                             score += m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
                             break;
-                        case OperatorType.Subtraction:
-                            score -= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                            break;
+                        //case OperatorType.Subtraction:
+                        //    score -= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
+                        //    break;
                         case OperatorType.Multiplication:
                             score *= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
                             break;
-                        case OperatorType.Division:
-                            score /= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                            break;
+                        //case OperatorType.Division:
+                        //    score /= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
+                        //    break;
                         default:
                             break;
                     }

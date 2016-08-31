@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UtilityMath
 {
@@ -100,6 +102,11 @@ public class UtilityMath
 
 public class UtilityAI : MonoBehaviour {
 
+
+    
+
+    
+
     [System.Serializable]
     public class UtilityValue
     {
@@ -131,17 +138,21 @@ public class UtilityAI : MonoBehaviour {
             InverseQuadratic
         }
 
-        private float m_min = 0;
-        private float m_max = 0;
+        // private begin
+        public float m_min = 0;
+        public float m_max = 0;
 
-        private float m_value = 0;
-        private float m_normalisedValue = 0;
+        public float m_value = 0;
+        public float m_normalisedValue = 0;
 
-        private NormalisationFormula m_normalisationType;
+        public NormalisationFormula m_normalisationType;
         private float m_exponentialPower = 1.0f;
         private float m_quadraticCoefficientA = 1.0f;
         private float m_quadraticCoefficientB = 1.0f;
         private float m_quadraticCoefficientC = 0.0f;
+        //private end
+
+
 
         public void SetMinMaxValues(float pMin, float pMax)
         {
@@ -166,7 +177,7 @@ public class UtilityAI : MonoBehaviour {
             m_quadraticCoefficientB = pB;
             m_quadraticCoefficientC = pC;
         }
-        public float Evaulate()
+        public float Evaluate()
         {
             m_normalisedValue = 0;
             switch (m_normalisationType)
@@ -212,85 +223,168 @@ public class UtilityAI : MonoBehaviour {
     }
 
     [System.Serializable]
-    public class UtilityScore
+    public class UtilityNode/*: MonoBehaviour*/
     {
-        [System.Serializable]
-        public class UtilityInfo
+        public string m_identifier = "test";
+        public virtual float Evaluate() { return 0; }
+        //public virtual float Evaluation { get { return 0; } }
+    }
+
+    [System.Serializable]
+    public class UtilityInfo : UtilityNode
+    {
+        public UtilityInfo()
+            : this(new UtilityValue(), 1.0f)
         {
-            public UtilityInfo()
-                :this(new UtilityValue(), 1.0f)
-            {
-            }
-            public UtilityInfo(UtilityValue pValue, float pModifier)
-            {
-                m_value = pValue;
-                m_modifier = pModifier;
-            }
-            public UtilityValue m_value;
-            public float m_modifier;
         }
+        public UtilityInfo(UtilityValue pValue, float pModifier)
+        {
+            m_value = pValue;
+            m_modifier = pModifier;
+        }
+        public UtilityValue m_value;
+        public float m_modifier; // weight of the score
+        public override float Evaluate()
+        {
+            return m_value.Evaluate() * m_modifier;
+        }
+    }
+
+    [System.Serializable]
+    public class UtilityCombination : UtilityInfo
+    {
 
         public enum OperatorType
         {
             Addition,
-            //Subtraction,
             Multiplication,
+            //Subtraction,
             //Division,
         }
-        private OperatorType m_operator = OperatorType.Multiplication;
-        private UtilityInfo m_utilityA = null;
-        private UtilityInfo m_utilityB = null;
+        public OperatorType m_operator = OperatorType.Multiplication;
+        //private
+        //public UtilityInfo m_utilityA = null;
+        //public void SetUtilityA(UtilityValue pValue, float pModifier)
+        //{
+        //    m_utilityA = new UtilityInfo(pValue, pModifier);
+        //}
+        //public void SetUtilityA(UtilityInfo pInfo)
+        //{
+        //    m_utilityA = pInfo;
+        //}
 
-        public void SetUtilityA(UtilityValue pValue, float pModifier)
-        {
-            m_utilityA = new UtilityInfo(pValue, pModifier);
-        }
+
+        public UtilityInfo m_utilityB = null;
+
         public void SetUtilityB(UtilityValue pValue, float pModifier)
         {
             m_utilityB = new UtilityInfo(pValue, pModifier);
         }
 
+        public void SetUtilityB(UtilityInfo pInfo)
+        {
+            m_utilityB = pInfo;
+        }
+
+
+        //public float GetUtilityScore()
+        //{
+        //    float score = 0.0f;
+        //    if (m_utilityA != null)
+        //    {
+        //        score = m_utilityA.Evaluate();
+        //        if (m_utilityB != null)
+        //        {
+        //            switch (m_operator)
+        //            {
+        //                case OperatorType.Addition:
+        //                    score += m_utilityB.Evaluate();
+        //                    break;
+        //                case OperatorType.Multiplication:
+        //                    score *= m_utilityB.Evaluate();
+        //                    break;
+        //                //case OperatorType.Subtraction:
+        //                //    score -= m_utilityB.m_value.Evaulate() * m_utilityB.m_modifier;
+        //                //    break;
+        //                //case OperatorType.Division:
+        //                //    score /= m_utilityB.m_value.Evaulate() * m_utilityB.m_modifier;
+        //                //    break;
+        //                default:
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //    return score;
+        //}
+
         public float GetUtilityScore()
         {
             float score = 0.0f;
-            if (m_utilityA != null)
+            score = base.Evaluate();
+            if (m_utilityB != null)
             {
-                score = m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-
-                if (m_utilityB != null)
+                switch (m_operator)
                 {
-                    switch (m_operator)
-                    {
-                        case OperatorType.Addition:
-                            score += m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                            break;
-                        //case OperatorType.Subtraction:
-                        //    score -= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                        //    break;
-                        case OperatorType.Multiplication:
-                            score *= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                            break;
-                        //case OperatorType.Division:
-                        //    score /= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
-                        //    break;
-                        default:
-                            break;
-                    }
+                    case OperatorType.Addition:
+                        score += m_utilityB.Evaluate();
+                        break;
+                    case OperatorType.Multiplication:
+                        score *= m_utilityB.Evaluate();
+                        break;
+                    //case OperatorType.Subtraction:
+                    //    score -= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
+                    //    break;
+                    //case OperatorType.Division:
+                    //    score /= m_utilityA.m_value.Evaulate() * m_utilityA.m_modifier;
+                    //    break;
+                    default:
+                        break;
                 }
-
             }
             return score;
         }
+
+
+        public override float Evaluate()
+        {
+            return GetUtilityScore();
+        }
     }
+
+    public UtilityInfo m_info;
+    public UtilityCombination m_combo;
+
+
 
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    void Start ()
+    {
+        m_info = new UtilityInfo();
+        m_combo = new UtilityCombination();
+        m_combo.SetUtilityB(new UtilityValue(), 1.0f);
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 	
 	}
 }
+
+
+//[CustomEditor(typeof(UtilityCombination))]
+//public class MyScriptEditor : Editor
+//{
+//    void OnInspectorGUI()
+//    {
+//        var myScript = target as MyScript;
+
+//        myScript.flag = GUILayout.Toggle(myScript.flag, "Flag");
+
+//        if (myScript.flag)
+//            myScript.i = EditorGUILayout.IntSlider("I field:", myScript.i, 1, 100);
+
+//    }
+//}
+

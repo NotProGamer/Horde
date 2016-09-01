@@ -25,17 +25,17 @@ public class Brain : MonoBehaviour {
             // evaluate
             foreach (Behaviour behaviour in m_behaviours)
             {
-                float evaluation = behaviour.Evaluate();
-                if (nextBehaviour == null)
-                {
-                    nextBehaviour = behaviour;
-                    nextEvaluation = evaluation;
-                }
-                else if (evaluation > nextEvaluation)
-                {
-                    nextBehaviour = behaviour;
-                    nextEvaluation = evaluation;
-                }
+                //float evaluation = behaviour.Evaluate();
+                //if (nextBehaviour == null)
+                //{
+                //    nextBehaviour = behaviour;
+                //    nextEvaluation = evaluation;
+                //}
+                //else if (evaluation > nextEvaluation)
+                //{
+                //    nextBehaviour = behaviour;
+                //    nextEvaluation = evaluation;
+                //}
             }
             // find best bahaviour
 

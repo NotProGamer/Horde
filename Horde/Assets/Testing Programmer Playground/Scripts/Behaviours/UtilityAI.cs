@@ -99,13 +99,51 @@ public class UtilityMath
     }
 }
 
-
 public class UtilityAI : MonoBehaviour {
 
+    public enum Evaluations
+    {
+        eval1,
+        eval2,
+        eval3
+    }
 
-    
+    public enum Behaviours
+    {
+        behaviour1,
+        behaviour2
+    }
 
-    
+    public enum ROperator
+    {
+        None,
+        Addition,
+        Multiplication,
+    }
+
+    [System.Serializable]
+    public class Eval
+    {
+        public Evaluations m_eval;
+        public ROperator m_operator = ROperator.None;
+    }
+
+    [System.Serializable]
+    public class BehaveEval
+    {
+        public List<Eval> m_evaluations;
+        public Behaviours m_behaviour;
+    }
+
+    public List<BehaveEval> m_behaviours;
+
+
+
+    /// <summary>
+    /// end
+    /// </summary>
+
+    //public List<UtilityBehaviour> m_utilityBehaviours;
 
     [System.Serializable]
     public class UtilityValue
@@ -223,15 +261,7 @@ public class UtilityAI : MonoBehaviour {
     }
 
     [System.Serializable]
-    public class UtilityNode/*: MonoBehaviour*/
-    {
-        public string m_identifier = "test";
-        public virtual float Evaluate() { return 0; }
-        //public virtual float Evaluation { get { return 0; } }
-    }
-
-    [System.Serializable]
-    public class UtilityInfo : UtilityNode
+    public class UtilityInfo/* : UtilityNode*/
     {
         public UtilityInfo()
             : this(new UtilityValue(), 1.0f)
@@ -244,7 +274,7 @@ public class UtilityAI : MonoBehaviour {
         }
         public UtilityValue m_value;
         public float m_modifier; // weight of the score
-        public override float Evaluate()
+        public /*override*/ virtual float Evaluate()
         {
             return m_value.Evaluate() * m_modifier;
         }
@@ -351,8 +381,7 @@ public class UtilityAI : MonoBehaviour {
         }
     }
 
-    public UtilityInfo m_info;
-    public UtilityCombination m_combo;
+    
 
 
 
@@ -360,9 +389,9 @@ public class UtilityAI : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        m_info = new UtilityInfo();
-        m_combo = new UtilityCombination();
-        m_combo.SetUtilityB(new UtilityValue(), 1.0f);
+        //m_info = new UtilityInfo();
+        //m_combo = new UtilityCombination();
+        //m_combo.SetUtilityB(new UtilityValue(), 1.0f);
     }
 	
 	// Update is called once per frame
@@ -370,6 +399,25 @@ public class UtilityAI : MonoBehaviour {
     {
 	
 	}
+
+    //[System.Serializable]
+    //public class UtilityBehaviour
+    //{
+    //    public List<string> m_information;
+    //    public BaseBehaviour m_behaviour;
+    //}
+
+    //[System.Serializable]
+    //public class UtilityNode/*: MonoBehaviour*/
+    //{
+    //    public string m_identifier = "test";
+    //    public virtual float Evaluate() { return 0; }
+    //    //public virtual float Evaluation { get { return 0; } }
+    //}
+
+
+    //public UtilityInfo m_info;
+    //public UtilityCombination m_combo;
 }
 
 

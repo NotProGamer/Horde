@@ -1417,6 +1417,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 162c72b7f6137e348b02ce3afd567156, type: 2}
     - target: {fileID: 186686, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
       propertyPath: m_Name
       value: ZombieDesigner (1)
@@ -8205,8 +8209,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -53.300003}
-  m_SizeDelta: {x: 199.7, y: 120}
+  m_AnchoredPosition: {x: 349, y: 0}
+  m_SizeDelta: {x: 447, y: 68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &270660970
 MonoBehaviour:
@@ -14705,7 +14709,7 @@ Transform:
 --- !u!4 &496144204 stripped
 Transform:
   m_PrefabParentObject: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-  m_PrefabInternal: {fileID: 1219492738}
+  m_PrefabInternal: {fileID: 1313977060}
 --- !u!1001 &497154131
 Prefab:
   m_ObjectHideFlags: 0
@@ -15740,8 +15744,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 175, y: 0.000010967}
-  m_SizeDelta: {x: 72.1, y: 47.912}
+  m_AnchoredPosition: {x: 186.9, y: 0}
+  m_SizeDelta: {x: 94, y: 59.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537041254
 MonoBehaviour:
@@ -15764,11 +15768,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4aa3ae5165a17cd42b0660652bfcb5eb, type: 3}
-    m_FontSize: 30
+    m_FontSize: 50
     m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -15860,10 +15864,10 @@ RectTransform:
   - {fileID: 270660969}
   m_Father: {fileID: 147983324}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -150}
-  m_SizeDelta: {x: 500, y: 300}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: 1481, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539381608
 MonoBehaviour:
@@ -27049,7 +27053,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -827, y: 76}
+  m_AnchoredPosition: {x: -857, y: 310}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &907938344
@@ -28134,8 +28138,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -85}
-  m_SizeDelta: {x: 250, y: 100}
+  m_AnchoredPosition: {x: 234.3, y: -18.1}
+  m_SizeDelta: {x: 254.3, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &941021817
 MonoBehaviour:
@@ -28158,7 +28162,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4aa3ae5165a17cd42b0660652bfcb5eb, type: 3}
-    m_FontSize: 75
+    m_FontSize: 65
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -36589,52 +36593,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a63ceb61d4fa85f4d85ec69d9f535317, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &1219492738
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1295692191}
-    m_Modifications:
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -69.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -139.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 186686, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-      propertyPath: m_Name
-      value: ZombieDesigner (14)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1221898312
 Prefab:
   m_ObjectHideFlags: 0
@@ -39645,6 +39603,52 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 471116, guid: 4d9d96643964022489af6df78f2a2339, type: 2}
   m_PrefabInternal: {fileID: 1313536650}
+--- !u!1001 &1313977060
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1295692191}
+    m_Modifications:
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -69.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -139.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 433314, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 186686, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+      propertyPath: m_Name
+      value: ZombieDesigner (14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f26d60e1f8841c1459d3dcecc0f0eff7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1315841661
 Prefab:
   m_ObjectHideFlags: 0
@@ -41731,7 +41735,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 125, y: 163}
+  m_AnchoredPosition: {x: 125, y: 403}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1377673471
@@ -44052,7 +44056,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 193.8, y: 0.53904}
+  m_AnchoredPosition: {x: 271, y: 4}
   m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471799867

@@ -22,6 +22,7 @@ public class UtilityEvaluations : MonoBehaviour {
         {
             case UtilityAI.Evaluations.eval1:
                 // Code Value
+                //result = Evaluation1();
                 break;
             case UtilityAI.Evaluations.eval2:
                 break;
@@ -34,5 +35,10 @@ public class UtilityEvaluations : MonoBehaviour {
 
         return result;
     }
+
+    //private float Evaluation1()
+    //{
+    //    return 0;
+    //}
 }
 

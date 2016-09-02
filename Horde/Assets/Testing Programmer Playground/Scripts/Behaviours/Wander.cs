@@ -3,13 +3,17 @@ using System.Collections;
 
 public class Wander : BaseBehaviour {
 
+    public Wander(GameObject pParent):base(pParent)
+    {
+    }
+
     // Update is called once per frame
-    public override void Update()
+    public override Status Update()
     {
         // if arrived at destination
-            // calculate nearby desitination, 
-            // find closest destination is on nav mesh
+        // calculate nearby desitination, 
+        // find closest destination is on nav mesh
         // head to the destination
-
+        return Status.FAILURE;
     }
 }

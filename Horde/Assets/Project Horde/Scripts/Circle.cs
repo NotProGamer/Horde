@@ -11,20 +11,62 @@ public class Circle : MonoBehaviour
     private float nextIncrement = 0f;
     public float incrementDelay = 1f;
 
+    private UserController m_userController = null;
+
     LineRenderer line;
 
+
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+        if (obj)
+        {
+            m_userController = obj.GetComponent<UserController>();
+            if (m_userController == null)
+            {
+                Debug.Log("User Controller not included");
+            }
+        }
+
+    }
     void Start()
     {
-        line = GetComponent<LineRenderer>();
+        line = gameObject.GetComponent<LineRenderer>();
         line.SetVertexCount(segments + 1);
         line.useWorldSpace = false;
         radius = minRadius;
+
+
+
+
+
     }
 
     void Update()
     {
+        if (m_userController != null)
+        {
+            if (m_userController.m_state == UserControllerState.Tapped)
+            {
+                   /// do stuff
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (Time.time > nextIncrement)
         {
+
             increment = (maxRadius - minRadius) / 10;
             radius += increment;
             nextIncrement = Time.time + incrementDelay;

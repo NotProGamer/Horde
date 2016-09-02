@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Circle : MonoBehaviour
+public class NoiseVisualization : MonoBehaviour
 {
     public int segments;
     public float radius;
@@ -13,6 +13,9 @@ public class Circle : MonoBehaviour
 
     LineRenderer line;
 
+
+    private Tapper m_tapperScript = null;
+
     void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -23,8 +26,12 @@ public class Circle : MonoBehaviour
 
     void Update()
     {
+
+
+
         if (Time.time > nextIncrement)
         {
+
             increment = (maxRadius - minRadius) / 10;
             radius += increment;
             nextIncrement = Time.time + incrementDelay;

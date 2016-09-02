@@ -14,6 +14,8 @@ public class Wander : BaseBehaviour {
         // calculate nearby desitination, 
         // find closest destination is on nav mesh
         // head to the destination
-        return Status.FAILURE;
+
+        Debug.Log("Wander");
+        return Status.SUCCESS;
     }
 }

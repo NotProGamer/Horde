@@ -13,34 +13,18 @@ public class UtilityBehaviours : MonoBehaviour {
         testa,
         testb,
     }
-
-    //public class Boot : IComparable<Boot>
-    //{
-    //    public int value = 0;
-    //    public int CompareTo(Boot other)
-    //    {
-    //        if (other == null)
-    //        {
-    //            return 1;
-    //        }
-    //        return value - other.value;
-    //    }
-    //    public void Tick() { }
-    //}
-
-    public class FootWear 
+    public class BehaviourExample
     {
         public virtual void Tick() { }
     }
-
-    public class Boot : FootWear
+    public class BehaviourExampleA : BehaviourExample
     {
         public override void Tick() { Debug.Log("boot"); }
     }
-    public class Shoe : FootWear
+    public class BehaviourExampleB : BehaviourExample
     {
         private GameObject m_parent = null;
-        public Shoe(GameObject pParent)
+        public BehaviourExampleB(GameObject pParent)
         {
             m_parent = pParent;
         }
@@ -59,41 +43,34 @@ public class UtilityBehaviours : MonoBehaviour {
         }
     }
 
-
-    Dictionary<BehaviourNames, FootWear> footwears = new Dictionary<BehaviourNames, FootWear>();
+    Dictionary<BehaviourNames, BehaviourExample> behavioursExample = new Dictionary<BehaviourNames, BehaviourExample>();
 
     // Use this for initialization
     void Start () {
-        FootWear leftfoot = new Boot();
-        FootWear rightfoot = new Shoe(this.gameObject);
-        footwears.Add(BehaviourNames.testa, leftfoot);
-        footwears.Add(BehaviourNames.testb, rightfoot);
-
-
-
+        BehaviourExample exampleA = new BehaviourExampleA();
+        BehaviourExample exampleB = new BehaviourExampleB(this.gameObject);
+        behavioursExample.Add(BehaviourNames.testa, exampleA);
+        behavioursExample.Add(BehaviourNames.testb, exampleB);
     }
 
-    void RunBehaviour(BehaviourNames name)
+    void RunBehaviour(BehaviourNames pName)
     {
-        FootWear footwear = null;
-
-        if (footwears.TryGetValue(name, out footwear))
+        BehaviourExample behaviourExample = null;
+        if (behavioursExample.TryGetValue(pName, out behaviourExample))
         {
             // success
-            footwear.Tick();
+            behaviourExample.Tick();
         }
         else
         {
             // fail
+            Debug.Log("Unable to Locate Behaviour: " + pName.ToString());
         }
-
     }
 
 
     // Update is called once per frame
-    void Update () {
-	
-	}
+    //void Update ()    {	}
 
 
 }

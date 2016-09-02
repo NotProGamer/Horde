@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // notes 
 // http://davidlegare.ghost.io/behavior-trees-1/
@@ -58,12 +59,147 @@ public class BaseBehaviour /*:*/ /*ScriptableObject,*/ /*IBehaviour*/
 
 public class CompositeBehaviour: BaseBehaviour
 {
-    // csharp type def
+    protected List<BaseBehaviour> m_children;
 
     public CompositeBehaviour(GameObject pParent) : base(pParent)
+    {
+        m_children = new List<BaseBehaviour>();
+    }
+
+
+}
+
+public class SequenceBehaviour: CompositeBehaviour
+{
+    public List<BaseBehaviour>.Enumerator m_currentSequenceChild;
+    private bool m_running = true;
+    public SequenceBehaviour(GameObject pParent) : base(pParent)
     {
         
     }
 
+    public override Status Update()
+    {
+        bool running = true;
+        while (running)
+        {
+            // run the current behaviour tick
+            Status status = m_currentSequenceChild.Current.Tick();
 
+            // if the tick is not a success return result.
+            if (status != Status.SUCCESS)
+            {
+                return status;
+            }
+
+            // move to the next behaviour, if no more behaviours return success
+            if (m_currentSequenceChild.MoveNext() == false)
+            {
+                return Status.SUCCESS;
+            }
+        }
+        // unexpected loop exit;
+        return Status.INVALID;
+    }
+    protected override void Enter()
+    {
+        //base.Enter();
+        ResetEnumerator();
+    }
+    protected override void Exit(Status pStatus)
+    {
+        //base.Exit(pStatus);
+        if (pStatus == Status.FAILURE || pStatus == Status.SUCCESS)
+        {
+            ResetEnumerator();
+        }
+    }
+
+    private void ResetEnumerator()
+    {
+        m_running = true;
+        m_currentSequenceChild = m_children.GetEnumerator();
+        m_running = m_currentSequenceChild.MoveNext();
+    }
+}
+
+public class SelectorBehaviour : CompositeBehaviour
+{
+    public List<BaseBehaviour>.Enumerator m_currentSequenceChild;
+    private bool m_running = true;
+    public SelectorBehaviour(GameObject pParent) : base(pParent)
+    {
+
+    }
+
+    public override Status Update()
+    {
+        bool running = true;
+        while (running)
+        {
+            // run the current behaviour tick
+            Status status = m_currentSequenceChild.Current.Tick();
+
+            // if the tick is not a failure return result.
+            if (status != Status.FAILURE)
+            {
+                return status;
+            }
+
+            // move to the next behaviour, if no more behaviours return success
+            if (m_currentSequenceChild.MoveNext() == false)
+            {
+                return Status.FAILURE;
+            }
+        }
+        // unexpected loop exit;
+        return Status.INVALID;
+    }
+    protected override void Enter()
+    {
+        //base.Enter();
+        ResetEnumerator();
+    }
+    protected override void Exit(Status pStatus)
+    {
+        //base.Exit(pStatus);
+        if (pStatus == Status.SUCCESS)
+        {
+            ResetEnumerator();
+        }
+    }
+
+    private void ResetEnumerator()
+    {
+        m_running = true;
+        m_currentSequenceChild = m_children.GetEnumerator();
+        m_running = m_currentSequenceChild.MoveNext();
+    }
+}
+
+public class NotDecoratorBehaviour: BaseBehaviour
+{
+    public NotDecoratorBehaviour(GameObject pParent) : base(pParent)
+    {
+        
+    }
+    public override Status Update()
+    {
+        
+        Status status = Tick();
+
+        switch (status)
+        {
+            case Status.SUCCESS:
+                status = Status.FAILURE;
+                break;
+            case Status.FAILURE:
+                status = Status.SUCCESS;
+                break;
+            default:
+                break;
+        }
+
+        return status;
+    }
 }

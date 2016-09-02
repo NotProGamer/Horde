@@ -4,6 +4,11 @@ using System.Collections;
 public class UtilityEvaluations : MonoBehaviour {
 
     UtilityAI.Evaluations test;
+
+
+
+
+
 	// Use this for initialization
 	void Start () {
 	

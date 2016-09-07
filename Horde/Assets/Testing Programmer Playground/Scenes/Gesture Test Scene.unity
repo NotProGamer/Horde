@@ -7391,9 +7391,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1446068261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e337fa270e519f1438533d0234b0dacc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d043cc9f87a7a3488be9f540774a37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_behaviourEvaluations: []
 --- !u!114 &1446068264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7416,6 +7417,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa51f6a1665a9e4fa5b485c3d3140d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_healthFormula:
+    m_min: 0
+    m_max: 1
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_enemyCountFormula:
+    m_min: 0
+    m_max: 1
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!1001 &1463203192
 Prefab:
   m_ObjectHideFlags: 0

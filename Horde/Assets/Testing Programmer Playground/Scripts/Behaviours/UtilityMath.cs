@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 static public class UtilityMath {
     static public class SimpleRule
     {

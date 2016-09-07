@@ -5,52 +5,50 @@ using System.Collections.Generic;
 
 public class UtilityEvaluations : MonoBehaviour {
 
-    ExampleUtilityAI.Evaluations test;
-
     public Dictionary<Evaluations, UtilityMath.UtilityValue> m_test = new Dictionary<Evaluations, UtilityMath.UtilityValue>();
 
     public enum Evaluations
     {
         Health,
+        EnemyCount
     }
 
-
+    public UtilityMath.UtilityValue m_healthFormula;
+    public UtilityMath.UtilityValue m_enemyCountFormula;
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    void Start ()
+    {
+        m_test.Add(Evaluations.Health, m_healthFormula);
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    public float Evaluation(ExampleUtilityAI.Evaluations evaluation)
+    public float Evaluation(Evaluations pEvaluation)
     {
         float result = 0f;
 
-        switch (evaluation)
+        UtilityMath.UtilityValue evaluator = null;
+        if (m_test.TryGetValue(pEvaluation, out evaluator))
         {
-            case ExampleUtilityAI.Evaluations.eval1:
-                // Code Value
-                //result = Evaluation1();
-                break;
-            case ExampleUtilityAI.Evaluations.eval2:
-                break;
-            case ExampleUtilityAI.Evaluations.eval3:
-                break;
-            default:
-                break;
+            // success
+            result = evaluator.Evaluate();
         }
-
+        else
+        {
+            // fail
+            Debug.Log("Unable to Locate Evalutaion: " + pEvaluation.ToString());
+        }
 
         return result;
     }
 
-    //private float Evaluation1()
-    //{
-    //    return 0;
-    //}
+    private float Evaluation1()
+    {
+        return 0;
+    }
 }
 

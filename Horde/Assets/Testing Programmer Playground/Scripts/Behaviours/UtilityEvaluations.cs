@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 
 public class UtilityEvaluations : MonoBehaviour {
 
-    UtilityAI.Evaluations test;
+    ExampleUtilityAI.Evaluations test;
+
+    public Dictionary<Evaluations, UtilityMath.UtilityValue> m_test = new Dictionary<Evaluations, UtilityMath.UtilityValue>();
+
+    public enum Evaluations
+    {
+        Health,
+    }
 
 
 
-
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -21,19 +26,19 @@ public class UtilityEvaluations : MonoBehaviour {
 	
 	}
 
-    public float Evaluation(UtilityAI.Evaluations evaluation)
+    public float Evaluation(ExampleUtilityAI.Evaluations evaluation)
     {
         float result = 0f;
 
         switch (evaluation)
         {
-            case UtilityAI.Evaluations.eval1:
+            case ExampleUtilityAI.Evaluations.eval1:
                 // Code Value
                 //result = Evaluation1();
                 break;
-            case UtilityAI.Evaluations.eval2:
+            case ExampleUtilityAI.Evaluations.eval2:
                 break;
-            case UtilityAI.Evaluations.eval3:
+            case ExampleUtilityAI.Evaluations.eval3:
                 break;
             default:
                 break;

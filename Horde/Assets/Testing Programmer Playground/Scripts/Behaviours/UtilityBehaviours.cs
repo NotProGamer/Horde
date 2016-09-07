@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 // dictionary reference : https://unity3d.com/learn/tutorials/modules/intermediate/scripting/lists-and-dictionaries
 
+    // if have written this script as an example of how the Behaviour Controller will work.
+    // The Behaviour Example Class will need to be replaced by the BaseBehaviour class.
 
 public class UtilityBehaviours : MonoBehaviour {
 

@@ -2,33 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ZombieMovement : MonoBehaviour {
+public class ZombieMovement : Movement
+{
+    // references .. parenting on top of monobehaviour, http://answers.unity3d.com/questions/362575/inheritance-hides-start.html
 
-    private NavMeshAgent m_nav = null;
-    private float m_touchRange = 1f; // may need to get this from attackRange or moveRange
-
-    public float m_minSpeed = 1f;
-    public float m_maxSpeed = 10f;
-    private float m_currentSpeed = 1f;
-
-    public Vector3 m_currentDestination = new Vector3();
-
-
-    public enum State
+    new void Awake()
     {
-        Idle,
-        Moving,
-    }
-    public State m_state = State.Idle;
-
-    void Awake()
-    {
-        m_nav = GetComponent<NavMeshAgent>();
-        if (m_nav == null)
-        {
-            Debug.Log("NavMeshAgent not included");
-        }
-
+        base.Awake();
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
         {
@@ -37,7 +17,6 @@ public class ZombieMovement : MonoBehaviour {
             {
                 Debug.Log("NoiseManager not included!");
             }
-
         }
         else
         {
@@ -46,57 +25,20 @@ public class ZombieMovement : MonoBehaviour {
     }
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    new void Start ()
     {
-        m_currentSpeed = m_minSpeed;
-        m_currentDestination = transform.position;
+        base.Start();
         m_audibleNoises = new List<Noise>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    new void Update ()
     {
         //SetDestination(GetCurrentTargetPosition());
         Think();
-        if (m_nav)
-        {
-            if (ReachedDestination())
-            {
-                m_state = State.Idle;
-                //m_nav.Stop();
-            }
-        }
+        base.Update();
     }
-
-
-    void SetDestination(Vector3 position)
-    {
-        if (m_nav)
-        {
-            m_state = State.Moving;
-            m_currentDestination = position;
-            m_nav.speed = m_currentSpeed;
-            m_nav.SetDestination(m_currentDestination);
-            //m_nav.Resume();
-        }
-    }
-    private bool ReachedDestination()
-    {
-        bool result = false;
-        if (m_nav)
-        {
-            result = m_nav.remainingDistance <= m_touchRange;
-        }
-
-        return result;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        m_currentSpeed = Mathf.Clamp(speed, m_minSpeed, m_maxSpeed);
-    }
-
 
     // The following code is more to do with behaviour and will later be move out of this script
     private Noise m_mostAudibleNoise = null;

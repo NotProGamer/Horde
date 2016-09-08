@@ -2,32 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class HumanMovement : MonoBehaviour {
+public class HumanMovement : Movement {
 
-    private NavMeshAgent m_nav = null;
-    public Vector3 m_currentDestination = new Vector3();
-    private float m_touchRange = 1f; // may need to get this from attackRange or moveRange
-
-    public float m_minSpeed = 3f;
-    public float m_maxSpeed = 10f;
-    private float m_currentSpeed = 3f;
-    
-
-    public enum State
+    new void Awake()
     {
-        Idle,
-        Moving,
-    }
-    public State m_state = State.Idle;
-
-    void Awake()
-    {
-        m_nav = GetComponent<NavMeshAgent>();
-        if (m_nav == null)
-        {
-            Debug.Log("NavMeshAgent not included");
-        }
-
+        base.Awake();
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
         {
@@ -41,55 +20,23 @@ public class HumanMovement : MonoBehaviour {
         {
             Debug.Log("GameController not included!");
         }
-
     }
 
     // Use this for initialization
-    void Start ()
+    new void Start ()
     {
-
-        m_currentSpeed = m_minSpeed;
-        m_currentDestination = transform.position;
+        base.Start();
         RequestPatrolRoute();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    new void Update ()
     {
         Patrol();
-        if (m_nav)
-        {
-            if (ReachedDestination())
-            {
-                m_state = State.Idle;
-            }
-        }
+        base.Update();
     }
 
-    public void SetDestination(Vector3 position)
-    {
-        if (m_nav)
-        {
-            m_state = State.Moving;
-            m_currentDestination = position;
-            m_nav.speed = m_currentSpeed;
-            m_nav.SetDestination(m_currentDestination);
-        }
-    }
-    private bool ReachedDestination()
-    {
-        bool result = false;
-        if (m_nav)
-        {
-            result = m_nav.remainingDistance <= m_touchRange;
-        }
 
-        return result;
-    }
-    public void SetSpeed(float speed)
-    {
-        m_currentSpeed = Mathf.Clamp(speed, m_minSpeed, m_maxSpeed);
-    }
 
     // The following code is more to do with behaviour and will later be move out of this script
 

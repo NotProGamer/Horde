@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour {
 
     public float m_minSpeed = 3f;
     public float m_maxSpeed = 10f;
-    private float m_currentSpeed = 3f;
+    protected float m_currentSpeed = 3f;
 
 
     public enum State
@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour {
     }
     public State m_state = State.Idle;
 
-    void Awake()
+    protected void Awake()
     {
         m_nav = GetComponent<NavMeshAgent>();
         if (m_nav == null)
@@ -29,7 +29,7 @@ public class Movement : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start()
+    protected void Start()
     {
 
         m_currentSpeed = m_minSpeed;
@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (m_nav)
         {
@@ -59,7 +59,7 @@ public class Movement : MonoBehaviour {
             m_nav.SetDestination(m_currentDestination);
         }
     }
-    private bool ReachedDestination()
+    public bool ReachedDestination()
     {
         bool result = false;
         if (m_nav)

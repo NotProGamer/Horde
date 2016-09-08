@@ -2,24 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-public class UtilityEvaluations : MonoBehaviour {
+public class ZombieUtilityEvaluations : MonoBehaviour {
 
     public Dictionary<Evaluations, UtilityMath.UtilityValue> m_test = new Dictionary<Evaluations, UtilityMath.UtilityValue>();
 
     public enum Evaluations
     {
         Health,
-        EnemyCount
+        Damage,
     }
 
     public UtilityMath.UtilityValue m_healthFormula;
-    public UtilityMath.UtilityValue m_enemyCountFormula;
-
-    //private float Evaluation1()
-    //{
-    //    return 0;
-    //}
+    public UtilityMath.UtilityValue m_damageFormula;
 
     private Health m_healthScript = null;
 
@@ -39,12 +33,15 @@ public class UtilityEvaluations : MonoBehaviour {
         {
             //m_healthFormula = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Exponential, 0, m_healthScript.m_maxHealth);
             m_healthFormula.SetMinMaxValues(0, m_healthScript.m_maxHealth);
+            m_damageFormula.SetMinMaxValues(0, m_healthScript.m_maxHealth);
+            m_damageFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
         }
 
         m_test.Add(Evaluations.Health, m_healthFormula);
+        m_test.Add(Evaluations.Damage, m_damageFormula);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // might want to put these checks on a delay as the do not need to be checked every frame
@@ -76,27 +73,9 @@ public class UtilityEvaluations : MonoBehaviour {
         if (m_healthScript)
         {
             m_healthFormula.SetValue(m_healthScript.m_health);
+            m_damageFormula.SetValue(m_healthScript.m_health);
         }
-   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
-

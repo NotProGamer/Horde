@@ -32,7 +32,7 @@ public class BaseBehaviour /*:*/ /*ScriptableObject,*/ /*IBehaviour*/
         EMPTY,
     }
 
-    private GameObject m_parent = null;
+    protected GameObject m_parent = null;
     private Status m_status = Status.INVALID;
 
     public Status Tick()

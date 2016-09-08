@@ -128,8 +128,8 @@ static public class UtilityMath {
         }
 
         // private begin
-        public float m_min = 0;
-        public float m_max = 0;
+        private float m_min = 0;
+        private float m_max = 0;
 
         public float m_value = 0;
         public float m_normalisedValue = 0;

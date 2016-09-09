@@ -7418,8 +7418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_healthFormula:
-    m_value: 0
-    m_normalisedValue: 0
+    m_value: 100
+    m_normalisedValue: 1
     m_normalisationType: 0
   m_damageFormula:
     m_value: 0
@@ -7436,6 +7436,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83285741f4894824ebf293ced66a203e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1446068266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446068261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eff1875eaeebc54495242dc5de64348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sightRange: 10
+  m_hearingRange: 50
 --- !u!1001 &1463203192
 Prefab:
   m_ObjectHideFlags: 0

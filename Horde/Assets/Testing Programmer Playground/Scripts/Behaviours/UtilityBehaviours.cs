@@ -48,7 +48,8 @@ public class UtilityBehaviours : MonoBehaviour {
     Dictionary<BehaviourNames, BehaviourExample> behavioursExample = new Dictionary<BehaviourNames, BehaviourExample>();
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         BehaviourExample exampleA = new BehaviourExampleA();
         BehaviourExample exampleB = new BehaviourExampleB(this.gameObject);
         behavioursExample.Add(BehaviourNames.testa, exampleA);

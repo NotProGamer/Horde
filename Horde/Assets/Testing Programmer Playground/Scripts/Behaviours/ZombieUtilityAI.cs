@@ -11,13 +11,6 @@ public class ZombieUtilityAI : MonoBehaviour {
     {
         public ZombieUtilityEvaluations.Evaluations m_eval;
         public float m_weight = 1f;
-        //public float Evaluation()
-        //{
-        //    float eval = 0f;
-
-        //    return eval;
-
-        //}
     }
 
 
@@ -27,16 +20,6 @@ public class ZombieUtilityAI : MonoBehaviour {
         public float m_currentEvaluationForDebugging = 0f;
         public List<WeightedEvaluation> m_evaluations;
         public ZombieUtilityBehaviours.BehaviourNames m_behaviourName;
-        //public void Evaluate()
-        //{
-        //    for(int i = 0; i < m_evaluations.Count; i++)
-        //    {
-        //        if (i == 0)
-        //        {
-        //            //m_evaluation = m_evaluations[0].m_eval * m_evaluations[0].m_weight;
-        //        }
-        //    }
-        //}
     }
     public List<BehaviourEvaluation> m_behaviourEvaluations;
 

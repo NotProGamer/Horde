@@ -4,7 +4,7 @@ using System.Collections;
 public class Wander : BaseBehaviour {
 
     private Movement m_movementScript = null;
-    private NavMeshAgent m_nav = null;
+    //private NavMeshAgent m_nav = null;
 
     private float wanderRadius = 10f;
 
@@ -21,13 +21,6 @@ public class Wander : BaseBehaviour {
         {
             Debug.Log("Movement Script not included");
         }
-        m_nav = m_parent.GetComponent<NavMeshAgent>();
-        if (m_nav == null)
-        {
-            Debug.Log("NavMeshAgent no included.");
-        }
-
-
     }
 
     // Update is called once per frame
@@ -44,7 +37,7 @@ public class Wander : BaseBehaviour {
         // find closest destination is on nav mesh
         // head to the destination
 
-        if (m_movementScript && m_nav)
+        if (m_movementScript)
         {
             if (m_movementScript.ReachedDestination())
             {

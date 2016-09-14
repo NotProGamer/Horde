@@ -15,6 +15,10 @@ public class ZombieBrain : MonoBehaviour {
 
     // Look 
     public float m_sightRange = 10f;
+    private const int m_maxSightResults = 100;
+    private Collider[] m_sightResults = new Collider[m_maxSightResults];
+
+    public LayerMask m_lookMask;
 
     // Listen
     public float m_hearingRange = 50f;
@@ -48,9 +52,10 @@ public class ZombieBrain : MonoBehaviour {
         //{
         //    Debug.Log("Unable to find 'CurrentTarget'");
         //}
+        Look();
 
-        
-	}
+
+    }
 
     public bool GetCurrentTargetPosition(out Vector3 pTargetPosition)
     {
@@ -85,10 +90,25 @@ public class ZombieBrain : MonoBehaviour {
         return result;
     }
 
-    
+    private List<GameObject> m_enemies = new List<GameObject>();
 
     void Look()
     {
+        int count = 0;
+        count = Physics.OverlapSphereNonAlloc(transform.position, m_sightRange, m_sightResults, m_lookMask);
+
+        // get all nearby objects
+
+        if (count > 0)
+        {
+            //Debug.Log(count);
+
+            for (int i = 0; i < count; i++)
+            {
+
+            }
+
+        }
 
     }
 

@@ -30,7 +30,8 @@ public class Noise
     public Vector3 m_position = new Vector3();
     public float m_volume = 0f; // is like a range or radius of the sound
     public NoiseIdentifier m_identifier = NoiseIdentifier.Silent;
-    public float m_expiry = 0f;
+    public float m_timeCreated = 0f;
+    public float m_timeExpiry = 0f;
     //public float m_reductionOverTime;
     //private NoisePriority m_priority = NoisePriority.NoPriority;
     //private static int m_id = 0;
@@ -44,13 +45,14 @@ public class Noise
         m_position = position;
         m_volume = volume;
         m_identifier = identifier;
-        m_expiry = Time.time + expirationDelay;
+        m_timeCreated = Time.time;
+        m_timeExpiry = Time.time + expirationDelay;
         //m_id += 1; 
     }
 
     public bool IsExpired()
     {
-        return Time.time > m_expiry;
+        return Time.time > m_timeExpiry;
     }
 
     public NoiseIdentifier Identifier()
@@ -68,6 +70,130 @@ public class Noise
             audible = m_volume;
         }
         return audible;
+    }
+
+    //public int CompareTo(Noise pNoise)
+    //{
+    //    int result = 0;
+    //    if (pNoise == null)
+    //    {
+    //        result = 1;
+    //    }
+    //    else
+    //    {
+    //        // intelligent sort (humans)
+    //        //result = this.m_identifier.CompareTo(pNoise.m_identifier);
+    //        //if (result == 0)
+    //        //{
+    //        //    result = this.m_timeCreated.CompareTo(pNoise.m_timeCreated);
+    //        //    if (result == 0)
+    //        //    {
+    //        //        result = this.m_volume.CompareTo(pNoise.m_volume);
+    //        //    }
+    //        //}
+
+    //        // stupid Sort (zombies)
+    //        result = this.m_volume.CompareTo(pNoise.m_volume);
+    //        if (result == 0)
+    //        {
+    //            result = this.m_timeCreated.CompareTo(pNoise.m_timeCreated);
+    //            if (result == 0)
+    //            {
+    //                result = this.m_identifier.CompareTo(pNoise.m_identifier);
+    //            }
+    //        }
+
+    //    }
+    //    return result;
+    //}
+
+    public static int ZombieSort(Noise a, Noise b)
+    {
+        int result = 0;
+        if (a == null && b == null)
+        {
+            result = 0;
+        }
+        else if (a == null)
+        {
+            result = 1;
+        }
+        else if (b == null)
+        {
+            result = -1;
+        }
+        else
+        {
+            // stupid Sort (zombies)
+            result = a.m_volume.CompareTo(b.m_volume);
+            if (result == 0)
+            {
+                result = a.m_timeCreated.CompareTo(b.m_timeCreated);
+                if (result == 0)
+                {
+                    result = a.m_identifier.CompareTo(b.m_identifier);
+                }
+            }
+        }
+        return result;
+    }
+
+    public static int HumanSort(Noise a, Noise b)
+    {
+        int result = 0;
+        if (a == null && b == null)
+        {
+            result = 0;
+        }
+        else if (a == null)
+        {
+            result = 1;
+        }
+        else if (b == null)
+        {
+            result = -1;
+        }
+        else
+        {
+            // intelligent sort (humans)
+            result = a.m_identifier.CompareTo(b.m_identifier);
+            if (result == 0)
+            {
+                result = a.m_timeCreated.CompareTo(b.m_timeCreated);
+                if (result == 0)
+                {
+                    result = a.m_volume.CompareTo(b.m_volume);
+                }
+            }
+        }
+        return result;
+    }
+
+    public static int TapSort(Noise a, Noise b)
+    {
+        int result = 0;
+        if (a == null && b == null)
+        {
+            result = 0;
+        }
+        else if (a == null)
+        {
+            result = 1;
+        }
+        else if (b == null)
+        {
+            result = -1;
+        }
+        else
+        {
+            // tap sort
+            result = a.m_timeCreated.CompareTo(b.m_timeCreated);
+            if (result == 0)
+            {
+                result = a.m_volume.CompareTo(b.m_volume);
+            }
+        }
+        return result;
     }
 
     //public float CalculateAudabilityFromPosition(Vector3 audiencePosition)
@@ -228,30 +354,58 @@ public class NoiseManager : MonoBehaviour {
     }
 
     public NoiseList m_noiseLibrary = new NoiseList();
+    public NoiseList m_userTapLibrary = new NoiseList();
 
     // Update is called once per frame
     void Update()
     {
         m_noiseLibrary.Update(Time.deltaTime);
+        m_userTapLibrary.Update(Time.deltaTime);
     }
 
     //public Noise GetMostAudibleNoise(Vector3 position, bool usingNoisePriority = false)
     //{
     //    return m_noiseLibrary.GetMostAudibleNoise(position, usingNoisePriority);
     //}
-    public void GetAudibleNoisesAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition)
+    public void GetAudibleNoisesAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float createdAfter = 0f)
     {
         foreach (Noise noise in m_noiseLibrary.m_noises)
         {
-            if (noise.GetVolumeIfAudible(audiencePosition) > 0)
+            if (noise.m_timeCreated >= createdAfter)
             {
-                audibleNoises.Add(noise);
+                if (noise.GetVolumeIfAudible(audiencePosition) > 0)
+                {
+                    audibleNoises.Add(noise);
+                }
             }
         }
     }
+
+    public void GetUserTapsAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float createdAfter = 0f)
+    {
+        foreach (Noise noise in m_userTapLibrary.m_noises)
+        {
+            if (noise.m_timeCreated >= createdAfter)
+            {
+                if (noise.GetVolumeIfAudible(audiencePosition) > 0)
+                {
+                    audibleNoises.Add(noise);
+                }
+            }
+        }
+    }
+
     public Noise Add(Vector3 position, float volume, float expirationDelay, NoiseIdentifier identifier = NoiseIdentifier.Silent)
     {
-        return m_noiseLibrary.Add(position, volume, expirationDelay, identifier);
+        if (identifier == NoiseIdentifier.UserTap)
+        {
+            return m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
+        }
+        else
+        {
+            return m_noiseLibrary.Add(position, volume, expirationDelay, identifier);
+        }
+        
     }
 
     public void Remove(Noise noise)

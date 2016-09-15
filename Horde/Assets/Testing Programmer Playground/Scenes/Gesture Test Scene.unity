@@ -7425,6 +7425,30 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 1
+  m_enemyInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_corspeInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_boredomFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_canHearUserTapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_canHearNoiseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_interestInUsertapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!114 &1446068265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7448,7 +7472,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sightRange: 10
-  m_hearingRange: 50
+  m_sightMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_boredomIncrement: 10
+  m_maxBoredom: 100
+  m_currentBoredom: 0
+  m_tapInterest: 2
+  m_attackRange: 1
+  m_attackDelay: 0.5
+  m_devourRange: 1
+  m_devourDelay: 0.5
 --- !u!1001 &1463203192
 Prefab:
   m_ObjectHideFlags: 0

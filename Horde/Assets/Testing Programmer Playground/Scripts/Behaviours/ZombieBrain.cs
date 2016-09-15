@@ -21,8 +21,11 @@ public class ZombieBrain : MonoBehaviour {
     public LayerMask m_sightMask;
 
     // Listen
-    public float m_hearingRange = 50f;
+    //public float m_hearingRange = 50f; // not yet implemented
 
+    public float m_boredomIncrement = 10f;
+    public float m_maxBoredom = 100f;
+    public float m_currentBoredom = 0f;
 
     void Awake()
     {
@@ -46,7 +49,10 @@ public class ZombieBrain : MonoBehaviour {
     void Start ()
     {
         m_memory.Add("CurrentTarget", transform.position);
-
+        m_memory.Add("LastUserTap", null);
+        m_memory.Add("LastPriorityNoise", null);
+        m_memory.Add("ClosestEnemy", null);
+        m_memory.Add("ClosestCorpse", null);
     }
 	
 	// Update is called once per frame
@@ -71,7 +77,54 @@ public class ZombieBrain : MonoBehaviour {
         //{
         //    Debug.Log("Unable to find 'CurrentTarget'");
         //}
+
+        //Sense
         Look();
+        Listen();
+
+        // Think
+        SortNoises();
+
+
+        // modify memory
+        if (m_userTaps.Count > 0)
+        {
+            m_memory["LastUserTap"] = m_userTaps[0];
+        }
+
+        if (m_audibleNoises.Count > 0)
+        {
+            m_memory["LastPriorityNoise"] = m_audibleNoises[0];
+        }
+
+        if (m_enemies.Count > 1)
+        {
+            m_memory["ClosestEnemy"] = GetClosest(m_enemies);
+        }
+        else if (m_enemies.Count > 0)
+        {
+            m_memory["ClosestEnemy"] = m_enemies[0];
+        }
+        else
+        {
+            m_memory["ClosestEnemy"] = null;
+        }
+
+
+        if (m_enemyCorpses.Count > 1)
+        {
+            m_memory["ClosestCorpse"] = GetClosest(m_enemyCorpses);
+        }
+        else if (m_enemyCorpses.Count > 0)
+        {
+            m_memory["ClosestCorpse"] = m_enemyCorpses[0];
+        }
+        else
+        {
+            m_memory["ClosestCorpse"] = null;
+        }
+
+
 
 
     }
@@ -112,6 +165,7 @@ public class ZombieBrain : MonoBehaviour {
     private List<GameObject> m_enemies = new List<GameObject>();
     private List<GameObject> m_enemyCorpses = new List<GameObject>();
     private List<GameObject> m_allies = new List<GameObject>();
+    
 
     // this will look at the gameobjects in sight and sorts them accordingly
 
@@ -190,16 +244,105 @@ public class ZombieBrain : MonoBehaviour {
     }
 
     private NoiseManager m_noiseManager = null;
-    private List<Noise> m_audibleNoises = null;
-    private List<Noise> m_tapsNoises = null;
+    private List<Noise> m_audibleNoises = new List<Noise>();
+    private List<Noise> m_userTaps = new List<Noise>();
+    private List<Noise> m_investigated = new List<Noise>();
+    //private float m_lastListenTime = 0f;
+
+    public float m_tapInterest = 2.0f;
+
 
     void Listen()
     {
+        
+        // Get Noises created since last listen
         m_audibleNoises.Clear();
+        m_userTaps.Clear();
+        //ClearExpiredNoises();
         if (m_noiseManager)
         {
+            //float currentListen = Time.time;
             m_noiseManager.GetAudibleNoisesAtLocation(m_audibleNoises, transform.position);
+            m_noiseManager.GetUserTapsAtLocation(m_userTaps, transform.position);
+            //m_lastListenTime = currentListen;
         }
     }
+    private void SortNoises()
+    {
+        if (m_audibleNoises.Count > 1)
+        {
+            //m_audibleNoises.Sort((a, b) => -1 * a.CompareTo(b)); // sort descending
+            m_audibleNoises.Sort((a, b) => -1 * Noise.ZombieSort(a,b)); // sort descending
+        }
+        if (m_userTaps.Count > 1)
+        {
+            m_userTaps.Sort((a, b) => -1 * Noise.TapSort(a, b)); // sort descending
+        }
+    }
+
+    public float m_attackRange = 1f;
+    public float m_attackDelay = 0.5f;
+
+    public float m_devourRange = 1f;
+    public float m_devourDelay = 0.5f;
+
+    // Getters
+
+    public int GetEnemiesInSightCount()
+    {
+        return m_enemies.Count;
+    }
+    public int GetCorpsesInSightCount()
+    {
+        return m_enemyCorpses.Count;
+    }
+    public int GetUserTapCount()
+    {
+        return m_userTaps.Count;
+    }
+    public int GetAudibleNoiseCount()
+    {
+        return m_audibleNoises.Count;
+    }
+
+    public Noise GetLastUserTap()
+    {
+        return (Noise)m_memory["LastUserTap"];
+    }
+
+
+    //private void ClearExpiredNoises()
+    //{
+    //    List<Noise> expiredNoises = new List<Noise>();
+    //    foreach (Noise noise in m_audibleNoises)
+    //    {
+    //        //noise.Update(deltaTime);
+    //        if (noise.IsExpired())
+    //        {
+    //            expiredNoises.Add(noise);
+    //        }
+    //    }
+    //    foreach (Noise noise in m_tapsNoises)
+    //    {
+    //        //noise.Update(deltaTime);
+    //        if (noise.IsExpired())
+    //        {
+    //            expiredNoises.Add(noise);
+    //        }
+    //    }
+    //    // clean up
+    //    foreach (Noise noise in expiredNoises)
+    //    {
+    //        if (noise.m_identifier == NoiseIdentifier.UserTap)
+    //        {
+    //            m_tapsNoises.Remove(noise);
+    //        }
+    //        else
+    //        {
+    //            m_audibleNoises.Remove(noise);
+    //        }
+    //    }
+    //}
+
 
 }

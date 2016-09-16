@@ -6,6 +6,7 @@ public class ReplaceGameObjects : ScriptableWizard
 
 {
     public Vector3 m_scale = new Vector3(1, 1, 1);
+
     public GameObject useGameObject;
 
     [MenuItem("Custom/Replace GameObjects")]
@@ -32,7 +33,7 @@ public class ReplaceGameObjects : ScriptableWizard
 
         foreach (GameObject go in Selection.gameObjects)
         {
-            DestroyImmediate(go);
+            go.SetActive(false);
         }
     }
 }

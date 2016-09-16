@@ -11,6 +11,12 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         Health,
         Damage,
         EnemyInSight,
+        CorpseInSight,
+        Boredom,
+        CanHearUserTap,
+        CanNotHearUserTap,
+        CanHearNoise,
+        InterestInUserTap,
     }
 
     private Health m_healthScript = null;
@@ -19,13 +25,15 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
 
     private ZombieBrain m_zombieBrainScript = null;
-    public UtilityMath.UtilityValue m_enemyInSightFormula;
-    public UtilityMath.UtilityValue m_corspeInSightFormula;
-    public UtilityMath.UtilityValue m_boredomFormula;
-    public UtilityMath.UtilityValue m_canHearUserTapFormula;
-    public UtilityMath.UtilityValue m_canHearNoiseFormula;
-    public UtilityMath.UtilityValue m_interestInUsertapFormula;
+    public UtilityMath.UtilityValue m_enemyInSightFormula; // Done
+    public UtilityMath.UtilityValue m_corspeInSightFormula; // Done
+    public UtilityMath.UtilityValue m_boredomFormula; // Done
+    public UtilityMath.UtilityValue m_canHearUserTapFormula; // Done
+    public UtilityMath.UtilityValue m_canNotHearUserTapFormula; 
+    public UtilityMath.UtilityValue m_canHearNoiseFormula; // Done
+    public UtilityMath.UtilityValue m_interestInUsertapFormula; // Done
 
+    //public UtilityMath.UtilityValue m_distanceToUserTapFormula;
 
     void Awake()
     {
@@ -61,11 +69,25 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_corspeInSightFormula.SetMinMaxValues(0, 1);
             m_boredomFormula.SetMinMaxValues(0, m_zombieBrainScript.m_maxBoredom);
             m_canHearUserTapFormula.SetMinMaxValues(0, 1);
+            m_canNotHearUserTapFormula.SetMinMaxValues(0, 1);
+            m_canNotHearUserTapFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             m_canHearNoiseFormula.SetMinMaxValues(0, 1);
             m_interestInUsertapFormula.SetMinMaxValues(0, m_zombieBrainScript.m_tapInterest);
+            // distances
+            
+            
         }
 
+        m_evaluations.Add(Evaluations.EnemyInSight, m_enemyInSightFormula);
+        m_evaluations.Add(Evaluations.CorpseInSight, m_corspeInSightFormula);
+        m_evaluations.Add(Evaluations.Boredom, m_boredomFormula);
+        m_evaluations.Add(Evaluations.CanHearUserTap, m_canHearUserTapFormula);
+        m_evaluations.Add(Evaluations.CanNotHearUserTap, m_canNotHearUserTapFormula);
+        m_evaluations.Add(Evaluations.CanHearNoise, m_canHearNoiseFormula);
+        m_evaluations.Add(Evaluations.InterestInUserTap, m_interestInUsertapFormula);
+        // distances
         
+
     }
 
 

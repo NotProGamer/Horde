@@ -42,17 +42,30 @@ public class ZombieBrain : MonoBehaviour {
         {
             Debug.Log("GameController not included!");
         }
+
+        m_zombieUtilityAIScript = GetComponent<ZombieUtilityAI>();
+        if (m_zombieUtilityAIScript == null)
+        {
+            Debug.Log("ZombieUtilityAI not included.");
+        }
+
+        m_movementScript = GetComponent<Movement>();
+        if (m_movementScript == null)
+        {
+            Debug.Log("Movement not included.");
+        }
+
     }
 
 
     // Use this for initialization
     void Start ()
     {
-        m_memory.Add("CurrentTarget", transform.position);
-        m_memory.Add("LastUserTap", null);
-        m_memory.Add("LastPriorityNoise", null);
-        m_memory.Add("ClosestEnemy", null);
-        m_memory.Add("ClosestCorpse", null);
+        m_memory.Add(Labels.Memory.CurrentTarget, transform.position);
+        m_memory.Add(Labels.Memory.LastUserTap, null);
+        m_memory.Add(Labels.Memory.LastPriorityNoise, null);
+        m_memory.Add(Labels.Memory.ClosestEnemy, null);
+        m_memory.Add(Labels.Memory.ClosestCorpse, null);
     }
 	
 	// Update is called once per frame
@@ -89,39 +102,39 @@ public class ZombieBrain : MonoBehaviour {
         // modify memory
         if (m_userTaps.Count > 0)
         {
-            m_memory["LastUserTap"] = m_userTaps[0];
+            m_memory[Labels.Memory.LastUserTap] = m_userTaps[0];
         }
 
         if (m_audibleNoises.Count > 0)
         {
-            m_memory["LastPriorityNoise"] = m_audibleNoises[0];
+            m_memory[Labels.Memory.LastPriorityNoise] = m_audibleNoises[0];
         }
 
         if (m_enemies.Count > 1)
         {
-            m_memory["ClosestEnemy"] = GetClosest(m_enemies);
+            m_memory[Labels.Memory.ClosestEnemy] = GetClosest(m_enemies);
         }
         else if (m_enemies.Count > 0)
         {
-            m_memory["ClosestEnemy"] = m_enemies[0];
+            m_memory[Labels.Memory.ClosestEnemy] = m_enemies[0];
         }
         else
         {
-            m_memory["ClosestEnemy"] = null;
+            m_memory[Labels.Memory.ClosestEnemy] = null;
         }
 
 
         if (m_enemyCorpses.Count > 1)
         {
-            m_memory["ClosestCorpse"] = GetClosest(m_enemyCorpses);
+            m_memory[Labels.Memory.ClosestCorpse] = GetClosest(m_enemyCorpses);
         }
         else if (m_enemyCorpses.Count > 0)
         {
-            m_memory["ClosestCorpse"] = m_enemyCorpses[0];
+            m_memory[Labels.Memory.ClosestCorpse] = m_enemyCorpses[0];
         }
         else
         {
-            m_memory["ClosestCorpse"] = null;
+            m_memory[Labels.Memory.ClosestCorpse] = null;
         }
 
 
@@ -134,7 +147,7 @@ public class ZombieBrain : MonoBehaviour {
         bool result = false;
         Vector3 position = Vector3.zero;
         object currentTarget = null;
-        if (m_memory.TryGetValue("CurrentTarget", out currentTarget))
+        if (m_memory.TryGetValue(Labels.Memory.CurrentTarget, out currentTarget))
         {
             System.Type t = currentTarget.GetType();
             if (t == typeof(Vector3))
@@ -156,7 +169,7 @@ public class ZombieBrain : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Unable to find 'CurrentTarget'");
+            Debug.Log("Unable to find '" + Labels.Memory.CurrentTarget + "'");
         }
         pTargetPosition = position;
         return result;
@@ -238,9 +251,26 @@ public class ZombieBrain : MonoBehaviour {
         return closestGameObject;
     }
 
-    public void SetCurrentTarget(object pCurrentTarget)
+    //public void SetCurrentTarget(object pCurrentTarget)
+    //{
+    //    m_memory[Labels.Memory.CurrentTarget] = pCurrentTarget;
+    //}
+
+    public bool SetCurrentTarget(string pMemoryLabel)
     {
-        m_memory["CurrentTartget"] = pCurrentTarget;
+        object newTarget = null;
+        if (m_memory.TryGetValue(pMemoryLabel, out newTarget))
+        {
+            m_memory[Labels.Memory.CurrentTarget] = newTarget;
+            return true;
+        }
+        else
+        {
+            m_memory[Labels.Memory.CurrentTarget] = transform.position;
+            Debug.Log("Unable to locate '" + pMemoryLabel + "' in memory");
+            return false;
+        }
+
     }
 
     private NoiseManager m_noiseManager = null;
@@ -307,7 +337,79 @@ public class ZombieBrain : MonoBehaviour {
 
     public Noise GetLastUserTap()
     {
-        return (Noise)m_memory["LastUserTap"];
+        object result = null;
+        if (m_memory.TryGetValue(Labels.Memory.LastUserTap, out result))
+        {
+            return (Noise)result;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    [System.Serializable]
+    public class MovementSpeeds
+    {
+        public float m_userTap = 10f;
+        public float m_chase = 10f;
+        public float m_devour = 7f;
+        public float m_investigate = 5f;
+        public float m_wander = 3f;
+        public float m_idle = 0f;
+        private Dictionary<ZombieUtilityBehaviours.BehaviourNames, float> m_speeds = new Dictionary<ZombieUtilityBehaviours.BehaviourNames, float>();
+
+        public MovementSpeeds()
+        {
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Idle, m_idle);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Wander, m_wander);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Investigate, m_investigate);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Devour, m_devour);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Chase, m_chase);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.GoToUserTap, m_userTap);
+        }
+        public float GetMovementSpeed(ZombieUtilityBehaviours.BehaviourNames pBehaviour)
+        {
+            float speed = 0f;
+
+            // if you can't find the correct speed , set speed to idle
+            if (!m_speeds.TryGetValue(pBehaviour, out speed))
+            {
+                speed = m_idle;
+                Debug.Log("Unknown behaviour. Setting Idle Speed as Default.");
+            }
+            
+            return speed;
+        }
+    }
+
+
+
+    private ZombieUtilityAI m_zombieUtilityAIScript = null;
+    private Movement m_movementScript = null;
+    public MovementSpeeds m_movementSpeeds;
+    public bool UpdateSpeed()
+    {
+        bool result = true;
+        float speed = 0f;
+        //float speed = m_movementSpeeds.GetMovementSpeed(ZombieUtilityBehaviours.BehaviourNames.Idle);
+        if (m_zombieUtilityAIScript != null)
+        {
+            speed = m_movementSpeeds.GetMovementSpeed(m_zombieUtilityAIScript.GetCurrentBehaviour());
+        }
+        else
+        {
+            result = false;
+        }
+        if (m_movementScript != null && result)
+        {
+            m_movementScript.SetSpeed(speed);
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
     }
 
 

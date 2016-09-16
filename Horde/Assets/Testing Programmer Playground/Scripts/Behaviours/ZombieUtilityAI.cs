@@ -100,4 +100,9 @@ public class ZombieUtilityAI : MonoBehaviour {
         }
 
     }
+
+    public ZombieUtilityBehaviours.BehaviourNames GetCurrentBehaviour()
+    {
+        return m_currentBehaviour;
+    }
 }

@@ -36,7 +36,7 @@ public class ZombieMovement : Movement
     new void Update ()
     {
         //SetDestination(GetCurrentTargetPosition());
-        Think();
+        //Think();
         base.Update();
     }
 

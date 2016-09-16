@@ -47,4 +47,13 @@ public class Labels : MonoBehaviour {
         public static string Ground = "Ground";
     }
 
+    public class Memory
+    {
+        public static string CurrentTarget = "CurrentTarget";
+        public static string LastUserTap = "LastUserTap";
+        public static string LastPriorityNoise = "LastPriorityNoise";
+        public static string ClosestEnemy = "ClosestEnemy";
+        public static string ClosestCorpse = "ClosestCorpse";
+    }
+
 }

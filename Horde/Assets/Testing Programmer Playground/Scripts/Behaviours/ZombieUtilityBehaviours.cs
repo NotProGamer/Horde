@@ -8,6 +8,10 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
     {
         Idle,
         Wander,
+        Investigate,
+        Devour,
+        Chase,
+        GoToUserTap,
     }
 
     private Dictionary<BehaviourNames, BaseBehaviour> m_behaviours = new Dictionary<BehaviourNames, BaseBehaviour>();
@@ -15,9 +19,11 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
 	void Start ()
     {
         BaseBehaviour idle = new Idle(this.gameObject);
-        BaseBehaviour wander = new Wander(this.gameObject);
+        BaseBehaviour wander = new ZombieWander(this.gameObject);
+        BaseBehaviour goToUserTap = new GoToUserTap(this.gameObject, Labels.Memory.LastUserTap);
         m_behaviours.Add(BehaviourNames.Idle, idle);
         m_behaviours.Add(BehaviourNames.Wander, wander);
+        m_behaviours.Add(BehaviourNames.GoToUserTap, goToUserTap);
     }
 
     // Update is called once per frame

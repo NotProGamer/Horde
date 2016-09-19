@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GoToUserTap : SequenceBehaviour
+public class Chase : SequenceBehaviour
 {
-    
-    public GoToUserTap(GameObject pParent, string pMemoryLabel) : base(pParent)
+    public Chase(GameObject pParent, string pMemoryLabel) : base(pParent)
     {
         if (m_parent == null)
         {
@@ -23,8 +22,14 @@ public class GoToUserTap : SequenceBehaviour
         BaseBehaviour moveToCurrentTarget = new MoveToMemoryLocation(pParent, Labels.Memory.CurrentTarget);
         m_children.Add(moveToCurrentTarget);
 
-    }
 
+        // Attack
+        // if in range call attack
+        // attack script should check if attack available,
+        // if attack is available, trigger attack animation
+        // attack animation should trigger a damage effect at the appropriate time in the animation
+
+    }
 
 
 }

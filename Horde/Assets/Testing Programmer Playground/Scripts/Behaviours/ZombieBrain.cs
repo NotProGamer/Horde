@@ -21,7 +21,7 @@ public class ZombieBrain : MonoBehaviour {
     public LayerMask m_sightMask;
 
     // Listen
-    //public float m_hearingRange = 50f; // not yet implemented
+    public float m_hearingRange = 50f; // not yet implemented
 
     public float m_boredomIncrement = 10f;
     public float m_maxBoredom = 100f;
@@ -175,6 +175,44 @@ public class ZombieBrain : MonoBehaviour {
         return result;
     }
 
+    public bool GetObjectPosition(string memoryLabel, out Vector3 pPosition)
+    {
+        bool result = false;
+        Vector3 position = Vector3.zero;
+        object memoryObject = null;
+        if (m_memory.TryGetValue(memoryLabel, out memoryObject))
+        {
+            System.Type t = memoryObject.GetType();
+            if (t == typeof(Vector3))
+            {
+                position = (Vector3)memoryObject;
+                //m_memory["CurrentTartget"] = transform.gameObject;
+                result = true;
+            }
+            else if (t == typeof(GameObject))
+            {
+                position = ((GameObject)memoryObject).transform.position;
+                result = true;
+            }
+            else if (t == typeof(Noise))
+            {
+                position = ((Noise)memoryObject).m_position;
+                result = true;
+            }
+            else
+            {
+                Debug.Log("Unable to find position for memory '" + memoryLabel + "'");
+            }
+        }
+        else
+        {
+            Debug.Log("Unable to find memory related to'" + memoryLabel + "'");
+        }
+        pPosition = position;
+        return result;
+    }
+
+
     private List<GameObject> m_enemies = new List<GameObject>();
     private List<GameObject> m_enemyCorpses = new List<GameObject>();
     private List<GameObject> m_allies = new List<GameObject>();
@@ -292,8 +330,8 @@ public class ZombieBrain : MonoBehaviour {
         if (m_noiseManager)
         {
             //float currentListen = Time.time;
-            m_noiseManager.GetAudibleNoisesAtLocation(m_audibleNoises, transform.position);
-            m_noiseManager.GetUserTapsAtLocation(m_userTaps, transform.position);
+            m_noiseManager.GetAudibleNoisesAtLocation(m_audibleNoises, transform.position, m_hearingRange);
+            m_noiseManager.GetUserTapsAtLocation(m_userTaps, transform.position, m_hearingRange);
             //m_lastListenTime = currentListen;
         }
     }

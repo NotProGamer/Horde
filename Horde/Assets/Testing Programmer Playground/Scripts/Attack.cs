@@ -34,17 +34,17 @@ public class Attack : MonoBehaviour {
 	
 	}
 
-    public virtual void AttackTarget(GameObject pTargetGameObject)
+    public virtual bool AttackTarget(GameObject pTargetGameObject)
     {
-
+        bool result = false;
         if (m_health.IsDead())
         {
-            return; // early exit
+            return result; // early exit
         }
 
         if (pTargetGameObject == null)
         {
-            return; // early exit
+            return result; // early exit
         }
 
         if (m_nextAttackTime < Time.time)
@@ -65,7 +65,10 @@ public class Attack : MonoBehaviour {
             TriggerAttackAnimation();
 
             m_nextAttackTime = Time.time + m_delay;
+            result = true;
         }
+
+        return result;
     }
 
     protected virtual void TriggerAttackAnimation()
@@ -84,18 +87,41 @@ public class Attack : MonoBehaviour {
             return; // early exit
         }
 
+
+
         if (m_currentTarget != null)
         {
             m_currentTargetHealth = m_currentTarget.GetComponent<Health>();
             // if target has health and is not dead
             if (m_currentTargetHealth != null && !m_currentTargetHealth.IsDead())
             {
-                // apply damage
-                m_currentTargetHealth.ApplyDamage(m_damage);
+                //if target still in range
+                if (InsideAttackRange(m_currentTarget.transform))
+                {
+                    // apply damage
+                    m_currentTargetHealth.ApplyDamage(m_damage);
+                    Debug.Log("Hit");
+                }
+                else
+                {
+                    Debug.Log("Miss");
+                }
             }
         }
         
     }
 
+    protected bool InsideAttackRange(Transform other)
+    {
+        bool result = false;
+
+        float distanceSquared = (other.transform.position - transform.position).sqrMagnitude;
+
+        if (distanceSquared < m_attackRange * m_attackRange)
+        {
+            result = true;
+        }
+        return result;
+    }
 
 }

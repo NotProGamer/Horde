@@ -60,11 +60,11 @@ public class Noise
         return m_identifier;
     }
 
-    public float GetVolumeIfAudible(Vector3 audiencePosition)
+    public float GetVolumeIfAudible(Vector3 audiencePosition, float hearingSensitivity = 0f)
     {
         float audible = 0f;
         float sqrDistance = (m_position - audiencePosition).sqrMagnitude;
-        float sqrVolume = m_volume * m_volume;
+        float sqrVolume = (m_volume * m_volume) + (hearingSensitivity * hearingSensitivity);
         if (sqrVolume > sqrDistance)
         {
             audible = m_volume;
@@ -243,6 +243,8 @@ public class Noise
 
 public class NoiseManager : MonoBehaviour {
 
+    public float m_maxVolume = 100f;
+
     [System.Serializable]
     public class NoiseList
     {
@@ -367,13 +369,13 @@ public class NoiseManager : MonoBehaviour {
     //{
     //    return m_noiseLibrary.GetMostAudibleNoise(position, usingNoisePriority);
     //}
-    public void GetAudibleNoisesAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float createdAfter = 0f)
+    public void GetAudibleNoisesAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float hearingSensitivity = 0f, float createdAfter = 0f)
     {
         foreach (Noise noise in m_noiseLibrary.m_noises)
         {
             if (noise.m_timeCreated >= createdAfter)
             {
-                if (noise.GetVolumeIfAudible(audiencePosition) > 0)
+                if (noise.GetVolumeIfAudible(audiencePosition, hearingSensitivity) > 0)
                 {
                     audibleNoises.Add(noise);
                 }
@@ -381,13 +383,13 @@ public class NoiseManager : MonoBehaviour {
         }
     }
 
-    public void GetUserTapsAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float createdAfter = 0f)
+    public void GetUserTapsAtLocation(List<Noise> audibleNoises, Vector3 audiencePosition, float hearingSensitivity = 0f, float createdAfter = 0f)
     {
         foreach (Noise noise in m_userTapLibrary.m_noises)
         {
             if (noise.m_timeCreated >= createdAfter)
             {
-                if (noise.GetVolumeIfAudible(audiencePosition) > 0)
+                if (noise.GetVolumeIfAudible(audiencePosition, hearingSensitivity) > 0)
                 {
                     audibleNoises.Add(noise);
                 }
@@ -395,8 +397,10 @@ public class NoiseManager : MonoBehaviour {
         }
     }
 
-    public Noise Add(Vector3 position, float volume, float expirationDelay, NoiseIdentifier identifier = NoiseIdentifier.Silent)
+    public Noise Add(Vector3 position, float pVolume, float expirationDelay, NoiseIdentifier identifier = NoiseIdentifier.Silent)
     {
+        float volume = Mathf.Min(pVolume, m_maxVolume);
+
         if (identifier == NoiseIdentifier.UserTap)
         {
             return m_userTapLibrary.Add(position, volume, expirationDelay, identifier);

@@ -15,6 +15,11 @@ GameObject:
   - 114: {fileID: 11421896}
   - 114: {fileID: 11434746}
   - 114: {fileID: 11418310}
+  - 114: {fileID: 114000011839444618}
+  - 114: {fileID: 114000012005248876}
+  - 114: {fileID: 114000013037564254}
+  - 114: {fileID: 114000013922950776}
+  - 114: {fileID: 114000012112569016}
   m_Layer: 8
   m_Name: Zombie
   m_TagString: Player
@@ -75,17 +80,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: ebc6b3260a92c0d458e8be2997cc81df, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -125,15 +133,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e80930cccb92740b5aecaf41f1e183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_currentDestination: {x: 0, y: 0, z: 0}
   m_minSpeed: 1
   m_maxSpeed: 10
-  m_currentDestination: {x: 0, y: 0, z: 0}
   m_state: 0
   m_currentTargetNoise:
     m_position: {x: 0, y: 0, z: 0}
     m_volume: 0
     m_identifier: 0
-    m_expiry: 0
+    m_timeCreated: 0
+    m_timeExpiry: 0
 --- !u!114 &11421896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,3 +231,128 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186686}
   m_IsPrefabParent: 1
+--- !u!114 &114000011839444618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d043cc9f87a7a3488be9f540774a37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentBehaviour: 0
+  m_behaviourEvaluations:
+  - m_currentEvaluationForDebugging: 0
+    m_evaluations:
+    - m_eval: 5
+      m_weight: 1
+    m_behaviourName: 5
+  - m_currentEvaluationForDebugging: 0
+    m_evaluations:
+    - m_eval: 6
+      m_weight: 1
+    m_behaviourName: 1
+--- !u!114 &114000012005248876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8615f32a4f926bf498d6f9c2680241f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_healthFormula:
+    m_value: 100
+    m_normalisedValue: 1
+    m_normalisationType: 0
+  m_damageFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 1
+  m_enemyInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_corspeInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_boredomFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_canHearUserTapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_canNotHearUserTapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_canHearNoiseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_interestInUsertapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+--- !u!114 &114000012112569016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b50cee1f6405ed4a84fc217f4e304bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_delay: 0.5
+  m_damage: 10
+  m_attackRange: 10
+--- !u!114 &114000013037564254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83285741f4894824ebf293ced66a203e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013922950776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eff1875eaeebc54495242dc5de64348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sightRange: 10
+  m_sightMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_boredomIncrement: 10
+  m_maxBoredom: 100
+  m_currentBoredom: 0
+  m_tapInterest: 2
+  m_attackRange: 1
+  m_attackDelay: 0.5
+  m_devourRange: 1
+  m_devourDelay: 0.5
+  m_movementSpeeds:
+    m_userTap: 10
+    m_chase: 10
+    m_devour: 7
+    m_investigate: 5
+    m_wander: 3
+    m_idle: 0

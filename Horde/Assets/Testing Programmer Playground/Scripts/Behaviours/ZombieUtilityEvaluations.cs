@@ -17,6 +17,10 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         CanNotHearUserTap,
         CanHearNoise,
         InterestInUserTap,
+        DistanceToEnemy,
+        DistanceToCorpse,
+        DistanceToPriorityNoise,
+        DistanceToLastUserTap,
     }
 
     private Health m_healthScript = null;
@@ -25,13 +29,19 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
 
     private ZombieBrain m_zombieBrainScript = null;
+    private GameObject m_gameController = null;
+    private NoiseManager m_noiseManagerScript = null;
     public UtilityMath.UtilityValue m_enemyInSightFormula; // Done
     public UtilityMath.UtilityValue m_corspeInSightFormula; // Done
     public UtilityMath.UtilityValue m_boredomFormula; // Done
     public UtilityMath.UtilityValue m_canHearUserTapFormula; // Done
-    public UtilityMath.UtilityValue m_canNotHearUserTapFormula; 
+    public UtilityMath.UtilityValue m_canNotHearUserTapFormula; // Done
     public UtilityMath.UtilityValue m_canHearNoiseFormula; // Done
     public UtilityMath.UtilityValue m_interestInUsertapFormula; // Done
+    public UtilityMath.UtilityValue m_distanceToEnemyFormula; // Done
+    public UtilityMath.UtilityValue m_distanceToCorpseFormula; // Done
+    public UtilityMath.UtilityValue m_distanceToPriorityNoiseFormula; // Done
+    public UtilityMath.UtilityValue m_distanceToLastUserTapFormula; // Done
 
     //public UtilityMath.UtilityValue m_distanceToUserTapFormula;
 
@@ -47,6 +57,23 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         {
             Debug.Log("ZombieBrain no included");
         }
+
+        m_gameController = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+
+        if (m_gameController != null)
+        {
+            m_noiseManagerScript = GetComponent<NoiseManager>();
+            if (m_noiseManagerScript == null)
+            {
+                Debug.Log("NoiseManager no included");
+            }
+        }
+        else
+        {
+            Debug.Log("GameController no included");
+        }
+
+
     }
 
     // Use this for initialization
@@ -74,8 +101,16 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_canHearNoiseFormula.SetMinMaxValues(0, 1);
             m_interestInUsertapFormula.SetMinMaxValues(0, m_zombieBrainScript.m_tapInterest);
             // distances
-            
-            
+            m_distanceToEnemyFormula.SetMinMaxValues(0, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange);
+            m_distanceToCorpseFormula.SetMinMaxValues(0, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange);
+
+            float maxHearingRange = float.MaxValue;
+            if (m_noiseManagerScript != null)
+            {
+                maxHearingRange = (m_noiseManagerScript.m_maxVolume * m_noiseManagerScript.m_maxVolume) + (m_zombieBrainScript.m_hearingRange * m_zombieBrainScript.m_hearingRange);
+            }
+            m_distanceToPriorityNoiseFormula.SetMinMaxValues(0, maxHearingRange);
+            m_distanceToLastUserTapFormula.SetMinMaxValues(0, maxHearingRange);
         }
 
         m_evaluations.Add(Evaluations.EnemyInSight, m_enemyInSightFormula);
@@ -86,8 +121,10 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         m_evaluations.Add(Evaluations.CanHearNoise, m_canHearNoiseFormula);
         m_evaluations.Add(Evaluations.InterestInUserTap, m_interestInUsertapFormula);
         // distances
-        
-
+        m_evaluations.Add(Evaluations.DistanceToEnemy, m_distanceToEnemyFormula);
+        m_evaluations.Add(Evaluations.DistanceToCorpse, m_distanceToCorpseFormula);
+        m_evaluations.Add(Evaluations.DistanceToPriorityNoise, m_distanceToPriorityNoiseFormula);
+        m_evaluations.Add(Evaluations.DistanceToLastUserTap, m_distanceToLastUserTapFormula);
     }
 
 
@@ -113,7 +150,40 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
                 }
             }
             m_interestInUsertapFormula.SetValue(interest);
+
+            // get distance to Enemy;
+            m_distanceToEnemyFormula.SetValue(DistanceToMemoryLocation(Labels.Memory.ClosestEnemy, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange));
+
+            // get distance to Corpse
+            m_distanceToCorpseFormula.SetValue(DistanceToMemoryLocation(Labels.Memory.ClosestCorpse, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange));
+
+            // get distance to Noise
+            m_distanceToPriorityNoiseFormula.SetValue(DistanceToMemoryLocation(Labels.Memory.LastPriorityNoise)); 
+
+            // get distance to UserTap
+            m_distanceToLastUserTapFormula.SetValue(DistanceToMemoryLocation(Labels.Memory.LastUserTap)); 
         }
+    }
+
+    private float DistanceToMemoryLocation(string MemoryLabel, float maximumRangeSqrd = float.MaxValue)
+    {
+        float distance = maximumRangeSqrd;
+
+        if (m_zombieBrainScript)
+        {
+            Vector3 position;
+
+            if (m_zombieBrainScript.GetObjectPosition(MemoryLabel, out position))
+            {
+                distance = (position - transform.position).sqrMagnitude;
+            }
+        }
+        else
+        {
+            Debug.Log("ZombieBrain not included");
+        }
+
+        return distance;
     }
 
 

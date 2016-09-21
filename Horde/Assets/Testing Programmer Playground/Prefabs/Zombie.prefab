@@ -13,13 +13,13 @@ GameObject:
   - 195: {fileID: 19566226}
   - 114: {fileID: 11471144}
   - 114: {fileID: 11421896}
+  - 114: {fileID: 114000012112569016}
   - 114: {fileID: 11434746}
   - 114: {fileID: 11418310}
   - 114: {fileID: 114000011839444618}
   - 114: {fileID: 114000012005248876}
   - 114: {fileID: 114000013037564254}
   - 114: {fileID: 114000013922950776}
-  - 114: {fileID: 114000012112569016}
   m_Layer: 8
   m_Name: Zombie
   m_TagString: Player
@@ -301,6 +301,22 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
+  m_distanceToEnemyFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_distanceToCorpseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_distanceToPriorityNoiseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_distanceToLastUserTapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!114 &114000012112569016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +357,7 @@ MonoBehaviour:
   m_sightMask:
     serializedVersion: 2
     m_Bits: 256
+  m_hearingRange: 50
   m_boredomIncrement: 10
   m_maxBoredom: 100
   m_currentBoredom: 0

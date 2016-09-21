@@ -9,74 +9,74 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000013093186058}
+  m_RootGameObject: {fileID: 1000011442613518}
   m_IsPrefabParent: 1
---- !u!1 &1000013093186058
+--- !u!1 &1000011343682994
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000012667271964}
+  - 4: {fileID: 4000012242416186}
+  - 33: {fileID: 33000010386215596}
+  - 23: {fileID: 23000011571612676}
+  - 65: {fileID: 65000011001918574}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: GroundGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!1 &1000013401052444
+--- !u!1 &1000011442613518
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000013015846224}
-  - 33: {fileID: 33000013587300984}
-  - 64: {fileID: 64000013523640962}
-  - 23: {fileID: 23000012292231740}
+  - 4: {fileID: 4000011835197706}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground_Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &4000012667271964
+--- !u!4 &4000011835197706
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013093186058}
+  m_GameObject: {fileID: 1000011442613518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40, y: 0, z: -120}
+  m_LocalPosition: {x: -40, y: 0, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 4000013015846224}
+  - {fileID: 4000012242416186}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!4 &4000013015846224
+--- !u!4 &4000012242416186
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013401052444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1000011343682994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4000012667271964}
+  m_Father: {fileID: 4000011835197706}
   m_RootOrder: 0
---- !u!23 &23000012292231740
+--- !u!23 &23000011571612676
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013401052444}
+  m_GameObject: {fileID: 1000011343682994}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,13 +84,13 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 594eb003b01ebd944bfe69174e25f20e, type: 2}
+  - {fileID: 2100000, guid: 8d045a3014aba794088afb647dbb756e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_SelectedWireframeHidden: 0
@@ -100,22 +100,22 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000013587300984
+--- !u!33 &33000010386215596
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013401052444}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64000013523640962
-MeshCollider:
+  m_GameObject: {fileID: 1000011343682994}
+  m_Mesh: {fileID: 4300000, guid: 5af35ae0b28ef7946855da3b806b17f5, type: 3}
+--- !u!65 &65000011001918574
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013401052444}
+  m_GameObject: {fileID: 1000011343682994}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 10, y: 2.220446e-15, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}

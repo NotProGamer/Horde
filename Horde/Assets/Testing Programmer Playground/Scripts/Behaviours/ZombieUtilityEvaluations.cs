@@ -10,9 +10,14 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
     {
         Health,
         Damage,
+        isAlive,
+        isDead,
         EnemyInSight,
+        NoEnemyInSight,
         CorpseInSight,
+        NoCorpseInSight,
         Boredom,
+        InverseBoredom,
         CanHearUserTap,
         CanNotHearUserTap,
         CanHearNoise,
@@ -24,16 +29,21 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
     }
 
     private Health m_healthScript = null;
-    public UtilityMath.UtilityValue m_healthFormula;
-    public UtilityMath.UtilityValue m_damageFormula;
+    public UtilityMath.UtilityValue m_healthFormula; // Done
+    public UtilityMath.UtilityValue m_damageFormula; // Done
+    public UtilityMath.UtilityValue m_isAliveFormula; // Done
+    public UtilityMath.UtilityValue m_isDeadFormula; // Done
 
 
     private ZombieBrain m_zombieBrainScript = null;
     private GameObject m_gameController = null;
     private NoiseManager m_noiseManagerScript = null;
     public UtilityMath.UtilityValue m_enemyInSightFormula; // Done
+    public UtilityMath.UtilityValue m_noEnemyInSightFormula; // 
     public UtilityMath.UtilityValue m_corspeInSightFormula; // Done
+    public UtilityMath.UtilityValue m_noCorspeInSightFormula; // 
     public UtilityMath.UtilityValue m_boredomFormula; // Done
+    public UtilityMath.UtilityValue m_inverseBoredomFormula; // Done
     public UtilityMath.UtilityValue m_canHearUserTapFormula; // Done
     public UtilityMath.UtilityValue m_canNotHearUserTapFormula; // Done
     public UtilityMath.UtilityValue m_canHearNoiseFormula; // Done
@@ -41,7 +51,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
     public UtilityMath.UtilityValue m_distanceToEnemyFormula; // Done
     public UtilityMath.UtilityValue m_distanceToCorpseFormula; // Done
     public UtilityMath.UtilityValue m_distanceToPriorityNoiseFormula; // Done
-    public UtilityMath.UtilityValue m_distanceToLastUserTapFormula; // Done
+    public UtilityMath.UtilityValue m_distanceToLastUserTapFormula; // Done .. probably not relevant
 
     //public UtilityMath.UtilityValue m_distanceToUserTapFormula;
 
@@ -62,10 +72,10 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
         if (m_gameController != null)
         {
-            m_noiseManagerScript = GetComponent<NoiseManager>();
+            m_noiseManagerScript = m_gameController.GetComponent<NoiseManager>();
             if (m_noiseManagerScript == null)
             {
-                Debug.Log("NoiseManager no included");
+                Debug.Log("NoiseManager not included");
             }
         }
         else
@@ -85,16 +95,29 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_healthFormula.SetMinMaxValues(0, m_healthScript.m_maxHealth);
             m_damageFormula.SetMinMaxValues(0, m_healthScript.m_maxHealth);
             m_damageFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
+
+            m_isDeadFormula.SetMinMaxValues(System.Convert.ToInt32(false), System.Convert.ToInt32(true)); // 0, 1
+            m_isAliveFormula.SetMinMaxValues(System.Convert.ToInt32(false), System.Convert.ToInt32(true)); // 0, 1
+            m_isAliveFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
         }
 
         m_evaluations.Add(Evaluations.Health, m_healthFormula);
         m_evaluations.Add(Evaluations.Damage, m_damageFormula);
+        m_evaluations.Add(Evaluations.isDead, m_isDeadFormula);
+        m_evaluations.Add(Evaluations.isAlive, m_isAliveFormula);
 
         if (m_zombieBrainScript)
         {
             m_enemyInSightFormula.SetMinMaxValues(0, 1);
+            m_noEnemyInSightFormula.SetMinMaxValues(0, 1);
+            m_noEnemyInSightFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             m_corspeInSightFormula.SetMinMaxValues(0, 1);
+            m_noCorspeInSightFormula.SetMinMaxValues(0, 1);
+            m_noCorspeInSightFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
+
             m_boredomFormula.SetMinMaxValues(0, m_zombieBrainScript.m_maxBoredom);
+            m_inverseBoredomFormula.SetMinMaxValues(0, m_zombieBrainScript.m_maxBoredom);
+            m_inverseBoredomFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             m_canHearUserTapFormula.SetMinMaxValues(0, 1);
             m_canNotHearUserTapFormula.SetMinMaxValues(0, 1);
             m_canNotHearUserTapFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
@@ -114,8 +137,11 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         }
 
         m_evaluations.Add(Evaluations.EnemyInSight, m_enemyInSightFormula);
+        m_evaluations.Add(Evaluations.NoEnemyInSight, m_noEnemyInSightFormula);
         m_evaluations.Add(Evaluations.CorpseInSight, m_corspeInSightFormula);
+        m_evaluations.Add(Evaluations.NoCorpseInSight, m_noCorspeInSightFormula);
         m_evaluations.Add(Evaluations.Boredom, m_boredomFormula);
+        m_evaluations.Add(Evaluations.InverseBoredom, m_inverseBoredomFormula);
         m_evaluations.Add(Evaluations.CanHearUserTap, m_canHearUserTapFormula);
         m_evaluations.Add(Evaluations.CanNotHearUserTap, m_canNotHearUserTapFormula);
         m_evaluations.Add(Evaluations.CanHearNoise, m_canHearNoiseFormula);
@@ -135,8 +161,11 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         if (m_zombieBrainScript)
         {
             m_enemyInSightFormula.SetValue(m_zombieBrainScript.GetEnemiesInSightCount());
-            m_enemyInSightFormula.SetValue(m_zombieBrainScript.GetCorpsesInSightCount());
+            m_noEnemyInSightFormula.SetValue(m_zombieBrainScript.GetEnemiesInSightCount());
+            m_corspeInSightFormula.SetValue(m_zombieBrainScript.GetCorpsesInSightCount());
+            m_noCorspeInSightFormula.SetValue(m_zombieBrainScript.GetCorpsesInSightCount());
             m_boredomFormula.SetValue(m_zombieBrainScript.m_currentBoredom);
+            m_inverseBoredomFormula.SetValue(m_zombieBrainScript.m_currentBoredom);
             m_canHearUserTapFormula.SetValue(m_zombieBrainScript.GetUserTapCount());
             m_canHearNoiseFormula.SetValue(m_zombieBrainScript.GetAudibleNoiseCount());
 
@@ -200,7 +229,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         else
         {
             // fail
-            Debug.Log("Unable to Locate Evalutaion: " + pEvaluation.ToString());
+            Debug.Log("Unable to Locate Evaluation: " + pEvaluation.ToString());
         }
 
         return result;
@@ -212,6 +241,8 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         {
             m_healthFormula.SetValue(m_healthScript.m_health);
             m_damageFormula.SetValue(m_healthScript.m_health);
+            m_isDeadFormula.SetValue(System.Convert.ToInt32(m_healthScript.IsDead()));
+            m_isAliveFormula.SetValue(System.Convert.ToInt32(m_healthScript.IsDead()));
         }
     }
 

@@ -138,7 +138,7 @@ public class ZombieBrain : MonoBehaviour {
         }
 
 
-
+        UpdateBoredom();
 
     }
 
@@ -182,26 +182,33 @@ public class ZombieBrain : MonoBehaviour {
         object memoryObject = null;
         if (m_memory.TryGetValue(memoryLabel, out memoryObject))
         {
-            System.Type t = memoryObject.GetType();
-            if (t == typeof(Vector3))
+            if (memoryObject != null)
             {
-                position = (Vector3)memoryObject;
-                //m_memory["CurrentTartget"] = transform.gameObject;
-                result = true;
-            }
-            else if (t == typeof(GameObject))
-            {
-                position = ((GameObject)memoryObject).transform.position;
-                result = true;
-            }
-            else if (t == typeof(Noise))
-            {
-                position = ((Noise)memoryObject).m_position;
-                result = true;
+                System.Type t = memoryObject.GetType();
+                if (t == typeof(Vector3))
+                {
+                    position = (Vector3)memoryObject;
+                    //m_memory["CurrentTartget"] = transform.gameObject;
+                    result = true;
+                }
+                else if (t == typeof(GameObject))
+                {
+                    position = ((GameObject)memoryObject).transform.position;
+                    result = true;
+                }
+                else if (t == typeof(Noise))
+                {
+                    position = ((Noise)memoryObject).m_position;
+                    result = true;
+                }
+                else
+                {
+                    Debug.Log("Unable to find position for memory '" + memoryLabel + "'");
+                }
             }
             else
             {
-                Debug.Log("Unable to find position for memory '" + memoryLabel + "'");
+                //Debug.Log("memoryObject is null");
             }
         }
         else
@@ -433,6 +440,7 @@ public class ZombieBrain : MonoBehaviour {
         //float speed = m_movementSpeeds.GetMovementSpeed(ZombieUtilityBehaviours.BehaviourNames.Idle);
         if (m_zombieUtilityAIScript != null)
         {
+            
             speed = m_movementSpeeds.GetMovementSpeed(m_zombieUtilityAIScript.GetCurrentBehaviour());
         }
         else
@@ -450,6 +458,43 @@ public class ZombieBrain : MonoBehaviour {
         return result;
     }
 
+    private void UpdateBoredom()
+    {
+        
+        ZombieUtilityBehaviours.BehaviourNames currentBehaviour = m_zombieUtilityAIScript.GetCurrentBehaviour();
+        switch (currentBehaviour)
+        {
+            case ZombieUtilityBehaviours.BehaviourNames.Idle:
+            case ZombieUtilityBehaviours.BehaviourNames.Wander:
+            case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+                IncrementBoredom();
+                break;
+            case ZombieUtilityBehaviours.BehaviourNames.Devour:
+            case ZombieUtilityBehaviours.BehaviourNames.Chase:
+            case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+            case ZombieUtilityBehaviours.BehaviourNames.Death:
+                ResetBoredom();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void IncrementBoredom()
+    {
+        float boredomIncrement = m_boredomIncrement;
+        if (m_movementScript != null)
+        {
+            boredomIncrement -= m_movementScript.GetSpeed();
+            boredomIncrement = Mathf.Clamp(boredomIncrement, 0, m_boredomIncrement);
+        }
+        m_currentBoredom += boredomIncrement;
+        m_currentBoredom = Mathf.Clamp(m_currentBoredom, 0, m_maxBoredom);
+    }
+    private void ResetBoredom()
+    {
+        m_currentBoredom = 0;
+    }
 
     //private void ClearExpiredNoises()
     //{

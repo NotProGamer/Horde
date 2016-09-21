@@ -18,8 +18,8 @@ public class ZombieUtilityAI : MonoBehaviour {
     public class BehaviourEvaluation
     {
         public float m_currentEvaluationForDebugging = 0f;
-        public List<WeightedEvaluation> m_evaluations;
         public ZombieUtilityBehaviours.BehaviourNames m_behaviourName;
+        public List<WeightedEvaluation> m_evaluations;
     }
     public List<BehaviourEvaluation> m_behaviourEvaluations;
 
@@ -92,6 +92,7 @@ public class ZombieUtilityAI : MonoBehaviour {
                     highestEvaluation = behaviourEvaluationValue;
                     behaviourWithHighestEvaluation = behaviourEvaluation.m_behaviourName;
                 }
+                behaviourEvaluation.m_currentEvaluationForDebugging = behaviourEvaluationValue;
             }
 
             // update current behaviour

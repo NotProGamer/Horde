@@ -73,4 +73,8 @@ public class Movement : MonoBehaviour {
     {
         m_currentSpeed = Mathf.Clamp(speed, m_minSpeed, m_maxSpeed);
     }
+    public float GetSpeed()
+    {
+        return m_currentSpeed;
+    }
 }

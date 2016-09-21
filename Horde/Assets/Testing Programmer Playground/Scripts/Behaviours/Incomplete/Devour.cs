@@ -1,15 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Devour : MonoBehaviour {
+public class Devour : BaseBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Devour(GameObject pParent):base(pParent)
+    {
+        if (m_parent == null)
+        {
+            Debug.Log("Parent game Object not included.");
+            return; // early exit
+        }
+    }
+
+    public override Status Update()
+    {
+        if (m_parent == null)
+        {
+            Debug.Log("Parent GameObject not included.");
+            return Status.FAILURE; // early exit
+        }
+
+
+        // Do stuff
+
+
+
+        Debug.Log("Devour Behaviour");
+        return Status.SUCCESS;
+
+    }
 }

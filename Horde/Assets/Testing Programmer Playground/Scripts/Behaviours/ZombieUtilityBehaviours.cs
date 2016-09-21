@@ -12,6 +12,7 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
         Devour,
         Chase,
         GoToUserTap,
+        Death,
     }
 
     private Dictionary<BehaviourNames, BaseBehaviour> m_behaviours = new Dictionary<BehaviourNames, BaseBehaviour>();

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InvestigateNoise : BaseBehaviour
+public class Death : BaseBehaviour
 {
-
-    public InvestigateNoise(GameObject pParent):base(pParent)
+    public Death(GameObject pParent):base(pParent)
     {
         if (m_parent == null)
         {
@@ -26,7 +25,7 @@ public class InvestigateNoise : BaseBehaviour
 
 
 
-        Debug.Log("InvestigateNoise Behaviour");
+        Debug.Log("Death Behaviour");
         return Status.SUCCESS;
 
     }

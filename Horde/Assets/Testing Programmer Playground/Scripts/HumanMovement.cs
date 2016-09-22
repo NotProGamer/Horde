@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class HumanMovement : Movement {
 
+    private Health m_health = null;
     new void Awake()
     {
         base.Awake();
@@ -20,6 +22,12 @@ public class HumanMovement : Movement {
         {
             Debug.Log("GameController not included!");
         }
+
+        m_health = GetComponent<Health>();
+        if (m_health == null)
+        {
+            Debug.Log("Health not included!");
+        }
     }
 
     // Use this for initialization
@@ -32,8 +40,21 @@ public class HumanMovement : Movement {
     // Update is called once per frame
     new void Update ()
     {
-        Patrol();
+        if (m_health.IsDead())
+        {
+            Stop();
+        }
+        else
+        {
+            Patrol();
+        }
+        
         base.Update();
+    }
+
+    private void Stop()
+    {
+        SetDestination(transform.position);
     }
 
 

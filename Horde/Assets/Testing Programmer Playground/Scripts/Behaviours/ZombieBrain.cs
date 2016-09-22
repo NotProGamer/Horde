@@ -104,6 +104,10 @@ public class ZombieBrain : MonoBehaviour {
         {
             m_memory[Labels.Memory.LastUserTap] = m_userTaps[0];
         }
+        else
+        {
+            //m_memory[Labels.Memory.LastUserTap] = null; /// testing 
+        }
 
         if (m_audibleNoises.Count > 0)
         {
@@ -116,7 +120,7 @@ public class ZombieBrain : MonoBehaviour {
         }
         else if (m_enemies.Count > 0)
         {
-            m_memory[Labels.Memory.ClosestEnemy] = m_enemies[0];
+            m_memory[Labels.Memory.ClosestEnemy] = m_enemies[0].gameObject;
         }
         else
         {
@@ -130,7 +134,7 @@ public class ZombieBrain : MonoBehaviour {
         }
         else if (m_enemyCorpses.Count > 0)
         {
-            m_memory[Labels.Memory.ClosestCorpse] = m_enemyCorpses[0];
+            m_memory[Labels.Memory.ClosestCorpse] = m_enemyCorpses[0].gameObject;
         }
         else
         {
@@ -317,6 +321,31 @@ public class ZombieBrain : MonoBehaviour {
         }
 
     }
+    public bool ClearMemoryLocation(string pMemoryLabel)
+    {
+        object memory = null;
+        if (m_memory.TryGetValue(pMemoryLabel, out memory))
+        {
+            m_memory[pMemoryLabel] = null;
+            return true;
+        }
+        else
+        {
+            //m_memory[Labels.Memory.CurrentTarget] = transform.position;
+            Debug.Log("Unable to locate '" + pMemoryLabel + "' in memory");
+            return false;
+        }
+
+    }
+    public bool RemembersMemoryLocation(string pMemoryLabel)
+    {
+        object memory = null;
+        if (!m_memory.TryGetValue(pMemoryLabel, out memory))
+        {
+            memory = null;
+        }
+        return memory != null;
+    }
 
     private NoiseManager m_noiseManager = null;
     private List<Noise> m_audibleNoises = new List<Noise>();
@@ -324,8 +353,22 @@ public class ZombieBrain : MonoBehaviour {
     private List<Noise> m_investigated = new List<Noise>();
     //private float m_lastListenTime = 0f;
 
-    public float m_tapInterest = 2.0f;
+    public float m_maxTapInterest = 2.0f;
 
+    public float GetTapInterest()
+    {
+        float interest = 0f;
+        Noise lastTap = GetLastUserTap();
+        if (lastTap != null)
+        {
+            if (Time.time <= lastTap.m_timeCreated + m_maxTapInterest)
+            {
+                interest = m_maxTapInterest - (Time.time - lastTap.m_timeCreated);
+            }
+        }
+        //Debug.Log(interest);
+        return interest;
+    }
 
     void Listen()
     {
@@ -342,6 +385,8 @@ public class ZombieBrain : MonoBehaviour {
             //m_lastListenTime = currentListen;
         }
     }
+
+    
     private void SortNoises()
     {
         if (m_audibleNoises.Count > 1)
@@ -465,9 +510,12 @@ public class ZombieBrain : MonoBehaviour {
         switch (currentBehaviour)
         {
             case ZombieUtilityBehaviours.BehaviourNames.Idle:
-            case ZombieUtilityBehaviours.BehaviourNames.Wander:
             case ZombieUtilityBehaviours.BehaviourNames.Investigate:
-                IncrementBoredom();
+                IncrementBoredom(currentBehaviour);
+                break;
+            case ZombieUtilityBehaviours.BehaviourNames.Wander:
+                //IncrementBoredom(currentBehaviour, -1.0f);
+                //IncrementBoredom(currentBehaviour);
                 break;
             case ZombieUtilityBehaviours.BehaviourNames.Devour:
             case ZombieUtilityBehaviours.BehaviourNames.Chase:
@@ -480,21 +528,27 @@ public class ZombieBrain : MonoBehaviour {
         }
     }
 
-    private void IncrementBoredom()
+    private void IncrementBoredom(ZombieUtilityBehaviours.BehaviourNames behaviour, float modifer = 1.0f)
     {
         float boredomIncrement = m_boredomIncrement;
         if (m_movementScript != null)
         {
-            boredomIncrement -= m_movementScript.GetSpeed();
+            boredomIncrement -= m_movementSpeeds.GetMovementSpeed(behaviour);
             boredomIncrement = Mathf.Clamp(boredomIncrement, 0, m_boredomIncrement);
         }
-        m_currentBoredom += boredomIncrement;
+        m_currentBoredom += boredomIncrement * modifer;
         m_currentBoredom = Mathf.Clamp(m_currentBoredom, 0, m_maxBoredom);
     }
-    private void ResetBoredom()
+    public void ResetBoredom()
     {
         m_currentBoredom = 0;
     }
+
+    public bool GetObjectFromMemory(string pMemoryLocation, out object pObject)
+    {
+        return m_memory.TryGetValue(pMemoryLocation, out pObject);
+    }
+
 
     //private void ClearExpiredNoises()
     //{

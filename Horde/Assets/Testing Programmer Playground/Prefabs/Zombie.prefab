@@ -13,7 +13,7 @@ GameObject:
   - 195: {fileID: 19566226}
   - 114: {fileID: 11471144}
   - 114: {fileID: 11421896}
-  - 114: {fileID: 114000012112569016}
+  - 114: {fileID: 114000010240450410}
   - 114: {fileID: 11434746}
   - 114: {fileID: 11418310}
   - 114: {fileID: 114000011839444618}
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_currentDestination: {x: 0, y: 0, z: 0}
+  m_touchRange: 1
   m_minSpeed: 1
   m_maxSpeed: 10
   m_state: 0
@@ -231,6 +232,20 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186686}
   m_IsPrefabParent: 1
+--- !u!114 &114000010240450410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8432582921ee8b44b997147707d11f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_delay: 0.5
+  m_damage: 10
+  m_attackRange: 10
 --- !u!114 &114000011839444618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,15 +260,15 @@ MonoBehaviour:
   m_currentBehaviour: 0
   m_behaviourEvaluations:
   - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 5
     m_evaluations:
     - m_eval: 5
       m_weight: 1
-    m_behaviourName: 5
   - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 1
     m_evaluations:
     - m_eval: 6
       m_weight: 1
-    m_behaviourName: 1
 --- !u!114 &114000012005248876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,7 +288,19 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 1
+  m_isAliveFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_isDeadFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
   m_enemyInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_noEnemyInSightFormula:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
@@ -281,7 +308,15 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
+  m_noCorspeInSightFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
   m_boredomFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_inverseBoredomFormula:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
@@ -317,20 +352,10 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
---- !u!114 &114000012112569016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b50cee1f6405ed4a84fc217f4e304bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_delay: 0.5
-  m_damage: 10
-  m_attackRange: 10
+  m_remembersLastUserTapFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!114 &114000013037564254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,7 +386,7 @@ MonoBehaviour:
   m_boredomIncrement: 10
   m_maxBoredom: 100
   m_currentBoredom: 0
-  m_tapInterest: 2
+  m_maxTapInterest: 2
   m_attackRange: 1
   m_attackDelay: 0.5
   m_devourRange: 1

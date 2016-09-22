@@ -5,7 +5,7 @@ public class Movement : MonoBehaviour {
 
     private NavMeshAgent m_nav = null;
     public Vector3 m_currentDestination = new Vector3();
-    private float m_touchRange = 1f; // may need to get this from attackRange or moveRange
+    public float m_touchRange = 1f; // may need to get this from attackRange or moveRange
 
     public float m_minSpeed = 3f;
     public float m_maxSpeed = 10f;

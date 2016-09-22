@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Devour : SequenceBehaviour
+public class GoToMemoryLocation : SequenceBehaviour
 {
 
-    public Devour(GameObject pParent, string pMemoryLabel):base(pParent)
+    public GoToMemoryLocation(GameObject pParent, string pMemoryLabel) : base(pParent)
     {
         if (m_parent == null)
         {
@@ -12,17 +12,17 @@ public class Devour : SequenceBehaviour
             return; // early exit
         }
 
-        //BaseBehaviour goToMemoryLocation = new GoToMemoryLocation(pParent, pMemoryLabel);
-        //m_children.Add(goToMemoryLocation);
+        // set current target
+        // set speed
+
+
         BaseBehaviour setCurrentTarget = new SetCurrentTargetFromMemory(pParent, pMemoryLabel);
         m_children.Add(setCurrentTarget);
         BaseBehaviour setZombieSpeed = new SetZombieMovementSpeed(pParent);
         m_children.Add(setZombieSpeed);
         BaseBehaviour moveToCurrentTarget = new MoveToMemoryLocation(pParent, Labels.Memory.CurrentTarget);
         m_children.Add(moveToCurrentTarget);
-        BaseBehaviour devourZombie = new DevourTarget(pParent, pMemoryLabel);
-        m_children.Add(devourZombie);
-
+        BaseBehaviour clearMemoryWhenReached = new ClearMemoryLocationWhenDestinationReached(pParent, pMemoryLabel);
+        m_children.Add(clearMemoryWhenReached);
     }
-
 }

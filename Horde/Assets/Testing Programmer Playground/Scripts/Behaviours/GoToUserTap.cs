@@ -22,7 +22,8 @@ public class GoToUserTap : SequenceBehaviour
         m_children.Add(setZombieSpeed);
         BaseBehaviour moveToCurrentTarget = new MoveToMemoryLocation(pParent, Labels.Memory.CurrentTarget);
         m_children.Add(moveToCurrentTarget);
-
+        BaseBehaviour clearMemoryWhenReached = new ClearMemoryLocationWhenDestinationReached(pParent, pMemoryLabel);
+        m_children.Add(clearMemoryWhenReached);
     }
 
 

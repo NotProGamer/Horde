@@ -25,6 +25,7 @@ public class ZombieUtilityAI : MonoBehaviour {
 
     private ZombieUtilityBehaviours m_zombieBehaviourScript = null;
     private ZombieUtilityEvaluations m_zombieEvaluationScript = null;
+    private ZombieBrain m_zombieBrainScript = null;
 
     void Awake()
     {
@@ -40,17 +41,20 @@ public class ZombieUtilityAI : MonoBehaviour {
             Debug.Log("ZombieUtilityEvaluations no included");
         }
 
-        
+        m_zombieBrainScript = GetComponent<ZombieBrain>();
+        if (m_zombieBrainScript == null)
+        {
+            Debug.Log("ZombieBrain no included");
+        }
+
     }
 
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    // Use this for initialization
+    //void Start () {	}
+
+    // Update is called once per frame
+    void Update ()
     {
         // Could delay this if i wanted
         Evaluation();
@@ -106,4 +110,5 @@ public class ZombieUtilityAI : MonoBehaviour {
     {
         return m_currentBehaviour;
     }
+
 }

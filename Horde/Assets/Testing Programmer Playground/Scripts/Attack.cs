@@ -7,11 +7,11 @@ public class Attack : MonoBehaviour {
     public float m_delay = 0.5f;
     public int m_damage = 10;
     public float m_attackRange = 10f;
-    private float m_nextAttackTime = 0.0f;
+    protected float m_nextAttackTime = 0.0f;
 
-    private Health m_health = null;
-    private GameObject m_currentTarget = null;
-    private Health m_currentTargetHealth = null;
+    protected Health m_health = null;
+    protected GameObject m_currentTarget = null;
+    protected Health m_currentTargetHealth = null;
 
     void Awake()
     {
@@ -25,14 +25,10 @@ public class Attack : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    //void Start () {	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	//void Update () {	}
 
     public virtual bool AttackTarget(GameObject pTargetGameObject)
     {
@@ -76,7 +72,8 @@ public class Attack : MonoBehaviour {
         // ========================
         // Trigger Attack Animation HERE
         // ========================
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        Debug.Log("Trigger attack animation");
     }
 
     public virtual void DamageTarget()
@@ -86,8 +83,6 @@ public class Attack : MonoBehaviour {
         {
             return; // early exit
         }
-
-
 
         if (m_currentTarget != null)
         {
@@ -108,10 +103,9 @@ public class Attack : MonoBehaviour {
                 }
             }
         }
-        
     }
 
-    protected bool InsideAttackRange(Transform other)
+    public bool InsideAttackRange(Transform other)
     {
         bool result = false;
 

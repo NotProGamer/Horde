@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &154740
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +161,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 478648}
-  - 95: {fileID: 9550628}
   m_Layer: 0
   m_Name: Building_3Story_Prefab_WhiteBlue_1
   m_TagString: Untagged
@@ -918,23 +917,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116078}
   m_Mesh: {fileID: 4300014, guid: 4259f7c32be087e469693633e31532ef, type: 3}
---- !u!95 &9550628
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161186}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4259f7c32be087e469693633e31532ef, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -26,14 +26,10 @@ public class Listen : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    //void Start () {	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	//void Update () {	}
 
     private Noise m_mostAudibleNoise = null;
     private NoiseManager m_noiseManager = null;

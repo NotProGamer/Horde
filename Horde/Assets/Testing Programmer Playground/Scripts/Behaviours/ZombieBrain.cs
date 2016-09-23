@@ -153,22 +153,29 @@ public class ZombieBrain : MonoBehaviour {
         object currentTarget = null;
         if (m_memory.TryGetValue(Labels.Memory.CurrentTarget, out currentTarget))
         {
-            System.Type t = currentTarget.GetType();
-            if (t == typeof(Vector3))
+            if (currentTarget != null)
             {
-                position = (Vector3)currentTarget;
-                //m_memory["CurrentTartget"] = transform.gameObject;
-                result = true;
+                System.Type t = currentTarget.GetType();
+                if (t == typeof(Vector3))
+                {
+                    position = (Vector3)currentTarget;
+                    //m_memory["CurrentTartget"] = transform.gameObject;
+                    result = true;
+                }
+                else if (t == typeof(GameObject))
+                {
+                    position = ((GameObject)currentTarget).transform.position;
+                    result = true;
+                }
+                else if (t == typeof(Noise))
+                {
+                    position = ((Noise)currentTarget).m_position;
+                    result = true;
+                }
             }
-            else if (t == typeof(GameObject))
+            else
             {
-                position = ((GameObject)currentTarget).transform.position;
-                result = true;
-            }
-            else if (t == typeof(Noise))
-            {
-                position = ((Noise)currentTarget).m_position;
-                result = true;
+                //Debug.Log("memory location '" + Labels.Memory.CurrentTarget + "' set to null");
             }
         }
         else
@@ -510,14 +517,12 @@ public class ZombieBrain : MonoBehaviour {
         switch (currentBehaviour)
         {
             case ZombieUtilityBehaviours.BehaviourNames.Idle:
-            case ZombieUtilityBehaviours.BehaviourNames.Investigate:
                 IncrementBoredom(currentBehaviour);
                 break;
+            case ZombieUtilityBehaviours.BehaviourNames.Investigate:
             case ZombieUtilityBehaviours.BehaviourNames.Wander:
-                //IncrementBoredom(currentBehaviour, -1.0f);
-                //IncrementBoredom(currentBehaviour);
-                break;
             case ZombieUtilityBehaviours.BehaviourNames.Devour:
+                break;
             case ZombieUtilityBehaviours.BehaviourNames.Chase:
             case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
             case ZombieUtilityBehaviours.BehaviourNames.Death:

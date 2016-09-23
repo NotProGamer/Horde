@@ -27,6 +27,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         DistanceToPriorityNoise,
         DistanceToLastUserTap,
         RemembersLastUserTap,
+        CanNotHearNoise,
     }
 
     private Health m_healthScript = null;
@@ -56,6 +57,8 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
     public UtilityMath.UtilityValue m_distanceToLastUserTapFormula; // Done .. probably not relevant
 
     public UtilityMath.UtilityValue m_remembersLastUserTapFormula; // Done
+
+    public UtilityMath.UtilityValue m_canNotHearNoiseFormula; // Done
 
     //public UtilityMath.UtilityValue m_distanceToUserTapFormula;
 
@@ -130,18 +133,24 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_interestInUsertapFormula.SetMinMaxValues(0, m_zombieBrainScript.m_maxTapInterest);
             // distances
             m_distanceToEnemyFormula.SetMinMaxValues(0, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange);
+            m_distanceToEnemyFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             m_distanceToCorpseFormula.SetMinMaxValues(0, m_zombieBrainScript.m_sightRange * m_zombieBrainScript.m_sightRange);
             m_distanceToCorpseFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
 
             float maxHearingRange = float.MaxValue;
             if (m_noiseManagerScript != null)
             {
-                maxHearingRange = (m_noiseManagerScript.m_maxVolume * m_noiseManagerScript.m_maxVolume) + (m_zombieBrainScript.m_hearingRange * m_zombieBrainScript.m_hearingRange);
+                maxHearingRange = m_zombieBrainScript.m_hearingRange * m_zombieBrainScript.m_hearingRange;
             }
             m_distanceToPriorityNoiseFormula.SetMinMaxValues(0, maxHearingRange);
+            m_distanceToPriorityNoiseFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             m_distanceToLastUserTapFormula.SetMinMaxValues(0, maxHearingRange);
+            m_distanceToLastUserTapFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
 
             m_remembersLastUserTapFormula.SetMinMaxValues(0, 1);
+
+            m_canNotHearNoiseFormula.SetMinMaxValues(0, 1);
+            m_canNotHearNoiseFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
         }
 
         m_evaluations.Add(Evaluations.EnemyInSight, m_enemyInSightFormula);
@@ -161,6 +170,10 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         m_evaluations.Add(Evaluations.DistanceToLastUserTap, m_distanceToLastUserTapFormula);
 
         m_evaluations.Add(Evaluations.RemembersLastUserTap, m_remembersLastUserTapFormula);
+
+        m_evaluations.Add(Evaluations.CanNotHearNoise, m_canNotHearNoiseFormula);
+
+        
     }
 
 
@@ -193,6 +206,8 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_distanceToLastUserTapFormula.SetValue(DistanceToMemoryLocation(Labels.Memory.LastUserTap));
 
             m_remembersLastUserTapFormula.SetValue(System.Convert.ToInt32(m_zombieBrainScript.RemembersMemoryLocation(Labels.Memory.LastUserTap)));
+
+            m_canNotHearNoiseFormula.SetValue(m_zombieBrainScript.GetAudibleNoiseCount());
         }
     }
 

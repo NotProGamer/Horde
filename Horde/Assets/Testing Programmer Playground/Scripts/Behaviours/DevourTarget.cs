@@ -57,11 +57,11 @@ public class DevourTarget : BaseBehaviour
                 if (t == typeof(GameObject))
                 {
                     test = ((GameObject)memoryObject);
-                    //Debug.Log(test.gameObject.tag);
+                    
                     if (m_attackScript.InsideAttackRange(test.transform))
                     {
                         m_attackScript.DevourTarget(test);
-                        //Debug.Log("Devour");
+                        
                     }
                 }
                 else

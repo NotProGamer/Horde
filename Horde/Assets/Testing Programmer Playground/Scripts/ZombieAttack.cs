@@ -94,7 +94,7 @@ public class ZombieAttack : Attack {
 
     private void TriggerDevourAnimation()
     {
-        Debug.Log("Devour");
+        Debug.Log("Devour Target");
     }
 
     public void ConsumeTarget()

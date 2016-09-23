@@ -37,7 +37,20 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
 
         if (m_movementScript)
         {
-            if (m_movementScript.ReachedDestination())
+            bool destinationReached = false;
+
+            float distanceToCurrentTarget = 0f;
+            Vector3 currentTargetPosition = Vector3.zero;
+            if (m_zombieBrainScript.GetCurrentTargetPosition(out currentTargetPosition))
+            {
+                distanceToCurrentTarget = (m_parent.transform.position - currentTargetPosition).sqrMagnitude;
+                if (distanceToCurrentTarget < m_movementScript.m_touchRange * m_movementScript.m_touchRange)
+                {
+                    destinationReached = true;
+                }
+            }
+
+            if (destinationReached)
             {
                 m_zombieBrainScript.ClearMemoryLocation(m_memoryLocation);
                 //Debug.Log("Reached Destination Forgetting LastTap");

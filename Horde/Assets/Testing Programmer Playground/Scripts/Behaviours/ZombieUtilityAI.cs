@@ -79,15 +79,15 @@ public class ZombieUtilityAI : MonoBehaviour {
                 for (int i = 0; i < behaviourEvaluation.m_evaluations.Count; i++)
                 {
                     float evaluation = 0f;
-                    evaluation = m_zombieEvaluationScript.Evaluation(behaviourEvaluation.m_evaluations[0].m_eval);
-                    evaluation *= behaviourEvaluation.m_evaluations[0].m_weight;
+                    evaluation = m_zombieEvaluationScript.Evaluation(behaviourEvaluation.m_evaluations[i].m_eval);
+                    evaluation *= behaviourEvaluation.m_evaluations[i].m_weight;
                     if (i == 0)
                     {
                         behaviourEvaluationValue = evaluation;
                     }
                     else
                     {
-                        behaviourEvaluationValue *= evaluation;
+                        behaviourEvaluationValue += evaluation;
                     }
                 }
 

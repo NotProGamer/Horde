@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_delay: 0.5
   m_damage: 10
-  m_attackRange: 10
+  m_attackRange: 1
 --- !u!114 &114000011839444618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,15 +260,54 @@ MonoBehaviour:
   m_currentBehaviour: 0
   m_behaviourEvaluations:
   - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 6
+    m_evaluations:
+    - m_eval: 3
+      m_weight: 100
+  - m_currentEvaluationForDebugging: 0
     m_behaviourName: 5
     m_evaluations:
+    - m_eval: 18
+      m_weight: 95
+  - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 4
+    m_evaluations:
+    - m_eval: 4
+      m_weight: 70
+    - m_eval: 14
+      m_weight: 20
     - m_eval: 5
-      m_weight: 1
+      m_weight: -20
+  - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 2
+    m_evaluations:
+    - m_eval: 12
+      m_weight: 10
+    - m_eval: 16
+      m_weight: 6
+    - m_eval: 19
+      m_weight: -40
+  - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 3
+    m_evaluations:
+    - m_eval: 6
+      m_weight: 4.4
+    - m_eval: 1
+      m_weight: 10
+    - m_eval: 15
+      m_weight: 10
+    - m_eval: 7
+      m_weight: -40
   - m_currentEvaluationForDebugging: 0
     m_behaviourName: 1
     m_evaluations:
-    - m_eval: 6
-      m_weight: 1
+    - m_eval: 8
+      m_weight: 30
+  - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 0
+    m_evaluations:
+    - m_eval: 9
+      m_weight: 30
 --- !u!114 &114000012005248876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,6 +395,10 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
+  m_canNotHearNoiseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!114 &114000013037564254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,9 +427,9 @@ MonoBehaviour:
     m_Bits: 256
   m_hearingRange: 50
   m_boredomIncrement: 10
-  m_maxBoredom: 100
+  m_maxBoredom: 1000
   m_currentBoredom: 0
-  m_maxTapInterest: 2
+  m_maxTapInterest: 5
   m_attackRange: 1
   m_attackDelay: 0.5
   m_devourRange: 1

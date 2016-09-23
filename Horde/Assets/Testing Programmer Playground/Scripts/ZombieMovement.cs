@@ -22,6 +22,7 @@ public class ZombieMovement : Movement
         {
             Debug.Log("GameController not included!");
         }
+        m_rigidbody = GetComponent<Rigidbody>();
     }
 
 
@@ -37,7 +38,20 @@ public class ZombieMovement : Movement
     {
         //SetDestination(GetCurrentTargetPosition());
         //Think();
+
         base.Update();
+    }
+
+    public Animator m_anim = null;
+    private Rigidbody m_rigidbody = null;
+
+    void UpdateAnimation()
+    {
+        if (m_anim != null && m_rigidbody != null)
+        {
+            m_anim.SetFloat("Movement", m_rigidbody.velocity.normalized.magnitude);
+        }
+        
     }
 
     // The following code is more to do with behaviour and will later be move out of this script

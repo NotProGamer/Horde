@@ -115,7 +115,7 @@ public class Tapper : MonoBehaviour {
                 {
                     // Increase Volume
                     m_currentNoise.m_volume += m_volumeIncrementPerTap;
-                    m_currentNoise.m_expiry = Time.time + m_expiryDelay;
+                    m_currentNoise.m_timeExpiry = Time.time + m_expiryDelay;
                     m_tapCount++;
                 }
             }

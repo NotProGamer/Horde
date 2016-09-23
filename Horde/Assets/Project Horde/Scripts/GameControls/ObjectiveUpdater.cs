@@ -80,7 +80,6 @@ public class ObjectiveUpdater : MonoBehaviour {
             {
                 SetStatus(ObjectiveStatus.InProgress);
             }
-            
         }
     }
 

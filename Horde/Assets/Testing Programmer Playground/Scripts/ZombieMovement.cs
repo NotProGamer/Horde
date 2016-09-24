@@ -49,7 +49,7 @@ public class ZombieMovement : Movement
     {
         if (m_anim != null && m_rigidbody != null)
         {
-            m_anim.SetFloat("Movement", m_rigidbody.velocity.normalized.magnitude);
+            m_anim.SetFloat("Movement", m_rigidbody.velocity.magnitude / m_maxSpeed);
         }
         
     }

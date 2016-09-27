@@ -73,7 +73,7 @@ public class Attack : MonoBehaviour {
         // Trigger Attack Animation HERE
         // ========================
         //throw new NotImplementedException();
-        Debug.Log("Trigger attack animation");
+        //Debug.Log("Trigger attack animation");
     }
 
     public virtual void DamageTarget()

@@ -452,7 +452,7 @@ public class ZombieBrain : MonoBehaviour {
         public float m_chase = 10f;
         public float m_devour = 7f;
         public float m_investigate = 5f;
-        public float m_wander = 3f;
+        public float m_wander = 1f;
         public float m_idle = 0f;
         private Dictionary<ZombieUtilityBehaviours.BehaviourNames, float> m_speeds = new Dictionary<ZombieUtilityBehaviours.BehaviourNames, float>();
 

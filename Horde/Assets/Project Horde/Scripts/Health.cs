@@ -38,9 +38,11 @@ public class Health : MonoBehaviour {
         m_reanimationScript = GetComponent<Reanimator>();
         if (m_reanimationScript == null)
         {
-            Debug.Log("Reanimator Script not included");
+            if (Labels.Tags.IsHuman(gameObject))
+            {
+                Debug.Log("Reanimator Script not included");
+            }
         }
-
     }
 
     void OnEnable()

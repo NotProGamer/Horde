@@ -179,14 +179,27 @@ public class SelectorBehaviour : CompositeBehaviour
 
 public class NotDecoratorBehaviour: BaseBehaviour
 {
-    public NotDecoratorBehaviour(GameObject pParent) : base(pParent)
+    BaseBehaviour m_child = null;
+
+    public NotDecoratorBehaviour(GameObject pParent, BaseBehaviour pChild) : base(pParent)
     {
-        
+        m_child = pChild;
+        if (m_child == null)
+        {
+            Debug.Log("Child behaviour not included.");
+        }
     }
     public override Status Update()
     {
-        
-        Status status = Tick();
+        if (m_child == null)
+        {
+            return Status.FAILURE; // early exit;
+        }
+
+        //Status status = Tick();
+
+
+        Status status = m_child.Update();
 
         switch (status)
         {

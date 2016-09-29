@@ -23,6 +23,7 @@ public class ZombieMovement : Movement
             Debug.Log("GameController not included!");
         }
         m_rigidbody = GetComponent<Rigidbody>();
+        m_nav = GetComponent<NavMeshAgent>();
     }
 
 
@@ -38,20 +39,26 @@ public class ZombieMovement : Movement
     {
         //SetDestination(GetCurrentTargetPosition());
         //Think();
-
+        UpdateAnimation();
         base.Update();
     }
 
     public Animator m_anim = null;
     private Rigidbody m_rigidbody = null;
+    private NavMeshAgent m_nav = null;
 
     void UpdateAnimation()
     {
-        if (m_anim != null && m_rigidbody != null)
+        //if (m_anim != null && m_rigidbody != null)
+        //{
+        //    m_anim.SetFloat("Movement", m_rigidbody.velocity.magnitude / m_maxSpeed);
+        //}
+
+        if (m_anim != null && m_nav != null)
         {
-            m_anim.SetFloat("Movement", m_rigidbody.velocity.magnitude / m_maxSpeed);
+            m_anim.SetFloat("Movement", m_nav.velocity.magnitude / m_maxSpeed);
         }
-        
+
     }
 
     // The following code is more to do with behaviour and will later be move out of this script

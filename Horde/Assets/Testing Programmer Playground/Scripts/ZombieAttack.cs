@@ -7,15 +7,14 @@ public class ZombieAttack : Attack {
     private HealthCondition m_healthCondition = null;
     private HealthCondition m_targetHealthCondition = null;
 
-    // Use this for initialization
-    void Start ()
+    new void Awake()
     {
+        base.Awake();
         m_healthCondition = GetComponent<HealthCondition>();
         if (m_healthCondition == null)
         {
             Debug.Log("HealthCondition not included");
         }
-
     }
 
     public override void DamageTarget()
@@ -57,9 +56,17 @@ public class ZombieAttack : Attack {
 
     public bool DevourTarget(GameObject pTargetGameObject)
     {
+        
         bool result = false;
-        if (!m_health.IsDead())
+        if (m_health == null)
         {
+            Debug.Log("Health Script not Included.");
+            return result; // early exit
+        }
+
+        if (m_health.IsDead())
+        {
+            //Debug.Log("Zombie Dead");
             return result; // early exit
         }
 
@@ -67,10 +74,11 @@ public class ZombieAttack : Attack {
         {
             return result; // early exit
         }
+        
 
         if (m_nextAttackTime < Time.time)
         {
-
+            //Debug.Log("test2");
             // if target changed 
             if (m_currentTarget == null || m_currentTarget != pTargetGameObject)
             {
@@ -94,24 +102,25 @@ public class ZombieAttack : Attack {
 
     private void TriggerDevourAnimation()
     {
-        Debug.Log("Devour Target");
+        ConsumeTarget();
     }
 
     public void ConsumeTarget()
     {
+        
         // this is to be triggerred by the attack animation
-        if (!m_health.IsDead())
+        if (m_health.IsDead())
         {
             return; // early exit
         }
-
+        
         if (m_currentTarget != null)
         {
             // get current target health
             m_currentTargetHealth = m_currentTarget.GetComponent<Health>();
 
-            // if target has health and is not dead
-            if (m_currentTargetHealth != null && !m_currentTargetHealth.IsDead())
+            // if target has health and is dead
+            if (m_currentTargetHealth != null && m_currentTargetHealth.IsDead())
             {
                 //if target still in range
                 if (InsideAttackRange(m_currentTarget.transform))
@@ -119,11 +128,11 @@ public class ZombieAttack : Attack {
                     // apply damage
                     m_health.ApplyHeal(m_currentTargetHealth.DevourCorpse(m_damage));
                     // infect target
-                    Debug.Log("Eat");
+                    //Debug.Log("Eat");
                 }
                 else
                 {
-                    Debug.Log("Go Hungry");
+                    //Debug.Log("Go Hungry");
                 }
             }
         }

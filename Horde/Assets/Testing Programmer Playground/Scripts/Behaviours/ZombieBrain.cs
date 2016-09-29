@@ -261,13 +261,18 @@ public class ZombieBrain : MonoBehaviour {
                 {
                     Health currentObjectHealth = null;
                     currentObjectHealth = currentObject.GetComponent<Health>();
-                    if (currentObjectHealth != null && currentObjectHealth.IsDead() && !currentObjectHealth.IsDevoured())
+
+                    if (currentObjectHealth != null && !currentObjectHealth.IsDevoured())
                     {
-                        m_enemyCorpses.Add(currentObject);
-                    }
-                    else
-                    {
-                        m_enemies.Add(currentObject);
+                        if (currentObjectHealth.IsDead())
+                        {
+                            m_enemyCorpses.Add(currentObject);
+                        }
+                        else if (!currentObjectHealth.IsDead())
+                        {
+                            m_enemies.Add(currentObject);
+                        }
+
                     }
                 }
                 else if (Labels.Tags.IsZombie(currentObject))

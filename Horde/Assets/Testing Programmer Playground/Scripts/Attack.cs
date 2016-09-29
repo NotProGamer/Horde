@@ -13,7 +13,7 @@ public class Attack : MonoBehaviour {
     protected GameObject m_currentTarget = null;
     protected Health m_currentTargetHealth = null;
 
-    void Awake()
+    protected void Awake()
     {
         m_health = GetComponent<Health>();
         if (m_health == null)

@@ -61,7 +61,6 @@ public class DevourTarget : BaseBehaviour
                     if (m_attackScript.InsideAttackRange(test.transform))
                     {
                         m_attackScript.DevourTarget(test);
-                        
                     }
                 }
                 else

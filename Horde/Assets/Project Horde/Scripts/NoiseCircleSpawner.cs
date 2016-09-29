@@ -32,9 +32,9 @@ public class NoiseCircleSpawner : MonoBehaviour
             if (m_userController.m_state == UserControllerState.Tapped)
             {
                 
-                Vector3 test = m_userController.m_tappedObject.hitPosition;
-                test.y = height;
-                NoiseVis.transform.position = test;
+                //Vector3 test = m_userController.m_tappedObject.hitPosition;
+                //test.y = height;
+                transform.position = new Vector3 (transform.position.x, height, transform.position.z);
 
             }
         }

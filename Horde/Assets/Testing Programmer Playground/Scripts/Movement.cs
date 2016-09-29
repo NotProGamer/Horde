@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-    private NavMeshAgent m_nav = null;
+    protected NavMeshAgent m_nav = null;
     public Vector3 m_currentDestination = new Vector3();
     public float m_touchRange = 1f; // may need to get this from attackRange or moveRange
 
@@ -47,16 +47,86 @@ public class Movement : MonoBehaviour {
                 m_state = State.Idle;
             }
         }
+        
+
     }
 
+    void MoveToPartialPath()
+    {
+        Debug.Log("Move To partial path");
+        if (m_nav.pathStatus == NavMeshPathStatus.PathPartial)
+        {
+            int lastCornerIndex = m_nav.path.corners.Length;
+            if (lastCornerIndex > 0)
+            {
+                Vector3 test = m_nav.path.corners[lastCornerIndex - 1];
+                SetDestination(test);
+            }
+
+        }
+
+    }
+
+    
     public void SetDestination(Vector3 position)
     {
         if (m_nav)
         {
+            
             m_state = State.Moving;
-            m_currentDestination = position;
             m_nav.speed = m_currentSpeed;
+            m_currentDestination = position;
             m_nav.SetDestination(m_currentDestination);
+
+            //if (m_currentDestination != position)
+            //{
+            //    NavMeshPath path = new NavMeshPath();
+            //    m_nav.CalculatePath(position, path);
+            //    if (path.status == NavMeshPathStatus.PathPartial)
+            //    {
+            //        int lastCornerIndex = m_nav.path.corners.Length;
+            //        if (lastCornerIndex > 0)
+            //        {
+            //            Vector3 partialPosition = m_nav.path.corners[lastCornerIndex - 1];
+            //            NavMeshHit hit;
+            //            if (NavMesh.SamplePosition(partialPosition, out hit, 100f, NavMesh.AllAreas))
+            //            {
+            //                if (m_currentDestination != hit.position)
+            //                {
+            //                    Debug.Log("Partial Path Destination Selected");
+            //                    m_currentDestination = hit.position;
+            //                    m_nav.SetDestination(m_currentDestination);
+            //                }
+            //                else
+            //                {
+            //                    Debug.Log("No change to partial path");
+            //                }
+            //            }
+            //            else
+            //            {
+            //                Debug.Log("could not locate navmesh point");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Debug.Log("no Corners");
+            //        }
+            //    }
+            //    else if (path.status == NavMeshPathStatus.PathComplete)
+            //    {
+            //        Debug.Log("Path Destination Selected");
+            //        m_currentDestination = position;
+            //        m_nav.SetDestination(m_currentDestination);
+            //    }
+            //    else
+            //    {
+            //        Debug.Log("Path Destination Invalid");
+            //    }
+            //    if (m_nav.path.status == NavMeshPathStatus.PathPartial)
+            //    {
+            //        Debug.Log("Still Partial Path Destination Selected");
+            //    }
+        //}
         }
     }
     public bool ReachedDestination()

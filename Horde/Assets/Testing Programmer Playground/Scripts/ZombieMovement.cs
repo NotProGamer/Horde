@@ -22,8 +22,6 @@ public class ZombieMovement : Movement
         {
             Debug.Log("GameController not included!");
         }
-        m_rigidbody = GetComponent<Rigidbody>();
-        m_nav = GetComponent<NavMeshAgent>();
     }
 
 
@@ -44,8 +42,8 @@ public class ZombieMovement : Movement
     }
 
     public Animator m_anim = null;
-    private Rigidbody m_rigidbody = null;
-    private NavMeshAgent m_nav = null;
+    
+    
 
     void UpdateAnimation()
     {

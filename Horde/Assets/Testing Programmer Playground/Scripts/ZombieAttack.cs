@@ -139,4 +139,15 @@ public class ZombieAttack : Attack {
 
     }
 
+
+    //void OnCollisionStay(Collision collisionInfo)
+    //{
+    //    if (Labels.Tags.IsDestructible(collisionInfo.gameObject))
+    //    {
+    //        if (AttackTarget(collisionInfo.gameObject))
+    //        {
+    //            Debug.Log("attack barricade");
+    //        }
+    //    }
+    //}
 }

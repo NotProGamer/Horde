@@ -25,7 +25,7 @@ public class ZombieCount : MonoBehaviour
 		if (Time.time > nextTime) 
 		{
 			
-			hordeArray = GameObject.FindGameObjectsWithTag ("Player");
+			hordeArray = GameObject.FindGameObjectsWithTag (Labels.Tags.Zombie);
 
 			if (hordeArray != null) 
 			{

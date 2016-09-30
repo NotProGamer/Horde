@@ -66,6 +66,7 @@ public class ZombieBrain : MonoBehaviour {
         m_memory.Add(Labels.Memory.LastPriorityNoise, null);
         m_memory.Add(Labels.Memory.ClosestEnemy, null);
         m_memory.Add(Labels.Memory.ClosestCorpse, null);
+        m_memory.Add(Labels.Memory.ClosestDestructible, null);
     }
 	
 	// Update is called once per frame
@@ -84,7 +85,6 @@ public class ZombieBrain : MonoBehaviour {
         //    {
         //        Debug.Log("GameObject Position " + ((GameObject)currentTarget).transform.position.ToString());
         //    }
-
         //}
         //else
         //{
@@ -139,6 +139,19 @@ public class ZombieBrain : MonoBehaviour {
         else
         {
             m_memory[Labels.Memory.ClosestCorpse] = null;
+        }
+
+        if (m_destructibles.Count > 1)
+        {
+            m_memory[Labels.Memory.ClosestDestructible] = GetClosest(m_destructibles);
+        }
+        else if (m_enemyCorpses.Count > 0)
+        {
+            m_memory[Labels.Memory.ClosestDestructible] = m_destructibles[0].gameObject;
+        }
+        else
+        {
+            m_memory[Labels.Memory.ClosestDestructible] = null;
         }
 
 
@@ -234,7 +247,8 @@ public class ZombieBrain : MonoBehaviour {
     private List<GameObject> m_enemies = new List<GameObject>();
     private List<GameObject> m_enemyCorpses = new List<GameObject>();
     private List<GameObject> m_allies = new List<GameObject>();
-    
+    private List<GameObject> m_destructibles = new List<GameObject>();
+
 
     // this will look at the gameobjects in sight and sorts them accordingly
 
@@ -285,6 +299,17 @@ public class ZombieBrain : MonoBehaviour {
                     }
                     
                     
+                }
+                else if (Labels.Tags.IsDestructible(currentObject))
+                {
+                    Health currentObjectHealth = null;
+                    currentObjectHealth = currentObject.GetComponent<Health>();
+                    if (currentObjectHealth != null && !currentObjectHealth.IsDead())
+                    {
+                        m_destructibles.Add(currentObject);
+                    }
+
+
                 }
 
             }
@@ -427,6 +452,10 @@ public class ZombieBrain : MonoBehaviour {
     public int GetCorpsesInSightCount()
     {
         return m_enemyCorpses.Count;
+    }
+    public int GetDestructiblesInSightCount()
+    {
+        return m_destructibles.Count;
     }
     public int GetUserTapCount()
     {

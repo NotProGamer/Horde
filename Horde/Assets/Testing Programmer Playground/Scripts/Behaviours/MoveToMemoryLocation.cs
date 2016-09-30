@@ -8,6 +8,7 @@ public class MoveToMemoryLocation : BaseBehaviour
     private Movement m_movementScript = null;
     private ZombieBrain m_zombieBrainScript = null;
 
+    private NavMeshAgent m_nav = null;
 
     public MoveToMemoryLocation(GameObject pParent, string pMemoryLocation):base(pParent)
     {
@@ -29,8 +30,14 @@ public class MoveToMemoryLocation : BaseBehaviour
             Debug.Log("Movement Script not included");
         }
         m_memoryLocation = pMemoryLocation;
+        m_nav = m_parent.GetComponent<NavMeshAgent>();
+        
     }
 
+    private Vector3 m_lastPostion;
+    private object m_lastTarget = null;
+    private float delay = 0.5f;
+    private float m_nextDestinationChange = 0f;
 
     public override Status Update()
     {
@@ -48,19 +55,67 @@ public class MoveToMemoryLocation : BaseBehaviour
         }
         else
         {
+
             // do move to memory location
+
+            bool targetChanged = false;
+            object test = null;
+            if (m_zombieBrainScript.GetObjectFromMemory(Labels.Memory.CurrentTarget, out test))
+            {
+                // if target changed 
+                if (m_lastTarget != test)
+                {
+                    m_lastTarget = test;
+                    targetChanged = true;
+                }
+            }
+
+            
             Vector3 position = new Vector3();
             if (!m_zombieBrainScript.GetCurrentTargetPosition(out position))
             {
                 return Status.FAILURE; // early exit
             }
-            
+
             // should validate position is on nav mesh
-            m_movementScript.SetDestination(position);
+
+
+            
+
+            if (targetChanged)
+            {
+                m_movementScript.SetDestination(position);
+            }
+            else
+            {
+                // if current target is the same but the position has changed then mobile target
+                if (m_lastPostion != position)
+                {
+                    m_lastPostion = position;
+
+                    // if mobile target delay destination change
+                    if (m_nextDestinationChange < Time.time)
+                    {
+                        m_movementScript.SetDestination(position);
+                        m_nextDestinationChange = Time.time + delay;
+                    }
+                    //Debug.Log("Move TO memory location");
+                }
+            }
+
+
+
+
         }
 
         //Debug.Log("Idle");
         return Status.SUCCESS;
     }
 
+
+
+
+
 }
+
+

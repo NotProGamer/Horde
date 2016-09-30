@@ -3898,8 +3898,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 843664552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 10, z: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 2012563501}
@@ -4950,6 +4950,7 @@ GameObject:
   - 65: {fileID: 1025856726}
   - 23: {fileID: 1025856725}
   - 208: {fileID: 1025856724}
+  - 114: {fileID: 1025856729}
   m_Layer: 0
   m_Name: DynamicObstacleTest
   m_TagString: Untagged
@@ -5033,6 +5034,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!114 &1025856729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1025856723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 100
+  m_health: 100
+  m_healToFullOnStart: 1
+  m_vulnerable: 1
+  m_enableDamageEffects: 0
+  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
+  m_meshRendererList: []
+  m_skinnedMeshRendererList: []
+  m_extendTurnTimerIfBeingDevoured: 0
 --- !u!1001 &1068130384
 Prefab:
   m_ObjectHideFlags: 0
@@ -7237,7 +7258,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -29.02
       objectReference: {fileID: 0}
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -7245,7 +7266,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 29.61
       objectReference: {fileID: 0}
     - target: {fileID: 488408, guid: e00d219af823f9846b038e4dc089edd5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -9042,6 +9063,7 @@ GameObject:
   - 65: {fileID: 1808509757}
   - 23: {fileID: 1808509756}
   - 208: {fileID: 1808509755}
+  - 114: {fileID: 1808509760}
   m_Layer: 0
   m_Name: DynamicObstacleTest (1)
   m_TagString: Untagged
@@ -9125,6 +9147,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &1808509760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808509754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 100
+  m_health: 100
+  m_healToFullOnStart: 1
+  m_vulnerable: 1
+  m_enableDamageEffects: 0
+  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
+  m_meshRendererList: []
+  m_skinnedMeshRendererList: []
+  m_extendTurnTimerIfBeingDevoured: 0
 --- !u!1001 &1812662447
 Prefab:
   m_ObjectHideFlags: 0
@@ -10182,6 +10224,10 @@ Prefab:
     - target: {fileID: 433314, guid: 1273bfd08f62e414ba4e5922855787e5, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 186686, guid: 1273bfd08f62e414ba4e5922855787e5, type: 2}
+      propertyPath: m_TagString
+      value: Zombie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1273bfd08f62e414ba4e5922855787e5, type: 2}

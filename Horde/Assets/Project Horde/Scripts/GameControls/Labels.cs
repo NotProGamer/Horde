@@ -32,13 +32,13 @@ public class Labels : MonoBehaviour {
         }
 
         // Buildings
-        //public static string GuardTower = "GuardTower";
-        //public static string Barricade = "Barricade";
+        public static string GuardTower = "GuardTower";
+        public static string Barricade = "Barricade";
 
-        //public static bool IsDestructible(GameObject other)
-        //{
-        //    return other.CompareTag(Barricade) || other.CompareTag(GuardTower);
-        //}
+        public static bool IsDestructible(GameObject other)
+        {
+            return other.CompareTag(Barricade) || other.CompareTag(GuardTower);
+        }
 
     }
 
@@ -54,6 +54,7 @@ public class Labels : MonoBehaviour {
         public static string LastPriorityNoise = "LastPriorityNoise";
         public static string ClosestEnemy = "ClosestEnemy";
         public static string ClosestCorpse = "ClosestCorpse";
+        public static string ClosestDestructible = "ClosestDestructible";
     }
 
 }

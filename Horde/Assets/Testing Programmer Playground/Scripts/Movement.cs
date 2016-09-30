@@ -67,16 +67,23 @@ public class Movement : MonoBehaviour {
 
     }
 
-    
+    public bool m_unableToReachCurrentDestination = false;
+
     public void SetDestination(Vector3 position)
     {
         if (m_nav)
         {
-            
-            m_state = State.Moving;
-            m_nav.speed = m_currentSpeed;
-            m_currentDestination = position;
-            m_nav.SetDestination(m_currentDestination);
+            if (m_currentDestination != position)
+            {
+                m_state = State.Moving;
+                m_nav.speed = m_currentSpeed;
+                m_currentDestination = position;
+                if (Labels.Tags.IsZombie(gameObject))
+                {
+                    //Debug.Log(m_currentDestination.ToString() + " Set Destination");
+                }
+                m_nav.SetDestination(m_currentDestination);
+            }
 
             //if (m_currentDestination != position)
             //{
@@ -126,7 +133,20 @@ public class Movement : MonoBehaviour {
             //    {
             //        Debug.Log("Still Partial Path Destination Selected");
             //    }
-        //}
+            //}
+
+            if (Labels.Tags.IsZombie(gameObject) )
+            {
+                if (m_nav.path.status == NavMeshPathStatus.PathPartial)
+                {
+                    //Debug.Log("Still Partial Path Destination Selected");
+                    m_unableToReachCurrentDestination = true;
+                }
+                else
+                {
+                    m_unableToReachCurrentDestination = false;
+                }
+            }
         }
     }
     public bool ReachedDestination()

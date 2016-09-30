@@ -49,7 +49,6 @@ public class ZombieUtilityAI : MonoBehaviour {
 
     }
 
-
     // Use this for initialization
     //void Start () {	}
 
@@ -58,7 +57,6 @@ public class ZombieUtilityAI : MonoBehaviour {
     {
         // Could delay this if i wanted
         Evaluation();
-
     }
 
     private void Evaluation()

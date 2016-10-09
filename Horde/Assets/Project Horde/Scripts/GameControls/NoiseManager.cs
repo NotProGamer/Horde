@@ -64,7 +64,7 @@ public class Noise
     {
         float audible = 0f;
         float sqrDistance = (m_position - audiencePosition).sqrMagnitude;
-        float sqrVolume = (m_volume * m_volume) + (hearingSensitivity * hearingSensitivity);
+        float sqrVolume = (m_volume + hearingSensitivity) * (m_volume + hearingSensitivity);
         if (sqrVolume > sqrDistance)
         {
             audible = m_volume;

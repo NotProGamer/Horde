@@ -19,8 +19,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012820859576}
+  - 136: {fileID: 136000011691019922}
   - 54: {fileID: 54000014228092640}
   - 195: {fileID: 195000010178016126}
+  - 114: {fileID: 114000014044665530}
+  - 114: {fileID: 114000011368307860}
+  - 114: {fileID: 114000014252585946}
   m_Layer: 0
   m_Name: CTD_AIHuman
   m_TagString: Human
@@ -37,7 +41,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012028457346}
   - 33: {fileID: 33000011869232672}
-  - 136: {fileID: 136000010221476624}
   - 23: {fileID: 23000012441104078}
   m_Layer: 0
   m_Name: ArtPlaceHolder
@@ -123,20 +126,69 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 0
---- !u!136 &136000010221476624
+  m_CollisionDetection: 2
+--- !u!114 &114000011368307860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8c34b2e33af894f9427bc60e7a2d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000014044665530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 100
+  m_health: 100
+  m_healToFullOnStart: 1
+  m_vulnerable: 1
+  m_disableOnDeath: 0
+  m_enableDamageEffects: 0
+  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
+  m_meshRendererList: []
+  m_skinnedMeshRendererList: []
+  m_extendTurnTimerIfBeingDevoured: 1
+--- !u!114 &114000014252585946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d17cc9c2da5f554e91a86d6a1d66771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentDestination: {x: 0, y: 0, z: 0}
+  m_touchRange: 1
+  m_minSpeed: 3
+  m_maxSpeed: 10
+  m_state: 0
+  m_unableToReachCurrentDestination: 0
+--- !u!136 &136000011691019922
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012952106442}
+  m_GameObject: {fileID: 1000011894944338}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &195000010178016126
 NavMeshAgent:
   m_ObjectHideFlags: 1

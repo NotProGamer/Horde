@@ -34,10 +34,11 @@ public class Labels : MonoBehaviour {
         // Buildings
         public static string GuardTower = "GuardTower";
         public static string Barricade = "Barricade";
+        public static string Destructible = "Destructible";
 
         public static bool IsDestructible(GameObject other)
         {
-            return other.CompareTag(Barricade) || other.CompareTag(GuardTower);
+            return other.CompareTag(Barricade) || other.CompareTag(GuardTower) || other.CompareTag(Destructible);
         }
 
     }

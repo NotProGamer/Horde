@@ -18,6 +18,7 @@ public class Health : MonoBehaviour {
     public int m_health = 100;
     public bool m_healToFullOnStart = true;
     public bool m_vulnerable = true;
+    public bool m_disableOnDeath = false;
 
 
     // Damage Effects
@@ -63,6 +64,10 @@ public class Health : MonoBehaviour {
         {
             DamageFlash();
             m_wasDamaged = false;
+        }
+        if (m_disableOnDeath && IsDead())
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -128,7 +133,7 @@ public class Health : MonoBehaviour {
             healthRecovered = damage; // could change to only recover a portion of damage dealt
             m_health -= damage;
             // extend turn timer
-            if (m_extendTurnTimerIfBeingDevoured)
+            if (m_reanimationScript && m_extendTurnTimerIfBeingDevoured)
             {
                 m_reanimationScript.StartReanimationTimer(); //m_turnTime = Time.time + m_turnDelay;
             }

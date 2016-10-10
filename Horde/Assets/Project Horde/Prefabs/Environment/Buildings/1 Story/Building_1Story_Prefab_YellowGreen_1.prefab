@@ -30,7 +30,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 4294967286
   m_IsActive: 1
 --- !u!1 &164072
 GameObject:
@@ -100,23 +100,6 @@ GameObject:
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967294
   m_IsActive: 1
---- !u!1 &190714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 476784}
-  - 33: {fileID: 3345176}
-  - 23: {fileID: 2319610}
-  m_Layer: 0
-  m_Name: Aircon4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
-  m_IsActive: 1
 --- !u!4 &417750
 Transform:
   m_ObjectHideFlags: 1
@@ -129,7 +112,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 451050}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &439144
 Transform:
   m_ObjectHideFlags: 1
@@ -142,7 +125,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 451050}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &444110
 Transform:
   m_ObjectHideFlags: 1
@@ -155,7 +138,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 451050}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &451050
 Transform:
   m_ObjectHideFlags: 1
@@ -167,7 +150,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 476784}
   - {fileID: 444110}
   - {fileID: 454988}
   - {fileID: 465160}
@@ -188,7 +170,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 451050}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &465160
 Transform:
   m_ObjectHideFlags: 1
@@ -201,51 +183,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 451050}
-  m_RootOrder: 3
---- !u!4 &476784
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0905838, y: 1.4311925, z: -0.7714691}
-  m_LocalScale: {x: 1.9099687, y: 1.9099687, z: 1.9099687}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 451050}
-  m_RootOrder: 0
---- !u!23 &2319610
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190714}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 0e6b90839f49468498ee6ac90a7957f5, type: 2}
-  - {fileID: 2100000, guid: 2b5a608210d66cb4ca49ec71f9b49438, type: 2}
-  - {fileID: 2100000, guid: b87a1f3a38a987046ac2ef382da54e6a, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_RootOrder: 2
 --- !u!23 &2332614
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -409,13 +347,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174012}
   m_Mesh: {fileID: 4300010, guid: 2cc59cb3884789545a35be9fe8befda7, type: 3}
---- !u!33 &3345176
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190714}
-  m_Mesh: {fileID: 4300006, guid: 2cc59cb3884789545a35be9fe8befda7, type: 3}
 --- !u!33 &3357066
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1072,7 +1003,7 @@ Transform:
   - {fileID: 4000013813550830}
   - {fileID: 4000011188795390}
   m_Father: {fileID: 451050}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &4000012713025670
 Transform:
   m_ObjectHideFlags: 1

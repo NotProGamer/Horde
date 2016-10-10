@@ -37,6 +37,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011935748312}
+  - 114: {fileID: 114000011347758280}
+  - 114: {fileID: 114000011775553706}
   m_Layer: 0
   m_Name: CTD_NoisyGenerator
   m_TagString: Untagged
@@ -119,3 +121,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000011347758280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011005602930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43d783c9453a5c448760266b811bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cleanUpMyExpiredNoises: 0
+--- !u!114 &114000011775553706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011005602930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf58e2944cd73b48b6f9748292b9032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_delay: 2
+  m_volume: 5
+  m_identifier: 0

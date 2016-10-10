@@ -25,7 +25,7 @@ GameObject:
   - 114: {fileID: 114000014044665530}
   - 114: {fileID: 114000011368307860}
   - 114: {fileID: 114000014252585946}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CTD_AIHuman
   m_TagString: Human
   m_Icon: {fileID: 0}
@@ -154,9 +154,10 @@ MonoBehaviour:
   m_healToFullOnStart: 1
   m_vulnerable: 1
   m_disableOnDeath: 0
-  m_enableDamageEffects: 0
+  m_enableDamageEffects: 1
   m_damageColor: {r: 1, g: 0, b: 0, a: 1}
-  m_meshRendererList: []
+  m_meshRendererList:
+  - {fileID: 23000012441104078}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
 --- !u!114 &114000014252585946

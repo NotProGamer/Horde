@@ -21,7 +21,7 @@ public class ZombieBrain : MonoBehaviour {
     public LayerMask m_sightMask;
 
     // Listen
-    public float m_hearingRange = 50f; // not yet implemented
+    public float m_hearingRange = 5f; // not yet implemented
 
     public float m_boredomIncrement = 10f;
     public float m_maxBoredom = 100f;
@@ -145,7 +145,7 @@ public class ZombieBrain : MonoBehaviour {
         {
             m_memory[Labels.Memory.ClosestDestructible] = GetClosest(m_destructibles);
         }
-        else if (m_enemyCorpses.Count > 0)
+        else if (m_destructibles.Count > 0)
         {
             m_memory[Labels.Memory.ClosestDestructible] = m_destructibles[0].gameObject;
         }

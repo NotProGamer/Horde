@@ -20,8 +20,8 @@ public class Devour : SequenceBehaviour
         m_children.Add(setZombieSpeed);
         BaseBehaviour moveToCurrentTarget = new MoveToMemoryLocation(pParent, Labels.Memory.CurrentTarget);
         m_children.Add(moveToCurrentTarget);
-        BaseBehaviour devourZombie = new DevourTarget(pParent, pMemoryLabel);
-        m_children.Add(devourZombie);
+        //BaseBehaviour devourZombie = new DevourTarget(pParent, pMemoryLabel);
+        //m_children.Add(devourZombie);
 
     }
 

@@ -21,8 +21,8 @@ public class Chase : SequenceBehaviour
         m_children.Add(setZombieSpeed);
         BaseBehaviour moveToCurrentTarget = new MoveToMemoryLocation(pParent, Labels.Memory.CurrentTarget);
         m_children.Add(moveToCurrentTarget);
-        BaseBehaviour attackTarget = new AttackTarget(pParent, Labels.Memory.ClosestEnemy);
-        m_children.Add(attackTarget);
+        //BaseBehaviour attackTarget = new AttackTarget(pParent, Labels.Memory.ClosestEnemy);
+        //m_children.Add(attackTarget);
 
 
         // Attack

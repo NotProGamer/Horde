@@ -36,6 +36,11 @@ public class Brain : MonoBehaviour {
         //HealthyHazzard = 9,
         //DeadObstacle = 16,
         //HealthyObstacle = 17,
+
+        CoverSafe = 32,
+        CoverComprimised = 33,
+        CoverUnsafe = 34,
+
         Uncategorised = 128,
     }
 
@@ -58,11 +63,37 @@ public class Brain : MonoBehaviour {
         {
             m_thoughtTicker = Time.time + m_thoughDelay;
 
-            
 
+            /// Sense Look
+            // Look for nearby GameObjects
+            // Add New GameObjects To Memory
+            // Evaluate GameObjects In Memory
+            // Store Current Decision
+
+            // If Current Decision < Investigate Base
+            //  /// Listen for nearby sounds
+            //  // Add New Noises To Memory2
+            //  // Evaluate Noises In Memory2
+            //  // Store Current Decision
+
+            // if Current Decision < Patrol Base
+            //  /// Check for Assignment (Guard or Patrol)
+            //  // Add New Assignment To Memory3
+            //  // Evaluate Assignment In Memory3
+            //  // Store Current Decision
+
+            // if Current Decision < Idle Base
+            //  // Evaluate Boredom
+            //  // Store Current Decision
+
+            /// Decisions
+            // Confirm Current Decision is > 0
+
+            /// Act
+            // Run Current Decision
         }
-	
-	}
+
+    }
 
     void IdentifyObjects()
     {
@@ -71,8 +102,8 @@ public class Brain : MonoBehaviour {
             // if memory contains object
             // // Evaluate it
             // else
-            // // Add it to memory
             // // Evaluate it
+            // // Add it to memory
 
             if (m_memory.ContainsKey(obj))
             {
@@ -93,12 +124,12 @@ public class Brain : MonoBehaviour {
                 
             }
 
-            ObjectCategories category = CategoriesObject(obj);
-            float evaluation = 0f;
+            //ObjectCategories category = CategoriesObject(obj);
+            //float evaluation = 0f;
         }
     }
 
-    ObjectCategories CategoriesObject(GameObject obj)
+    protected virtual ObjectCategories CategoriesObject(GameObject obj)
     {
         ObjectCategories category = ObjectCategories.Uncategorised;
         bool categorised = false;
@@ -133,8 +164,28 @@ public class Brain : MonoBehaviour {
             //{
             //    test += 16; // Obstacle
             //}
-            
         }
+        else if (IsCover(obj))
+        {
+            categorised = true;
+
+            if (IsSafe(obj))
+            {
+                // Safe
+                test = (int)ObjectCategories.CoverSafe;
+            }
+            else if (IsComprimised(obj))
+            {
+                // Comprimised
+                test = (int)ObjectCategories.CoverComprimised;
+            }
+            else
+            {
+                // Unsafe
+                test = (int)ObjectCategories.CoverUnsafe;
+            }
+        }
+
 
         if (categorised)
         {
@@ -144,7 +195,53 @@ public class Brain : MonoBehaviour {
         return category;
     }
 
-    bool IdentifyObject(GameObject obj, out Description description)
+    //protected virtual ObjectCategories CategoriesObject(GameObject obj)
+    //{
+    //    ObjectCategories category = ObjectCategories.Uncategorised;
+    //    bool categorised = false;
+    //    int test = 0;
+    //    Health objHealth = obj.GetComponent<Health>();
+
+    //    if (objHealth != null)
+    //    {
+    //        categorised = true;
+
+    //        if (!objHealth.IsDead())
+    //        {
+    //            test += 1; // Alive
+    //        }
+
+    //        if (IsEnemy(obj))
+    //        {
+    //            test += 2; // Enemy
+    //        }
+
+    //        if (IsBoss(obj))
+    //        {
+    //            test += 4; // Boss
+    //        }
+
+    //        //if (IsTrap(obj))
+    //        //{
+    //        //    test += 8; // Trap
+    //        //}
+
+    //        //if (IsObstacle(obj))
+    //        //{
+    //        //    test += 16; // Obstacle
+    //        //}
+
+    //    }
+
+    //    if (categorised)
+    //    {
+    //        category = (ObjectCategories)test;
+    //    }
+
+    //    return category;
+    //}
+
+    protected virtual bool IdentifyObject(GameObject obj, out Description description)
     {
         bool result = false;
         if (m_memory.TryGetValue(obj, out description))
@@ -166,28 +263,33 @@ public class Brain : MonoBehaviour {
         switch (category)
         {
             case ObjectCategories.DeadAlly:
+            case ObjectCategories.DeadAllyBoss:
+                result = EvaluateDeadAlly(obj);
                 break;
             case ObjectCategories.HealthAlly:
+            case ObjectCategories.HealthAllyBoss:
+                result = EvaluateAlly(obj);
                 break;
             case ObjectCategories.DeadEnemy:
+            case ObjectCategories.DeadEnemyBoss:
+                result = EvaluateDeadEnemy(obj);
                 break;
             case ObjectCategories.HealthyEnemy:
-                break;
-            case ObjectCategories.DeadAllyBoss:
-                break;
-            case ObjectCategories.HealthAllyBoss:
-                break;
-            case ObjectCategories.DeadEnemyBoss:
-                break;
             case ObjectCategories.HealthyEnemyBoss:
+                result = EvaluateEnemy(obj);
+                break;
+            case ObjectCategories.CoverSafe:
+            case ObjectCategories.CoverComprimised:
+            case ObjectCategories.CoverUnsafe:
+                result = EvalulateCover(obj);
                 break;
             case ObjectCategories.Uncategorised:
-                break;
             default:
+                result = 0f;
                 break;
         }
 
-        return result; ;
+        return result; 
     }
 
 
@@ -224,4 +326,57 @@ public class Brain : MonoBehaviour {
     {
         return false;
     }
+    public virtual bool IsCover(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsSafe(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsComprimised(GameObject obj)
+    {
+        return false;
+    }
+
+
+    // ************************************************
+    // Evaluations
+    // ****************************
+
+    protected virtual float EvaluateEnemy(GameObject obj)
+    {
+        float result = 0f;
+
+        return result;
+    }
+
+    protected virtual float EvaluateDeadEnemy(GameObject obj)
+    {
+        float result = 0f;
+
+        return result;
+    }
+
+    protected virtual float EvaluateAlly(GameObject obj)
+    {
+        float result = 0f;
+
+        return result;
+    }
+
+    protected virtual float EvaluateDeadAlly(GameObject obj)
+    {
+        float result = 0f;
+
+        return result;
+    }
+
+    protected virtual float EvalulateCover(GameObject obj)
+    {
+        float result = 0f;
+
+        return result;
+    }
+
 }

@@ -4,14 +4,6 @@ using System.Collections.Generic;
 
 
 public class Brain : MonoBehaviour {
-
-    // Get Nearby Objects
-    public List<GameObject> m_nearbyObjects;
-    private Dictionary<GameObject, Description> m_memory;
-
-    public float m_thoughDelay = 0.5f;
-    private float m_thoughtTicker = 0f;
-
     //[System.Flags]
     //public enum ObjectCategories
     //{
@@ -50,6 +42,37 @@ public class Brain : MonoBehaviour {
         public float m_evaluation = 0f;
     }
 
+    public class Decision
+    {
+        public object m_target = null;
+        public string m_identifier = ""; // BehaviorName
+        public Decision(string identifier, object target = null)
+        {
+            m_target = target;
+            m_identifier = identifier;
+        }
+        public void SetDecision(string identifier, object target = null)
+        {
+            m_target = target;
+            m_identifier = identifier;
+        }
+    }
+
+    // the following class should be defined elsewhere
+    public class Assignment
+    {
+        public float value = 0f;
+    }
+
+    // Get Nearby Objects
+    public List<GameObject> m_nearbyObjects;
+    private Dictionary<GameObject, Description> m_memory;
+
+    public float m_thoughDelay = 0.5f;
+    private float m_thoughtTicker = 0f;
+
+    public Decision m_currentDecision;
+
     // Use this for initialization
     void Start ()
     {
@@ -63,12 +86,15 @@ public class Brain : MonoBehaviour {
         {
             m_thoughtTicker = Time.time + m_thoughDelay;
 
-
-            /// Sense Look
-            // Look for nearby GameObjects
-            // Add New GameObjects To Memory
-            // Evaluate GameObjects In Memory
+            /// Evaluate Death
             // Store Current Decision
+
+            // If Current Decision < Enemy Base
+            //  /// Sense Look
+            //  // Look for nearby GameObjects
+            //  // Add New GameObjects To Memory
+            //  // Evaluate GameObjects In Memory
+            //  // Store Current Decision
 
             // If Current Decision < Investigate Base
             //  /// Listen for nearby sounds
@@ -195,52 +221,6 @@ public class Brain : MonoBehaviour {
         return category;
     }
 
-    //protected virtual ObjectCategories CategoriesObject(GameObject obj)
-    //{
-    //    ObjectCategories category = ObjectCategories.Uncategorised;
-    //    bool categorised = false;
-    //    int test = 0;
-    //    Health objHealth = obj.GetComponent<Health>();
-
-    //    if (objHealth != null)
-    //    {
-    //        categorised = true;
-
-    //        if (!objHealth.IsDead())
-    //        {
-    //            test += 1; // Alive
-    //        }
-
-    //        if (IsEnemy(obj))
-    //        {
-    //            test += 2; // Enemy
-    //        }
-
-    //        if (IsBoss(obj))
-    //        {
-    //            test += 4; // Boss
-    //        }
-
-    //        //if (IsTrap(obj))
-    //        //{
-    //        //    test += 8; // Trap
-    //        //}
-
-    //        //if (IsObstacle(obj))
-    //        //{
-    //        //    test += 16; // Obstacle
-    //        //}
-
-    //    }
-
-    //    if (categorised)
-    //    {
-    //        category = (ObjectCategories)test;
-    //    }
-
-    //    return category;
-    //}
-
     protected virtual bool IdentifyObject(GameObject obj, out Description description)
     {
         bool result = false;
@@ -256,7 +236,75 @@ public class Brain : MonoBehaviour {
         return result;
     }
 
-    private float EvaluateObject(GameObject obj, ObjectCategories category)
+
+
+    void EvaluateNearbyObjects()
+    {
+        for (int i = 0; i < m_nearbyObjects.Count; i++)
+        {
+
+        }
+    }
+
+
+    // ************************************************
+    // Qualifiers
+    // ****************************
+
+    public virtual bool IsEnemy(GameObject obj)
+    {
+        if (Labels.Tags.IsHuman(gameObject))
+        {
+            return Labels.Tags.IsZombie(obj);
+        }
+        if (Labels.Tags.IsZombie(gameObject))
+        {
+            return Labels.Tags.IsHuman(obj);
+        }
+        return false;
+    }
+    public virtual bool IsBoss(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsTrap(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsObstacle(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsCover(GameObject obj)
+    {
+        return false;
+    }
+    //public virtual bool IsAmmo(GameObject obj)
+    //{
+    //    return false;
+    //}
+    public virtual bool IsSafe(GameObject obj)
+    {
+        return false;
+    }
+    public virtual bool IsComprimised(GameObject obj)
+    {
+        return false;
+    }
+    
+
+
+    // ************************************************
+    // Evaluations
+    // ****************************
+
+    protected virtual float EvaluateDeath(bool dead)
+    {
+        float result = 0f;
+
+        return result;
+    }
+    protected virtual float EvaluateObject(GameObject obj, ObjectCategories category)
     {
         float result = 0f;
 
@@ -289,60 +337,35 @@ public class Brain : MonoBehaviour {
                 break;
         }
 
-        return result; 
+        return result;
     }
+    protected virtual float EvaluateNoise(Noise noise)
+    {
+        float result = 0f;
 
+        return result;
+    }
+    protected virtual float EvaluateAssignment(Assignment assignment)
+    {
+        float result = 0f;
 
-    void EvaluateNearbyObjects()
+        return result;
+    }
+    protected virtual float EvaluateWander(float Boredom)
     {
-        for (int i = 0; i < m_nearbyObjects.Count; i++)
-        {
+        float result = 0f;
 
-        }
+        return result;
     }
+    protected virtual float EvaluateIdle(float Boredom)
+    {
+        float result = 0f;
 
-    public virtual bool IsEnemy(GameObject obj)
-    {
-        if (Labels.Tags.IsHuman(gameObject))
-        {
-            return Labels.Tags.IsZombie(obj);
-        }
-        if (Labels.Tags.IsZombie(gameObject))
-        {
-            return Labels.Tags.IsHuman(obj);
-        }
-        return false;
+        return result;
     }
+    
 
-    public virtual bool IsBoss(GameObject obj)
-    {
-        return false;
-    }
-    public virtual bool IsTrap(GameObject obj)
-    {
-        return false;
-    }
-    public virtual bool IsObstacle(GameObject obj)
-    {
-        return false;
-    }
-    public virtual bool IsCover(GameObject obj)
-    {
-        return false;
-    }
-    public virtual bool IsSafe(GameObject obj)
-    {
-        return false;
-    }
-    public virtual bool IsComprimised(GameObject obj)
-    {
-        return false;
-    }
-
-
-    // ************************************************
-    // Evaluations
-    // ****************************
+    // *************************
 
     protected virtual float EvaluateEnemy(GameObject obj)
     {
@@ -350,33 +373,31 @@ public class Brain : MonoBehaviour {
 
         return result;
     }
-
     protected virtual float EvaluateDeadEnemy(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
-
     protected virtual float EvaluateAlly(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
-
     protected virtual float EvaluateDeadAlly(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
-
     protected virtual float EvalulateCover(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
+
+    // *************************
 
 }

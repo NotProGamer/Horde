@@ -64,6 +64,9 @@ public class Brain : MonoBehaviour {
         public float value = 0f;
     }
 
+    private Health m_health = null;
+
+
     // Get Nearby Objects
     public List<GameObject> m_nearbyObjects;
     private Dictionary<GameObject, Description> m_memory;
@@ -72,6 +75,17 @@ public class Brain : MonoBehaviour {
     private float m_thoughtTicker = 0f;
 
     public Decision m_currentDecision;
+
+
+    void Awake()
+    {
+        m_health = GetComponent<Health>();
+        if (m_health == null)
+        {
+            Debug.Log("Health Not included!");
+        }
+    }
+
 
     // Use this for initialization
     void Start ()
@@ -85,6 +99,21 @@ public class Brain : MonoBehaviour {
         if (Time.time > m_thoughtTicker)
         {
             m_thoughtTicker = Time.time + m_thoughDelay;
+
+            /// Sense 
+
+            /// Think
+            // Memory Update
+                // Add new objects to memory
+                // Remove inactive Objects from memory
+                // Categories Objects in memory
+                // Update counts in memory
+
+            // Evaluate Objects in memory
+
+            /// Act 
+            
+            /// ****************************
 
             /// Evaluate Death
             // Store Current Decision
@@ -120,6 +149,16 @@ public class Brain : MonoBehaviour {
         }
 
     }
+
+    void EvaluateVitals()
+    {
+
+    }
+
+    void Listen()
+    {
+    }
+
 
     void IdentifyObjects()
     {

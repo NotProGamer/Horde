@@ -26,11 +26,18 @@ public class MeshInfo : EditorWindow
 
     void OnGUI()
     {
-        if (Selection.activeGameObject && Selection.activeGameObject.GetComponent<MeshFilter>())
+        if (Selection.activeGameObject)
         {
-            vertexCount = Selection.activeGameObject.GetComponent<MeshFilter>().sharedMesh.vertexCount;
-            triangleCount = Selection.activeGameObject.GetComponent<MeshFilter>().sharedMesh.triangles.Length / 3;
-            submeshCount = Selection.activeGameObject.GetComponent<MeshFilter>().sharedMesh.subMeshCount;
+            MeshFilter[] filters = Selection.activeGameObject.GetComponentsInChildren<MeshFilter>();
+
+            vertexCount = submeshCount = triangleCount = 0;
+
+            foreach (var f in filters)
+            {
+                vertexCount += f.sharedMesh.vertexCount;
+                triangleCount += f.sharedMesh.triangles.Length / 3;
+                submeshCount += f.sharedMesh.subMeshCount;
+            }
 
             EditorGUILayout.LabelField(Selection.activeGameObject.name);
             EditorGUILayout.LabelField("Vertices: ", vertexCount.ToString());

@@ -9,16 +9,16 @@ public class HumanBehaviours : BehaviourModule
 
     public enum BehaviourNames
     {
-        Idle,
-        Wander,
-        Patrol,
-        Guard,
-        Investigate,
-        MoveToEnemy,
-        AttackIfInRange,
-        Flee,
-        SeekCover,
-        Death,
+        Idle, //1
+        Wander, //1
+        Patrol, //5
+        Guard, //5
+        Investigate, //3
+        MoveToEnemy, //2
+        AttackIfInRange, //2
+        Flee, //4
+        SeekCover, //1
+        Death, //1
     }
 
     [System.Serializable]

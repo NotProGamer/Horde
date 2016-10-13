@@ -4,15 +4,14 @@ using System.Collections.Generic;
 
 // Think 
 
+[System.Serializable]
 public class Assignment
 {
+    // this class should be defined elsewhere
     public float value = 0f;
 }
 
 public class HumanEvaluations : EvaluationModule {
-
-    
-
 
     //[System.Flags]
     //public enum ObjectCategories
@@ -68,50 +67,58 @@ public class HumanEvaluations : EvaluationModule {
         }
     }
 
-    // the following class should be defined elsewhere
-    
+    public Decision m_currentDecision;
+
 
     private Dictionary<GameObject, Description> m_visualMemory;
     private Dictionary<GameObject, Description> m_audioMemory;
     private Dictionary<GameObject, Description> m_assignmentMemory;
 
 
-    public Decision m_currentDecision;
+    
 
-
-    public GameObject GetClosestEnemy()
-    {
-        GameObject test = null;
-        // Not yet implemented
-
-        // get closest enemy from visual memory
-
-        return test;
-    }
-
-    public GameObject GetHighestPriorityEnemy()
-    {
-        return null;
-    }
-
-
-    public Noise GetHighestPriorityNoise()
-    {
-        return null;
-    }
-
-    public Assignment GetHighestPriorityAssignment()
-    {
-        return null;
-    }
 
     
     public enum EvaluationNames
     {
-        Test,
+        Health,
+        Damage,
+        SelfIsDead,
+        StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
+    [System.Serializable]
+    public class HealthEvaluations
+    {
+        public UtilityMath.UtilityValue m_linear; // Health
+        public UtilityMath.UtilityValue m_inverseLinear; // Damage
+        public HealthEvaluations(float min, float max)
+        {
+            m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, min, max);
+            m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, min, max);
+        }
+        public void SetValues(float value)
+        {
+            m_linear.SetValue(value);
+            m_inverseLinear.SetValue(value);
+        }
+    }
+
+    [System.Serializable]
+    public class StandardEvaluations
+    {
+        public UtilityMath.UtilityValue m_count; // Standard Evaluation Count (returns the number of standard evaluations)
+        public HealthEvaluations m_healthEvaluations;
+        public UtilityMath.UtilityValue m_death; // IsDead
+    }
+
+    public StandardEvaluations m_standardEvaluations;
+
+    public float m_thoughDelay = 0.5f;
+    private float m_thoughtTicker = 0f;
+
     private Brain m_brain = null;
+    private Health m_healthScript = null;
 
     void Awake()
     {
@@ -120,28 +127,102 @@ public class HumanEvaluations : EvaluationModule {
         {
             Debug.Log("Brain not included!");
         }
+        m_healthScript = GetComponent<Health>();
+        if (m_brain == null)
+        {
+            Debug.Log("Health not included!");
+        }
     }
 
     // Use this for initialization
     void Start ()
     {
-	
-	}
+        //CreateEvaluations();
+        m_thoughtTicker = Random.Range(0f, m_thoughDelay);
+    }
 
     void CreateEvaluations()
     {
+        if (m_healthScript != null)
+        {
+            m_standardEvaluations.m_healthEvaluations = new HealthEvaluations(0, m_healthScript.m_maxHealth);
+            m_standardEvaluations.m_death = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, System.Convert.ToInt32(false), System.Convert.ToInt32(true)); // 0, 1
+
+            AddEvaluation((int)EvaluationNames.Health, m_standardEvaluations.m_healthEvaluations.m_linear);
+            AddEvaluation((int)EvaluationNames.Damage, m_standardEvaluations.m_healthEvaluations.m_inverseLinear);
+            AddEvaluation((int)EvaluationNames.SelfIsDead, m_standardEvaluations.m_death);
+        }
+
 
     }
 
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	void Update ()
+    {
+        //UpdateEvaluations();
+        if (Time.time > m_thoughtTicker)
+        {
+            m_thoughtTicker = Time.time + m_thoughDelay;
+
+            /// Sense 
+            // Look
+            // Listen
+            // Request Assignment
+
+
+            /// Think
+            // Memory Update
+            // Add new objects to memory
+            // Remove inactive Objects from memory
+            // Categories Objects in memory
+            // Update counts in memory
+
+            // Evaluate Objects in memory
+
+            /// Act 
+
+            /// ****************************
+
+            /// Evaluate Death
+            // Store Current Decision
+
+            // If Current Decision < Enemy Base
+            //  /// Sense Look
+            //  // Look for nearby GameObjects
+            //  // Add New GameObjects To Memory
+            //  // Evaluate GameObjects In Memory
+            //  // Store Current Decision
+
+            // If Current Decision < Investigate Base
+            //  /// Listen for nearby sounds
+            //  // Add New Noises To Memory2
+            //  // Evaluate Noises In Memory2
+            //  // Store Current Decision
+
+            // if Current Decision < Patrol Base
+            //  /// Check for Assignment (Guard or Patrol)
+            //  // Add New Assignment To Memory3
+            //  // Evaluate Assignment In Memory3
+            //  // Store Current Decision
+
+            // if Current Decision < Idle Base
+            //  // Evaluate Boredom
+            //  // Store Current Decision
+
+            /// Decisions
+            // Confirm Current Decision is > 0
+
+            /// Act
+            // Run Current Decision
+        }
+    }
 
     void UpdateEvaluations()
     {
-
+        m_standardEvaluations.m_healthEvaluations.SetValues(m_healthScript.m_health);
+        m_standardEvaluations.m_death.SetValue(System.Convert.ToInt32(m_healthScript.IsDead()));
     }
+    
 
     public float RunEvaluation(EvaluationNames evaluation)
     {
@@ -149,6 +230,7 @@ public class HumanEvaluations : EvaluationModule {
     }
 
 
+ 
 
 
     void IdentifyObjects()
@@ -327,8 +409,6 @@ public class HumanEvaluations : EvaluationModule {
     // ************************************************
     // Evaluations
     // ****************************
-
-
     protected virtual float EvaluateObject(GameObject obj, ObjectCategories category)
     {
         float result = 0f;
@@ -379,26 +459,20 @@ public class HumanEvaluations : EvaluationModule {
     //protected virtual float EvaluateDeath(bool dead)
     //{
     //    float result = 0f;
-
     //    return result;
     //}
-
     //protected virtual float EvaluateWander(float Boredom)
     //{
     //    float result = 0f;
-
     //    return result;
     //}
     //protected virtual float EvaluateIdle(float Boredom)
     //{
     //    float result = 0f;
-
     //    return result;
     //}
-
     //void EvaluateVitals()
     //{
-
     //}
 
     // *************************
@@ -436,6 +510,74 @@ public class HumanEvaluations : EvaluationModule {
 
     // *************************
 
+    // ************************************************
+    // Getters
+    // ****************************
+
+    public GameObject GetClosestEnemy()
+    {
+        GameObject test = null;
+        // Not yet implemented
+
+        // get closest enemy from visual memory
+
+        return test;
+    }
+
+    public GameObject GetHighestPriorityEnemy()
+    {
+        return null;
+    }
+
+    public Noise GetHighestPriorityNoise()
+    {
+        return null;
+    }
+
+    public Assignment GetHighestPriorityAssignment()
+    {
+        return null;
+    }
+
+
+
+
+    //// Custom Evaluations
+    //[System.Serializable]
+    //public class CustomEvaluation
+    //{
+    //    public string m_identifier = "";
+    //    public List<EvaluationNames> m_evaluations;
+    //    // Consider including Custom Evaluations as children aswell
+    //    // public List<string> m_customEvaluations;
+    //    // float weight = 0f;
+    //}
+    //public List<CustomEvaluation> m_customEvaluations;
+    //public float RunCustomEvaluation(string identifier)
+    //{
+    //    float evaluation = 0f;
+    //    int customEvalualtionIndex = m_customEvaluations.FindIndex(item => item.m_identifier == identifier);
+    //    if (customEvalualtionIndex >= 0)
+    //    {
+    //        CustomEvaluation customEvaluation = m_customEvaluations[customEvalualtionIndex];
+    //        for (int i = 0; i < customEvaluation.m_evaluations.Count; i++)
+    //        {
+    //            if (i == 0)
+    //            {
+    //                evaluation = RunEvaluation(customEvaluation.m_evaluations[i]);
+    //            }
+    //            else
+    //            {
+    //                evaluation += RunEvaluation(customEvaluation.m_evaluations[i]);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Evaluation not found!");
+    //    }
+    //    return evaluation;
+    //}
 
 
 

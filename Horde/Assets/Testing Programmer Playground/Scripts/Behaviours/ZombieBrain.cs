@@ -409,7 +409,6 @@ public class ZombieBrain : MonoBehaviour {
 
     void Listen()
     {
-        
         // Get Noises created since last listen
         m_audibleNoises.Clear();
         m_userTaps.Clear();

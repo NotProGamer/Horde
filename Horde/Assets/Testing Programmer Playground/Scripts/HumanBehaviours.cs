@@ -28,6 +28,7 @@ public class HumanBehaviours : BehaviourModule
         public float m_weight = 0f;
     }
 
+    [System.Serializable]
     public class BehaviourEvaluation
     {
         public float m_currentEvaluation = 0f; // For Debugging

@@ -25,6 +25,9 @@ GameObject:
   - 114: {fileID: 114000014044665530}
   - 114: {fileID: 114000011368307860}
   - 114: {fileID: 114000014252585946}
+  - 114: {fileID: 114000010653012944}
+  - 114: {fileID: 114000011805577942}
+  - 114: {fileID: 114000012284375606}
   m_Layer: 8
   m_Name: CTD_AIHuman
   m_TagString: Human
@@ -127,6 +130,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 2
+--- !u!114 &114000010653012944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac1b18ef727de646ba53f59faa98d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sight:
+    m_range: 10
+    m_mask:
+      serializedVersion: 2
+      m_Bits: 256
+    m_delay: 1
+  m_hearing:
+    m_range: 10
+    m_delay: 1
+  m_responsiveness:
+    range: 10
+    m_delay: 1
+  m_nearbyObjects: []
+  m_nearbyNoises: []
+  m_nearbyAssignments: []
 --- !u!114 &114000011368307860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +167,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8c34b2e33af894f9427bc60e7a2d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011805577942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89137e5d262e194eaf66da60028b601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_standardEvaluations:
+    m_count:
+      m_value: 0
+      m_normalisedValue: 0
+      m_normalisationType: 0
+    m_healthEvaluations:
+      m_linear:
+        m_value: 0
+        m_normalisedValue: 0
+        m_normalisationType: 0
+      m_inverseLinear:
+        m_value: 0
+        m_normalisedValue: 0
+        m_normalisationType: 0
+    m_death:
+      m_value: 0
+      m_normalisedValue: 0
+      m_normalisationType: 0
+  m_thoughDelay: 0.5
+--- !u!114 &114000012284375606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637a23d456677f74ba6f800450ea9506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentBehaviour: 0
+  m_behaviorEvaluations:
+  - m_currentEvaluation: 0
+    m_behaviourName: 0
+    m_evaluations:
+    - m_name: 0
+      m_weight: 0
 --- !u!114 &114000014044665530
 MonoBehaviour:
   m_ObjectHideFlags: 1

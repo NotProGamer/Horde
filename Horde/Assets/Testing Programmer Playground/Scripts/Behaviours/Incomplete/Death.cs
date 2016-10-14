@@ -25,7 +25,7 @@ public class Death : BaseBehaviour
 
 
 
-        Debug.Log("Death Behaviour");
+        //Debug.Log("Death Behaviour");
         return Status.SUCCESS;
 
     }

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class Brain : MonoBehaviour {
 
+    public int m_boredom = 0;
+    public int m_boredomMaximum = 10;
 
     // Get Nearby Objects
 

@@ -11,13 +11,13 @@ public class HumanBehaviours : BehaviourModule
     {
         Idle, //1
         Wander, //1
-        Patrol, //5
-        Guard, //5
-        Investigate, //3
-        MoveToEnemy, //2
-        AttackIfInRange, //2
-        Flee, //4
-        SeekCover, //1
+        Patrol, //5 requires Decision Target
+        Guard, //5 requires Decision Target
+        Investigate, //3 requires Decision Target
+        MoveToEnemy, //2 requires Decision Target
+        AttackIfInRange, //2 requires Decision Target
+        Flee, //4 requires Decision Target
+        SeekCover, //6 requires Decision Target
         Death, //1
     }
 
@@ -59,8 +59,14 @@ public class HumanBehaviours : BehaviourModule
     private void CreateBehaviours()
     {
         BaseBehaviour idle = new Idle(this.gameObject);
+        BaseBehaviour wander = new Wander(this.gameObject);
+        BaseBehaviour death = new Death(this.gameObject);
+        //BaseBehaviour moveToEnemy = null;
 
         AddBehaviour((int)BehaviourNames.Idle, idle);
+        AddBehaviour((int)BehaviourNames.Wander, wander);
+        AddBehaviour((int)BehaviourNames.Death, death);
+        //AddBehaviour((int)BehaviourNames.MoveToEnemy, moveToEnemy);
     }
 
     // Update is called once per frame
@@ -78,19 +84,18 @@ public class HumanBehaviours : BehaviourModule
             BehaviourNames highestEvaluatedBehaviour = BehaviourNames.Idle;
 
             // For Each Behaviour
-                // Evaluate Behaviour
-                // If Behaviour if the Highest Rated make it the current Behavior
+            // Evaluate Behaviour
+            // If Behaviour if the Highest Rated make it the current Behavior
 
             foreach (BehaviourEvaluation behaviourEvaluation in m_behaviorEvaluations)
             {
-
                 float evaluationOfBehaviour = 0f;
-                for (int i = 0; i < behaviourEvaluation.m_evaluations.Count; i++)
+                for (int eIndex = 0; eIndex < behaviourEvaluation.m_evaluations.Count; eIndex++)
                 {
                     float evaluation = 0f;
-                    evaluation = m_humanEvaluationsScript.RunEvaluation(behaviourEvaluation.m_evaluations[i].m_name);
-                    evaluation *= behaviourEvaluation.m_evaluations[i].m_weight;
-                    if (i == 0)
+                    evaluation = m_humanEvaluationsScript.RunEvaluation(behaviourEvaluation.m_evaluations[eIndex].m_name);
+                    evaluation *= behaviourEvaluation.m_evaluations[eIndex].m_weight;
+                    if (eIndex == 0)
                     {
                         evaluationOfBehaviour = evaluation;
                     }
@@ -99,15 +104,38 @@ public class HumanBehaviours : BehaviourModule
                         evaluationOfBehaviour += evaluation;
                     }
                 }
-
                 behaviourEvaluation.m_currentEvaluation = evaluationOfBehaviour; // For debugging
-
                 if (evaluationOfBehaviour > highestEvaluation)
                 {
                     highestEvaluation = evaluationOfBehaviour;
                     highestEvaluatedBehaviour = behaviourEvaluation.m_behaviourName;
                 }
             }
+
+            //for (int bIndex = 0; bIndex < m_behaviorEvaluations.Count; bIndex++)
+            //{
+            //    float evaluationOfBehaviour = 0f;
+            //    for (int eIndex = 0; eIndex < m_behaviorEvaluations[bIndex].m_evaluations.Count; eIndex++)
+            //    {
+            //        float evaluation = 0f;
+            //        evaluation = m_humanEvaluationsScript.RunEvaluation(m_behaviorEvaluations[bIndex].m_evaluations[eIndex].m_name);
+            //        evaluation *= m_behaviorEvaluations[bIndex].m_evaluations[eIndex].m_weight;
+            //        if (eIndex == 0)
+            //        {
+            //            evaluationOfBehaviour = evaluation;
+            //        }
+            //        else
+            //        {
+            //            evaluationOfBehaviour += evaluation;
+            //        }
+            //    }
+            //    m_behaviorEvaluations[bIndex].m_currentEvaluation = evaluationOfBehaviour; // For debugging
+            //    if (evaluationOfBehaviour > highestEvaluation)
+            //    {
+            //        highestEvaluation = evaluationOfBehaviour;
+            //        highestEvaluatedBehaviour = m_behaviorEvaluations[bIndex].m_behaviourName;
+            //    }
+            //}
 
             // Run Highest Evaluated Behaviour
             m_currentBehaviour = highestEvaluatedBehaviour;

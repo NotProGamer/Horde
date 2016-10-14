@@ -13,77 +13,19 @@ public class Assignment
 
 public class HumanEvaluations : EvaluationModule {
 
-    //[System.Flags]
-    //public enum ObjectCategories
-    //{
-    //    Uncategorised = 0,
-    //    Unrecognised = 0x01,
-    //    Alive = 0x02, // Dead
-    //    Enemy = 0x04, // Ally
-    //    Boss = 0x08, // Standard
-    //}
+    // *****************************************************************
+    // *****************************************************************
+    // *****************************************************************
+    //  Self Evaluation
+    // **********************
 
-    public enum ObjectCategories
-    {
-        DeadAlly = 0,
-        HealthAlly = 1,
-        DeadEnemy = 2,
-        HealthyEnemy = 3,
-        DeadAllyBoss = 4,
-        HealthAllyBoss = 5,
-        DeadEnemyBoss = 6,
-        HealthyEnemyBoss = 7,
-        //DeadHazzard = 8,
-        //HealthyHazzard = 9,
-        //DeadObstacle = 16,
-        //HealthyObstacle = 17,
-
-        CoverSafe = 32,
-        CoverComprimised = 33,
-        CoverUnsafe = 34,
-
-        Uncategorised = 128,
-    }
-
-    public class Description
-    {
-        public ObjectCategories m_category = ObjectCategories.Uncategorised;
-        public float m_evaluation = 0f;
-    }
-
-    public class Decision
-    {
-        public object m_target = null;
-        public string m_identifier = ""; // BehaviorName
-        public Decision(string identifier, object target = null)
-        {
-            m_target = target;
-            m_identifier = identifier;
-        }
-        public void SetDecision(string identifier, object target = null)
-        {
-            m_target = target;
-            m_identifier = identifier;
-        }
-    }
-
-    public Decision m_currentDecision;
-
-
-    private Dictionary<GameObject, Description> m_visualMemory;
-    private Dictionary<GameObject, Description> m_audioMemory;
-    private Dictionary<GameObject, Description> m_assignmentMemory;
-
-
-    
-
-
-    
     public enum EvaluationNames
     {
         Health,
         Damage,
         SelfIsDead,
+        Bored,
+        Enganged,
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
@@ -105,11 +47,32 @@ public class HumanEvaluations : EvaluationModule {
     }
 
     [System.Serializable]
+    public class Boredom
+    {
+        public UtilityMath.UtilityValue m_linear; // Boredom
+        public UtilityMath.UtilityValue m_inverseLinear; // Enganged
+
+        public Boredom(float min, float max)
+        {
+            m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, min, max);
+            m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, min, max);
+        }
+
+        public void SetValues(float value)
+        {
+            m_linear.SetValue(value);
+            m_inverseLinear.SetValue(value);
+        }
+
+    }
+
+    [System.Serializable]
     public class StandardEvaluations
     {
         public UtilityMath.UtilityValue m_count; // Standard Evaluation Count (returns the number of standard evaluations)
         public HealthEvaluations m_healthEvaluations;
         public UtilityMath.UtilityValue m_death; // IsDead
+        public Boredom m_boredom;
     }
 
     public StandardEvaluations m_standardEvaluations;
@@ -139,6 +102,7 @@ public class HumanEvaluations : EvaluationModule {
     {
         //CreateEvaluations();
         m_thoughtTicker = Random.Range(0f, m_thoughDelay);
+        CreateEvaluations();
     }
 
     void CreateEvaluations()
@@ -153,6 +117,12 @@ public class HumanEvaluations : EvaluationModule {
             AddEvaluation((int)EvaluationNames.SelfIsDead, m_standardEvaluations.m_death);
         }
 
+        if (m_brain != null)
+        {
+            m_standardEvaluations.m_boredom = new Boredom(0, m_brain.m_boredomMaximum);
+            AddEvaluation((int)EvaluationNames.Bored, m_standardEvaluations.m_boredom.m_linear);
+            AddEvaluation((int)EvaluationNames.Enganged, m_standardEvaluations.m_boredom.m_inverseLinear);
+        }
 
     }
 
@@ -164,63 +134,84 @@ public class HumanEvaluations : EvaluationModule {
         {
             m_thoughtTicker = Time.time + m_thoughDelay;
 
-            /// Sense 
-            // Look
-            // Listen
-            // Request Assignment
+
+            /// Add new input to memory
+            // Get New Observations
+            // Get New Noises
+            // Get New Assignments
+
+            /// Evaluate Items in Memory
+            //  Remove Inactive Item From Memory
+            //  Evaluate Item In Memory
+            //  Update Memory Counts
+
+            /// Select Priority Items
+            // Closest Item
+            // Highest Priority Item
+            // Direction of Threat
 
 
-            /// Think
-            // Memory Update
-            // Add new objects to memory
-            // Remove inactive Objects from memory
-            // Categories Objects in memory
-            // Update counts in memory
-
-            // Evaluate Objects in memory
-
-            /// Act 
-
-            /// ****************************
-
-            /// Evaluate Death
-            // Store Current Decision
-
-            // If Current Decision < Enemy Base
-            //  /// Sense Look
-            //  // Look for nearby GameObjects
-            //  // Add New GameObjects To Memory
-            //  // Evaluate GameObjects In Memory
-            //  // Store Current Decision
-
-            // If Current Decision < Investigate Base
-            //  /// Listen for nearby sounds
-            //  // Add New Noises To Memory2
-            //  // Evaluate Noises In Memory2
-            //  // Store Current Decision
-
-            // if Current Decision < Patrol Base
-            //  /// Check for Assignment (Guard or Patrol)
-            //  // Add New Assignment To Memory3
-            //  // Evaluate Assignment In Memory3
-            //  // Store Current Decision
-
-            // if Current Decision < Idle Base
-            //  // Evaluate Boredom
-            //  // Store Current Decision
-
-            /// Decisions
-            // Confirm Current Decision is > 0
-
-            /// Act
-            // Run Current Decision
+            UpdateEvaluations();
         }
     }
+
+    /// Sense 
+    // Look
+    // Listen
+    // Request Assignment
+
+
+    /// Think
+    // Memory Update
+    // Add new objects to memory
+    // Remove inactive Objects from memory
+    // Categories Objects in memory
+    // Update counts in memory
+
+    // Evaluate Objects in memory
+
+    /// Act 
+
+    /// ****************************
+
+    /// Evaluate priorities
+    // Evaluate Death
+    // Store Current Decision
+
+    // If Current Decision < Enemy Base
+    //  /// Sense Look
+    //  // Look for nearby GameObjects
+    //  // Add New GameObjects To Memory
+    //  // Evaluate GameObjects In Memory
+    //  // Store Current Decision
+
+    // If Current Decision < Investigate Base
+    //  /// Listen for nearby sounds
+    //  // Add New Noises To Memory2
+    //  // Evaluate Noises In Memory2
+    //  // Store Current Decision
+
+    // if Current Decision < Patrol Base
+    //  /// Check for Assignment (Guard or Patrol)
+    //  // Add New Assignment To Memory3
+    //  // Evaluate Assignment In Memory3
+    //  // Store Current Decision
+
+    // if Current Decision < Idle Base
+    //  // Evaluate Boredom
+    //  // Store Current Decision
+
+    /// Decisions
+    // Confirm Current Decision is > 0
+
+    /// Act
+    // Run Current Decision
 
     void UpdateEvaluations()
     {
         m_standardEvaluations.m_healthEvaluations.SetValues(m_healthScript.m_health);
         m_standardEvaluations.m_death.SetValue(System.Convert.ToInt32(m_healthScript.IsDead()));
+        m_standardEvaluations.m_boredom.SetValues(m_brain.m_boredom);
     }
     
 
@@ -230,7 +221,76 @@ public class HumanEvaluations : EvaluationModule {
     }
 
 
- 
+
+    // *****************************************************************
+    // *****************************************************************
+    // *****************************************************************
+    //  Target Identification and Evaluation
+    // **************************************
+
+    private Dictionary<GameObject, Description> m_visualMemory;
+    private Dictionary<GameObject, Description> m_audioMemory;
+    private Dictionary<GameObject, Description> m_assignmentMemory;
+
+
+
+    public enum ObjectCategories
+    {
+        DeadAlly = 0,
+        HealthAlly = 1,
+        DeadEnemy = 2,
+        HealthyEnemy = 3,
+        DeadAllyBoss = 4,
+        HealthAllyBoss = 5,
+        DeadEnemyBoss = 6,
+        HealthyEnemyBoss = 7,
+        //DeadHazzard = 8,
+        //HealthyHazzard = 9,
+        //DeadObstacle = 16,
+        //HealthyObstacle = 17,
+
+        CoverSafe = 32,
+        CoverComprimised = 33,
+        CoverUnsafe = 34,
+
+        Uncategorised = 128,
+    }
+    //[System.Flags]
+    //public enum ObjectCategories
+    //{
+    //    Uncategorised = 0,
+    //    Unrecognised = 0x01,
+    //    Alive = 0x02, // Dead
+    //    Enemy = 0x04, // Ally
+    //    Boss = 0x08, // Standard
+    //}
+
+    public class Description
+    {
+        public ObjectCategories m_category = ObjectCategories.Uncategorised;
+        public float m_evaluation = 0f;
+        public float m_distance = 0f;
+        public float m_threat = 0f;
+    }
+
+    public class Decision
+    {
+        public object m_target = null;
+        public string m_identifier = ""; // BehaviorName
+        public Decision(string identifier, object target = null)
+        {
+            m_target = target;
+            m_identifier = identifier;
+        }
+        public void SetDecision(string identifier, object target = null)
+        {
+            m_target = target;
+            m_identifier = identifier;
+        }
+    }
+
+    public Decision m_currentDecision;
+
 
 
     void IdentifyObjects()

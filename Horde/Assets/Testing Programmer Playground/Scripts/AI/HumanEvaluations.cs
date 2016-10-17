@@ -181,6 +181,7 @@ public class HumanEvaluations : EvaluationModule {
             m_thoughtTicker = Time.time + m_thoughDelay;
 
 
+
             /// Add new input to memory
             // Get New Observations
             // Get New Noises
@@ -195,6 +196,90 @@ public class HumanEvaluations : EvaluationModule {
             // Closest Item
             // Highest Priority Item
             // Direction of Threat
+
+            if (m_brain)
+            {
+                List<GameObject> nearbyObjects;
+                if (m_brain.GetNearbyObjects(out nearbyObjects))
+                {
+                    for (int i = 0; i > nearbyObjects.Count; i++)
+                    {
+                        // if memory contains object
+                        // // Categorize it 
+                        // else
+                        // // Categorize it 
+                        // // Add it to memory
+                        GameObject obj = nearbyObjects[i];
+
+                        Description description;
+                        if (m_visualMemory.TryGetValue(obj, out description))
+                        {
+                            description.m_category = Categorize(obj);
+                        }
+                        else
+                        {
+                            description = new Description();
+                            description.m_category = Categorize(obj);
+                            m_visualMemory.Add(obj, description);
+                        }
+
+                    }
+                }
+                List<Noise> audibleNoises;
+                if (m_brain.GetAudibleNoises(out audibleNoises))
+                {
+                    for (int i = 0; i > audibleNoises.Count; i++)
+                    {
+                        // if memory contains object
+                        // // Categorize it 
+                        // else
+                        // // Categorize it 
+                        // // Add it to memory
+                        Noise obj = audibleNoises[i];
+
+                        Description description;
+                        if (m_audioMemory.TryGetValue(obj, out description))
+                        {
+                            description.m_category = Categorize(obj);
+                        }
+                        else
+                        {
+                            description = new Description();
+                            description.m_category = Categorize(obj);
+                            m_audioMemory.Add(obj, description);
+                        }
+
+                    }
+                }
+                List<Assignment> nearbyAssignments;
+                if (m_brain.GetNearbyAssignments(out nearbyAssignments))
+                {
+                    for (int i = 0; i > nearbyAssignments.Count; i++)
+                    {
+                        // if memory contains object
+                        // // Categorize it 
+                        // else
+                        // // Categorize it 
+                        // // Add it to memory
+                        Assignment obj = nearbyAssignments[i];
+
+                        Description description;
+                        if (m_assignmentMemory.TryGetValue(obj, out description))
+                        {
+                            description.m_category = Categorize(obj);
+                        }
+                        else
+                        {
+                            description = new Description();
+                            description.m_category = Categorize(obj);
+                            m_assignmentMemory.Add(obj, description);
+                        }
+
+                    }
+                }
+            }
+
+
 
 
             UpdateEvaluations();
@@ -275,17 +360,19 @@ public class HumanEvaluations : EvaluationModule {
     // **************************************
 
     private Dictionary<GameObject, Description> m_visualMemory;
-    private Dictionary<GameObject, Description> m_audioMemory;
-    private Dictionary<GameObject, Description> m_assignmentMemory;
+    private Dictionary<Noise, Description> m_audioMemory;
+    private Dictionary<Assignment, Description> m_assignmentMemory;
 
     public enum Categories
     {
-        Enemy,
-        Ally,
-        Corpse,
-        //Cover,
-        //Ammo,
-        //HealthPack,
+        EnemyObject,
+        AllyObject,
+        CorpseObject,
+        Noise,
+        Assignment,
+        //CoverObject,
+        //AmmoObject,
+        //HealthPackObject,
         Uncategorised,
     }
 
@@ -310,18 +397,18 @@ public class HumanEvaluations : EvaluationModule {
             // if it is dead    
             if (objHealth.IsDead())
             {
-                category = Categories.Corpse;
+                category = Categories.CorpseObject;
             }
             else
             {
                 
                 if (IsEnemy(obj))
                 {
-                    category = Categories.Enemy;
+                    category = Categories.EnemyObject;
                 }
                 else if (IsAlly(obj))
                 {
-                    category = Categories.Ally;
+                    category = Categories.AllyObject;
                 }
                 else
                 {
@@ -334,8 +421,30 @@ public class HumanEvaluations : EvaluationModule {
         return category;
     }
 
+    protected virtual Categories Categorize(Noise obj)
+    {
+        Categories category = Categories.Uncategorised;
 
- 
+        if (obj != null)
+        {
+            category = Categories.Noise;
+        }
+
+        return category;
+    }
+
+    protected virtual Categories Categorize(Assignment obj)
+    {
+        Categories category = Categories.Uncategorised;
+
+        if (obj != null)
+        {
+            category = Categories.Assignment;
+        }
+
+        return category;
+    }
+
 
 
 
@@ -621,12 +730,12 @@ public class HumanEvaluations : EvaluationModule {
 
         switch (category)
         {
-            case Categories.Enemy:
+            case Categories.EnemyObject:
                 value = EvaluateEnemy(obj);
                 break;
-            case Categories.Ally:
+            case Categories.AllyObject:
                 break;
-            case Categories.Corpse:
+            case Categories.CorpseObject:
                 break;
             case Categories.Uncategorised:
                 Debug.Log("Uncategorised objects can not be evaluated");

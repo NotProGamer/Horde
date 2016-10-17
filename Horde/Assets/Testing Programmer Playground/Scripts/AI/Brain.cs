@@ -180,9 +180,58 @@ public class Brain : MonoBehaviour {
 
     }
 
-    public List<GameObject> GetNearbyObjects()
+    public bool GetNearbyObjects(out List<GameObject> objects)
     {
-        return m_nearbyObjects;
+        bool result = false;
+        if (m_nearbyObjects.Count > 0)
+        {
+            objects = new List<GameObject>();
+
+            objects.AddRange(m_nearbyObjects);
+
+            result = true;
+        }
+        else
+        {
+            objects = null;
+        }
+        return result;
+    }
+
+    public bool GetAudibleNoises(out List<Noise> objects)
+    {
+        bool result = false;
+        if (m_nearbyObjects.Count > 0)
+        {
+            objects = new List<Noise>();
+
+            objects.AddRange(m_nearbyNoises);
+
+            result = true;
+        }
+        else
+        {
+            objects = null;
+        }
+        return result;
+    }
+
+    public bool GetNearbyAssignments(out List<Assignment> objects)
+    {
+        bool result = false;
+        if (m_nearbyObjects.Count > 0)
+        {
+            objects = new List<Assignment>();
+
+            objects.AddRange(m_nearbyAssignments);
+
+            result = true;
+        }
+        else
+        {
+            objects = null;
+        }
+        return result;
     }
 
     void Listen()
@@ -195,18 +244,22 @@ public class Brain : MonoBehaviour {
         }
     }
 
-    public List<Noise> GetAudibleNoises()
-    {
-        return m_nearbyNoises;
-    }
+    //public List<Noise> GetAudibleNoises()
+    //{
+    //    return m_nearbyNoises;
+    //}
+    //public List<GameObject> GetNearbyObjects()
+    //{
+    //    return m_nearbyObjects;
+    //}
+    //public List<Assignment> GetNearbyAssignments()
+    //{
+    //    return m_nearbyAssignments;
+    //}
 
     void RequestAssignments()
     {
 
     }
 
-    public List<Assignment> GetNearbyAssignments()
-    {
-        return m_nearbyAssignments;
-    }
 }

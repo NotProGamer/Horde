@@ -29,6 +29,8 @@ public class HumanEvaluations : EvaluationModule {
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
+
+
     [System.Serializable]
     public class HealthEvaluations
     {
@@ -77,6 +79,39 @@ public class HumanEvaluations : EvaluationModule {
 
     public StandardEvaluations m_standardEvaluations;
 
+    [System.Serializable]
+    public class ObjectEvaluations
+    {
+        [System.Serializable]
+        public class Enemy
+        {
+            [System.Serializable]
+            public class Weights
+            {
+                public float m_base = 50f;
+                public float m_damage = 10.0f;
+                public float m_distance = 10.0f;
+                public float m_death = -125.0f; // early exit
+            }
+            public Weights m_weights;
+            private float m_healthiestEnemy = 0f;
+            public UtilityMath.UtilityValue m_health;
+            public void SetMinMaxHealth(float min, float max)
+            {
+                if (max > m_healthiestEnemy)
+                {
+                    m_health.SetMinMaxValues(0, max); // this should possibly be the highest health for any enemy
+                    m_healthiestEnemy = max;
+                }
+            }
+        }
+        public Enemy m_enemy;
+        public UtilityMath.UtilityValue objectDistance; // using sqrMagnitude
+    }
+
+    public ObjectEvaluations m_objectEvaluations;
+
+
     public float m_thoughDelay = 0.5f;
     private float m_thoughtTicker = 0f;
 
@@ -102,10 +137,11 @@ public class HumanEvaluations : EvaluationModule {
     {
         //CreateEvaluations();
         m_thoughtTicker = Random.Range(0f, m_thoughDelay);
-        CreateEvaluations();
+        CreateSelfEvaluations();
+        CreateEnvironmentalEvaluations();
     }
 
-    void CreateEvaluations()
+    void CreateSelfEvaluations()
     {
         if (m_healthScript != null)
         {
@@ -125,9 +161,19 @@ public class HumanEvaluations : EvaluationModule {
         }
 
     }
+    void CreateEnvironmentalEvaluations()
+    {
+        if (m_brain != null)
+        {
+            float maxDistanceToObject = m_brain.m_sight.m_range * m_brain.m_sight.m_range;
+            m_objectEvaluations.objectDistance = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, maxDistanceToObject);
+        }
+        m_objectEvaluations.m_enemy.m_health = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
+    }
 
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         //UpdateEvaluations();
         if (Time.time > m_thoughtTicker)
@@ -232,29 +278,158 @@ public class HumanEvaluations : EvaluationModule {
     private Dictionary<GameObject, Description> m_audioMemory;
     private Dictionary<GameObject, Description> m_assignmentMemory;
 
-
-
-    public enum ObjectCategories
+    public enum Categories
     {
-        DeadAlly = 0,
-        HealthAlly = 1,
-        DeadEnemy = 2,
-        HealthyEnemy = 3,
-        DeadAllyBoss = 4,
-        HealthAllyBoss = 5,
-        DeadEnemyBoss = 6,
-        HealthyEnemyBoss = 7,
-        //DeadHazzard = 8,
-        //HealthyHazzard = 9,
-        //DeadObstacle = 16,
-        //HealthyObstacle = 17,
-
-        CoverSafe = 32,
-        CoverComprimised = 33,
-        CoverUnsafe = 34,
-
-        Uncategorised = 128,
+        Enemy,
+        Ally,
+        Corpse,
+        //Cover,
+        //Ammo,
+        //HealthPack,
+        Uncategorised,
     }
+
+
+    [System.Serializable]
+    public class Description
+    {
+        //public ObjectCategories m_objectCategory = ObjectCategories.Uncategorised;
+        public Categories m_category = Categories.Uncategorised;
+        public float m_evaluation = 0f;
+    }
+
+    protected virtual Categories Categorize(GameObject obj)
+    {
+        Categories category = Categories.Uncategorised;
+
+        Health objHealth = obj.GetComponent<Health>();
+        
+        // if it has health 
+        if (objHealth)
+        {
+            // if it is dead    
+            if (objHealth.IsDead())
+            {
+                category = Categories.Corpse;
+            }
+            else
+            {
+                
+                if (IsEnemy(obj))
+                {
+                    category = Categories.Enemy;
+                }
+                else if (IsAlly(obj))
+                {
+                    category = Categories.Ally;
+                }
+                else
+                {
+                    // might be something else with health
+                }
+            }
+        }
+
+
+        return category;
+    }
+
+
+ 
+
+
+
+    /// Decisions
+    //public class Decision
+    //{
+    //    public object m_target = null;
+    //    public string m_identifier = ""; // BehaviorName
+    //    public Decision(string identifier, object target = null)
+    //    {
+    //        m_target = target;
+    //        m_identifier = identifier;
+    //    }
+    //    public void SetDecision(string identifier, object target = null)
+    //    {
+    //        m_target = target;
+    //        m_identifier = identifier;
+    //    }
+    //}
+
+    //public Decision m_currentDecision;
+
+    /// Identify Objects
+    //void IdentifyObjects()
+    //{
+    //    foreach (GameObject obj in m_brain.m_nearbyObjects)
+    //    {
+    //        // if memory contains object
+    //        // // Evaluate it
+    //        // else
+    //        // // Evaluate it
+    //        // // Add it to memory
+
+    //        if (m_visualMemory.ContainsKey(obj))
+    //        {
+    //            Description test;
+    //            if (m_visualMemory.TryGetValue(obj, out test))
+    //            {
+    //                IdentifyObject(obj, out test);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Description test = new Description();
+
+    //            if (IdentifyObject(obj, out test))
+    //            {
+    //                m_visualMemory.Add(obj, test);
+    //            }
+
+    //        }
+
+    //        //ObjectCategories category = CategoriesObject(obj);
+    //        //float evaluation = 0f;
+    //    }
+    //}
+    //protected virtual bool IdentifyObject(GameObject obj, out Description description)
+    //{
+    //    bool result = false;
+    //    if (m_visualMemory.TryGetValue(obj, out description))
+    //    {
+    //        description.m_objectCategory = CategoriesObject(obj);
+    //        if (description.m_objectCategory != ObjectCategories.Uncategorised)
+    //        {
+    //            description.m_evaluation = EvaluateObject(obj, description.m_objectCategory);
+    //            return true;
+    //        }
+    //    }
+    //    return result;
+    //}
+
+    /// Object Categories Old
+    //public enum ObjectCategories
+    //{
+    //    DeadAlly = 0,
+    //    HealthAlly = 1,
+    //    DeadEnemy = 2,
+    //    HealthyEnemy = 3,
+    //    DeadAllyBoss = 4,
+    //    HealthAllyBoss = 5,
+    //    DeadEnemyBoss = 6,
+    //    HealthyEnemyBoss = 7,
+    //    //DeadHazzard = 8,
+    //    //HealthyHazzard = 9,
+    //    //DeadObstacle = 16,
+    //    //HealthyObstacle = 17,
+
+    //    CoverSafe = 32,
+    //    CoverComprimised = 33,
+    //    CoverUnsafe = 34,
+
+    //    Uncategorised = 128,
+
+    //}
     //[System.Flags]
     //public enum ObjectCategories
     //{
@@ -265,150 +440,108 @@ public class HumanEvaluations : EvaluationModule {
     //    Boss = 0x08, // Standard
     //}
 
-    public class Description
-    {
-        public ObjectCategories m_category = ObjectCategories.Uncategorised;
-        public float m_evaluation = 0f;
-        public float m_distance = 0f;
-        public float m_threat = 0f;
-    }
+    //protected virtual ObjectCategories CategoriesObject(GameObject obj)
+    //{
+    //    ObjectCategories category = ObjectCategories.Uncategorised;
+    //    bool categorised = false;
+    //    int test = 0;
+    //    Health objHealth = obj.GetComponent<Health>();
 
-    public class Decision
-    {
-        public object m_target = null;
-        public string m_identifier = ""; // BehaviorName
-        public Decision(string identifier, object target = null)
-        {
-            m_target = target;
-            m_identifier = identifier;
-        }
-        public void SetDecision(string identifier, object target = null)
-        {
-            m_target = target;
-            m_identifier = identifier;
-        }
-    }
+    //    if (objHealth != null)
+    //    {
+    //        categorised = true;
 
-    public Decision m_currentDecision;
+    //        if (!objHealth.IsDead())
+    //        {
+    //            test += 1; // Alive
+    //        }
 
+    //        if (IsEnemy(obj))
+    //        {
+    //            test += 2; // Enemy
+    //        }
 
+    //        if (IsBoss(obj))
+    //        {
+    //            test += 4; // Boss
+    //        }
 
-    void IdentifyObjects()
-    {
-        foreach (GameObject obj in m_brain.m_nearbyObjects)
-        {
-            // if memory contains object
-            // // Evaluate it
-            // else
-            // // Evaluate it
-            // // Add it to memory
+    //        //if (IsTrap(obj))
+    //        //{
+    //        //    test += 8; // Trap
+    //        //}
 
-            if (m_visualMemory.ContainsKey(obj))
-            {
-                Description test;
-                if (m_visualMemory.TryGetValue(obj, out test))
-                {
-                    IdentifyObject(obj, out test);
-                }
-            }
-            else
-            {
-                Description test = new Description();
+    //        //if (IsObstacle(obj))
+    //        //{
+    //        //    test += 16; // Obstacle
+    //        //}
+    //    }
+    //    else if (IsCover(obj))
+    //    {
+    //        categorised = true;
 
-                if (IdentifyObject(obj, out test))
-                {
-                    m_visualMemory.Add(obj, test);
-                }
-
-            }
-
-            //ObjectCategories category = CategoriesObject(obj);
-            //float evaluation = 0f;
-        }
-    }
-
-    protected virtual ObjectCategories CategoriesObject(GameObject obj)
-    {
-        ObjectCategories category = ObjectCategories.Uncategorised;
-        bool categorised = false;
-        int test = 0;
-        Health objHealth = obj.GetComponent<Health>();
-
-        if (objHealth != null)
-        {
-            categorised = true;
-
-            if (!objHealth.IsDead())
-            {
-                test += 1; // Alive
-            }
-
-            if (IsEnemy(obj))
-            {
-                test += 2; // Enemy
-            }
-
-            if (IsBoss(obj))
-            {
-                test += 4; // Boss
-            }
-
-            //if (IsTrap(obj))
-            //{
-            //    test += 8; // Trap
-            //}
-
-            //if (IsObstacle(obj))
-            //{
-            //    test += 16; // Obstacle
-            //}
-        }
-        else if (IsCover(obj))
-        {
-            categorised = true;
-
-            if (IsSafe(obj))
-            {
-                // Safe
-                test = (int)ObjectCategories.CoverSafe;
-            }
-            else if (IsComprimised(obj))
-            {
-                // Comprimised
-                test = (int)ObjectCategories.CoverComprimised;
-            }
-            else
-            {
-                // Unsafe
-                test = (int)ObjectCategories.CoverUnsafe;
-            }
-        }
+    //        if (IsSafe(obj))
+    //        {
+    //            // Safe
+    //            test = (int)ObjectCategories.CoverSafe;
+    //        }
+    //        else if (IsComprimised(obj))
+    //        {
+    //            // Comprimised
+    //            test = (int)ObjectCategories.CoverComprimised;
+    //        }
+    //        else
+    //        {
+    //            // Unsafe
+    //            test = (int)ObjectCategories.CoverUnsafe;
+    //        }
+    //    }
 
 
-        if (categorised)
-        {
-            category = (ObjectCategories)test;
-        }
+    //    if (categorised)
+    //    {
+    //        category = (ObjectCategories)test;
+    //    }
 
-        return category;
-    }
+    //    return category;
+    //}
 
-    protected virtual bool IdentifyObject(GameObject obj, out Description description)
-    {
-        bool result = false;
-        if (m_visualMemory.TryGetValue(obj, out description))
-        {
-            description.m_category = CategoriesObject(obj);
-            if (description.m_category != ObjectCategories.Uncategorised)
-            {
-                description.m_evaluation = EvaluateObject(obj, description.m_category);
-                return true;
-            }
-        }
-        return result;
-    }
+    /// Evaluate Object
+    //protected virtual float EvaluateObject(GameObject obj, ObjectCategories category)
+    //{
+    //    float result = 0f;
 
+    //    switch (category)
+    //    {
+    //        case ObjectCategories.DeadAlly:
+    //        case ObjectCategories.DeadAllyBoss:
+    //            result = EvaluateDeadAlly(obj);
+    //            break;
+    //        case ObjectCategories.HealthAlly:
+    //        case ObjectCategories.HealthAllyBoss:
+    //            result = EvaluateAlly(obj);
+    //            break;
+    //        case ObjectCategories.DeadEnemy:
+    //        case ObjectCategories.DeadEnemyBoss:
+    //            result = EvaluateDeadEnemy(obj);
+    //            break;
+    //        case ObjectCategories.HealthyEnemy:
+    //        case ObjectCategories.HealthyEnemyBoss:
+    //            result = EvaluateEnemy(obj);
+    //            break;
+    //        case ObjectCategories.CoverSafe:
+    //        case ObjectCategories.CoverComprimised:
+    //        case ObjectCategories.CoverUnsafe:
+    //            result = EvalulateCover(obj);
+    //            break;
+    //        case ObjectCategories.Uncategorised:
+    //        default:
+    //            result = 0f;
+    //            break;
+    //    }
 
+    //    return result;
+    //}
 
     void EvaluateNearbyObjects()
     {
@@ -432,6 +565,18 @@ public class HumanEvaluations : EvaluationModule {
         if (Labels.Tags.IsZombie(gameObject))
         {
             return Labels.Tags.IsHuman(obj);
+        }
+        return false;
+    }
+    public virtual bool IsAlly(GameObject obj)
+    {
+        if (Labels.Tags.IsHuman(gameObject))
+        {
+            return Labels.Tags.IsHuman(obj);
+        }
+        if (Labels.Tags.IsZombie(gameObject))
+        {
+            return Labels.Tags.IsZombie(obj);
         }
         return false;
     }
@@ -469,41 +614,30 @@ public class HumanEvaluations : EvaluationModule {
     // ************************************************
     // Evaluations
     // ****************************
-    protected virtual float EvaluateObject(GameObject obj, ObjectCategories category)
+
+    protected virtual float EvaluateObject(GameObject obj, Categories category)
     {
-        float result = 0f;
+        float value = 0f;
 
         switch (category)
         {
-            case ObjectCategories.DeadAlly:
-            case ObjectCategories.DeadAllyBoss:
-                result = EvaluateDeadAlly(obj);
+            case Categories.Enemy:
+                value = EvaluateEnemy(obj);
                 break;
-            case ObjectCategories.HealthAlly:
-            case ObjectCategories.HealthAllyBoss:
-                result = EvaluateAlly(obj);
+            case Categories.Ally:
                 break;
-            case ObjectCategories.DeadEnemy:
-            case ObjectCategories.DeadEnemyBoss:
-                result = EvaluateDeadEnemy(obj);
+            case Categories.Corpse:
                 break;
-            case ObjectCategories.HealthyEnemy:
-            case ObjectCategories.HealthyEnemyBoss:
-                result = EvaluateEnemy(obj);
+            case Categories.Uncategorised:
+                Debug.Log("Uncategorised objects can not be evaluated");
                 break;
-            case ObjectCategories.CoverSafe:
-            case ObjectCategories.CoverComprimised:
-            case ObjectCategories.CoverUnsafe:
-                result = EvalulateCover(obj);
-                break;
-            case ObjectCategories.Uncategorised:
             default:
-                result = 0f;
                 break;
         }
 
-        return result;
+        return value;
     }
+
     protected virtual float EvaluateNoise(Noise noise)
     {
         float result = 0f;
@@ -539,28 +673,64 @@ public class HumanEvaluations : EvaluationModule {
 
     protected virtual float EvaluateEnemy(GameObject obj)
     {
-        float result = 0f;
+        float value = 0f;
+        if (obj == null)
+        {
+            return value; // early exit
+        }
 
-        return result;
-    }
-    protected virtual float EvaluateDeadEnemy(GameObject obj)
-    {
-        float result = 0f;
+        // if enemy dead return death weight (-125)
+        // if enemy alive add base enemy value (50)
+        // add enemy damage (0-10) 
+        // add enemy distance covered (0-10)
 
-        return result;
+        Health enemyHealthScript = obj.GetComponent<Health>();
+        if (enemyHealthScript)
+        {
+            if (enemyHealthScript.IsDead())
+            {
+                return m_objectEvaluations.m_enemy.m_weights.m_death; // early exit
+            }
+            else
+            {
+                value += m_objectEvaluations.m_enemy.m_weights.m_base; // add value if living enemy nearby
+            }
+            // Damage Evaluation = Damage Percent * Damage Weight
+            // the more damaged they are the higher the priority they become
+            m_objectEvaluations.m_enemy.SetMinMaxHealth(0, enemyHealthScript.m_maxHealth);
+            m_objectEvaluations.m_enemy.m_health.SetExponentialProperties(2.0f);
+            m_objectEvaluations.m_enemy.m_health.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseExponential);
+            m_objectEvaluations.m_enemy.m_health.SetValue(enemyHealthScript.m_health);
+            value += m_objectEvaluations.m_enemy.m_health.Evaluate() * m_objectEvaluations.m_enemy.m_weights.m_damage;
+        }
+        if (m_brain)
+        {
+            // Distance to Enemy Evaluation = Distance Covered Percentage * Distance Weight
+            // the Closer the get the higher the priority they become
+            m_objectEvaluations.objectDistance.SetExponentialProperties(2.0f);
+            m_objectEvaluations.objectDistance.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.Exponential);
+            float distanceToObject = (obj.transform.position - transform.position).sqrMagnitude;
+            m_objectEvaluations.objectDistance.SetValue(distanceToObject);
+            value += m_objectEvaluations.objectDistance.Evaluate() * m_objectEvaluations.m_enemy.m_weights.m_distance; 
+        }
+
+        return value;
     }
+
     protected virtual float EvaluateAlly(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
-    protected virtual float EvaluateDeadAlly(GameObject obj)
+
+    protected virtual float EvaluateCorpse(GameObject obj)
     {
         float result = 0f;
 
         return result;
     }
+
     protected virtual float EvalulateCover(GameObject obj)
     {
         float result = 0f;

@@ -236,7 +236,16 @@ public class Brain : MonoBehaviour {
             for (int i = 0; i < count; i++)
             {
                 // possibly filter any unwanted objects
-                m_nearbyObjects.Add(m_sightResults[i].gameObject);
+                if (m_sightResults[i].gameObject == this.gameObject)
+                {
+                    // if object is self
+
+                }
+                else
+                {
+                    m_nearbyObjects.Add(m_sightResults[i].gameObject);
+                }
+                
             }
         }
 

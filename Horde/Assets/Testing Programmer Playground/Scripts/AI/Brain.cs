@@ -9,6 +9,30 @@ public class Brain : MonoBehaviour {
     public int m_boredom = 0;
     public int m_boredomMaximum = 10;
 
+    [System.Serializable]
+    public class Threat
+    {
+        [System.Serializable]
+        public class Range
+        {
+            public int m_minimum = 0;
+            public int m_maximum = 5;
+            //public Range(int min, int max)
+            //{
+            //    m_minimum = min;
+            //    m_maximum = max;
+            //}
+            public void Set(int min, int max)
+            {
+                m_minimum = Mathf.Min(min, max);
+                m_maximum = Mathf.Max(min, max);
+            }
+        }
+        public Range m_enemyCountFear;
+        public Range m_allyCountCourage;
+        public Range m_distance;
+    }
+    public Threat m_threat;
     // Get Nearby Objects
 
     [System.Serializable]

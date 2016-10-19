@@ -61,12 +61,13 @@ public class HumanBehaviours : BehaviourModule
         BaseBehaviour idle = new Idle(this.gameObject);
         BaseBehaviour wander = new Wander(this.gameObject);
         BaseBehaviour death = new Death(this.gameObject);
-        //BaseBehaviour moveToEnemy = null;
+        BaseBehaviour moveToEnemy = new MoveToEnemy(this.gameObject);
 
         AddBehaviour((int)BehaviourNames.Idle, idle);
         AddBehaviour((int)BehaviourNames.Wander, wander);
         AddBehaviour((int)BehaviourNames.Death, death);
-        //AddBehaviour((int)BehaviourNames.MoveToEnemy, moveToEnemy);
+        AddBehaviour((int)BehaviourNames.MoveToEnemy, moveToEnemy);
+
     }
 
     // Update is called once per frame

@@ -27,6 +27,8 @@ public class HumanEvaluations : EvaluationModule {
         SelfIsDead,
         Bored,
         Enganged,
+        EnemiesNearby,
+        NoEnemiesNearby,
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
@@ -111,6 +113,34 @@ public class HumanEvaluations : EvaluationModule {
     }
 
     public ObjectEvaluations m_objectEvaluations;
+
+    [System.Serializable]
+    public class EnvironmentalEvaluations
+    {
+        [System.Serializable]
+        public class EnemiesNearby
+        {
+            public UtilityMath.UtilityValue m_linear;
+            public UtilityMath.UtilityValue m_inverseLinear;
+            public void SetValue(float value)
+            {
+                m_linear.SetValue(value);
+                m_inverseLinear.SetValue(value);
+            }
+            public EnemiesNearby(float min, float max)
+            {
+                m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
+                m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, 1);
+            }
+
+        }
+        public EnemiesNearby m_enemiesNearby;
+        //public UtilityMath.UtilityValue m_threat;
+        //public UtilityMath.UtilityValue m_courage;
+
+        public UtilityMath.UtilityValue m_enemyInRange;
+    }
+    public EnvironmentalEvaluations m_environmentalEvaluations;
 
     [System.Serializable]
     public class Counter
@@ -216,6 +246,9 @@ public class HumanEvaluations : EvaluationModule {
             m_objectEvaluations.objectDistance = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, maxDistanceToObject);
         }
         m_objectEvaluations.m_enemy.m_health = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
+        m_environmentalEvaluations.m_enemiesNearby= new EnvironmentalEvaluations.EnemiesNearby(0, 1);
+        AddEvaluation((int)EvaluationNames.EnemiesNearby, m_environmentalEvaluations.m_enemiesNearby.m_linear);
+        AddEvaluation((int)EvaluationNames.NoEnemiesNearby, m_environmentalEvaluations.m_enemiesNearby.m_inverseLinear);
     }
 
 
@@ -252,6 +285,7 @@ public class HumanEvaluations : EvaluationModule {
 
 
             UpdateEvaluations();
+            m_environmentalEvaluations.m_enemiesNearby.SetValue((float)m_senseCounter.GetCategoryCount(Categories.EnemyObject));
         }
     }
 
@@ -261,14 +295,22 @@ public class HumanEvaluations : EvaluationModule {
         {
             if (i.Value > 0)
             {
-                Debug.Log(i.Key.ToString() + " " + i.Value);
+                //Debug.Log("Memory: " + i.Key.ToString() + " " + i.Value);
             }
         }
-        
+
+        foreach (var i in m_senseCounter.m_counters)
+        {
+            if (i.Value > 0)
+            {
+                //Debug.Log("Sense: " + i.Key.ToString() + " " + i.Value);
+            }
+        }
     }
 
     private void MemorizeStimuli()
     {
+        m_senseCounter.Reset();
         if (m_brain)
         {
             List<GameObject> nearbyObjects;
@@ -278,7 +320,7 @@ public class HumanEvaluations : EvaluationModule {
             {
                 if (nearbyObjects.Count > 0)
                 {
-                    Debug.Log("nearby object found");
+                    //Debug.Log("nearby object found");
                 }
 
                 for (int i = 0; i < nearbyObjects.Count; i++)
@@ -294,16 +336,17 @@ public class HumanEvaluations : EvaluationModule {
                     if (m_visualMemory.TryGetValue(obj, out description))
                     {
                         description.m_category = Categorize(obj);
-                        Debug.Log("recategorize");
+                        //Debug.Log("recategorize");
                     }
                     else
                     {
                         description = new Description();
                         description.m_category = Categorize(obj);
                         m_visualMemory.Add(obj, description);
-                        Debug.Log("add");
+                        
+                        //Debug.Log("add");
                     }
-
+                    m_senseCounter.IncreaseCount(description.m_category);
                 }
 
             }
@@ -330,7 +373,7 @@ public class HumanEvaluations : EvaluationModule {
                         description.m_category = Categorize(obj);
                         m_audioMemory.Add(obj, description);
                     }
-
+                    m_senseCounter.IncreaseCount(description.m_category);
                 }
             }
             List<Assignment> nearbyAssignments;
@@ -356,7 +399,7 @@ public class HumanEvaluations : EvaluationModule {
                         description.m_category = Categorize(obj);
                         m_assignmentMemory.Add(obj, description);
                     }
-
+                    m_senseCounter.IncreaseCount(description.m_category);
                 }
             }
         }
@@ -586,6 +629,7 @@ public class HumanEvaluations : EvaluationModule {
         m_audioMemory = new Dictionary<Noise, Description>();
         m_assignmentMemory = new Dictionary<Assignment, Description>();
         m_memoryCounter = new Counter();
+        m_senseCounter = new Counter();
     }
 
     [System.Serializable]

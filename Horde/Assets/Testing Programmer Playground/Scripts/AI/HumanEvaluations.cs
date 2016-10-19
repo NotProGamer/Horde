@@ -154,7 +154,8 @@ public class HumanEvaluations : EvaluationModule {
             m_counters[category] = 0;
         }
     }
-    private Counter m_counter;
+    private Counter m_memoryCounter;
+    private Counter m_senseCounter;
 
 
     public float m_thoughDelay = 0.5f;
@@ -184,6 +185,7 @@ public class HumanEvaluations : EvaluationModule {
         m_thoughtTicker = Random.Range(0f, m_thoughDelay);
         CreateSelfEvaluations();
         CreateEnvironmentalEvaluations();
+        InitializeMemory();
     }
 
     void CreateSelfEvaluations()
@@ -246,11 +248,23 @@ public class HumanEvaluations : EvaluationModule {
             MemorizeStimuli();
 
             EvaluateObjectsInMemory(); // This code needs to be rewritten as it in not currently updating the dictionary with the changes.
-
+            OutputCounter();
 
 
             UpdateEvaluations();
         }
+    }
+
+    private void OutputCounter()
+    {
+        foreach (var i in m_memoryCounter.m_counters)
+        {
+            if (i.Value > 0)
+            {
+                Debug.Log(i.Key.ToString() + " " + i.Value);
+            }
+        }
+        
     }
 
     private void MemorizeStimuli()
@@ -258,9 +272,16 @@ public class HumanEvaluations : EvaluationModule {
         if (m_brain)
         {
             List<GameObject> nearbyObjects;
+
+
             if (m_brain.GetNearbyObjects(out nearbyObjects))
             {
-                for (int i = 0; i > nearbyObjects.Count; i++)
+                if (nearbyObjects.Count > 0)
+                {
+                    Debug.Log("nearby object found");
+                }
+
+                for (int i = 0; i < nearbyObjects.Count; i++)
                 {
                     // if memory contains object
                     // // Categorize it 
@@ -273,20 +294,23 @@ public class HumanEvaluations : EvaluationModule {
                     if (m_visualMemory.TryGetValue(obj, out description))
                     {
                         description.m_category = Categorize(obj);
+                        Debug.Log("recategorize");
                     }
                     else
                     {
                         description = new Description();
                         description.m_category = Categorize(obj);
                         m_visualMemory.Add(obj, description);
+                        Debug.Log("add");
                     }
 
                 }
+
             }
             List<Noise> audibleNoises;
             if (m_brain.GetAudibleNoises(out audibleNoises))
             {
-                for (int i = 0; i > audibleNoises.Count; i++)
+                for (int i = 0; i < audibleNoises.Count; i++)
                 {
                     // if memory contains object
                     // // Categorize it 
@@ -312,7 +336,7 @@ public class HumanEvaluations : EvaluationModule {
             List<Assignment> nearbyAssignments;
             if (m_brain.GetNearbyAssignments(out nearbyAssignments))
             {
-                for (int i = 0; i > nearbyAssignments.Count; i++)
+                for (int i = 0; i < nearbyAssignments.Count; i++)
                 {
                     // if memory contains object
                     // // Categorize it 
@@ -341,60 +365,128 @@ public class HumanEvaluations : EvaluationModule {
 
     private void EvaluateObjectsInMemory()
     {
+        m_memoryCounter.Reset();
+        if (m_visualMemory.Count > 0)
+        {
+
+            List<GameObject> visualkeys = new List<GameObject>(m_visualMemory.Keys);
+            foreach (GameObject key in visualkeys)
+            {
+                // Might Also want to consider forgeting items when:
+                //  out of range
+                //  not seen for a certain amount of time
+
+                if (key.gameObject.activeSelf == false)
+                {
+                    // Remove Inactive Items from memory
+                    m_visualMemory.Remove(key);
+                }
+                else
+                {
+                    Description description = m_visualMemory[key];
+                    description.m_evaluation = EvaluateObject(key, description.m_category);
+                    if (description.m_evaluation < 0)
+                    {
+                        // this check is made incase the object has changed category
+                        description.m_category = Categorize(key);
+                        description.m_evaluation = EvaluateObject(key, description.m_category);
+                    }
+                    m_visualMemory[key] = description;
+                    m_memoryCounter.IncreaseCount(description.m_category);
+                }
+            }
+        }
+
+        if (m_audioMemory.Count > 0)
+        {
+            List<Noise> audiokeys = new List<Noise>(m_audioMemory.Keys);
+            foreach (Noise key in audiokeys)
+            {
+                Description description = m_audioMemory[key];
+                description.m_evaluation = EvaluateNoise(key);
+                //if (description.m_evaluation < 0)
+                //{
+                //    // this check is made incase the object has changed category
+                //    description.m_category = Categorize(key);
+                //    description.m_evaluation = EvaluateNoise(key);
+                //}
+                m_audioMemory[key] = description;
+                m_memoryCounter.IncreaseCount(description.m_category);
+            }
+        }
+
+
+        if (m_assignmentMemory.Count > 0)
+        {
+            List<Assignment> assignmentkeys = new List<Assignment>(m_assignmentMemory.Keys);
+            foreach (Assignment key in assignmentkeys)
+            {
+                Description description = m_assignmentMemory[key];
+                description.m_evaluation = EvaluateAssignment(key);
+                //if (description.m_evaluation < 0)
+                //{
+                //    // this check is made incase the object has changed category
+                //    description.m_category = Categorize(key);
+                //    description.m_evaluation = EvaluateAssignment(key);
+                //}
+                m_assignmentMemory[key] = description;
+                m_memoryCounter.IncreaseCount(description.m_category);
+            }
+        }
+
 
         // This code needs to be rewritten as it in not currently updating the dictionary with the changes.
 
-        foreach (KeyValuePair<GameObject, Description> entry in m_visualMemory)
-        {
-            GameObject obj = entry.Key;
-            Description description = entry.Value;
-            if (obj != null && description != null)
-            {
-                description.m_evaluation = EvaluateObject(obj, description.m_category);
-                if (description.m_evaluation < 0)
-                {
-                    // this check is made incase the object has changed category
-                    description.m_category = Categorize(obj);
-                    description.m_evaluation = EvaluateObject(obj, description.m_category);
-                }
-            }
+        //foreach (KeyValuePair<GameObject, Description> entry in m_visualMemory)
+        //{
+        //    GameObject obj = entry.Key;
+        //    Description description = entry.Value;
+        //    if (obj != null && description != null)
+        //    {
+        //        description.m_evaluation = EvaluateObject(obj, description.m_category);
+        //        if (description.m_evaluation < 0)
+        //        {
+        //            // this check is made incase the object has changed category
+        //            description.m_category = Categorize(obj);
+        //            description.m_evaluation = EvaluateObject(obj, description.m_category);
+        //        }
+        //    }
+        //    m_counter.IncreaseCount(description.m_category);
+        //}
 
-            m_counter.IncreaseCount(description.m_category);
-        }
+        //foreach (KeyValuePair<Noise, Description> entry in m_audioMemory)
+        //{
+        //    Noise obj = entry.Key;
+        //    Description description = entry.Value;
+        //    if (obj != null && description != null)
+        //    {
+        //        description.m_evaluation = EvaluateNoise(obj);
+        //        //if (description.m_evaluation < 0)
+        //        //{
+        //        //    // this check is made incase the object has changed category
+        //        //    description.m_category = Categorize(obj);
+        //        //    description.m_evaluation = EvaluateNoise(obj);
+        //        //}
+        //    }
+        //    m_counter.IncreaseCount(description.m_category);
+        //}
 
-        foreach (KeyValuePair<Noise, Description> entry in m_audioMemory)
-        {
-            Noise obj = entry.Key;
-            Description description = entry.Value;
-            if (obj != null && description != null)
-            {
-                description.m_evaluation = EvaluateNoise(obj);
-                //if (description.m_evaluation < 0)
-                //{
-                //    // this check is made incase the object has changed category
-                //    description.m_category = Categorize(obj);
-                //    description.m_evaluation = EvaluateNoise(obj);
-                //}
-            }
-            m_counter.IncreaseCount(description.m_category);
-        }
-
-        foreach (KeyValuePair<Assignment, Description> entry in m_assignmentMemory)
-        {
-            Assignment obj = entry.Key;
-            Description description = entry.Value;
-            if (obj != null && description != null)
-            {
-                description.m_evaluation = EvaluateAssignment(obj);
-                //if (description.m_evaluation < 0)
-                //{
-                //    // this check is made incase the object has changed category
-                //    description.m_category = Categorize(obj);
-                //    description.m_evaluation = EvaluateAssignment(obj);
-                //}
-            }
-            m_counter.IncreaseCount(description.m_category);
-        }
+        //foreach (KeyValuePair<Assignment, Description> entry in m_assignmentMemory)
+        //{
+        //    Assignment obj = entry.Key;
+        //    Description description = entry.Value;
+        //    if (obj != null && description != null)
+        //    {
+        //        description.m_evaluation = EvaluateAssignment(obj);
+        //        //if (description.m_evaluation < 0)
+        //        //{
+        //        //    // this check is made incase the object has changed category
+        //        //    description.m_category = Categorize(obj);
+        //        //    description.m_evaluation = EvaluateAssignment(obj);
+        //        //}
+        //    }
+        //    m_counter.IncreaseCount(description.m_category);
+        //}
     }
 
     /// Sense 
@@ -476,6 +568,7 @@ public class HumanEvaluations : EvaluationModule {
 
     public enum Categories
     {
+        SelfObject,
         EnemyObject,
         AllyObject,
         CorpseObject,
@@ -487,6 +580,13 @@ public class HumanEvaluations : EvaluationModule {
         Uncategorised,
     }
 
+    void InitializeMemory()
+    {
+        m_visualMemory = new Dictionary<GameObject, Description>();
+        m_audioMemory = new Dictionary<Noise, Description>();
+        m_assignmentMemory = new Dictionary<Assignment, Description>();
+        m_memoryCounter = new Counter();
+    }
 
     [System.Serializable]
     public class Description/*: System.IComparable*/
@@ -514,6 +614,11 @@ public class HumanEvaluations : EvaluationModule {
     protected virtual Categories Categorize(GameObject obj)
     {
         Categories category = Categories.Uncategorised;
+
+        if (obj.gameObject == this.gameObject)
+        {
+            return Categories.SelfObject; // Early exit as obj is Self
+        }
 
         Health objHealth = obj.GetComponent<Health>();
         
@@ -963,6 +1068,22 @@ public class HumanEvaluations : EvaluationModule {
     // Getters
     // ****************************
 
+    public GameObject GetHighestPriorityEnemy()
+    {
+        // return the enemy with the highest evaluation
+        GameObject priorityEnemy = null;
+        // generate a filtered list of enemies
+        Dictionary<GameObject, Description> enemies = m_visualMemory.Where(x => x.Value.m_category == Categories.EnemyObject).ToDictionary(x => x.Key, x => x.Value);
+
+        // if enemies in memory
+        if (enemies.Count() > 0)
+        {
+            // find enemy of highest priority
+            priorityEnemy = enemies.Aggregate((a,b) => a.Value.m_evaluation > b.Value.m_evaluation ? a: b).Key;
+        }
+        return priorityEnemy;
+    }
+
     public GameObject GetClosestEnemy()
     {
         GameObject test = null;
@@ -973,17 +1094,6 @@ public class HumanEvaluations : EvaluationModule {
         return test;
     }
 
-    public GameObject GetHighestPriorityEnemy()
-    {
-        // return the enemy with the highest evaluation
-        GameObject priorityEnemy = null;
-        Dictionary<GameObject, Description> test = m_visualMemory.Where(x => x.Value.m_category == Categories.EnemyObject).ToDictionary(x => x.Key, x => x.Value);
-        if (test.Count() > 0)
-        {
-            priorityEnemy = test.Aggregate((a,b) => a.Value.m_evaluation > b.Value.m_evaluation ? a: b).Key;
-        }
-        return priorityEnemy;
-    }
 
     public Noise GetHighestPriorityNoise()
     {
@@ -998,7 +1108,7 @@ public class HumanEvaluations : EvaluationModule {
 
 
 
-    //// Custom Evaluations
+    /// Custom Evaluations
     //[System.Serializable]
     //public class CustomEvaluation
     //{

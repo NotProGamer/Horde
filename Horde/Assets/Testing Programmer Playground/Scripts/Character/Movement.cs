@@ -167,4 +167,9 @@ public class Movement : MonoBehaviour {
     {
         return m_currentSpeed;
     }
+
+    public void Stop()
+    {
+        SetDestination(transform.position);
+    }
 }

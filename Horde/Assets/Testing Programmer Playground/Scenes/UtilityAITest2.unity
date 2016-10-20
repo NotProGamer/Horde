@@ -1320,6 +1320,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013909355348, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_damage
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
   m_IsPrefabParent: 0
@@ -2134,7 +2139,8 @@ Prefab:
       propertyPath: m_healToFullOnStart
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000012482754406, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1274266213

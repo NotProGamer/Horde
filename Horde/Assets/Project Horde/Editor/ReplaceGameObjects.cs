@@ -9,7 +9,7 @@ public class ReplaceGameObjects : ScriptableWizard
 
     public GameObject useGameObject;
 
-    [MenuItem("Custom/Replace GameObjects")]
+    [MenuItem("Tools/Replace GameObjects")]
 
     static void CreateWizard()
     {

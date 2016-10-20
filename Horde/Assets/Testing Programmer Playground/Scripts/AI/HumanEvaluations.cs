@@ -29,6 +29,7 @@ public class HumanEvaluations : EvaluationModule {
         Enganged,
         EnemiesNearby,
         NoEnemiesNearby,
+        EnemyInRange,
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
@@ -193,6 +194,7 @@ public class HumanEvaluations : EvaluationModule {
 
     private Brain m_brain = null;
     private Health m_healthScript = null;
+    private Attack m_attackScript = null;
 
     void Awake()
     {
@@ -202,9 +204,14 @@ public class HumanEvaluations : EvaluationModule {
             Debug.Log("Brain not included!");
         }
         m_healthScript = GetComponent<Health>();
-        if (m_brain == null)
+        if (m_healthScript == null)
         {
             Debug.Log("Health not included!");
+        }
+        m_attackScript = GetComponent<Attack>();
+        if (m_attackScript == null)
+        {
+            Debug.Log("Attack not included!");
         }
     }
 
@@ -245,10 +252,17 @@ public class HumanEvaluations : EvaluationModule {
             float maxDistanceToObject = m_brain.m_sight.m_range * m_brain.m_sight.m_range;
             m_objectEvaluations.objectDistance = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, maxDistanceToObject);
         }
+
         m_objectEvaluations.m_enemy.m_health = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
         m_environmentalEvaluations.m_enemiesNearby= new EnvironmentalEvaluations.EnemiesNearby(0, 1);
         AddEvaluation((int)EvaluationNames.EnemiesNearby, m_environmentalEvaluations.m_enemiesNearby.m_linear);
         AddEvaluation((int)EvaluationNames.NoEnemiesNearby, m_environmentalEvaluations.m_enemiesNearby.m_inverseLinear);
+
+        if (m_attackScript != null)
+        {
+            m_environmentalEvaluations.m_enemyInRange = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, m_attackScript.m_attackRange * m_attackScript.m_attackRange);  // squared attack range 
+            AddEvaluation((int)EvaluationNames.EnemyInRange, m_environmentalEvaluations.m_enemyInRange);
+        }
     }
 
 
@@ -286,6 +300,22 @@ public class HumanEvaluations : EvaluationModule {
 
             UpdateEvaluations();
             m_environmentalEvaluations.m_enemiesNearby.SetValue((float)m_senseCounter.GetCategoryCount(Categories.EnemyObject));
+
+
+            if (m_senseCounter.GetCategoryCount(Categories.EnemyObject) > 0)
+            {
+                GameObject test = GetHighestPriorityEnemy();
+                if (test == null)
+                {
+                    m_environmentalEvaluations.m_enemyInRange.SetValue(0);
+                }
+                else
+                {
+                    float sqrDistance = (test.transform.position - transform.position).sqrMagnitude;
+                    m_environmentalEvaluations.m_enemyInRange.SetValue(sqrDistance);
+                }
+            }
+
         }
     }
 
@@ -1078,8 +1108,9 @@ public class HumanEvaluations : EvaluationModule {
         {
             // Distance to Enemy Evaluation = Distance Covered Percentage * Distance Weight
             // the Closer the get the higher the priority they become
-            m_objectEvaluations.objectDistance.SetExponentialProperties(2.0f);
-            m_objectEvaluations.objectDistance.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.Exponential);
+            //m_objectEvaluations.objectDistance.SetExponentialProperties(2.0f);
+            //m_objectEvaluations.objectDistance.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.Exponential);
+            m_objectEvaluations.objectDistance.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
             float distanceToObject = (obj.transform.position - transform.position).sqrMagnitude;
             m_objectEvaluations.objectDistance.SetValue(distanceToObject);
             value += m_objectEvaluations.objectDistance.Evaluate() * m_objectEvaluations.m_enemy.m_weights.m_distance; 

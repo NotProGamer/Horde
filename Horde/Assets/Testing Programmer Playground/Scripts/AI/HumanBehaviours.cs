@@ -62,11 +62,13 @@ public class HumanBehaviours : BehaviourModule
         BaseBehaviour wander = new Wander(this.gameObject);
         BaseBehaviour death = new Death(this.gameObject);
         BaseBehaviour moveToEnemy = new MoveToEnemy(this.gameObject);
+        BaseBehaviour attackEnemy = new AttackEnemy(this.gameObject);
 
         AddBehaviour((int)BehaviourNames.Idle, idle);
         AddBehaviour((int)BehaviourNames.Wander, wander);
         AddBehaviour((int)BehaviourNames.Death, death);
         AddBehaviour((int)BehaviourNames.MoveToEnemy, moveToEnemy);
+        AddBehaviour((int)BehaviourNames.AttackIfInRange, attackEnemy);
 
     }
 

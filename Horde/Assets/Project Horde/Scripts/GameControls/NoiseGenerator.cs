@@ -12,8 +12,8 @@ public class NoiseGenerator : MonoBehaviour {
     /// if true calls CleanExpiredNoises() during update
     /// </summary>
     public bool m_cleanUpMyExpiredNoises = false;
-    private List<Noise> m_myNoises = null;
-    private NoiseManager m_noiseManager = null;
+    protected List<Noise> m_myNoises = null;
+    protected NoiseManager m_noiseManager = null;
 
     void Awake()
     {
@@ -91,7 +91,7 @@ public class NoiseGenerator : MonoBehaviour {
     /// <summary>
     /// removes any expired noises from the local noise list. Used during update
     /// </summary>
-    private void CleanExpiredNoises()
+    protected void CleanExpiredNoises()
     {
         List<Noise> deathRow = new List<Noise>();
         foreach (Noise noise in m_myNoises)

@@ -21,6 +21,7 @@ public enum NoiseIdentifier
     Alarm,
     Expolosion,
     Human,
+    Screamer,
     UserTap,
 }
 

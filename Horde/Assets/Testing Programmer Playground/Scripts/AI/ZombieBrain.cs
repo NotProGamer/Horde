@@ -4,6 +4,18 @@ using System.Collections.Generic;
 
 public class ZombieBrain : MonoBehaviour {
 
+
+    public enum ZombieType
+    {
+        Zombie,
+        Screamer,
+        LittleGirl,
+        Dictator,
+        Glutton,
+    }
+    public ZombieType m_zombieType = ZombieType.Zombie;
+
+
     private Dictionary<string, object> m_memory = new Dictionary<string, object>();
     // CurrentTarget [Done]
     // EnemiesInSight
@@ -94,7 +106,7 @@ public class ZombieBrain : MonoBehaviour {
         //Sense
         Look();
         Listen();
-
+        FilterOutScreamerNoise();
         // Think
         SortNoises();
 
@@ -422,6 +434,25 @@ public class ZombieBrain : MonoBehaviour {
         }
     }
 
+    void FilterOutScreamerNoise()
+    {
+        if (m_zombieType == ZombieType.Screamer)
+        {
+            List<Noise> filterOut = new List<Noise>();
+            for (int i = 0; i < m_audibleNoises.Count; i++)
+            {
+                Noise test = m_audibleNoises[i];
+                if (test != null && test.m_identifier == NoiseIdentifier.Screamer)
+                {
+                    filterOut.Add(test);
+                } 
+            }
+            foreach (Noise item in filterOut)
+            {
+                m_audibleNoises.Remove(item);
+            }
+        }
+    }
     
     private void SortNoises()
     {

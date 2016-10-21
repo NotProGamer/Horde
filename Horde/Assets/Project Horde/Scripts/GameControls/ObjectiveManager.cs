@@ -17,9 +17,10 @@ public class ObjectiveManager : MonoBehaviour {
     public bool m_enableDebugStatusUpdates = true;
     public float m_statusUpdateDelay = 5f;
     public float m_statusUpdateTimer = 0f;
-
+    public int completedObjectives = 0;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 	
 	}
 	
@@ -42,12 +43,18 @@ public class ObjectiveManager : MonoBehaviour {
                 {
                     Debug.Log("Objective '" + objective.m_identifer + "' " + objective.m_status.ToString() + ".");
                     Debug.Log(objective.m_objectiveCompletedText);
+                    //UpdateUI();
                     objective.ClearChange();
+                    completedObjectives++;
                 }
             }
             m_statusUpdateTimer = Time.time + m_statusUpdateTimer;
         }
     }
 
+    //protected virtual void UpdateUI()
+    //{
+    //    // your code here
 
+    //}
 }

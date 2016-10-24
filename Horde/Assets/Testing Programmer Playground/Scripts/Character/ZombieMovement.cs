@@ -176,5 +176,24 @@ public class ZombieMovement : Movement
     //    return result;
     //}
 
+    public float m_boostTimeRemaining = 0f;
+    private float m_boostExpiry = 0f;
+    public bool m_enableBoost = false;
+    public float m_boostSpeed = 20f;
+    public float m_normalSpeed = 10f;
+    public void SpeedBoostUpdate()
+    {
+        if (m_enableBoost)
+        {
+
+        }
+    }
+    public void BoostSpeed()
+    {
+
+    }
+
+
+
 }
 

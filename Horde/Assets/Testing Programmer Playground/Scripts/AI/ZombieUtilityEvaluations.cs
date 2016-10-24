@@ -28,6 +28,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         DistanceToLastUserTap,
         RemembersLastUserTap,
         CanNotHearNoise,
+        isNotAggressive,
     }
 
     private Health m_healthScript = null;
@@ -61,6 +62,8 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
     public UtilityMath.UtilityValue m_canNotHearNoiseFormula; // Done
 
     //public UtilityMath.UtilityValue m_distanceToUserTapFormula;
+
+    public UtilityMath.UtilityValue m_isNotAggressiveFormula; // Done
 
     void Awake()
     {
@@ -151,6 +154,10 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
             m_canNotHearNoiseFormula.SetMinMaxValues(0, 1);
             m_canNotHearNoiseFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
+
+            m_isNotAggressiveFormula.SetMinMaxValues(System.Convert.ToInt32(false), System.Convert.ToInt32(true));
+            m_isNotAggressiveFormula.SetNormalisationType(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear);
+
         }
 
         m_evaluations.Add(Evaluations.EnemyInSight, m_enemyInSightFormula);
@@ -173,7 +180,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
         m_evaluations.Add(Evaluations.CanNotHearNoise, m_canNotHearNoiseFormula);
 
-        
+        m_evaluations.Add(Evaluations.isNotAggressive, m_isNotAggressiveFormula);
     }
 
 
@@ -208,6 +215,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
             m_remembersLastUserTapFormula.SetValue(System.Convert.ToInt32(m_zombieBrainScript.RemembersMemoryLocation(Labels.Memory.LastUserTap)));
 
             m_canNotHearNoiseFormula.SetValue(m_zombieBrainScript.GetAudibleNoiseCount());
+            m_isNotAggressiveFormula.SetValue(System.Convert.ToInt32(m_zombieBrainScript.IsAggressive()));
         }
     }
 

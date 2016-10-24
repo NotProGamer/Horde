@@ -958,43 +958,54 @@ public class HumanEvaluations : EvaluationModule {
     // Qualifiers
     // ****************************
 
-    public virtual bool IsEnemy(GameObject obj)
+    public virtual bool IsEnemy(GameObject other)
     {
         if (Labels.Tags.IsHuman(gameObject))
         {
-            return Labels.Tags.IsZombie(obj);
+            bool result = Labels.Tags.IsZombie(other);
+
+            // the following is a check which clouds the human mind unless the zombie little girl is being aggresive
+            if (other.CompareTag(Labels.Tags.ZombieLittleGirl))
+            {
+                ZombieBrain test = other.GetComponent<ZombieBrain>();
+                if (test != null)
+                {
+                    result = test.IsAggressive();
+                }
+            }
+            return result;
         }
         if (Labels.Tags.IsZombie(gameObject))
         {
-            return Labels.Tags.IsHuman(obj);
+            return Labels.Tags.IsHuman(other);
         }
         return false;
     }
-    public virtual bool IsAlly(GameObject obj)
+    public virtual bool IsAlly(GameObject other)
     {
         if (Labels.Tags.IsHuman(gameObject))
         {
-            return Labels.Tags.IsHuman(obj);
+            return Labels.Tags.IsHuman(other);
         }
         if (Labels.Tags.IsZombie(gameObject))
         {
-            return Labels.Tags.IsZombie(obj);
+            return Labels.Tags.IsZombie(other);
         }
         return false;
     }
-    public virtual bool IsBoss(GameObject obj)
+    public virtual bool IsBoss(GameObject other)
     {
         return false;
     }
-    public virtual bool IsTrap(GameObject obj)
+    public virtual bool IsTrap(GameObject other)
     {
         return false;
     }
-    public virtual bool IsObstacle(GameObject obj)
+    public virtual bool IsObstacle(GameObject other)
     {
         return false;
     }
-    public virtual bool IsCover(GameObject obj)
+    public virtual bool IsCover(GameObject other)
     {
         return false;
     }
@@ -1002,11 +1013,11 @@ public class HumanEvaluations : EvaluationModule {
     //{
     //    return false;
     //}
-    public virtual bool IsSafe(GameObject obj)
+    public virtual bool IsSafe(GameObject other)
     {
         return false;
     }
-    public virtual bool IsComprimised(GameObject obj)
+    public virtual bool IsComprimised(GameObject other)
     {
         return false;
     }

@@ -5,15 +5,15 @@ using System.Collections.Generic;
 public class ZombieBrain : MonoBehaviour {
 
 
-    public enum ZombieType
-    {
-        Zombie,
-        Screamer,
-        LittleGirl,
-        Dictator,
-        Glutton,
-    }
-    public ZombieType m_zombieType = ZombieType.Zombie;
+    //public enum ZombieType
+    //{
+    //    Zombie,
+    //    Screamer,
+    //    LittleGirl,
+    //    Dictator,
+    //    Glutton,
+    //}
+    //public ZombieType m_zombieType = ZombieType.Zombie;
 
 
     private Dictionary<string, object> m_memory = new Dictionary<string, object>();
@@ -106,7 +106,10 @@ public class ZombieBrain : MonoBehaviour {
         //Sense
         Look();
         Listen();
-        FilterOutScreamerNoise();
+        if (gameObject.CompareTag(Labels.Tags.ZombieScreamer))
+        {
+            FilterOutScreamerNoise();
+        }
         // Think
         SortNoises();
 
@@ -169,7 +172,134 @@ public class ZombieBrain : MonoBehaviour {
 
         UpdateBoredom();
 
+        if (gameObject.CompareTag(Labels.Tags.ZombieLittleGirl))
+        {
+            LittleGirlZombieUpdate();
+        }
+
+        if (gameObject.CompareTag(Labels.Tags.ZombieDictator))
+        {
+            if (m_giveSpeedBoost)
+            {
+                GiveAlliesASpeedBoost();
+                
+            }
+        }
+
+        if (gameObject.CompareTag(Labels.Tags.ZombieGlutton))
+        {
+            GluttonUpdate();
+            
+        }
+
+        m_speedBoostEffect.Update(); // disable speed boost effect when it times out
+        UpdateSpeed();
     }
+
+    public bool m_vomitToxin = false;
+    public int m_vomitLevel = 1;
+    public GameObject vomitPrefab;
+    public void GluttonUpdate()
+    {
+        if (vomitPrefab == null)
+        {
+            return;
+        }
+        if (m_vomitToxin)
+        {
+            if (m_vomitLevel > 0)
+            {
+                m_vomitLevel--;
+                GameObject test = Instantiate(vomitPrefab) as GameObject;
+                test.transform.position = transform.position;
+            }
+            m_vomitToxin = false;
+        }
+    }
+
+    public bool m_giveSpeedBoost = false;
+    public void GiveAlliesASpeedBoost()
+    {
+        foreach (GameObject item in m_allies)
+        {
+            ZombieBrain allyBrain = item.GetComponent<ZombieBrain>();
+            if (allyBrain != null)
+            {
+                allyBrain.m_speedBoostEffect.Enable();
+            }
+        }
+    }
+
+
+    public Transform m_victimIndicator;
+    public enum DemeanorTypes
+    {
+        Passive,
+        Aggressive,
+        Neutral,
+    }
+    public DemeanorTypes m_demeanor = DemeanorTypes.Passive;
+    public bool m_becomeAggressive = false;
+    //public bool m_aggressive = false; // false is passive
+    public void LittleGirlZombieUpdate()
+    {
+        // temporary switch for testing
+        if (m_becomeAggressive)
+        {
+            m_demeanor = DemeanorTypes.Aggressive;
+        }
+        else
+        {
+            m_demeanor = DemeanorTypes.Passive;
+        }
+
+        if (m_victimIndicator != null)
+        {
+            // get closest enemy
+            if (GetEnemiesInSightCount() > 0)
+            {
+                object item;
+                if (m_memory.TryGetValue(Labels.Memory.ClosestEnemy, out item))
+                {
+                    GameObject closestEnemy = item as GameObject;
+                    if (closestEnemy)
+                    {
+                        // move victim Indicator on to target
+                        m_victimIndicator.SetParent(closestEnemy.transform);
+                        m_victimIndicator.position = closestEnemy.transform.position;
+                    }
+                }
+            }
+            else
+            {
+                m_victimIndicator.SetParent(gameObject.transform);
+                m_victimIndicator.position = gameObject.transform.position;
+
+                // should really only trigger this when little girl is out of sight of humans but this will do for now
+                m_demeanor = DemeanorTypes.Passive;
+                m_becomeAggressive = false;
+            }
+        }
+
+    }
+
+    public bool IsAggressive()
+    {
+        bool result = true;
+        switch (m_demeanor)
+        {
+            case DemeanorTypes.Passive:
+            case DemeanorTypes.Neutral:
+                result = false;
+                break;
+            case DemeanorTypes.Aggressive:
+                break;
+            default:
+                break;
+        }
+        return result;
+    }
+
 
     public bool GetCurrentTargetPosition(out Vector3 pTargetPosition)
     {
@@ -436,21 +566,18 @@ public class ZombieBrain : MonoBehaviour {
 
     void FilterOutScreamerNoise()
     {
-        if (m_zombieType == ZombieType.Screamer)
+        List<Noise> filterOut = new List<Noise>();
+        for (int i = 0; i < m_audibleNoises.Count; i++)
         {
-            List<Noise> filterOut = new List<Noise>();
-            for (int i = 0; i < m_audibleNoises.Count; i++)
+            Noise test = m_audibleNoises[i];
+            if (test != null && test.m_identifier == NoiseIdentifier.Screamer)
             {
-                Noise test = m_audibleNoises[i];
-                if (test != null && test.m_identifier == NoiseIdentifier.Screamer)
-                {
-                    filterOut.Add(test);
-                } 
-            }
-            foreach (Noise item in filterOut)
-            {
-                m_audibleNoises.Remove(item);
-            }
+                filterOut.Add(test);
+            } 
+        }
+        foreach (Noise item in filterOut)
+        {
+            m_audibleNoises.Remove(item);
         }
     }
     
@@ -558,8 +685,29 @@ public class ZombieBrain : MonoBehaviour {
         }
     }
 
+    [System.Serializable]
+    public class SpeedBoostEffect
+    {
+        public bool m_enabled = false;
+        public float m_speed = 20f;
+        public float m_timeOutDelay = 2f;
+        private float m_timeOut = 0f;
+        public void Update()
+        {
+            if (m_timeOut <= Time.time)
+            {
+                m_enabled = false;
+            }
 
+        }
+        public void Enable()
+        {
+            m_enabled = true;
+            m_timeOut = Time.time + m_timeOutDelay;
+        }
+    }
 
+    public SpeedBoostEffect m_speedBoostEffect;
     private ZombieUtilityAI m_zombieUtilityAIScript = null;
     private Movement m_movementScript = null;
     public MovementSpeeds m_movementSpeeds;
@@ -568,6 +716,18 @@ public class ZombieBrain : MonoBehaviour {
         m_movementSpeeds.InspectorUpdate();
         bool result = true;
         float speed = 0f;
+
+        // this section of code is used to increase the speed of the zombies
+        // based on whether they are under the dictators speed boost effect
+        if (m_speedBoostEffect.m_enabled)
+        {
+            if (m_movementScript != null)
+            {
+                m_movementScript.SetSpeed(m_speedBoostEffect.m_speed);
+                return true; /// early exit
+            }
+        }
+
         //float speed = m_movementSpeeds.GetMovementSpeed(ZombieUtilityBehaviours.BehaviourNames.Idle);
         if (m_zombieUtilityAIScript != null)
         {
@@ -578,6 +738,7 @@ public class ZombieBrain : MonoBehaviour {
         {
             result = false;
         }
+
         if (m_movementScript != null && result)
         {
             m_movementScript.SetSpeed(speed);

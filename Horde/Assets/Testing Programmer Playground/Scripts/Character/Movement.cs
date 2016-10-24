@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour {
     public float m_touchRange = 1f; // may need to get this from attackRange or moveRange
 
     public float m_minSpeed = 3f;
-    public float m_maxSpeed = 10f;
+    public float m_maxSpeed = 20f; // was 10
     protected float m_currentSpeed = 3f;
 
 

@@ -11,12 +11,20 @@ public class Labels : MonoBehaviour {
 
         // Mobile Units
         public static string Zombie = "Zombie";
+        public static string ZombieScreamer = "ZombieScreamer"; // Abnormal
+        public static string ZombieLittleGirl = "ZombieLittleGirl"; // Abnormal
+        public static string ZombieDictator = "ZombieDictator"; // Abnormal
+        public static string ZombieGlutton = "ZombieGlutton"; // Abnormal
         public static string Human = "Human";
         //public static string Player = "Player";
 
         public static bool IsZombie(GameObject other)
         {
-            return other.CompareTag(Zombie);
+            return other.CompareTag(Zombie) 
+                || other.CompareTag(ZombieScreamer) 
+                || other.CompareTag(ZombieLittleGirl) 
+                || other.CompareTag(ZombieDictator) 
+                || other.CompareTag(ZombieGlutton);
         }
         public static bool IsHuman(GameObject other)
         {

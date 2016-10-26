@@ -67,6 +67,13 @@ public class ZombieBrain : MonoBehaviour {
             Debug.Log("Movement not included.");
         }
 
+        m_attackScript = GetComponent<Attack>();
+        if (m_attackScript == null)
+        {
+            Debug.Log("Attack not included.");
+        }
+
+
     }
 
 
@@ -240,6 +247,7 @@ public class ZombieBrain : MonoBehaviour {
     }
     public DemeanorTypes m_demeanor = DemeanorTypes.Passive;
     public bool m_becomeAggressive = false;
+    private Attack m_attackScript = null;
     //public bool m_aggressive = false; // false is passive
     public void LittleGirlZombieUpdate()
     {
@@ -267,8 +275,14 @@ public class ZombieBrain : MonoBehaviour {
                         // move victim Indicator on to target
                         m_victimIndicator.SetParent(closestEnemy.transform);
                         m_victimIndicator.position = closestEnemy.transform.position;
+                        if (m_demeanor == DemeanorTypes.Aggressive)
+                        {
+                            m_attackScript.m_damage = closestEnemy.GetComponent<Health>().m_health; // fix this
+                        }
                     }
                 }
+
+                
             }
             else
             {
@@ -280,6 +294,8 @@ public class ZombieBrain : MonoBehaviour {
                 m_becomeAggressive = false;
             }
         }
+
+
 
     }
 

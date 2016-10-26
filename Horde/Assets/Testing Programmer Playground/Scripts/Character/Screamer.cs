@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Screamer : NoiseGenerator {
 
@@ -12,10 +13,29 @@ public class Screamer : NoiseGenerator {
     public bool m_screaming = false;
 
 
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+        if (obj)
+        {
+            m_noiseManager = obj.GetComponent<NoiseManager>();
+        }
+        //else
+        //{
+        //    Debug.Log("GameController not included.");
+        //}
+        if (m_noiseManager == null)
+        {
+            Debug.Log("Noise Manager not included.");
+        }
+    }
+
     //   // Use this for initialization
     void Start()
     {
         m_screamCounter = m_screams;
+        m_myNoises = new List<Noise>();
+        m_cleanUpMyExpiredNoises = true;
     }
 
     // Update is called once per frame
@@ -50,7 +70,9 @@ public class Screamer : NoiseGenerator {
     public void Scream()
     {
         // generate a noise half as long as the delay between noises
+        
         GenerateNoise(m_volume, m_delay * 0.5f, m_noisIdentifier);
+
     }
 
     public void StartScreaming()

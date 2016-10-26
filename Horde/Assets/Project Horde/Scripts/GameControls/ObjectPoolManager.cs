@@ -70,6 +70,7 @@ public class ObjectPoolManager : MonoBehaviour {
             if (obj == null && m_willGrow)
             {
                 obj = Instantiate(m_prefab) as GameObject;
+                obj.transform.SetParent(m_container.transform);
                 obj.SetActive(false);
                 m_pool.Add(obj);
                 m_size = m_pool.Count;

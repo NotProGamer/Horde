@@ -48,6 +48,7 @@ GameObject:
   - 114: {fileID: 114000013919523470}
   - 114: {fileID: 114000012730503968}
   - 114: {fileID: 114000010557428918}
+  - 114: {fileID: 114000013101262374}
   m_Layer: 8
   m_Name: CTD_AILittleGirl
   m_TagString: ZombieLittleGirl
@@ -351,7 +352,7 @@ MonoBehaviour:
     m_vomitDelay: 2
     m_vomitTimer: 0
   m_giveSpeedBoost: 0
-  m_victimIndicator: {fileID: 58720288}
+  m_victimIndicator: {fileID: 4000013901486508}
   m_demeanor: 0
   m_becomeAggressive: 0
   m_maxTapInterest: 2
@@ -578,6 +579,18 @@ MonoBehaviour:
   m_damage: 10
   m_attackRange: 10
   m_anim: {fileID: 0}
+--- !u!114 &114000013101262374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011324950992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6123bfbb0247f247855f95216f7a46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_testAbonormalAbility: 0
 --- !u!114 &114000013919523470
 MonoBehaviour:
   m_ObjectHideFlags: 1

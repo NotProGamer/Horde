@@ -38,6 +38,8 @@ public class ZombieBrain : MonoBehaviour {
     public float m_boredomIncrement = 10f;
     public float m_maxBoredom = 100f;
     public float m_currentBoredom = 0f;
+    public float m_boredomIncrementTimer = 1.0f;
+    public float m_boredomIncrementDelay = 0.5f;
 
     void Awake()
     {
@@ -86,6 +88,7 @@ public class ZombieBrain : MonoBehaviour {
         m_memory.Add(Labels.Memory.ClosestEnemy, null);
         m_memory.Add(Labels.Memory.ClosestCorpse, null);
         m_memory.Add(Labels.Memory.ClosestDestructible, null);
+        m_boredomIncrementTimer += Random.Range(0, 4.0f);
     }
 	
 	// Update is called once per frame
@@ -176,8 +179,11 @@ public class ZombieBrain : MonoBehaviour {
             m_memory[Labels.Memory.ClosestDestructible] = null;
         }
 
-
-        UpdateBoredom();
+        if (Time.time > m_boredomIncrementTimer)
+        {
+            m_boredomIncrementTimer = Time.time + m_boredomIncrementDelay;
+            UpdateBoredom();
+        }
 
         if (gameObject.CompareTag(Labels.Tags.ZombieLittleGirl))
         {
@@ -202,6 +208,8 @@ public class ZombieBrain : MonoBehaviour {
         m_speedBoostEffect.Update(); // disable speed boost effect when it times out
         UpdateSpeed();
     }
+
+
 
     [System.Serializable]
     public class GluttonSettings
@@ -778,19 +786,9 @@ public class ZombieBrain : MonoBehaviour {
         }
         return result;
     }
-    float timer = 2.0f;
-    float delay = 0.50f;
 
     private void UpdateBoredom()
     {
-        //if (Time.time > timer)
-        //{
-        //    timer = Time.time + delay;
-        //    m_currentBoredom -= m_boredomIncrement;
-        //}
-
-        
-
         ZombieUtilityBehaviours.BehaviourNames currentBehaviour = m_zombieUtilityAIScript.GetCurrentBehaviour();
         switch (currentBehaviour)
         {
@@ -800,7 +798,7 @@ public class ZombieBrain : MonoBehaviour {
             case ZombieUtilityBehaviours.BehaviourNames.Investigate:
             case ZombieUtilityBehaviours.BehaviourNames.Devour:
             case ZombieUtilityBehaviours.BehaviourNames.Wander:
-                break;
+                //break;
             case ZombieUtilityBehaviours.BehaviourNames.Chase:
             case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
             case ZombieUtilityBehaviours.BehaviourNames.Death:

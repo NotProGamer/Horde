@@ -5,7 +5,7 @@ public class Wander : BaseBehaviour {
 
     private Movement m_movementScript = null;
     //private NavMeshAgent m_nav = null;
-
+    
     private float wanderRadius = 10f;
 
 

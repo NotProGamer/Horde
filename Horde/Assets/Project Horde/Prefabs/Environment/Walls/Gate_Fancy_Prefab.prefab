@@ -39,7 +39,7 @@ GameObject:
   - 208: {fileID: 208000012108785348}
   m_Layer: 0
   m_Name: GateRight
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 461208}
   m_Layer: 0
-  m_Name: Gate_Fancy_Mod_01
+  m_Name: Gate_Fancy_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,10 +82,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182372}
-  m_LocalRotation: {x: -0, y: 0.70710665, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: -30.388, y: 0.5, z: 6.3980026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 461760}
   - {fileID: 480680}
@@ -298,8 +298,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.997324, y: 2.9537568, z: 0.20229721}
-  m_Center: {x: 1.498662, y: 0, z: 0}
+  m_Size: {x: 2.997324, y: 2.9537568, z: 0.9617504}
+  m_Center: {x: 1.4986634, y: -0.00000011920929, z: -0.3797299}
 --- !u!65 &65000011860051474
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -310,8 +310,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0149078, y: 2.9537568, z: 0.20229721}
-  m_Center: {x: -1.5074539, y: 0, z: 0}
+  m_Size: {x: 3.0149078, y: 2.9537568, z: 0.703421}
+  m_Center: {x: -1.5074544, y: -0.00000011920929, z: -0.25055662}
 --- !u!114 &114000010705975488
 MonoBehaviour:
   m_ObjectHideFlags: 1

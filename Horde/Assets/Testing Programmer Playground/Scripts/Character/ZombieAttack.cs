@@ -6,6 +6,7 @@ public class ZombieAttack : Attack {
 
     private HealthCondition m_healthCondition = null;
     private HealthCondition m_targetHealthCondition = null;
+    public Animator m_anim = null;
 
     new void Awake()
     {
@@ -15,6 +16,12 @@ public class ZombieAttack : Attack {
         {
             Debug.Log("HealthCondition not included");
         }
+
+        //m_anim = GetComponent<Animator>();
+        //if (m_anim == null)
+        //{
+        //    Debug.Log("Animator not included");
+        //}
     }
 
     public override void DamageTarget()
@@ -150,4 +157,14 @@ public class ZombieAttack : Attack {
     //        }
     //    }
     //}
+
+    protected override void TriggerAttackAnimation()
+    {
+        if (m_anim)
+        {
+            m_anim.SetTrigger("Attack");
+        }
+        base.TriggerAttackAnimation();
+    
+    }
 }

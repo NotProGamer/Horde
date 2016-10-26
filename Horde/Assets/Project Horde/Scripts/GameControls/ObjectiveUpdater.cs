@@ -81,6 +81,7 @@ public class ObjectiveUpdater : MonoBehaviour {
                 SetStatus(ObjectiveStatus.InProgress);
             }
         }
+        m_completedObjectives = GetCompletedCount();
     }
 
     private int GetObjectiveCount()
@@ -88,7 +89,7 @@ public class ObjectiveUpdater : MonoBehaviour {
         int count = 0;
         if (m_children.Count > 0)
         {
-            count = m_children.Count;
+            //count = m_children.Count;
             foreach (ObjectiveUpdater child in m_children)
             {
                 if (child.m_status != ObjectiveStatus.Disabled)
@@ -108,10 +109,10 @@ public class ObjectiveUpdater : MonoBehaviour {
         int count = 0;
         if (m_children.Count > 0)
         {
-            count = m_children.Count;
+            //count = m_children.Count;
             foreach (ObjectiveUpdater child in m_children)
             {
-                if (child.m_status != ObjectiveStatus.Complete)
+                if (child.m_status == ObjectiveStatus.Complete)
                 {
                     count++;
                 }

@@ -82,6 +82,9 @@ public class Movement : MonoBehaviour {
                 {
                     //Debug.Log(m_currentDestination.ToString() + " Set Destination");
                 }
+
+                transform.LookAt(m_currentDestination);
+
                 m_nav.SetDestination(m_currentDestination);
             }
 

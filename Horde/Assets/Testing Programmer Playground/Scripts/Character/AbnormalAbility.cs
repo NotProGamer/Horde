@@ -67,7 +67,7 @@ public class AbnormalAbility : MonoBehaviour {
         {
             if (m_zombieBrainScript)
             {
-                m_zombieBrainScript.m_vomitToxin = true;
+                m_zombieBrainScript.m_gluttonSettings.m_vomitToxin = true;
             }
 
         }
@@ -104,7 +104,7 @@ public class AbnormalAbility : MonoBehaviour {
         {
             if (m_zombieBrainScript)
             {
-                m_zombieBrainScript.m_vomitToxin = false;
+                m_zombieBrainScript.m_gluttonSettings.m_vomitToxin = false;
             }
         }
         else if (gameObject.CompareTag(Labels.Tags.ZombieDictator))

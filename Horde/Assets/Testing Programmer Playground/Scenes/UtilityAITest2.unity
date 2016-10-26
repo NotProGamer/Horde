@@ -1611,6 +1611,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 903107868}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &915232277
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013355230088, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 83bb9639269ba2741b92ed66c80be268, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &932541861
 Prefab:
   m_ObjectHideFlags: 0
@@ -2977,6 +3019,12 @@ Prefab:
       propertyPath: m_vomitToxin
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011005983630, guid: 0f3ff577677930d46902124666889859,
+        type: 2}
+      propertyPath: m_gluttonSettings.vomitPrefab
+      value: 
+      objectReference: {fileID: 1000013161748484, guid: 83bb9639269ba2741b92ed66c80be268,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f3ff577677930d46902124666889859, type: 2}
   m_IsPrefabParent: 0
@@ -3145,6 +3193,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011005983630, guid: 2b74be5bdee3d8444a743975cc74d9b1,
+        type: 2}
+      propertyPath: vomitPrefab
+      value: 
+      objectReference: {fileID: 1000013161748484, guid: 83bb9639269ba2741b92ed66c80be268,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b74be5bdee3d8444a743975cc74d9b1, type: 2}
   m_IsPrefabParent: 0

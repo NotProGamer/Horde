@@ -142,8 +142,7 @@ public class Health : MonoBehaviour {
     }
 
 
-
-
+ 
     // Damage Effects
     void DamageFlash()
     {
@@ -151,15 +150,52 @@ public class Health : MonoBehaviour {
         {
             MeshRenderer art = null;
             art = m_meshRendererList[i];
-            StartCoroutine("MeshRendererFlash", art);
+            if (art == null)
+            {
+                Debug.Log("MeshRender set to null");
+            }
+            else
+            {
+                if (art.material.color != m_damageColor)
+                {
+                    StartCoroutine("MeshRendererFlash", art);
+                }
+            }
         }
         for (int i = 0; i < m_skinnedMeshRendererList.Count; i++)
         {
             SkinnedMeshRenderer art = null;
             art = m_skinnedMeshRendererList[i];
-            StartCoroutine("SkinnedMeshRendererFlash", art);
+            if (art == null)
+            {
+                Debug.Log("MeshRender set to null");
+            }
+            else
+            {
+                if (art.material.color != m_damageColor)
+                {
+                    StartCoroutine("SkinnedMeshRendererFlash", art);
+                }
+            }
         }
     }
+
+    //// Damage Effects
+    //void DamageFlash()
+    //{
+    //    for (int i = 0; i < m_meshRendererList.Count; i++)
+    //    {
+    //        MeshRenderer art = null;
+    //        art = m_meshRendererList[i];
+    //        StartCoroutine("MeshRendererFlash", art);
+    //    }
+    //    for (int i = 0; i < m_skinnedMeshRendererList.Count; i++)
+    //    {
+    //        SkinnedMeshRenderer art = null;
+    //        art = m_skinnedMeshRendererList[i];
+    //        StartCoroutine("SkinnedMeshRendererFlash", art);
+    //    }
+    //}
 
     IEnumerator MeshRendererFlash(MeshRenderer art)
     {

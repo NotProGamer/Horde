@@ -203,24 +203,37 @@ public class ZombieBrain : MonoBehaviour {
         UpdateSpeed();
     }
 
-    public bool m_vomitToxin = false;
-    public int m_vomitLevel = 1;
-    public GameObject vomitPrefab;
+    [System.Serializable]
+    public class GluttonSettings
+    {
+        public bool m_vomitToxin = false;
+        public int m_vomitLevel = 1;
+        public GameObject vomitPrefab;
+        public float m_vomitDelay = 2.0f;
+        public float m_vomitTimer = 0f;
+    }
+
+    public GluttonSettings m_gluttonSettings;
     public void GluttonUpdate()
     {
-        if (vomitPrefab == null)
+        if (m_gluttonSettings.vomitPrefab == null)
         {
             return;
         }
-        if (m_vomitToxin)
+        if (m_gluttonSettings.m_vomitToxin)
         {
-            if (m_vomitLevel > 0)
+            if (m_gluttonSettings.m_vomitTimer < Time.time)
             {
-                m_vomitLevel--;
-                GameObject test = Instantiate(vomitPrefab) as GameObject;
-                test.transform.position = transform.position;
+                if (m_gluttonSettings.m_vomitLevel > 0)
+                {
+                    m_gluttonSettings.m_vomitLevel--;
+                    GameObject test = Instantiate(m_gluttonSettings.vomitPrefab) as GameObject;
+                    test.transform.position = transform.position;
+                    m_gluttonSettings.m_vomitTimer = Time.time + m_gluttonSettings.m_vomitDelay;
+                }
             }
-            m_vomitToxin = false;
+
+            m_gluttonSettings.m_vomitToxin = false;
         }
     }
 

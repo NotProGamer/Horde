@@ -65,7 +65,6 @@ public class Wander : BaseBehaviour {
             destination = hit.position;
             m_movementScript.SetDestination(destination);
             result = true;
-
         }
         return result;
     }

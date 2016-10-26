@@ -778,10 +778,19 @@ public class ZombieBrain : MonoBehaviour {
         }
         return result;
     }
+    float timer = 2.0f;
+    float delay = 0.50f;
 
     private void UpdateBoredom()
     {
+        //if (Time.time > timer)
+        //{
+        //    timer = Time.time + delay;
+        //    m_currentBoredom -= m_boredomIncrement;
+        //}
+
         
+
         ZombieUtilityBehaviours.BehaviourNames currentBehaviour = m_zombieUtilityAIScript.GetCurrentBehaviour();
         switch (currentBehaviour)
         {
@@ -789,8 +798,8 @@ public class ZombieBrain : MonoBehaviour {
                 IncrementBoredom(currentBehaviour);
                 break;
             case ZombieUtilityBehaviours.BehaviourNames.Investigate:
-            case ZombieUtilityBehaviours.BehaviourNames.Wander:
             case ZombieUtilityBehaviours.BehaviourNames.Devour:
+            case ZombieUtilityBehaviours.BehaviourNames.Wander:
                 break;
             case ZombieUtilityBehaviours.BehaviourNames.Chase:
             case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:

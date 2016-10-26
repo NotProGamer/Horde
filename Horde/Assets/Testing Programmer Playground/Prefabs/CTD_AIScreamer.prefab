@@ -249,6 +249,13 @@ MonoBehaviour:
   m_boredomIncrement: 10
   m_maxBoredom: 100
   m_currentBoredom: 0
+  m_gluttonSettings:
+    m_vomitToxin: 0
+    m_vomitLevel: 1
+    vomitPrefab: {fileID: 0}
+    m_vomitDelay: 2
+    m_vomitTimer: 0
+  m_giveSpeedBoost: 0
   m_victimIndicator: {fileID: 0}
   m_demeanor: 0
   m_becomeAggressive: 0
@@ -257,6 +264,10 @@ MonoBehaviour:
   m_attackDelay: 0.5
   m_devourRange: 1
   m_devourDelay: 0.5
+  m_speedBoostEffect:
+    m_enabled: 0
+    m_speed: 20
+    m_timeOutDelay: 2
   m_movementSpeeds:
     m_userTap: 10
     m_chase: 10
@@ -469,6 +480,7 @@ MonoBehaviour:
   m_delay: 0.5
   m_damage: 10
   m_attackRange: 10
+  m_anim: {fileID: 0}
 --- !u!114 &114000013086761540
 MonoBehaviour:
   m_ObjectHideFlags: 1

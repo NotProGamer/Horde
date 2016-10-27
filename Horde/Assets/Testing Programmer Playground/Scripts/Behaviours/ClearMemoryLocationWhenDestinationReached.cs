@@ -46,7 +46,7 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
             if (InRangeOfCurrentTarget() || IfStuck())
             {
                 m_zombieBrainScript.ClearMemoryLocation(m_memoryLocation);
-                Debug.Log("Reached Destination Forgetting LastTap");
+                //Debug.Log("Reached Destination Forgetting LastTap");
             }
         }
         else

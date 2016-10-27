@@ -3361,11 +3361,27 @@ MonoBehaviour:
   m_boredomIncrement: 10
   m_maxBoredom: 100
   m_currentBoredom: 0
+  m_boredomIncrementTimer: 1
+  m_boredomIncrementDelay: 2
+  m_gluttonSettings:
+    m_vomitToxin: 0
+    m_vomitLevel: 1
+    vomitPrefab: {fileID: 0}
+    m_vomitDelay: 2
+    m_vomitTimer: 0
+  m_giveSpeedBoost: 0
+  m_victimIndicator: {fileID: 0}
+  m_demeanor: 0
+  m_becomeAggressive: 0
   m_maxTapInterest: 2
   m_attackRange: 1
   m_attackDelay: 0.5
   m_devourRange: 1
   m_devourDelay: 0.5
+  m_speedBoostEffect:
+    m_enabled: 0
+    m_speed: 20
+    m_timeOutDelay: 2
   m_movementSpeeds:
     m_userTap: 10
     m_chase: 10
@@ -3373,6 +3389,7 @@ MonoBehaviour:
     m_investigate: 5
     m_wander: 3
     m_idle: 0
+    m_death: 0
     m_updateFromInspector: 1
 --- !u!114 &114000011189654870
 MonoBehaviour:
@@ -3581,6 +3598,10 @@ MonoBehaviour:
     m_normalisedValue: 0
     m_normalisationType: 0
   m_canNotHearNoiseFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_isNotAggressiveFormula:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0

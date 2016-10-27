@@ -682,6 +682,7 @@ public class ZombieBrain : MonoBehaviour {
         public float m_investigate = 5f;
         public float m_wander = 1f;
         public float m_idle = 0f;
+        public float m_death = 0f;
         private Dictionary<ZombieUtilityBehaviours.BehaviourNames, float> m_speeds = new Dictionary<ZombieUtilityBehaviours.BehaviourNames, float>();
 
         public bool m_updateFromInspector = true;
@@ -694,6 +695,8 @@ public class ZombieBrain : MonoBehaviour {
             m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Devour, m_devour);
             m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Chase, m_chase);
             m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.GoToUserTap, m_userTap);
+            m_speeds.Add(ZombieUtilityBehaviours.BehaviourNames.Death, m_death);
+            
         }
         public float GetMovementSpeed(ZombieUtilityBehaviours.BehaviourNames pBehaviour)
         {

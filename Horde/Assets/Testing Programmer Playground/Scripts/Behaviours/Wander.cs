@@ -21,6 +21,7 @@ public class Wander : BaseBehaviour {
         {
             Debug.Log("Movement Script not included");
         }
+
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class Wander : BaseBehaviour {
 
         if (m_movementScript)
         {
-            if (m_movementScript.ReachedDestination())
+            if (m_movementScript.ReachedDestination() /*|| m_movementScript.CheckPathBlocked()*/)
             {
                 if (SetNextDestination() == false)
                 {

@@ -34,7 +34,7 @@ public class MoveToMemoryLocation : BaseBehaviour
         
     }
 
-    private Vector3 m_lastPostion;
+    private Vector3 m_lastPosition;
     private object m_lastTarget = null;
     private float delay = 0.5f;
     private float m_nextDestinationChange = 0f;
@@ -80,18 +80,24 @@ public class MoveToMemoryLocation : BaseBehaviour
             // should validate position is on nav mesh
 
 
-            
 
+
+
+            //if (m_movementScript.RecalculatePath())
+            //{
+            //    Debug.Log("test");
+            //}
+            
             if (targetChanged)
             {
                 m_movementScript.SetDestination(position);
             }
             else
             {
-                // if current target is the same but the position has changed then mobile target
-                if (m_lastPostion != position)
+                // if current target is the same but the position has changed then target is mobile
+                if (m_lastPosition != position)
                 {
-                    m_lastPostion = position;
+                    m_lastPosition = position;
 
                     // if mobile target delay destination change
                     if (m_nextDestinationChange < Time.time)
@@ -101,6 +107,16 @@ public class MoveToMemoryLocation : BaseBehaviour
                     }
                     //Debug.Log("Move TO memory location");
                 }
+                //else if (m_movementScript.CheckAtEndOfBlockedPath())
+                //{
+                //    m_movementScript.Test();
+                //    //if (m_nextDestinationChange < Time.time)
+                //    //{
+                //    //    m_movementScript.SetDestination(position);
+                //    //    m_nextDestinationChange = Time.time + delay;
+                //        Debug.Log("test");
+                //    //}
+                //}
             }
 
 

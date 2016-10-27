@@ -7,6 +7,10 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
     private Movement m_movementScript = null;
     private ZombieBrain m_zombieBrainScript = null;
 
+    private float timer = 0f;
+    private float delay = 1f;
+    private Vector3 lastPosition;
+
     public ClearMemoryLocationWhenDestinationReached(GameObject pParent, string pMemoryLabel) : base(pParent)
     {
         if (m_parent == null)
@@ -25,6 +29,7 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
             Debug.Log("ZombieBrain Script not included");
         }
         m_memoryLocation = pMemoryLabel;
+        lastPosition = m_parent.transform.position;
     }
 
     public override Status Update()
@@ -37,23 +42,11 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
 
         if (m_movementScript)
         {
-            bool destinationReached = false;
 
-            float distanceToCurrentTarget = 0f;
-            Vector3 currentTargetPosition = Vector3.zero;
-            if (m_zombieBrainScript.GetCurrentTargetPosition(out currentTargetPosition))
-            {
-                distanceToCurrentTarget = (m_parent.transform.position - currentTargetPosition).sqrMagnitude;
-                if (distanceToCurrentTarget < m_movementScript.m_touchRange * m_movementScript.m_touchRange)
-                {
-                    destinationReached = true;
-                }
-            }
-
-            if (destinationReached)
+            if (InRangeOfCurrentTarget() || IfStuck())
             {
                 m_zombieBrainScript.ClearMemoryLocation(m_memoryLocation);
-                //Debug.Log("Reached Destination Forgetting LastTap");
+                Debug.Log("Reached Destination Forgetting LastTap");
             }
         }
         else
@@ -64,5 +57,43 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
 
         //Debug.Log("Idle");
         return Status.SUCCESS;
+    }
+
+    private bool IfStuck()
+    {
+        bool result = false;
+        if (!m_movementScript.IsMoving())
+        {
+            if (lastPosition == m_parent.transform.position)
+            {
+                if (timer < Time.time)
+                {
+                    result = true;
+                }
+            }
+        }
+        else
+        {
+            lastPosition = m_parent.transform.position;
+            timer = Time.time + delay;
+        }
+        return result;
+    }
+
+    private bool InRangeOfCurrentTarget()
+    {
+        bool result = false;
+
+        float distanceToCurrentTarget = 0f;
+        Vector3 currentTargetPosition = Vector3.zero;
+        if (m_zombieBrainScript.GetCurrentTargetPosition(out currentTargetPosition))
+        {
+            distanceToCurrentTarget = (m_parent.transform.position - currentTargetPosition).sqrMagnitude;
+            if (distanceToCurrentTarget < m_movementScript.m_touchRange * m_movementScript.m_touchRange)
+            {
+                result = true;
+            }
+        }
+        return result;
     }
 }

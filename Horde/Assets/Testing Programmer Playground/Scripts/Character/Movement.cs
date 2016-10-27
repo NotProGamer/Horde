@@ -78,10 +78,10 @@ public class Movement : MonoBehaviour {
                 m_state = State.Moving;
                 m_nav.speed = m_currentSpeed;
                 m_currentDestination = position;
-                if (Labels.Tags.IsZombie(gameObject))
-                {
-                    //Debug.Log(m_currentDestination.ToString() + " Set Destination");
-                }
+                //if (Labels.Tags.IsZombie(gameObject))
+                //{
+                //    //Debug.Log(m_currentDestination.ToString() + " Set Destination");
+                //}
 
                 transform.LookAt(m_currentDestination);
 
@@ -174,5 +174,42 @@ public class Movement : MonoBehaviour {
     public void Stop()
     {
         SetDestination(transform.position);
+    }
+
+    //public bool CheckPathBlocked()
+    //{
+    //    return m_nav.pathStatus == NavMeshPathStatus.PathPartial;
+    //}
+    //public bool CheckAtEndOfBlockedPath()
+    //{
+    //    return m_nav.pathStatus == NavMeshPathStatus.PathPartial && !m_nav.hasPath;
+    //}
+    //private float timer = 1.0f;
+    //private float delay = 1.0f;
+    //public bool RecalculatePath()
+    //{
+    //    bool result = false;
+    //    if (timer < Time.time)
+    //    {
+    //        if (CheckPathBlocked())
+    //        {
+    //            // reset Destination
+    //            m_nav.ResetPath();
+    //            SetDestination(m_currentDestination);
+    //            result = true;
+    //        }
+    //        timer = delay + Time.time;
+    //    }
+    //    return result;
+    //}
+
+    //public void Test()
+    //{
+    //    m_nav.ResetPath();
+    //}
+
+    public bool IsMoving()
+    {
+        return m_nav.velocity.sqrMagnitude != 0;
     }
 }

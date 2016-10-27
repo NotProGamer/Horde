@@ -60,7 +60,7 @@ public class ZombieMovement : Movement
     }
 
     // The following code is more to do with behaviour and will later be move out of this script
-    private Noise m_mostAudibleNoise = null;
+    //private Noise m_mostAudibleNoise = null;
     private NoiseManager m_noiseManager = null;
     private List<Noise> m_audibleNoises = null;
     public Noise m_currentTargetNoise = null;
@@ -176,22 +176,22 @@ public class ZombieMovement : Movement
     //    return result;
     //}
 
-    public float m_boostTimeRemaining = 0f;
-    private float m_boostExpiry = 0f;
-    public bool m_enableBoost = false;
-    public float m_boostSpeed = 20f;
-    public float m_normalSpeed = 10f;
-    public void SpeedBoostUpdate()
-    {
-        if (m_enableBoost)
-        {
+    //public float m_boostTimeRemaining = 0f;
+    //private float m_boostExpiry = 0f;
+    //public bool m_enableBoost = false;
+    //public float m_boostSpeed = 20f;
+    //public float m_normalSpeed = 10f;
+    //public void SpeedBoostUpdate()
+    //{
+    //    if (m_enableBoost)
+    //    {
 
-        }
-    }
-    public void BoostSpeed()
-    {
+    //    }
+    //}
+    //public void BoostSpeed()
+    //{
 
-    }
+    //}
 
 
 

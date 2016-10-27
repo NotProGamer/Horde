@@ -10,7 +10,8 @@ public enum ObjectiveStatus
     Complete,
 }
 
-public class ObjectiveManager : MonoBehaviour {
+public class ObjectiveManager : MonoBehaviour
+{
 
     public List<ObjectiveUpdater> m_objectives = new List<ObjectiveUpdater>();
 
@@ -18,11 +19,16 @@ public class ObjectiveManager : MonoBehaviour {
     public float m_statusUpdateDelay = 5f;
     public float m_statusUpdateTimer = 0f;
     public int completedObjectives = 0;
+
+    WaypointManager wm;
+
+    
     // Use this for initialization
+
     void Start ()
     {
-	
-	}
+        wm = GameObject.FindObjectOfType<WaypointManager>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -31,6 +37,26 @@ public class ObjectiveManager : MonoBehaviour {
         {
             DisplayStatusUpdate();
         }
+        UpdateHUDIndicators();
+    }
+
+    
+    void UpdateHUDIndicators()
+    {
+        //Added by Rory
+        foreach (ObjectiveUpdater objective in m_objectives)
+        {
+            if (objective.GetStatus() == ObjectiveStatus.Incomplete)
+            {
+                wm.AddTransform(objective.transform);
+            }
+            else if (objective.GetStatus() == ObjectiveStatus.Complete)
+            {
+                wm.RemoveTransform(objective.transform);
+            }
+        }
+        
+        // here we assign transforms to the WayPointManager
     }
 
     private void DisplayStatusUpdate()

@@ -2,8 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ObjectiveUpdater : MonoBehaviour {
+public class ObjectiveUpdater : MonoBehaviour
+{
 
+    /*test
+    WaypointManager wm;
+    */
 
     public string m_identifer = "";
     public string m_objectiveCompletedText = "";
@@ -62,6 +66,11 @@ public class ObjectiveUpdater : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
+        /*test
+        wm = GameObject.FindObjectOfType<WaypointManager>();
+        */
+
         m_objectiveCount = GetObjectiveCount();
         m_completedObjectives = GetCompletedCount();
     }
@@ -69,6 +78,8 @@ public class ObjectiveUpdater : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //wm.AddTransform(transform);
+
         if (m_children.Count > 0)
         {
             m_progress = GetProgress();

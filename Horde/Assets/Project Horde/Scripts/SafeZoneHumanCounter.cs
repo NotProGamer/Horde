@@ -12,10 +12,13 @@ public class SafeZoneHumanCounter : MonoBehaviour
     public bool displaySurvivors;
     public bool survivorsDisplayed;
 
+    WaypointManager wm;
+
 
     void Awake()
     {
         m_updater = GetComponent<ObjectiveUpdater>();
+        wm = GameObject.FindObjectOfType<WaypointManager>();
     }
 	// Use this for initialization
 	void Start ()
@@ -29,7 +32,6 @@ public class SafeZoneHumanCounter : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-
         int humansKilled = 0;
 
         foreach (GameObject item in m_humans)
@@ -38,6 +40,7 @@ public class SafeZoneHumanCounter : MonoBehaviour
             if (health.IsDead())
             {
                 humansKilled++;
+                wm.RemoveTransform(item.transform);
             }
         }
 
@@ -45,7 +48,6 @@ public class SafeZoneHumanCounter : MonoBehaviour
         {
             displaySurvivors = true;
             //Display icon over remaining humans
-            
         }
 
 
@@ -63,10 +65,6 @@ public class SafeZoneHumanCounter : MonoBehaviour
             DisplayRemainingHumans();
             survivorsDisplayed = true;
         }
-
-
-
-
     }
 
     void DisplayRemainingHumans()
@@ -75,8 +73,11 @@ public class SafeZoneHumanCounter : MonoBehaviour
         {
             if (gameObject.activeSelf)
             {
+                /*
                 Transform display = item.transform.FindChild("RemainingHumans");
                 display.gameObject.SetActive(true);
+                */
+                wm.AddTransform(item.transform, HUDIndicator.IndicatorType.Human);
             }
         }
     }

@@ -10,29 +10,33 @@ public class Brain : MonoBehaviour {
     public int m_boredomMaximum = 10;
 
     [System.Serializable]
-    public class Threat
+    public class Morale
     {
-        [System.Serializable]
-        public class Range
-        {
-            public int m_minimum = 0;
-            public int m_maximum = 5;
-            //public Range(int min, int max)
-            //{
-            //    m_minimum = min;
-            //    m_maximum = max;
-            //}
-            public void Set(int min, int max)
-            {
-                m_minimum = Mathf.Min(min, max);
-                m_maximum = Mathf.Max(min, max);
-            }
-        }
-        public Range m_enemyCountFear;
-        public Range m_allyCountCourage;
-        public Range m_distance;
+        //public float m_FightOdds = 1.0f;
+        public float m_fleeOdds = 3.0f;
+        //[System.Serializable]
+        //public class Range
+        //{
+        //    public int m_willFight = 0;
+        //    public int m_willRun = 5;
+        //    //public Range(int min, int max)
+        //    //{
+        //    //    m_minimum = min;
+        //    //    m_maximum = max;
+        //    //}
+        //    public void Set(int min, int max)
+        //    {
+        //        m_willFight = Mathf.Min(min, max);
+        //        m_willRun = Mathf.Max(min, max);
+        //    }
+        //}
+        //public Range m_fearEnemy_Count;
+        //public Range m_courageAlly_Count;
+        //public Range m_distance;
+
+        //public Vector3 m_direction = Vector3.zero;
     }
-    public Threat m_threat;
+    public Morale m_morale;
     // Get Nearby Objects
 
     [System.Serializable]
@@ -119,6 +123,7 @@ public class Brain : MonoBehaviour {
         {
             m_lookTicker = Time.time + m_sight.m_delay;
             Look();
+
         }
         if (Time.time > m_hearingTicker)
         {

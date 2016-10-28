@@ -145,16 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_boredom: 29
   m_boredomMaximum: 10
-  m_threat:
-    m_enemyCountFear:
-      m_minimum: 0
-      m_maximum: 5
-    m_allyCountCourage:
-      m_minimum: 0
-      m_maximum: 5
-    m_distance:
-      m_minimum: 0
-      m_maximum: 5
+  m_morale:
+    m_fleeOdds: 3
   m_sight:
     m_range: 10
     m_mask:
@@ -249,6 +241,7 @@ MonoBehaviour:
       m_normalisedValue: 0
       m_normalisationType: 0
   m_thoughDelay: 0.5
+  m_threatDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012284375606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,6 +281,13 @@ MonoBehaviour:
     - m_name: 7
       m_weight: 60
     - m_name: 7
+      m_weight: -60
+  - m_currentEvaluation: 0
+    m_behaviourName: 7
+    m_evaluations:
+    - m_name: 8
+      m_weight: 60
+    - m_name: 6
       m_weight: -60
 --- !u!114 &114000012482754406
 MonoBehaviour:

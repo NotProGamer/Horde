@@ -10,6 +10,8 @@ public class Assignment
 {
     // this class should be defined elsewhere
     public float value = 0f;
+
+
 }
 
 public class HumanEvaluations : EvaluationModule {
@@ -30,6 +32,8 @@ public class HumanEvaluations : EvaluationModule {
         EnemiesNearby,
         NoEnemiesNearby,
         EnemyInRange,
+        Threat,
+        InverseThreat,
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
@@ -130,12 +134,32 @@ public class HumanEvaluations : EvaluationModule {
             }
             public EnemiesNearby(float min, float max)
             {
-                m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
-                m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, 1);
+                m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, min, max);
+                m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, min, max);
             }
 
         }
         public EnemiesNearby m_enemiesNearby;
+        public class Threat
+        {
+            public UtilityMath.UtilityValue m_linear;
+            public UtilityMath.UtilityValue m_inverseLinear;
+            public void SetValue(float value)
+            {
+                m_linear.SetValue(value);
+                m_inverseLinear.SetValue(value);
+            }
+            public void SetMinMax(float min, float max)
+            {
+                m_linear.SetMinMaxValues(min, max);
+            }
+            public Threat(float min, float max)
+            {
+                m_linear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, min, max);
+                m_inverseLinear = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, min, max);
+            }
+        }
+        public Threat m_threat;
         //public UtilityMath.UtilityValue m_threat;
         //public UtilityMath.UtilityValue m_courage;
 
@@ -251,6 +275,10 @@ public class HumanEvaluations : EvaluationModule {
         {
             float maxDistanceToObject = m_brain.m_sight.m_range * m_brain.m_sight.m_range;
             m_objectEvaluations.objectDistance = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, maxDistanceToObject);
+
+            m_environmentalEvaluations.m_threat = new EnvironmentalEvaluations.Threat(0, m_brain.m_morale.m_fleeOdds);
+            AddEvaluation((int)EvaluationNames.Threat, m_environmentalEvaluations.m_threat.m_linear);
+            AddEvaluation((int)EvaluationNames.InverseThreat, m_environmentalEvaluations.m_threat.m_inverseLinear);
         }
 
         m_objectEvaluations.m_enemy.m_health = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
@@ -292,7 +320,9 @@ public class HumanEvaluations : EvaluationModule {
             // Direction of Threat
 
 
-            MemorizeStimuli();
+            MemorizeStimuli(); // adds new input to memory             // calculates direction of threat
+
+
 
             EvaluateObjectsInMemory(); // This code needs to be rewritten as it in not currently updating the dictionary with the changes.
             OutputCounter();
@@ -300,7 +330,8 @@ public class HumanEvaluations : EvaluationModule {
 
             UpdateEvaluations();
             m_environmentalEvaluations.m_enemiesNearby.SetValue((float)m_senseCounter.GetCategoryCount(Categories.EnemyObject));
-
+            m_environmentalEvaluations.m_threat.SetMinMax(0, (float)m_brain.m_morale.m_fleeOdds);
+            m_environmentalEvaluations.m_threat.SetValue((float)m_senseCounter.GetCategoryCount(Categories.EnemyObject));
 
             if (m_senseCounter.GetCategoryCount(Categories.EnemyObject) > 0)
             {
@@ -338,6 +369,9 @@ public class HumanEvaluations : EvaluationModule {
         }
     }
 
+
+    public Vector3 m_threatDirection = Vector3.zero;
+
     private void MemorizeStimuli()
     {
         m_senseCounter.Reset();
@@ -345,7 +379,7 @@ public class HumanEvaluations : EvaluationModule {
         {
             List<GameObject> nearbyObjects;
 
-
+            m_threatDirection = Vector3.zero;
             if (m_brain.GetNearbyObjects(out nearbyObjects))
             {
                 if (nearbyObjects.Count > 0)
@@ -376,9 +410,22 @@ public class HumanEvaluations : EvaluationModule {
                         
                         //Debug.Log("add");
                     }
+
+                    // Add Enemy Objects to threat Direction
+                    if (description.m_category == Categories.EnemyObject)
+                    {
+                        m_threatDirection += obj.transform.position;
+                    }
+
                     m_senseCounter.IncreaseCount(description.m_category);
                 }
 
+                // divide threat direction by threat count
+                if (m_senseCounter.m_counters[Categories.EnemyObject] > 1)
+                {
+                    m_threatDirection /= m_senseCounter.m_counters[Categories.EnemyObject];
+                    m_threatDirection.Normalize();
+                }
             }
             List<Noise> audibleNoises;
             if (m_brain.GetAudibleNoises(out audibleNoises))

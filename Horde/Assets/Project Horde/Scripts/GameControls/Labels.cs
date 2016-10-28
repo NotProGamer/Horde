@@ -66,4 +66,9 @@ public class Labels : MonoBehaviour {
         public static string ClosestDestructible = "ClosestDestructible";
     }
 
+    public class Scenes
+    {
+        public const string Credits = "Credits";
+        public const string MainMenu = "MainMenu";
+    }
 }

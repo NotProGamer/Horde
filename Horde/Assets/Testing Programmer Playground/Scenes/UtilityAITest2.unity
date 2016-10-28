@@ -2392,14 +2392,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_pool.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 416274, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2432,68 +2424,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11403558, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[0].m_willGrow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[1].m_willGrow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[0].m_prefab
-      value: 
-      objectReference: {fileID: 1000011324950992, guid: 2938bd393034c524aa0b09d7a9231c96,
-        type: 2}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[1].m_prefab
-      value: 
-      objectReference: {fileID: 1000011894944338, guid: f7f83d267d7509840bc478c7a6911d50,
-        type: 2}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_identifier
-      value: Engine
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_prefab
-      value: 
-      objectReference: {fileID: 1778358955}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_willGrow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[2].m_container
-      value: 
-      objectReference: {fileID: 1292449587}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[1].m_container
-      value: 
-      objectReference: {fileID: 512823668}
-    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
-      propertyPath: m_objectPools.Array.data[0].m_container
-      value: 
-      objectReference: {fileID: 521323896}
     - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
       propertyPath: m_objectPools.Array.data[0].m_pool.Array.data[0]
       value: 
       objectReference: {fileID: 1513457963}
     - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
+      propertyPath: m_objectPools.Array.data[0].m_container
+      value: 
+      objectReference: {fileID: 521323896}
+    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
       propertyPath: m_objectPools.Array.data[1].m_pool.Array.data[0]
       value: 
       objectReference: {fileID: 1849961671}
     - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
+      propertyPath: m_objectPools.Array.data[1].m_container
+      value: 
+      objectReference: {fileID: 512823668}
+    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
+      propertyPath: m_objectPools.Array.data[2].m_prefab
+      value: 
+      objectReference: {fileID: 1778358955}
+    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
       propertyPath: m_objectPools.Array.data[2].m_pool.Array.data[0]
       value: 
       objectReference: {fileID: 1778358955}
+    - target: {fileID: 11447528, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
+      propertyPath: m_objectPools.Array.data[2].m_container
+      value: 
+      objectReference: {fileID: 1292449587}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3db6a96b1216d514c99f56b396e8cc44, type: 2}
   m_IsPrefabParent: 0

@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 416274}
   - 114: {fileID: 11476270}
-  - 114: {fileID: 11458840}
+  - 114: {fileID: 114000011074760886}
   - 114: {fileID: 11407402}
   - 114: {fileID: 11488610}
   - 114: {fileID: 11479442}
@@ -78,30 +78,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectPools:
   - m_identifier: Zombie
-    m_prefab: {fileID: 0}
+    m_prefab: {fileID: 1000011324950992, guid: 2938bd393034c524aa0b09d7a9231c96, type: 2}
     m_pool:
     - {fileID: 0}
     m_size: 5
-    m_willGrow: 0
+    m_willGrow: 1
     m_container: {fileID: 0}
   - m_identifier: Human
+    m_prefab: {fileID: 1000011894944338, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
+    m_pool:
+    - {fileID: 0}
+    m_size: 5
+    m_willGrow: 1
+    m_container: {fileID: 0}
+  - m_identifier: Engine
     m_prefab: {fileID: 0}
     m_pool:
     - {fileID: 0}
     m_size: 5
-    m_willGrow: 0
+    m_willGrow: 1
     m_container: {fileID: 0}
---- !u!114 &11458840
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f0cfd0329ee844cbd4ea17b188e115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11476270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,6 +124,7 @@ MonoBehaviour:
   m_enableDebugStatusUpdates: 1
   m_statusUpdateDelay: 5
   m_statusUpdateTimer: 0
+  completedObjectives: 0
 --- !u!114 &11488610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,3 +148,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 108628}
   m_IsPrefabParent: 1
+--- !u!114 &114000011074760886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5455934266e6a4688a799ed839ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nextScene:
+    m_loadBy: 0
+    m_index: 0
+    m_title: 
+  m_prevScene:
+    m_loadBy: 0
+    m_index: 0
+    m_title: 

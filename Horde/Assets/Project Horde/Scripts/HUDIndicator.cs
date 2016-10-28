@@ -8,6 +8,17 @@ public class HUDIndicator : MonoBehaviour
     public Transform target;
     Canvas canvas;
     Image icon;
+    RectTransform CanvasRect = null;
+
+    private float m_screenHeight;
+    private float m_screenWidth;
+
+    Vector2 m_screenSize;
+
+    public float borderTop = 20;
+    public float borderLeft = 20;
+    public float borderRight = 10;
+    public float borderBottom = 10;
 
     public enum IndicatorType
     {
@@ -25,6 +36,16 @@ public class HUDIndicator : MonoBehaviour
         canvas = transform.parent.parent.GetComponent<Canvas>();
         icon = GetComponent<Image>();
         SetType(m_indicatorType);
+
+
+        //first you need the RectTransform component of your canvas
+        CanvasRect = canvas.GetComponent<RectTransform>();
+        m_screenHeight = Screen.height; //CanvasRect.rect.height;
+        m_screenWidth = Screen.width; //CanvasRect.rect.width;
+        m_screenSize = CanvasRect.rect.size;
+        Debug.Log("Width = " + m_screenWidth);
+        Debug.Log("Height = " + m_screenHeight);
+        Debug.Log(m_screenSize);
     }
 
     // Update is called once per frame
@@ -36,8 +57,17 @@ public class HUDIndicator : MonoBehaviour
             //this is the ui element
             RectTransform UI_Element;
 
-            //first you need the RectTransform component of your canvas
-            RectTransform CanvasRect = canvas.GetComponent<RectTransform>();
+            float maxHeight = m_screenHeight;
+            float minHeight = 0;
+
+            float screenLeft = -m_screenWidth * ((50 - borderLeft)*0.01f);
+            float screenRight = m_screenWidth * ((50 - borderRight) * 0.01f);
+
+            float screenTop = m_screenHeight * ((50 - borderTop)*0.01f);
+            float screenBottom = -m_screenHeight * ((50 - borderBottom)*0.01f);
+
+
+
 
             //then you calculate the position of the UI element
             //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
@@ -56,10 +86,11 @@ public class HUDIndicator : MonoBehaviour
 
             //now you can set the position of the ui element
             UI_Element = GetComponent<RectTransform>();
-            bool offScreen = Mathf.Abs(WorldObject_ScreenPosition.x) > 900 || Mathf.Abs(WorldObject_ScreenPosition.y) > 420;
+            bool offScreen = WorldObject_ScreenPosition.x < screenLeft || WorldObject_ScreenPosition.x > screenRight
+                || WorldObject_ScreenPosition.y < screenBottom || WorldObject_ScreenPosition.y > screenTop;
 
-            WorldObject_ScreenPosition.x = Mathf.Clamp(WorldObject_ScreenPosition.x, -900, 900);
-            WorldObject_ScreenPosition.y = Mathf.Clamp(WorldObject_ScreenPosition.y, -480, 420);
+            WorldObject_ScreenPosition.x = Mathf.Clamp(WorldObject_ScreenPosition.x, screenLeft, screenRight);
+            WorldObject_ScreenPosition.y = Mathf.Clamp(WorldObject_ScreenPosition.y, screenBottom, screenTop);
             UI_Element.anchoredPosition = WorldObject_ScreenPosition;
 
             if (!offScreen)
@@ -76,13 +107,14 @@ public class HUDIndicator : MonoBehaviour
     public void SetType(IndicatorType type)
     {
         m_indicatorType = type;
+        m_offset.y = 0;
         switch (m_indicatorType)
         {
             case IndicatorType.SafeZone:
                 icon.color = Color.green;
                 break;
             case IndicatorType.Human:
-                m_offset.y += 3;
+                m_offset.y = 3;
                 icon.color = Color.yellow;
                 break;
             case IndicatorType.Destructible:

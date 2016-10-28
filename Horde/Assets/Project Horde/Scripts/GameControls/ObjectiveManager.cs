@@ -53,10 +53,17 @@ public class ObjectiveManager : MonoBehaviour
             else if (objective.GetStatus() == ObjectiveStatus.Complete)
             {
                 wm.RemoveTransform(objective.transform);
+                ForceStatusUpdate();
             }
         }
         
         // here we assign transforms to the WayPointManager
+    }
+
+    // resets the timer so that the status bar gets update next frame
+    void ForceStatusUpdate()
+    {
+        m_statusUpdateTimer = 0;
     }
 
     private void DisplayStatusUpdate()

@@ -7,10 +7,6 @@ public class NoiseCircleSpawner : MonoBehaviour
     public GameObject NoiseVis;
     public float height = 0.5f;
 
-    public float NoiseRadius = 5;
-
-
-
     void Awake()
     {
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);

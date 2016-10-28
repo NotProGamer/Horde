@@ -16,6 +16,7 @@ public class Labels : MonoBehaviour {
         public static string ZombieDictator = "ZombieDictator"; // Abnormal
         public static string ZombieGlutton = "ZombieGlutton"; // Abnormal
         public static string Human = "Human";
+        public static string NoiseVisualisation = "NoiseVisualisation";
         //public static string Player = "Player";
 
         public static bool IsZombie(GameObject other)

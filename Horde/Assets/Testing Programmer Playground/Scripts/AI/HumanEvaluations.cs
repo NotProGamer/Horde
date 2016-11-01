@@ -5,14 +5,7 @@ using System.Linq;
 
 // Think 
 
-[System.Serializable]
-public class Assignment
-{
-    // this class should be defined elsewhere
-    public float value = 0f;
 
-
-}
 
 public class HumanEvaluations : EvaluationModule {
 

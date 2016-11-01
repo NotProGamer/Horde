@@ -291,9 +291,50 @@ public class Brain : MonoBehaviour {
         }
     }
 
+    public bool m_lookingForAssignments = true;
     void RequestAssignments()
     {
+        if (m_nearbyAssignments.Count > 0)
+        {
+            m_lookingForAssignments = false;
+            if (m_healthScript.IsDead())
+            {
+                // if dead clean up assignments
+                List<Assignment> m_deathrow = new List<Assignment>();
+                for (int i = 0; i < m_nearbyAssignments.Count; i++)
+                {
+                    m_deathrow.Add(m_nearbyAssignments[i]);
+                    m_nearbyAssignments[i].m_status = Assignment.Status.Failed;
+                    m_nearbyAssignments[i].UpdateRequestor();
+                }
 
+                for (int i = 0; i < m_deathrow.Count; i++)
+                {
+                    m_nearbyAssignments.Remove(m_deathrow[i]);
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < m_nearbyAssignments.Count; i++)
+                {
+                    m_nearbyAssignments[i].GetCurrent(); // should be called from elsewhere// here for testing
+                    m_nearbyAssignments[i].UpdateRequestor();
+                }
+            }
+        }
+        else
+        {
+            if (!m_healthScript.IsDead())
+            {
+                // if not dead
+                m_lookingForAssignments = true;
+            }
+        }
     }
 
+    public void AddAssignment(Assignment assignment)
+    {
+        m_nearbyAssignments.Add(assignment);
+    }
 }

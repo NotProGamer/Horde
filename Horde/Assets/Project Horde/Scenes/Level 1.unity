@@ -25788,18 +25788,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012820859576, guid: 885696f5d995a734eaf992a1e398d481,
     type: 2}
   m_PrefabInternal: {fileID: 649307880}
---- !u!114 &650368811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11488400, guid: a37a4be001fba9942b49c7a2c2c946e4,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1754332485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f0cfd0329ee844cbd4ea17b188e115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &652102418
 Prefab:
   m_ObjectHideFlags: 0
@@ -44809,12 +44797,12 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 650368811}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000013437856536, guid: 1ea8c63899f461c45b804314d9cdfdd2,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 650368811}
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011903852104, guid: 1ea8c63899f461c45b804314d9cdfdd2, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -64497,12 +64485,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 1754332492}
   - 114: {fileID: 1754332491}
-  - 114: {fileID: 650368811}
   - 114: {fileID: 1754332490}
   - 114: {fileID: 1754332489}
   - 114: {fileID: 1754332488}
   - 114: {fileID: 1754332487}
   - 114: {fileID: 1754332486}
+  - 114: {fileID: 1754332494}
+  - 114: {fileID: 1754332493}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -64626,8 +64615,7 @@ MonoBehaviour:
 --- !u!114 &1754332489
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11495362, guid: a37a4be001fba9942b49c7a2c2c946e4,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1754332485}
   m_Enabled: 1
@@ -64676,6 +64664,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1112454000}
   m_RootOrder: 0
+--- !u!114 &1754332493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1754332485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14824011506f5540af137a3c291dba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1754332494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1754332485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5455934266e6a4688a799ed839ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nextScene:
+    m_loadBy: 0
+    m_index: 0
+    m_title: 
+  m_prevScene:
+    m_loadBy: 0
+    m_index: 0
+    m_title: 
 --- !u!1001 &1754563611
 Prefab:
   m_ObjectHideFlags: 0

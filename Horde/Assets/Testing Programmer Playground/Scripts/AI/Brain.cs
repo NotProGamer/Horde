@@ -10,29 +10,33 @@ public class Brain : MonoBehaviour {
     public int m_boredomMaximum = 10;
 
     [System.Serializable]
-    public class Threat
+    public class Morale
     {
-        [System.Serializable]
-        public class Range
-        {
-            public int m_minimum = 0;
-            public int m_maximum = 5;
-            //public Range(int min, int max)
-            //{
-            //    m_minimum = min;
-            //    m_maximum = max;
-            //}
-            public void Set(int min, int max)
-            {
-                m_minimum = Mathf.Min(min, max);
-                m_maximum = Mathf.Max(min, max);
-            }
-        }
-        public Range m_enemyCountFear;
-        public Range m_allyCountCourage;
-        public Range m_distance;
+        //public float m_FightOdds = 1.0f;
+        public float m_fleeOdds = 3.0f;
+        //[System.Serializable]
+        //public class Range
+        //{
+        //    public int m_willFight = 0;
+        //    public int m_willRun = 5;
+        //    //public Range(int min, int max)
+        //    //{
+        //    //    m_minimum = min;
+        //    //    m_maximum = max;
+        //    //}
+        //    public void Set(int min, int max)
+        //    {
+        //        m_willFight = Mathf.Min(min, max);
+        //        m_willRun = Mathf.Max(min, max);
+        //    }
+        //}
+        //public Range m_fearEnemy_Count;
+        //public Range m_courageAlly_Count;
+        //public Range m_distance;
+
+        //public Vector3 m_direction = Vector3.zero;
     }
-    public Threat m_threat;
+    public Morale m_morale;
     // Get Nearby Objects
 
     [System.Serializable]
@@ -119,6 +123,7 @@ public class Brain : MonoBehaviour {
         {
             m_lookTicker = Time.time + m_sight.m_delay;
             Look();
+
         }
         if (Time.time > m_hearingTicker)
         {
@@ -203,7 +208,7 @@ public class Brain : MonoBehaviour {
     public bool GetAudibleNoises(out List<Noise> objects)
     {
         bool result = false;
-        if (m_nearbyObjects.Count > 0)
+        if (m_nearbyNoises.Count > 0)
         {
             objects = new List<Noise>();
 
@@ -220,7 +225,7 @@ public class Brain : MonoBehaviour {
     public bool GetNearbyAssignments(out List<Assignment> objects)
     {
         bool result = false;
-        if (m_nearbyObjects.Count > 0)
+        if (m_nearbyAssignments.Count > 0)
         {
             objects = new List<Assignment>();
 
@@ -286,9 +291,54 @@ public class Brain : MonoBehaviour {
         }
     }
 
+    public bool m_lookingForAssignments = true;
     void RequestAssignments()
     {
+        if (m_nearbyAssignments.Count > 0)
+        {
+            m_lookingForAssignments = false;
+            if (m_healthScript.IsDead())
+            {
+                // if dead clean up assignments
+                List<Assignment> m_deathrow = new List<Assignment>();
+                for (int i = 0; i < m_nearbyAssignments.Count; i++)
+                {
+                    m_deathrow.Add(m_nearbyAssignments[i]);
+                    m_nearbyAssignments[i].m_status = Assignment.Status.Failed;
+                    m_nearbyAssignments[i].UpdateRequestor();
+                }
 
+                for (int i = 0; i < m_deathrow.Count; i++)
+                {
+                    m_nearbyAssignments.Remove(m_deathrow[i]);
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < m_nearbyAssignments.Count; i++)
+                {
+                    m_nearbyAssignments[i].GetCurrent(); // should be called from elsewhere// here for testing
+                    m_nearbyAssignments[i].UpdateRequestor();
+                }
+            }
+        }
+        else
+        {
+            if (!m_healthScript.IsDead())
+            {
+                // if not dead
+                m_lookingForAssignments = true;
+            }
+        }
     }
 
+    public void AddAssignment(Assignment assignment)
+    {
+        m_nearbyAssignments.Add(assignment);
+    }
+    public bool HasAssignment()
+    {
+        return m_nearbyAssignments.Count > 0;
+    }
 }

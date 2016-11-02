@@ -102,10 +102,10 @@ public class Patrol : BaseBehaviour
         //Debug.Log("Wander");
         return Status.SUCCESS;
     }
-    public bool GoToPatrolPoint()
-    {
-        bool result = false;
+    //public bool GoToPatrolPoint()
+    //{
+    //    bool result = false;
 
-        return result;
-    }
+    //    return result;
+    //}
 }

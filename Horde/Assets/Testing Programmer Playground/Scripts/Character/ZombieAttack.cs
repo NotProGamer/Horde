@@ -109,6 +109,11 @@ public class ZombieAttack : Attack {
 
     private void TriggerDevourAnimation()
     {
+        if (m_anim)
+        {
+            m_anim.SetTrigger("Devour");
+        }
+
         ConsumeTarget();
     }
 

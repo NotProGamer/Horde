@@ -4,23 +4,29 @@ using System.Collections.Generic;
 
 public class ZombieMovement : Movement
 {
+
+
     // references .. parenting on top of monobehaviour, http://answers.unity3d.com/questions/362575/inheritance-hides-start.html
+    public Animator m_anim = null;
+    private ZombieUtilityAI m_zombieUtilityAIScript = null;
 
     new void Awake()
     {
         base.Awake();
-        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
-        if (obj)
+        //GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+        //if (obj)
+        //{
+        //    //
+        //}
+        //else
+        //{
+        //    Debug.Log("GameController not included!");
+        //}
+
+        m_zombieUtilityAIScript = GetComponent<ZombieUtilityAI>();
+        if (m_zombieUtilityAIScript == null)
         {
-            m_noiseManager = obj.GetComponent<NoiseManager>();
-            if (m_noiseManager == null)
-            {
-                Debug.Log("NoiseManager not included!");
-            }
-        }
-        else
-        {
-            Debug.Log("GameController not included!");
+            Debug.Log("ZombieUtilityAI script not included!");
         }
     }
 
@@ -29,170 +35,109 @@ public class ZombieMovement : Movement
     new void Start ()
     {
         base.Start();
-        m_audibleNoises = new List<Noise>();
+        if (m_anim != null)
+        {
+            m_anim.SetBool("Idle", true);
+        }
     }
 
     // Update is called once per frame
     new void Update ()
     {
-        //SetDestination(GetCurrentTargetPosition());
-        //Think();
-        UpdateAnimation();
+        //UpdateAnimation();
         base.Update();
+        UpdateAnimation();
     }
 
-    public Animator m_anim = null;
     
     
-
     void UpdateAnimation()
     {
-        //if (m_anim != null && m_rigidbody != null)
-        //{
-        //    m_anim.SetFloat("Movement", m_rigidbody.velocity.magnitude / m_maxSpeed);
-        //}
-
         if (m_anim != null && m_nav != null)
         {
             m_anim.SetFloat("Movement", m_nav.velocity.magnitude / m_maxSpeed);
+
+            m_anim.SetBool("Moving", m_nav.velocity.sqrMagnitude > 0);
         }
-
-    }
-
-    // The following code is more to do with behaviour and will later be move out of this script
-    //private Noise m_mostAudibleNoise = null;
-    private NoiseManager m_noiseManager = null;
-    private List<Noise> m_audibleNoises = null;
-    public Noise m_currentTargetNoise = null;
-
-
-    void Think()
-    {
-        List<Noise> audibleNoises = new List<Noise>();
-        if (m_noiseManager)
+        if (m_anim != null && m_zombieUtilityAIScript != null)
         {
-            m_noiseManager.GetAudibleNoisesAtLocation(audibleNoises, transform.position);
-        }
-        m_audibleNoises = audibleNoises;
-        m_currentTargetNoise = SelectTargetNoise();
-        if (m_currentTargetNoise != null)
-        {
-            m_currentSpeed = DetermineCurrentSpeed(); // this should be based on target/ behaviour
-            SetDestination(m_currentTargetNoise.m_position);
+            AnimateBehaviour(m_zombieUtilityAIScript.m_currentBehaviour);
+
+            
+            
+            //// animate movement
+            //switch (m_state)
+            //{
+            //    case State.Idle:
+            //        m_anim.SetBool("Moving", false);
+            //        break;
+            //    case State.Moving:
+            //        m_anim.SetBool("Moving", true);
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
     }
 
-    Noise SelectTargetNoise()
-    {
-        Noise targetNoise = null;
 
-        foreach (Noise noise in m_audibleNoises)
+    private ZombieUtilityBehaviours.BehaviourNames m_currentBehaviour = ZombieUtilityBehaviours.BehaviourNames.Idle;
+    void AnimateBehaviour(ZombieUtilityBehaviours.BehaviourNames currentBehaviour)
+    {
+        if (m_currentBehaviour != currentBehaviour)
         {
-            if (targetNoise == null)
+            //exit
+            switch (m_currentBehaviour)
             {
-                targetNoise = noise;
+                //case ZombieUtilityBehaviours.BehaviourNames.Wander:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Chase:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+                //    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Idle:
+                    m_anim.SetBool("Idle", false);
+                    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Devour:
+                //    m_anim.SetBool("Devouring", false);
+                    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Death:
+                    m_anim.SetBool("Dead", false);
+                    break;
+                default:
+                    break;
             }
-            else
+
+            // update
+            m_currentBehaviour = currentBehaviour;
+
+            // enter
+            switch (m_currentBehaviour)
             {
-                // if noise if of higher priority then chase it
-                if ((noise.m_identifier > targetNoise.m_identifier) ||
-                    (noise.m_identifier == targetNoise.m_identifier && noise.m_volume > targetNoise.m_volume))
-                {
-                    targetNoise = noise;
-                }
+                //case ZombieUtilityBehaviours.BehaviourNames.Wander:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Chase:
+                //    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+                //    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Idle:
+                    m_anim.SetBool("Idle", true);
+                    break;
+                //case ZombieUtilityBehaviours.BehaviourNames.Devour:
+                //    m_anim.SetBool("Devouring", true);
+                //    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Death:
+                    m_anim.SetBool("Dead", true);
+                    break;
+                default:
+                    break;
             }
         }
-
-        return targetNoise;
     }
-
-    public void SetCurrentNoiseTarget(Noise noise)
-    {
-        // This should be a much smarter check system.
-        if (noise.m_identifier == NoiseIdentifier.UserTap)
-        {
-            m_currentTargetNoise = noise;
-        }
-    }
-
-    private float DetermineCurrentSpeed()
-    {
-        float result = m_minSpeed;
-        if (m_currentTargetNoise != null)
-        {
-            result = m_maxSpeed;
-        }
-        return result;
-    }
-
-
-    //float m_test = 0f;
-    //float m_delay = 5f;
-
-
-    //private Vector3 GetCurrentTargetPosition()
-    //{
-
-    //    Vector3 currentTarget = transform.position;
-    //    if (m_mostAudibleNoise != null)
-    //    {
-    //        // hunt
-    //        currentTarget = m_mostAudibleNoise.m_position;
-    //        //Debug.Log("hunt to: " + currentTarget);
-    //    }
-    //    else
-    //    {
-    //        //// wander
-    //        //if (Time.time > m_test)
-    //        //{
-    //        //    m_test = Time.time + m_delay;
-
-    //        //    Vector2 test2 = Random.insideUnitCircle * 10f;
-    //        //    Vector3 randomTarget = transform.position + new Vector3(test2.x, 0, test2.y);
-    //        //    //Debug.Log(randomTarget);
-    //        //    NavMeshHit hit;
-    //        //    if (NavMesh.SamplePosition(randomTarget, out hit, 100f, NavMesh.AllAreas))
-    //        //    {
-    //        //        currentTarget = hit.position;
-    //        //        currentTarget.y = 1.0f;
-    //        //    }
-    //        //    else
-    //        //    {
-    //        //        currentTarget = transform.position;
-    //        //    }
-    //        //    Debug.Log("wander to: " + currentTarget);
-    //        //}
-    //    }
-    //    return currentTarget;
-    //}
-
-
-
-    //private float CalculateSpeed(float volumeMultiplier)
-    //{
-    //    float result = m_minSpeed;
-    //    result += volumeMultiplier;
-    //    result = Mathf.Clamp(result, m_minSpeed, m_maxSpeed);
-    //    return result;
-    //}
-
-    //public float m_boostTimeRemaining = 0f;
-    //private float m_boostExpiry = 0f;
-    //public bool m_enableBoost = false;
-    //public float m_boostSpeed = 20f;
-    //public float m_normalSpeed = 10f;
-    //public void SpeedBoostUpdate()
-    //{
-    //    if (m_enableBoost)
-    //    {
-
-    //    }
-    //}
-    //public void BoostSpeed()
-    //{
-
-    //}
-
 
 
 }

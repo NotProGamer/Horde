@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692546, g: 0.49678743, b: 0.5750859, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1330,6 +1330,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 512823669}
     m_Modifications:
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_evaluations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012820859576, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1361,6 +1371,31 @@ Prefab:
     - target: {fileID: 4000012820859576, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_behaviourName
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_evaluations.Array.data[0].m_name
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_evaluations.Array.data[0].m_weight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_evaluations.Array.data[1].m_name
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012284375606, guid: f7f83d267d7509840bc478c7a6911d50,
+        type: 2}
+      propertyPath: m_behaviorEvaluations.Array.data[6].m_evaluations.Array.data[1].m_weight
+      value: -60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7f83d267d7509840bc478c7a6911d50, type: 2}
@@ -2589,6 +2624,10 @@ Prefab:
     - target: {fileID: 1000010605086938, guid: ecfff83cbac551142acc5018106b15b4, type: 2}
       propertyPath: m_Name
       value: NorthernDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010605086938, guid: ecfff83cbac551142acc5018106b15b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecfff83cbac551142acc5018106b15b4, type: 2}

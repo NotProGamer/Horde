@@ -97,11 +97,11 @@ public class ZombieMovement : Movement
                 //    break;
                 //case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
                 //    break;
-                case ZombieUtilityBehaviours.BehaviourNames.Idle:
-                    m_anim.SetBool("Idle", false);
-                    break;
                 //case ZombieUtilityBehaviours.BehaviourNames.Devour:
                 //    m_anim.SetBool("Devouring", false);
+                //    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Idle:
+                    m_anim.SetBool("Idle", false);
                     break;
                 case ZombieUtilityBehaviours.BehaviourNames.Death:
                     m_anim.SetBool("Dead", false);
@@ -124,12 +124,12 @@ public class ZombieMovement : Movement
                 //    break;
                 //case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
                 //    break;
-                case ZombieUtilityBehaviours.BehaviourNames.Idle:
-                    m_anim.SetBool("Idle", true);
-                    break;
                 //case ZombieUtilityBehaviours.BehaviourNames.Devour:
                 //    m_anim.SetBool("Devouring", true);
                 //    break;
+                case ZombieUtilityBehaviours.BehaviourNames.Idle:
+                    m_anim.SetBool("Idle", true);
+                    break;
                 case ZombieUtilityBehaviours.BehaviourNames.Death:
                     m_anim.SetBool("Dead", true);
                     break;

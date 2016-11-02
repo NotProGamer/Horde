@@ -747,12 +747,12 @@ GameObject:
   - 195: {fileID: 195000010178016126}
   - 114: {fileID: 114000014044665530}
   - 114: {fileID: 114000011368307860}
-  - 114: {fileID: 114000014252585946}
   - 114: {fileID: 114000010653012944}
   - 114: {fileID: 114000011805577942}
   - 114: {fileID: 114000012284375606}
-  - 114: {fileID: 114000013909355348}
   - 114: {fileID: 114000012482754406}
+  - 114: {fileID: 114000011018318898}
+  - 114: {fileID: 114000010902074610}
   m_Layer: 8
   m_Name: CTD_Human_Civilian
   m_TagString: Human
@@ -3307,7 +3307,7 @@ Animator:
   m_GameObject: {fileID: 1000011050816696}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ea170098706bd5445b6f3ce72a102852, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5c4eea02c09830340bc1aaedb5d8f93a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2e448fea5443d324d96cd64de9bbe4fa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3346,6 +3346,39 @@ MonoBehaviour:
   m_nearbyNoises: []
   m_nearbyAssignments: []
   m_lookingForAssignments: 1
+--- !u!114 &114000010902074610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6baa704af92fd1748bfc4186271276b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentDestination: {x: 0, y: 0, z: 0}
+  m_touchRange: 1
+  m_minSpeed: 3
+  m_maxSpeed: 10
+  m_state: 0
+  m_unableToReachCurrentDestination: 0
+  m_anim: {fileID: 95000013326069258}
+--- !u!114 &114000011018318898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19bdecec9d1061e4c9ca55c4723d3e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_delay: 1
+  m_damage: 5
+  m_attackRange: 3
+  m_anim: {fileID: 95000013326069258}
 --- !u!114 &114000011237536538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3494,20 +3527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_reanimationDelay: 3
---- !u!114 &114000013909355348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011894944338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b50cee1f6405ed4a84fc217f4e304bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_delay: 1
-  m_damage: 5
-  m_attackRange: 3
 --- !u!114 &114000014044665530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3530,23 +3549,6 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 137000012000843782}
   m_extendTurnTimerIfBeingDevoured: 1
---- !u!114 &114000014252585946
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011894944338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d17cc9c2da5f554e91a86d6a1d66771, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_currentDestination: {x: 0, y: 0, z: 0}
-  m_touchRange: 1
-  m_minSpeed: 3
-  m_maxSpeed: 10
-  m_state: 0
-  m_unableToReachCurrentDestination: 0
 --- !u!136 &136000011691019922
 CapsuleCollider:
   m_ObjectHideFlags: 1

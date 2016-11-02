@@ -47,8 +47,8 @@ public class Movement : MonoBehaviour {
                 m_state = State.Idle;
             }
         }
-        
 
+        
     }
 
     void MoveToPartialPath()

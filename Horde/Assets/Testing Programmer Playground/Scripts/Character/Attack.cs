@@ -59,8 +59,11 @@ public class Attack : MonoBehaviour {
             // Trigger Attack Animation HERE
             // ========================
             TriggerAttackAnimation();
+            transform.LookAt(m_currentTarget.transform.position);
+
 
             m_nextAttackTime = Time.time + m_delay;
+            
             result = true;
         }
 

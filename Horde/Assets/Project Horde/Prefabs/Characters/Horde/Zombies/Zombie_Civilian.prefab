@@ -580,7 +580,6 @@ GameObject:
   - 195: {fileID: 195000011470070252}
   - 114: {fileID: 114000012390435642}
   - 114: {fileID: 114000012172297704}
-  - 114: {fileID: 114000010859330156}
   - 114: {fileID: 114000013040897110}
   - 114: {fileID: 114000011005983630}
   - 114: {fileID: 114000011189654870}
@@ -3293,7 +3292,7 @@ Animator:
   m_GameObject: {fileID: 1000011448161528}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4ce753ecde835954cac0cb25ed0015ed, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8a1ed882d565807449701285d6f6499f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 18f7f247dae12b04f97581a1e0a8f4aa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3325,23 +3324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4cf5559dd753647ac7618472919dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010859330156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011324950992}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d17cc9c2da5f554e91a86d6a1d66771, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_currentDestination: {x: 0, y: 0, z: 0}
-  m_touchRange: 1
-  m_minSpeed: 3
-  m_maxSpeed: 10
-  m_state: 0
-  m_unableToReachCurrentDestination: 0
 --- !u!114 &114000011005983630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3471,12 +3453,6 @@ MonoBehaviour:
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000011057836498}
-  m_currentTargetNoise:
-    m_position: {x: 0, y: 0, z: 0}
-    m_volume: 0
-    m_identifier: 0
-    m_timeCreated: 0
-    m_timeExpiry: 0
 --- !u!114 &114000012172297704
 MonoBehaviour:
   m_ObjectHideFlags: 1

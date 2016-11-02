@@ -20,6 +20,8 @@ public class HUDIndicator : MonoBehaviour
     public float borderRight = 10;
     public float borderBottom = 10;
 
+    
+
     public enum IndicatorType
     {
         SafeZone,
@@ -30,7 +32,7 @@ public class HUDIndicator : MonoBehaviour
     public Vector3 m_offset = Vector3.zero;
 
     public IndicatorType m_indicatorType = IndicatorType.SafeZone;
-
+    private Vector2 scale; // reece
     void Start()
     {
         canvas = transform.parent.parent.GetComponent<Canvas>();
@@ -46,6 +48,13 @@ public class HUDIndicator : MonoBehaviour
         Debug.Log("Width = " + m_screenWidth);
         Debug.Log("Height = " + m_screenHeight);
         Debug.Log(m_screenSize);
+
+        Vector2 reference = canvas.GetComponent<CanvasScaler>().referenceResolution;
+        scale = new Vector2(m_screenWidth / reference.x, m_screenHeight / reference.y);
+
+        scale *= 2.0f;
+        transform.localScale = new Vector3 (scale.x, scale.y, 1);
+        
     }
 
     // Update is called once per frame
@@ -60,11 +69,11 @@ public class HUDIndicator : MonoBehaviour
             float maxHeight = m_screenHeight;
             float minHeight = 0;
 
-            float screenLeft = -m_screenWidth * ((50 - borderLeft)*0.01f);
-            float screenRight = m_screenWidth * ((50 - borderRight) * 0.01f);
+            float screenLeft = -m_screenWidth * ((100 - borderLeft)*0.01f);
+            float screenRight = m_screenWidth * ((100 - borderRight) * 0.01f);
 
-            float screenTop = m_screenHeight * ((50 - borderTop)*0.01f);
-            float screenBottom = -m_screenHeight * ((50 - borderBottom)*0.01f);
+            float screenTop = m_screenHeight * ((100 - borderTop)*0.01f);
+            float screenBottom = -m_screenHeight * ((100 - borderBottom)*0.01f);
 
 
 

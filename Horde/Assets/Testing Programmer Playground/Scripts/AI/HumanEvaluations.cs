@@ -27,6 +27,7 @@ public class HumanEvaluations : EvaluationModule {
         EnemyInRange,
         Threat,
         InverseThreat,
+        HasAssignment,
         StandardEvaluationCount, // Should Always be the Last Enumerator Value
     }
 
@@ -157,6 +158,10 @@ public class HumanEvaluations : EvaluationModule {
         //public UtilityMath.UtilityValue m_courage;
 
         public UtilityMath.UtilityValue m_enemyInRange;
+
+
+        public UtilityMath.UtilityValue m_hasAssignment;
+
     }
     public EnvironmentalEvaluations m_environmentalEvaluations;
 
@@ -272,6 +277,7 @@ public class HumanEvaluations : EvaluationModule {
             m_environmentalEvaluations.m_threat = new EnvironmentalEvaluations.Threat(0, m_brain.m_morale.m_fleeOdds);
             AddEvaluation((int)EvaluationNames.Threat, m_environmentalEvaluations.m_threat.m_linear);
             AddEvaluation((int)EvaluationNames.InverseThreat, m_environmentalEvaluations.m_threat.m_inverseLinear);
+
         }
 
         m_objectEvaluations.m_enemy.m_health = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, 0, 1);
@@ -284,6 +290,10 @@ public class HumanEvaluations : EvaluationModule {
             m_environmentalEvaluations.m_enemyInRange = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.InverseLinear, 0, m_attackScript.m_attackRange * m_attackScript.m_attackRange);  // squared attack range 
             AddEvaluation((int)EvaluationNames.EnemyInRange, m_environmentalEvaluations.m_enemyInRange);
         }
+
+        m_environmentalEvaluations.m_hasAssignment = new UtilityMath.UtilityValue(UtilityMath.UtilityValue.NormalisationFormula.Linear, System.Convert.ToInt32(false), System.Convert.ToInt32(true));
+        AddEvaluation((int)EvaluationNames.HasAssignment, m_environmentalEvaluations.m_hasAssignment);
+
     }
 
 
@@ -339,7 +349,7 @@ public class HumanEvaluations : EvaluationModule {
                     m_environmentalEvaluations.m_enemyInRange.SetValue(sqrDistance);
                 }
             }
-
+            m_environmentalEvaluations.m_hasAssignment.SetValue((float)System.Convert.ToInt32(m_brain.HasAssignment()));
         }
     }
 

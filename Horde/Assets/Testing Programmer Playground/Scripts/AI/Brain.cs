@@ -208,7 +208,7 @@ public class Brain : MonoBehaviour {
     public bool GetAudibleNoises(out List<Noise> objects)
     {
         bool result = false;
-        if (m_nearbyObjects.Count > 0)
+        if (m_nearbyNoises.Count > 0)
         {
             objects = new List<Noise>();
 
@@ -225,7 +225,7 @@ public class Brain : MonoBehaviour {
     public bool GetNearbyAssignments(out List<Assignment> objects)
     {
         bool result = false;
-        if (m_nearbyObjects.Count > 0)
+        if (m_nearbyAssignments.Count > 0)
         {
             objects = new List<Assignment>();
 
@@ -336,5 +336,9 @@ public class Brain : MonoBehaviour {
     public void AddAssignment(Assignment assignment)
     {
         m_nearbyAssignments.Add(assignment);
+    }
+    public bool HasAssignment()
+    {
+        return m_nearbyAssignments.Count > 0;
     }
 }

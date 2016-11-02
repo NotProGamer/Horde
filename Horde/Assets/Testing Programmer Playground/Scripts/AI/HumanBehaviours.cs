@@ -64,6 +64,7 @@ public class HumanBehaviours : BehaviourModule
         BaseBehaviour moveToEnemy = new MoveToEnemy(this.gameObject);
         BaseBehaviour attackEnemy = new AttackEnemy(this.gameObject);
         BaseBehaviour flee = new Flee(this.gameObject);
+        BaseBehaviour patrol = new Patrol(this.gameObject);
 
         AddBehaviour((int)BehaviourNames.Idle, idle);
         AddBehaviour((int)BehaviourNames.Wander, wander);
@@ -71,6 +72,7 @@ public class HumanBehaviours : BehaviourModule
         AddBehaviour((int)BehaviourNames.MoveToEnemy, moveToEnemy);
         AddBehaviour((int)BehaviourNames.AttackIfInRange, attackEnemy);
         AddBehaviour((int)BehaviourNames.Flee, flee);
+        AddBehaviour((int)BehaviourNames.Patrol, patrol);
 
     }
 

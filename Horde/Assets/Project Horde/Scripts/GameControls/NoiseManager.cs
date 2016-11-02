@@ -242,9 +242,13 @@ public class Noise
     //}
 }
 
-public class NoiseManager : MonoBehaviour {
-
+public class NoiseManager : MonoBehaviour 
+{
+    public GameObject m_noiseTemplate;
     public float m_maxVolume = 100f;
+
+    private ObjectPoolManager m_objectPoolManagerScript = null;
+
 
     [System.Serializable]
     public class NoiseList
@@ -359,6 +363,26 @@ public class NoiseManager : MonoBehaviour {
     public NoiseList m_noiseLibrary = new NoiseList();
     public NoiseList m_userTapLibrary = new NoiseList();
 
+
+    void Start()
+    {
+        GameObject gameController = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+
+        if (gameController)
+        {
+            m_objectPoolManagerScript = gameController.GetComponent<ObjectPoolManager>();
+        }
+        else
+        {
+            Debug.Log("Unable to Find GameController");
+        }
+
+        if (m_objectPoolManagerScript == null)
+        {
+            Debug.Log("ObjectPoolManager not included on GameController");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -401,16 +425,20 @@ public class NoiseManager : MonoBehaviour {
     public Noise Add(Vector3 position, float pVolume, float expirationDelay, NoiseIdentifier identifier = NoiseIdentifier.Silent)
     {
         float volume = Mathf.Min(pVolume, m_maxVolume);
+        Noise noise = null;
 
         if (identifier == NoiseIdentifier.UserTap)
         {
-            return m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
+            noise = m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
+            SpawnNoiseVisualisation(noise);
+            return noise;
         }
         else
         {
-            return m_noiseLibrary.Add(position, volume, expirationDelay, identifier);
+            noise = m_noiseLibrary.Add(position, volume, expirationDelay, identifier);
+            //SpawnNoiseVisualisation(noise);
+            return noise;
         }
-        
     }
 
     public void Remove(Noise noise)
@@ -420,5 +448,22 @@ public class NoiseManager : MonoBehaviour {
             m_noiseLibrary.Remove(noise);
         }
     }
+
+    public void SpawnNoiseVisualisation(Noise noise)
+    {
+        if (noise != null)
+        {
+            //GameObject obj = Instantiate(m_noiseTemplate) as GameObject;
+            GameObject obj = m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.NoiseVisualisation, noise.m_position);
+
+            NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
+            if (noiseVis != null)
+            {
+                noiseVis.SetNoise(noise);
+            }
+        }
+
+    }
+
 
 }

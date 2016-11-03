@@ -25,8 +25,8 @@ GameObject:
   m_Name: Door49
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000010636210700
 GameObject:
@@ -42,8 +42,8 @@ GameObject:
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000010660188760
 GameObject:
@@ -59,8 +59,8 @@ GameObject:
   m_Name: Support3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1000011702145828
 GameObject:
@@ -76,8 +76,8 @@ GameObject:
   m_Name: Door48
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000011903600964
 GameObject:
@@ -93,8 +93,8 @@ GameObject:
   m_Name: Window9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000011956755878
 GameObject:
@@ -110,8 +110,8 @@ GameObject:
   m_Name: FakeBuilding3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1000012082100456
 GameObject:
@@ -127,8 +127,8 @@ GameObject:
   m_Name: Window10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000012202148530
 GameObject:
@@ -144,8 +144,8 @@ GameObject:
   m_Name: polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000012537664866
 GameObject:
@@ -161,8 +161,8 @@ GameObject:
   m_Name: Support2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1000012948372340
 GameObject:
@@ -178,8 +178,8 @@ GameObject:
   m_Name: Window11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000013242382442
 GameObject:
@@ -195,8 +195,8 @@ GameObject:
   m_Name: Window8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!1 &1000013516346640
 GameObject:
@@ -228,8 +228,8 @@ GameObject:
   m_Name: Sign10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 32
   m_IsActive: 1
 --- !u!4 &4000010352418336
 Transform:
@@ -380,10 +380,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013516346640}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49432948, y: 7.29, z: 12.13}
+  m_LocalRotation: {x: -0, y: 0.7071067, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -19.689997, y: 4.48, z: -34.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children:
   - {fileID: 4000013925286102}
   - {fileID: 4000010352418336}
@@ -485,7 +485,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1ebc74ddeee119345a2dd672a0d7998f, type: 2}
   - {fileID: 2100000, guid: 1ebc74ddeee119345a2dd672a0d7998f, type: 2}
   - {fileID: 2100000, guid: 9cde16542708c784ea46381631a4139f, type: 2}
   - {fileID: 2100000, guid: 41d2b3d0e977fd14384b85ae3d633f91, type: 2}

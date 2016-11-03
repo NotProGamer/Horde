@@ -8,6 +8,9 @@ public class SafeZoneUICount : MonoBehaviour
     Text safeZoneCount = null;
     int completedSafeZones = 0;
     int totalSafeZones = 0;
+    public GameObject levelComplete;
+
+
 
     void Awake()
     {
@@ -33,6 +36,10 @@ public class SafeZoneUICount : MonoBehaviour
         {
             completedSafeZones = m_manager.completedObjectives;
             safeZoneCount.text = completedSafeZones + " of " + totalSafeZones;
+        }
+        if (completedSafeZones == totalSafeZones)
+        {
+            levelComplete.SetActive(true);
         }
 	}
 }

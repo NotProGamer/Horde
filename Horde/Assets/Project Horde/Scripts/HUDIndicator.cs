@@ -20,6 +20,7 @@ public class HUDIndicator : MonoBehaviour
     public float borderRight = 10;
     public float borderBottom = 10;
 
+    float desiredAlpha;
     
 
     public enum IndicatorType
@@ -45,9 +46,6 @@ public class HUDIndicator : MonoBehaviour
         m_screenHeight = Screen.height; //CanvasRect.rect.height;
         m_screenWidth = Screen.width; //CanvasRect.rect.width;
         m_screenSize = CanvasRect.rect.size;
-        Debug.Log("Width = " + m_screenWidth);
-        Debug.Log("Height = " + m_screenHeight);
-        Debug.Log(m_screenSize);
 
         Vector2 reference = canvas.GetComponent<CanvasScaler>().referenceResolution;
         scale = new Vector2(m_screenWidth / reference.x, m_screenHeight / reference.y);
@@ -69,11 +67,11 @@ public class HUDIndicator : MonoBehaviour
             float maxHeight = m_screenHeight;
             float minHeight = 0;
 
-            float screenLeft = -m_screenWidth * ((100 - borderLeft)*0.01f);
-            float screenRight = m_screenWidth * ((100 - borderRight) * 0.01f);
+            float screenLeft = -(m_screenWidth/2) * ((100 - borderLeft)*0.01f);
+            float screenRight = (m_screenWidth/2) * ((100 - borderRight) * 0.01f);
 
-            float screenTop = m_screenHeight * ((100 - borderTop)*0.01f);
-            float screenBottom = -m_screenHeight * ((100 - borderBottom)*0.01f);
+            float screenTop = (m_screenHeight/2) * ((100 - borderTop)*0.01f);
+            float screenBottom = -(m_screenHeight/2) * ((100 - borderBottom)*0.01f);
 
 
 
@@ -106,11 +104,28 @@ public class HUDIndicator : MonoBehaviour
                 UI_Element.eulerAngles = new Vector3(0, 0, 180);
             else
                 UI_Element.eulerAngles = new Vector3(0, 0, 270.0f + (180.0f / 3.1415f * Mathf.Atan2(WorldObject_ScreenPosition.y, WorldObject_ScreenPosition.x)));
+
+            desiredAlpha = 1.0f;
+            if (!offScreen && m_indicatorType == IndicatorType.Human)
+                desiredAlpha = 0;
+
+            float alpha = icon.color.a;
+            if (alpha > desiredAlpha)
+                alpha -= 0.01f;
+            if (alpha < desiredAlpha)
+                alpha += 0.01f;
+
+            Color col = icon.color;
+            col.a = alpha;
+            icon.color = col;
         }
         else if (!target)
         {
             icon.enabled = false;
         }
+
+        
+
     }
 
     public void SetType(IndicatorType type)

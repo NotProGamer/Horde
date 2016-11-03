@@ -10,6 +10,8 @@ public class ZombieCount : MonoBehaviour
 	private float m_delay = 1.0f;
 	private float nextTime = 0f;
 
+    public GameObject lose;
+
 
 
 	// Use this for initialization
@@ -35,6 +37,11 @@ public class ZombieCount : MonoBehaviour
 			hordeCount.text = hordeSizeInt.ToString();
 			nextTime = Time.time + m_delay;
 		}
+
+        if (hordeArray.Length == 0)
+        {
+            lose.SetActive(true);
+        }
 
 	}
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 using System;
 
-public class ZombieAttack : Attack {
+public class ZombieAttack : Attack
+{
 
     private HealthCondition m_healthCondition = null;
     private HealthCondition m_targetHealthCondition = null;
@@ -36,6 +37,10 @@ public class ZombieAttack : Attack {
         {
             // get current target health
             m_currentTargetHealth = m_currentTarget.GetComponent<Health>();
+
+           
+            
+
             
             // if target has health and is not dead
             if (m_currentTargetHealth != null && !m_currentTargetHealth.IsDead())
@@ -43,6 +48,13 @@ public class ZombieAttack : Attack {
                 //if target still in range
                 if (InsideAttackRange(m_currentTarget.transform))
                 {
+
+                    //==================
+                    //Added by Rory
+                    //==================
+                    transform.LookAt(m_currentTarget.transform);
+
+
                     // apply damage
                     m_currentTargetHealth.ApplyDamage(m_damage);
                     // infect target

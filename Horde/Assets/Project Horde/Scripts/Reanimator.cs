@@ -73,6 +73,12 @@ public class Reanimator : MonoBehaviour {
 
         if (m_reanimating)
         {
+            //===========
+            //Added by Rory
+            //===========
+            NavMeshAgent m_agent = GetComponent<NavMeshAgent>();
+            m_agent.Stop();
+
             if (Time.time > m_timeUntilReanimation)
             {
                 Reanimate();

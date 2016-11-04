@@ -17,8 +17,10 @@ public class ZombieCount : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
-	}
+        lose.SetActive(false);
+        hordeArray = GameObject.FindGameObjectsWithTag(Labels.Tags.Zombie);
+
+    }
 	
 	// Update is called once per frame
 	void Update () 

@@ -53,7 +53,7 @@ public class GateHealthBar : MonoBehaviour
         {
             float m_health = health.m_health;
             float healthPercent = m_health / 100;
-            bar.color = Color.Lerp(Color.red, Color.grey, healthPercent);         
+            bar.color = Color.Lerp(Color.red, Color.green, healthPercent);         
         }
     }
 }

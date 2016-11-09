@@ -48,13 +48,6 @@ public class ZombieAttack : Attack
                 //if target still in range
                 if (InsideAttackRange(m_currentTarget.transform))
                 {
-
-                    //==================
-                    //Added by Rory
-                    //==================
-                    transform.LookAt(m_currentTarget.transform);
-
-
                     // apply damage
                     m_currentTargetHealth.ApplyDamage(m_damage);
                     // infect target

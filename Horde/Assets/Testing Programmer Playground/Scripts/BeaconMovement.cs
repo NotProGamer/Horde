@@ -12,7 +12,9 @@ public class BeaconMovement : MonoBehaviour {
     private Vector3 m_dragStartPosition; // x , y , z(normally zero)
     private Vector3 m_grabWorldPosition;
 
-    Noise m_noise = null;
+    private Noise m_noise = null;
+    private GameObject m_noiseEffectObj = null;
+    private NoiseVisualization noiseVisScript = null;
 
     public enum State
     {
@@ -32,6 +34,12 @@ public class BeaconMovement : MonoBehaviour {
                 Debug.Log("User Controller not included");
             }
         }
+        m_noiseEffectObj = gameObject.transform.FindChild("NoiseEffect").gameObject;
+        if (m_noiseEffectObj)
+        {
+            noiseVisScript = m_noiseEffectObj.GetComponent<NoiseVisualization>();
+        }
+        
 
     }
 
@@ -47,14 +55,49 @@ public class BeaconMovement : MonoBehaviour {
     {
         if (m_userController != null)
         {
+            if (m_userController.m_touchedObject == null || m_userController.m_touchedObject.m_gameObject != gameObject)
+            {
+                if (m_state == State.Moving)
+                {
+                    m_state = State.Idle;
+                }
+            }
+
+            // noise management
+            if (m_noise != null)
+            {
+                if (m_state == State.Moving)
+                {
+                    m_noise.m_position = transform.position;
+                    m_noise.ResetExpiry();
+                }
+                else if (m_state == State.Idle)
+                {
+                    // stuff
+                }
+
+
+                if (m_noise.IsExpired())
+                {
+                    transform.SetParent(m_parent);
+                    gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                transform.SetParent(m_parent);
+                gameObject.SetActive(false);
+            }
+
             if (m_userController.m_state != UserControllerState.Idle)
             {
-                if (m_userController.m_touchedObject.m_gameObject != null)
+                if (m_userController.m_touchedObject.m_gameObject != gameObject)
                 {
-                    if (!m_userController.m_touchedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
+                    if (m_state == State.Moving)
                     {
-                        return; // early exit
-                    }
+                        m_state = State.Idle;
+                    } 
+                    return; // early exit
                 }
             }
 
@@ -82,16 +125,13 @@ public class BeaconMovement : MonoBehaviour {
                     m_validDragPosition = false;
                 }
             }
-        }
-
-        // noise management
-        if (m_noise != null)
-        {
-            if (m_noise.IsExpired())
+            else
             {
-                gameObject.SetActive(false);
+                m_state = State.Idle;
             }
         }
+
+
 
     }
 
@@ -170,6 +210,22 @@ public class BeaconMovement : MonoBehaviour {
     public void SetNoise(Noise noise)
     {
         m_noise = noise;
+        if (noiseVisScript != null)
+        {
+            noiseVisScript.SetNoise(noise);
+        }
     }
 
+    public Transform m_parent = null;
+
+    void OnEnable()
+    {
+        m_parent = transform.parent;
+        transform.SetParent(null);
+    }
+
+    void OnDisable()
+    {
+        
+    }
 }

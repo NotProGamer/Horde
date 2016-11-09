@@ -44,10 +44,10 @@ public class NoiseVisualization : MonoBehaviour
         if (m_noise != null)
         {
             maxRadius = m_noise.m_volume;
-            if (m_noise.m_timeExpiry < Time.time)
-            {
-                gameObject.SetActive(false);
-            }
+            //if (m_noise.m_timeExpiry < Time.time)
+            //{
+            //    gameObject.SetActive(false);
+            //}
         }
 
         

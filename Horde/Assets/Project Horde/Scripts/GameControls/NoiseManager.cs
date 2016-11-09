@@ -431,6 +431,7 @@ public class NoiseManager : MonoBehaviour
         {
             noise = m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
             SpawnNoiseVisualisation(noise);
+            SpawnBeacon(noise);
             return noise;
         }
         else
@@ -455,6 +456,22 @@ public class NoiseManager : MonoBehaviour
         {
             //GameObject obj = Instantiate(m_noiseTemplate) as GameObject;
             GameObject obj = m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.NoiseVisualisation, noise.m_position);
+
+            NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
+            if (noiseVis != null)
+            {
+                noiseVis.SetNoise(noise);
+            }
+        }
+
+    }
+
+    public void SpawnBeacon(Noise noise)
+    {
+        if (noise != null)
+        {
+            //GameObject obj = Instantiate(m_noiseTemplate) as GameObject;
+            GameObject obj = m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Beacon, noise.m_position);
 
             NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
             if (noiseVis != null)

@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraTargetMovement : MonoBehaviour {
+public class BeaconMovement : MonoBehaviour {
 
     private UserController m_userController = null;
+
+    private LayerMask m_layerMask;
+
     private bool m_validDragPosition = false;
+    private Vector3 m_rigStartPosition;
+    private Vector3 m_dragStartPosition; // x , y , z(normally zero)
+    private Vector3 m_grabWorldPosition;
+
+    Noise m_noise = null;
 
     public enum State
     {
@@ -12,11 +20,6 @@ public class CameraTargetMovement : MonoBehaviour {
         Moving
     }
     public State m_state = State.Idle;
-
-    private LayerMask m_layerMask;
-    private Vector3 m_rigStartPosition;
-    private Vector3 m_dragStartPosition; // x , y , z(normally zero)
-    private Vector3 m_grabWorldPosition;
 
     void Awake()
     {
@@ -31,7 +34,6 @@ public class CameraTargetMovement : MonoBehaviour {
         }
 
     }
-
 
     // Use this for initialization
     void Start ()
@@ -49,7 +51,7 @@ public class CameraTargetMovement : MonoBehaviour {
             {
                 if (m_userController.m_touchedObject.m_gameObject != null)
                 {
-                    if (m_userController.m_touchedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
+                    if (!m_userController.m_touchedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
                     {
                         return; // early exit
                     }
@@ -81,6 +83,16 @@ public class CameraTargetMovement : MonoBehaviour {
                 }
             }
         }
+
+        // noise management
+        if (m_noise != null)
+        {
+            if (m_noise.IsExpired())
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
     }
 
     private void StartMove()
@@ -134,7 +146,7 @@ public class CameraTargetMovement : MonoBehaviour {
             worldPosition.y = m_rigStartPosition.y;
             Vector3 dragOffset = worldPosition - m_grabWorldPosition;
 
-            proposedPosition = transform.position - dragOffset;
+            proposedPosition = transform.position + dragOffset;
             //clamp movement to playArea
             Vector3 proposedScreenPosition = Camera.main.WorldToScreenPoint(proposedPosition);
             ray = Camera.main.ScreenPointToRay(proposedScreenPosition);
@@ -154,4 +166,10 @@ public class CameraTargetMovement : MonoBehaviour {
             transform.position = currentPosition;
         }
     }
+
+    public void SetNoise(Noise noise)
+    {
+        m_noise = noise;
+    }
+
 }

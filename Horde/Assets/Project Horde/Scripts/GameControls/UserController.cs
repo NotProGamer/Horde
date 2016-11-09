@@ -73,6 +73,8 @@ public enum UserControllerState
 
 
 public class UserController : MonoBehaviour {
+
+    [System.Serializable]
     public class Drag
     {
         public Drag(Vector2 start, Vector2 end)
@@ -84,6 +86,7 @@ public class UserController : MonoBehaviour {
         public Vector2 m_end = -Vector2.one;
     }
 
+    [System.Serializable]
     public class SelectedObject
     {
         public GameObject m_gameObject = null;

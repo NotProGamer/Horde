@@ -8,6 +8,9 @@ public class Labels : MonoBehaviour {
         // Controllers
         public static string GameController = "GameController";
         public static string ZombieLure = "ZombieLure";
+        public static string Beacon = "Beacon";
+        public static string Ground = "Ground";
+        
 
         // Mobile Units
         public static string Zombie = "Zombie";

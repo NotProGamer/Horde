@@ -48270,6 +48270,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1295692191}
     m_Modifications:
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010645878318, guid: d7fba277533e0f641bb60347907da7bf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 176.8
@@ -48310,6 +48320,41 @@ Prefab:
     - target: {fileID: 1000011324950992, guid: d7fba277533e0f641bb60347907da7bf, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_behaviourName
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[0].m_eval
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[0].m_weight
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[1].m_eval
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[1].m_weight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[2].m_eval
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011189654870, guid: d7fba277533e0f641bb60347907da7bf,
+        type: 2}
+      propertyPath: m_behaviourEvaluations.Array.data[7].m_evaluations.Array.data[2].m_weight
+      value: -40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7fba277533e0f641bb60347907da7bf, type: 2}
@@ -64770,7 +64815,7 @@ MonoBehaviour:
     m_prefab: {fileID: 1000012888455640, guid: c45f5b04d18cfca42bd74c3c18abaabc, type: 2}
     m_pool: []
     m_size: 5
-    m_willGrow: 0
+    m_willGrow: 1
     m_container: {fileID: 1949648032}
 --- !u!114 &1754332490
 MonoBehaviour:

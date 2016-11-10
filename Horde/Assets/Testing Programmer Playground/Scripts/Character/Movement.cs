@@ -46,6 +46,12 @@ public class Movement : MonoBehaviour {
             {
                 m_state = State.Idle;
             }
+
+            transform.LookAt(m_currentDestination, Vector3.up);
+            //if (m_currentDestination != transform.position)
+            //{
+            //    transform.LookAt(m_currentDestination, Vector3.up);
+            //}
         }
 
         

@@ -3345,6 +3345,7 @@ MonoBehaviour:
   m_currentBoredom: 0
   m_boredomIncrementTimer: 1
   m_boredomIncrementDelay: 2
+  m_reanimating: 1
   m_gluttonSettings:
     m_vomitToxin: 0
     m_vomitLevel: 1
@@ -3437,6 +3438,11 @@ MonoBehaviour:
       m_weight: 20
     - m_eval: 19
       m_weight: -40
+  - m_currentEvaluationForDebugging: 0
+    m_behaviourName: 7
+    m_evaluations:
+    - m_eval: 21
+      m_weight: 99
 --- !u!114 &114000011883111136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3580,6 +3586,10 @@ MonoBehaviour:
     m_normalisedValue: 0
     m_normalisationType: 0
   m_isNotAggressiveFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
+  m_isReanimatingFormula:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0

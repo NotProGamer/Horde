@@ -438,7 +438,7 @@ public class NoiseManager : MonoBehaviour
         {
             noise = m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
             //SpawnNoiseVisualisation(noise);
-            SpawnBeacon(noise);
+            //SpawnBeacon(noise);
             return noise;
         }
         else

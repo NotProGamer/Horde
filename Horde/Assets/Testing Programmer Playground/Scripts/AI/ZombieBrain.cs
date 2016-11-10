@@ -41,6 +41,17 @@ public class ZombieBrain : MonoBehaviour {
     public float m_boredomIncrementTimer = 1.0f;
     public float m_boredomIncrementDelay = 0.5f;
 
+    public bool m_reanimating = false; // change this to true
+
+    public void StartMisbehaving()
+    {
+        m_reanimating = false;
+    }
+
+    public void OnEnable()
+    {
+        m_reanimating = true;
+    }
     void Awake()
     {
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);

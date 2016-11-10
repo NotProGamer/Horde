@@ -49,9 +49,12 @@ public class Tapper : MonoBehaviour {
     void Start ()
     {
         m_layerMask = LayerMask.GetMask("Ground");
+        //m_layerMask = LayerMask.GetMask("Default");
+        m_lastPosition = transform.position;
     }
-	
 
+    private Vector3 m_lastPosition;
+    private bool m_noiseCreationEnabled = true;
 	// Update is called once per frame
 	void Update ()
     {
@@ -62,16 +65,52 @@ public class Tapper : MonoBehaviour {
         {
             if (m_userController.m_state == UserControllerState.Tapped)
             {
+                if (m_tapCount >= m_maxTaps && m_userController.m_tappedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
+                {
+                    // if max taps reached 
+                    // if lure has not moved
+                    // tapped object is beacon
+                    // disable noise creation
+                    m_noiseCreationEnabled = false;
+                }
+                else
+                {
+                    // enable noise creation
+                    m_noiseCreationEnabled = true;
+                }
+
+                //reaches max taps then generates a new brain
                 MoveLure();
-                NoiseMaker();
+                if (m_lastPosition != transform.position && m_userController.m_tappedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
+                {
+                    // if max taps reached 
+                    // if lure has not moved
+                    // tapped object is beacon
+                    // disable noise creation
+                    m_noiseCreationEnabled = false;
+                }
+                else
+                {
+                    // enable noise creation
+                    m_noiseCreationEnabled = true;
+                    m_lastPosition = transform.position;
+                }
+                if (m_noiseCreationEnabled)
+                {
+                    NoiseMaker();
+                }
             }
         }
 
         // clear current noise if tap timeOut exceeded
         // if there is a current noise and time is passed is remove the current noise
-        if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
+        if (m_currentNoise != null)
         {
-            m_currentNoise = null;
+            //if tap timeOut expires or max Tap Count is exceeded (clear current noise) 
+            if (Time.time > m_lastTapTime + m_tapTimeOutDelay || m_tapCount >= m_maxTaps)
+            {
+                m_currentNoise = null;
+            }
         }
     }
 
@@ -107,6 +146,7 @@ public class Tapper : MonoBehaviour {
             {
                 //Make Noise
                 m_currentNoise = m_noiseGenerator.GenerateNoise(m_baseVolume, m_expiryDelay, NoiseIdentifier.UserTap);
+                
                 m_tapCount = 1;
             }
             else
@@ -122,6 +162,8 @@ public class Tapper : MonoBehaviour {
             m_lastTapTime = Time.time;
         }
     }
+
+
 
     //private void MoveLure()
     //{

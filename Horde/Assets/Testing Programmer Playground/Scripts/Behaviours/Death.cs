@@ -30,7 +30,7 @@ public class Death : BaseBehaviour
 
         if (m_nav)
         {
-            //m_nav.Stop();
+            m_nav.Stop();
             //Debug.Log("Sleep");
             //m_nav.enabled = false;
         }

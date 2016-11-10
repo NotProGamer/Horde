@@ -50,7 +50,7 @@ public class ZombieBrain : MonoBehaviour {
 
     public void OnEnable()
     {
-        m_reanimating = true;
+        m_reanimating = false; // change this to true;
     }
     void Awake()
     {

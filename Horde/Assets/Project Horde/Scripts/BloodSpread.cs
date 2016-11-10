@@ -5,7 +5,7 @@ public class BloodSpread : MonoBehaviour
 {
 	Vector3 startSize;
 	Vector3 endSize;
-	//public float duration;
+	public float duration;
 	float despawnTime;
 
 
@@ -28,9 +28,7 @@ public class BloodSpread : MonoBehaviour
 		{
 			gameObject.transform.localScale = new Vector3 (transform.localScale.x + 0.0002f, transform.localScale.y + 0.0002f, transform.localScale.z + 0.0002f);
 			
-		} 
-
-		/*
+		}
 		else if (transform.localScale.x > endSize.x) 
 		{
 			despawnTime = Time.time + duration;
@@ -39,8 +37,8 @@ public class BloodSpread : MonoBehaviour
 
 		if (Time.time > despawnTime && transform.localScale.x > endSize.x) 
 		{
-			gameObject.SetActive (false);
+            gameObject.transform.localScale = startSize;
+            gameObject.SetActive (false);
 		}
-		*/
 	}
 }

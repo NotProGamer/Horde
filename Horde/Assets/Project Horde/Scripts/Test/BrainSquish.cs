@@ -7,6 +7,7 @@ public class BrainSquish : MonoBehaviour
     private UserController m_userController = null;
     public AudioClip squish;
     AudioSource audio;
+    public ParticleSystem blood;
 
     // Use this for initialization
     void Start()
@@ -39,6 +40,8 @@ public class BrainSquish : MonoBehaviour
                 pitch = Random.Range(1.0f, 2.0f);
                 audio.pitch = pitch;
                 audio.Play();
+
+                blood.Emit(10);
             }
 
         }

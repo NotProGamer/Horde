@@ -14,7 +14,7 @@ public class Death : BaseBehaviour
         }
 
         m_nav = m_parent.GetComponent<NavMeshAgent>();
-        if (m_nav)
+        if (m_nav == null)
         {
             Debug.Log("NavMeshAgent not included");
         }

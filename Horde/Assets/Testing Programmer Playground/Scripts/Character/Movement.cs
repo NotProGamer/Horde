@@ -81,6 +81,7 @@ public class Movement : MonoBehaviour {
     {
         if (m_nav)
         {
+            m_nav.Resume();
             if (m_currentDestination != position)
             {
                 m_state = State.Moving;

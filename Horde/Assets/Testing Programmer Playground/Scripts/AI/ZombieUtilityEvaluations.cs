@@ -40,6 +40,7 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
 
     private ZombieBrain m_zombieBrainScript = null;
+    private ZombieMovement m_zombieMovementScript = null;
     private GameObject m_gameController = null;
     private NoiseManager m_noiseManagerScript = null;
     public UtilityMath.UtilityValue m_enemyInSightFormula; // Done
@@ -79,6 +80,13 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
         {
             Debug.Log("ZombieBrain no included");
         }
+
+        m_zombieMovementScript = GetComponent<ZombieMovement>();
+        if (m_zombieBrainScript == null)
+        {
+            Debug.Log("ZombieMovement no included");
+        }
+        
 
         m_gameController = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
 
@@ -220,7 +228,13 @@ public class ZombieUtilityEvaluations : MonoBehaviour {
 
             m_canNotHearNoiseFormula.SetValue(m_zombieBrainScript.GetAudibleNoiseCount());
             m_isNotAggressiveFormula.SetValue(System.Convert.ToInt32(m_zombieBrainScript.IsAggressive()));
-            m_isReanimatingFormula.SetValue(System.Convert.ToInt32(m_zombieBrainScript.m_reanimating));
+
+            
+        }
+
+        if (m_zombieMovementScript)
+        {
+            m_isReanimatingFormula.SetValue(System.Convert.ToInt32(m_zombieMovementScript.m_animateReanimation));
         }
     }
 

@@ -10,6 +10,21 @@ public class ZombieMovement : Movement
     public Animator m_anim = null;
     private ZombieUtilityAI m_zombieUtilityAIScript = null;
 
+
+    public bool m_animateReanimation = true; // change this to true
+
+    public void EndReanimationBehaviour()
+    {
+        m_animateReanimation = false;
+        m_nav.Resume();
+    }
+
+    public void OnEnable()
+    {
+        m_animateReanimation = true; // change this to true;
+    }
+
+
     new void Awake()
     {
         base.Awake();

@@ -3321,7 +3321,7 @@ Animator:
   m_GameObject: {fileID: 1000010373173390}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4c1a716ffa6fc504bb3535b8986e1ea2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 18f7f247dae12b04f97581a1e0a8f4aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: fc474f53cbe5590448bbebb580db2d3d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3374,7 +3374,6 @@ MonoBehaviour:
   m_currentBoredom: 0
   m_boredomIncrementTimer: 1
   m_boredomIncrementDelay: 2
-  m_reanimating: 1
   m_gluttonSettings:
     m_vomitToxin: 0
     m_vomitLevel: 1
@@ -3402,6 +3401,7 @@ MonoBehaviour:
     m_wander: 3
     m_idle: 0
     m_death: 0
+    m_reanimating: 0
     m_updateFromInspector: 1
 --- !u!114 &114000011189654870
 MonoBehaviour:
@@ -3490,6 +3490,7 @@ MonoBehaviour:
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000013296444862}
+  m_animateReanimation: 1
 --- !u!114 &114000012172297704
 MonoBehaviour:
   m_ObjectHideFlags: 1

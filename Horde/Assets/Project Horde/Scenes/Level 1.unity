@@ -8766,34 +8766,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012711269346, guid: 4c89288492b71544f8a24e0cb7c8e23f,
     type: 2}
   m_PrefabInternal: {fileID: 870599815}
---- !u!1 &189329321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 189329322}
-  m_Layer: 0
-  m_Name: PlusZombieIcon Pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &189329322
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189329321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1833740195}
-  m_RootOrder: 4
 --- !u!1001 &189338657
 Prefab:
   m_ObjectHideFlags: 0
@@ -14958,6 +14930,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000013052185692, guid: 1ea8c63899f461c45b804314d9cdfdd2,
     type: 2}
   m_PrefabInternal: {fileID: 1197491525}
+--- !u!224 &387316098 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224000012967039758, guid: 1ea8c63899f461c45b804314d9cdfdd2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1197491525}
 --- !u!114 &387316101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19351,6 +19328,39 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 492690, guid: 8141133165b276f4dbbae9c603dd336a, type: 2}
   m_PrefabInternal: {fileID: 1324553864}
+--- !u!1 &509204331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 509204332}
+  m_Layer: 5
+  m_Name: PlusZombieIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &509204332
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509204331}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 797461110}
+  m_RootOrder: 8
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &510980288
 Prefab:
   m_ObjectHideFlags: 0
@@ -19746,7 +19756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 797461110}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -44596,7 +44606,7 @@ Prefab:
     - target: {fileID: 224000013832796640, guid: 1ea8c63899f461c45b804314d9cdfdd2,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 59.1
+      value: 59.100098
       objectReference: {fileID: 0}
     - target: {fileID: 1000011903852104, guid: 1ea8c63899f461c45b804314d9cdfdd2, type: 2}
       propertyPath: m_TagString
@@ -44632,6 +44642,34 @@ Prefab:
       propertyPath: lose
       value: 
       objectReference: {fileID: 2022489489}
+    - target: {fileID: 1000013052185692, guid: 1ea8c63899f461c45b804314d9cdfdd2, type: 2}
+      propertyPath: m_Name
+      value: Horde Count
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013052185692, guid: 1ea8c63899f461c45b804314d9cdfdd2, type: 2}
+      propertyPath: m_TagString
+      value: HordeCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011317117684, guid: 1ea8c63899f461c45b804314d9cdfdd2,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013019548202, guid: 1ea8c63899f461c45b804314d9cdfdd2,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010968349428, guid: 1ea8c63899f461c45b804314d9cdfdd2,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013832796640, guid: 1ea8c63899f461c45b804314d9cdfdd2,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ea8c63899f461c45b804314d9cdfdd2, type: 2}
   m_IsPrefabParent: 0
@@ -53151,7 +53189,7 @@ RectTransform:
   - {fileID: 426619301}
   - {fileID: 1487253252}
   m_Father: {fileID: 797461110}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 12, y: -6}
@@ -57537,7 +57575,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1833740195}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1001 &1570904804
 Prefab:
   m_ObjectHideFlags: 0
@@ -64081,6 +64119,7 @@ GameObject:
   - 114: {fileID: 1754332486}
   - 114: {fileID: 1754332494}
   - 114: {fileID: 1754332493}
+  - 114: {fileID: 1754332489}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -64195,18 +64234,33 @@ MonoBehaviour:
     m_size: 50
     m_willGrow: 1
     m_container: {fileID: 1895583276}
-  - m_identifier: PlusZombieIcon
-    m_prefab: {fileID: 1000012275987376, guid: ed95982a7494c78449223e585086afe2, type: 2}
-    m_pool: []
-    m_size: 50
-    m_willGrow: 1
-    m_container: {fileID: 189329321}
   - m_identifier: Beacon
     m_prefab: {fileID: 1000012888455640, guid: dc3f859851ab0d645a9d0d415b2c2ae4, type: 2}
     m_pool: []
     m_size: 20
     m_willGrow: 1
-    m_container: {fileID: 189329321}
+    m_container: {fileID: 0}
+  - m_identifier: NewZombieIcon
+    m_prefab: {fileID: 1000011227537800, guid: 9c9c711826099104b8823a2680782559, type: 2}
+    m_pool: []
+    m_size: 20
+    m_willGrow: 1
+    m_container: {fileID: 509204331}
+--- !u!114 &1754332489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1754332485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7a2c30a8e8bed4abcb6a36778f717e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plusZombieIcon: {fileID: 1000011227537800, guid: 9c9c711826099104b8823a2680782559,
+    type: 2}
+  m_target: {fileID: 387316098}
+  m_canvasRect: {fileID: 797461110}
 --- !u!114 &1754332490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67101,7 +67155,6 @@ Transform:
   - {fileID: 793677794}
   - {fileID: 2039835511}
   - {fileID: 1895583277}
-  - {fileID: 189329322}
   - {fileID: 1570660043}
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -72413,7 +72466,7 @@ RectTransform:
   - {fileID: 744928400}
   - {fileID: 1798352336}
   m_Father: {fileID: 797461110}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 12.000061, y: -5.9999084}

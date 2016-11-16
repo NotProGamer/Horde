@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -64771,8 +64771,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_state: 5
+  m_lastDrag:
+    m_start: {x: 0, y: 0}
+    m_end: {x: 0, y: 0}
   m_mouseMovementThreshold: 0.5
   m_touchMovementThreshold: 50
+  m_touchedObject:
+    m_gameObject: {fileID: 0}
+    hitPosition: {x: 0, y: 0, z: 0}
+  m_tappedObject:
+    m_gameObject: {fileID: 0}
+    hitPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2000587551
 MonoBehaviour:
   m_ObjectHideFlags: 0

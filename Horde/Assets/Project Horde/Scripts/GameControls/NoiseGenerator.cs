@@ -82,6 +82,7 @@ public class NoiseGenerator : MonoBehaviour {
         if (m_noiseManager)
         {
             noise = m_noiseManager.Add(transform.position, volume, expiryDelay, identifier);
+            m_noiseManager.SpawnBeacon(noise);
             m_myNoises.Add(noise);
         }
         return noise;

@@ -3,11 +3,26 @@ using System.Collections;
 
 public class GunTest : MonoBehaviour
 {
+    public GameObject human;
+    HumanAttack attack;
+    Transform target;
+
+    void Awake()
+    {
+        gunLine = GetComponent<LineRenderer>();
+        attack = human.GetComponent<HumanAttack>();
+    }
+
+
+
     public class Bullet
     {
         public Vector3 start;
         public Vector3 end;
         public float t; // value between 0 (start) and 1 (end)
+
+
+       
 
         public void Update(LineRenderer lr)
         {
@@ -20,7 +35,7 @@ public class GunTest : MonoBehaviour
 
     Bullet bullet = new Bullet();
 
-    GameObject target;
+    
 
     public float range;
 
@@ -32,16 +47,6 @@ public class GunTest : MonoBehaviour
     LineRenderer gunLine;
     float effectsDisplayTime = 0.4f;
 
-
-
-    void Awake ()
-    {
-        target = GameObject.FindGameObjectWithTag ("Zombie");
-        gunLine = GetComponent<LineRenderer>();
-    }
-
-
-
     void Start ()
     {
      
@@ -50,23 +55,10 @@ public class GunTest : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        timer += Time.deltaTime;
-
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
-        {
-            target = GameObject.FindGameObjectWithTag("Zombie");
-            Fire();
-        }
         bullet.Update(gunLine);
-
-        //if (timer >= timeBetweenBullets * effectsDisplayTime)
-        //{
-        //    DisableEffects();
-        //}
-	
 	}
 
-    void Fire()
+    public void Fire()
     {
         timer = 0f;
 

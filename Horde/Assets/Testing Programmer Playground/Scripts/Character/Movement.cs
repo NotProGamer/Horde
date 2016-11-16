@@ -37,6 +37,8 @@ public class Movement : MonoBehaviour {
 
     }
 
+
+    bool test = false;
     // Update is called once per frame
     protected void Update()
     {
@@ -46,9 +48,15 @@ public class Movement : MonoBehaviour {
             {
                 m_state = State.Idle;
             }
+
+            //transform.LookAt(m_currentDestination, Vector3.up);
+            if (test)
+            {
+                transform.LookAt(m_currentDestination, Vector3.up);
+            }
         }
 
-        
+
     }
 
     void MoveToPartialPath()
@@ -73,6 +81,7 @@ public class Movement : MonoBehaviour {
     {
         if (m_nav)
         {
+            m_nav.Resume();
             if (m_currentDestination != position)
             {
                 m_state = State.Moving;
@@ -86,6 +95,7 @@ public class Movement : MonoBehaviour {
                 transform.LookAt(m_currentDestination);
 
                 m_nav.SetDestination(m_currentDestination);
+                test = true;
             }
 
             //if (m_currentDestination != position)

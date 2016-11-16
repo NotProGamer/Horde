@@ -45,6 +45,17 @@ public class CameraTargetMovement : MonoBehaviour {
     {
         if (m_userController != null)
         {
+            if (m_userController.m_state != UserControllerState.Idle)
+            {
+                if (m_userController.m_touchedObject.m_gameObject != null)
+                {
+                    if (m_userController.m_touchedObject.m_gameObject.CompareTag(Labels.Tags.Beacon))
+                    {
+                        return; // early exit
+                    }
+                }
+            }
+
             if (m_userController.m_state == UserControllerState.Touched)
             {
                 StartMove();

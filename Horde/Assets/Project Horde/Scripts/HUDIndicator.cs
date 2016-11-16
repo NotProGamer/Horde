@@ -106,7 +106,7 @@ public class HUDIndicator : MonoBehaviour
                 UI_Element.eulerAngles = new Vector3(0, 0, 270.0f + (180.0f / 3.1415f * Mathf.Atan2(WorldObject_ScreenPosition.y, WorldObject_ScreenPosition.x)));
 
             desiredAlpha = 1.0f;
-            if (!offScreen && m_indicatorType == IndicatorType.Human)
+            if (!offScreen && m_indicatorType == IndicatorType.Human || !offScreen && m_indicatorType == IndicatorType.SafeZone)
                 desiredAlpha = 0;
 
             float alpha = icon.color.a;

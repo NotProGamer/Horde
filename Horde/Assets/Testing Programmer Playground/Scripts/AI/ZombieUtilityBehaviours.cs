@@ -13,6 +13,7 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
         Chase,
         GoToUserTap,
         Death,
+        Reanimating,
     }
 
     private Dictionary<BehaviourNames, BaseBehaviour> m_behaviours = new Dictionary<BehaviourNames, BaseBehaviour>();
@@ -27,6 +28,7 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
         BaseBehaviour investigate = new GoToMemoryLocation(this.gameObject, Labels.Memory.LastPriorityNoise);
         BaseBehaviour death = new Death(this.gameObject);
         BaseBehaviour chase = new Chase(this.gameObject, Labels.Memory.ClosestEnemy);
+        BaseBehaviour reanimate = new Reanimating(this.gameObject);
 
         m_behaviours.Add(BehaviourNames.Idle, idle);
         m_behaviours.Add(BehaviourNames.Wander, wander);
@@ -35,6 +37,7 @@ public class ZombieUtilityBehaviours : MonoBehaviour {
         m_behaviours.Add(BehaviourNames.Devour, devour);
         m_behaviours.Add(BehaviourNames.Chase, chase);
         m_behaviours.Add(BehaviourNames.Investigate, investigate);
+        m_behaviours.Add(BehaviourNames.Reanimating, reanimate);
     }
 
     // Update is called once per frame

@@ -33,6 +33,7 @@ public class Noise
     public NoiseIdentifier m_identifier = NoiseIdentifier.Silent;
     public float m_timeCreated = 0f;
     public float m_timeExpiry = 0f;
+    private float m_timeExpiryDelay = 0f;
     //public float m_reductionOverTime;
     //private NoisePriority m_priority = NoisePriority.NoPriority;
     //private static int m_id = 0;
@@ -47,8 +48,14 @@ public class Noise
         m_volume = volume;
         m_identifier = identifier;
         m_timeCreated = Time.time;
-        m_timeExpiry = Time.time + expirationDelay;
+        m_timeExpiryDelay = expirationDelay;
+        ResetExpiry(); //m_timeExpiry = Time.time + expirationDelay;
         //m_id += 1; 
+    }
+
+    public void ResetExpiry()
+    {
+        m_timeExpiry = Time.time + m_timeExpiryDelay;
     }
 
     public bool IsExpired()
@@ -430,7 +437,8 @@ public class NoiseManager : MonoBehaviour
         if (identifier == NoiseIdentifier.UserTap)
         {
             noise = m_userTapLibrary.Add(position, volume, expirationDelay, identifier);
-            SpawnNoiseVisualisation(noise);
+            //SpawnNoiseVisualisation(noise);
+            //SpawnBeacon(noise);
             return noise;
         }
         else
@@ -460,6 +468,30 @@ public class NoiseManager : MonoBehaviour
             if (noiseVis != null)
             {
                 noiseVis.SetNoise(noise);
+            }
+        }
+
+    }
+
+    public void SpawnBeacon(Noise noise)
+    {
+        if (noise != null)
+        {
+            //GameObject obj = Instantiate(m_noiseTemplate) as GameObject;
+            GameObject obj = m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Beacon, noise.m_position);
+
+            if (obj != null)
+            {
+                BeaconMovement beaconMovementScript = obj.GetComponent<BeaconMovement>();
+                if (beaconMovementScript != null)
+                {
+                    beaconMovementScript.SetNoise(noise);
+                }
+                //NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
+                //if (noiseVis != null)
+                //{
+                //    noiseVis.SetNoise(noise);
+                //}
             }
         }
 

@@ -8766,6 +8766,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012711269346, guid: 4c89288492b71544f8a24e0cb7c8e23f,
     type: 2}
   m_PrefabInternal: {fileID: 870599815}
+--- !u!1 &189329321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 189329322}
+  m_Layer: 0
+  m_Name: PlusZombieIcon Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &189329322
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 189329321}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1833740195}
+  m_RootOrder: 4
 --- !u!1001 &189338657
 Prefab:
   m_ObjectHideFlags: 0
@@ -33239,6 +33267,22 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 459516, guid: 532b5394ceb2e3e4ba81428c03f30091, type: 2}
   m_PrefabInternal: {fileID: 855342808}
+--- !u!1 &855514576 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000011894944338, guid: 885696f5d995a734eaf992a1e398d481,
+    type: 2}
+  m_PrefabInternal: {fileID: 410108076}
+--- !u!114 &855514577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855514576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c636643b072f6ea4c96b7b562252d55c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &857345879
 Prefab:
   m_ObjectHideFlags: 0
@@ -64136,6 +64180,12 @@ MonoBehaviour:
     m_size: 50
     m_willGrow: 1
     m_container: {fileID: 1895583276}
+  - m_identifier: PlusZombieIcon
+    m_prefab: {fileID: 1000012275987376, guid: ed95982a7494c78449223e585086afe2, type: 2}
+    m_pool: []
+    m_size: 50
+    m_willGrow: 1
+    m_container: {fileID: 189329321}
 --- !u!114 &1754332490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67030,6 +67080,7 @@ Transform:
   - {fileID: 793677794}
   - {fileID: 2039835511}
   - {fileID: 1895583277}
+  - {fileID: 189329322}
   m_Father: {fileID: 0}
   m_RootOrder: 9
 --- !u!1001 &1834207810

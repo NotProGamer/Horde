@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692558, g: 0.49678743, b: 0.57508624, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -59015,7 +59015,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoiseVis: {fileID: 1778806419}
   height: 0.51
-  NoiseRadius: 0
 --- !u!114 &1778806422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59034,6 +59033,12 @@ MonoBehaviour:
   maxRadius: 5
   minRadius: 1
   incrementDelay: 0.05
+  m_noise:
+    m_position: {x: 0, y: 0, z: 0}
+    m_volume: 0
+    m_identifier: 0
+    m_timeCreated: 0
+    m_timeExpiry: 0
 --- !u!120 &1778806423
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -65817,6 +65822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a0aaf8c3fc52f42a6c411b90028353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_noiseTemplate: {fileID: 0}
   m_maxVolume: 100
   m_noiseLibrary:
     m_noises: []
@@ -65861,8 +65867,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_state: 5
+  m_lastDrag:
+    m_start: {x: 0, y: 0}
+    m_end: {x: 0, y: 0}
   m_mouseMovementThreshold: 0.5
   m_touchMovementThreshold: 50
+  m_touchedObject:
+    m_gameObject: {fileID: 0}
+    hitPosition: {x: 0, y: 0, z: 0}
+  m_tappedObject:
+    m_gameObject: {fileID: 0}
+    hitPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2000587551
 MonoBehaviour:
   m_ObjectHideFlags: 0

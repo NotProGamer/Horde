@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class ObjectiveUpdater : MonoBehaviour
 {
 
-    /*test
-    WaypointManager wm;
-    */
 
     public string m_identifer = "";
     public string m_objectiveCompletedText = "";

@@ -31,9 +31,11 @@ GameObject:
   - 114: {fileID: 114000013919523470}
   - 114: {fileID: 114000012730503968}
   - 114: {fileID: 114000010557428918}
+  - 114: {fileID: 114000013086761540}
+  - 114: {fileID: 114000012477912772}
   m_Layer: 8
-  m_Name: CTD_AIDictator 1
-  m_TagString: ZombieDictator
+  m_Name: Screamer
+  m_TagString: ZombieScreamer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 27.5, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -277,6 +279,7 @@ MonoBehaviour:
     m_wander: 3
     m_idle: 0
     m_death: 0
+    m_reanimating: 0
     m_updateFromInspector: 1
 --- !u!114 &114000011189654870
 MonoBehaviour:
@@ -373,6 +376,18 @@ MonoBehaviour:
   - {fileID: 23000010405437338}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
+--- !u!114 &114000012477912772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011324950992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6123bfbb0247f247855f95216f7a46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_testAbonormalAbility: 0
 --- !u!114 &114000012730503968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -468,6 +483,10 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
+  m_isReanimatingFormula:
+    m_value: 0
+    m_normalisedValue: 0
+    m_normalisationType: 0
 --- !u!114 &114000013040897110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -483,6 +502,23 @@ MonoBehaviour:
   m_damage: 10
   m_attackRange: 10
   m_anim: {fileID: 0}
+--- !u!114 &114000013086761540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011324950992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ea642bcf2bf014d8c8e9c002540113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cleanUpMyExpiredNoises: 0
+  m_volume: 10
+  m_delay: 0.5
+  m_screams: 5
+  m_screamCounter: 0
+  m_screaming: 0
 --- !u!114 &114000013919523470
 MonoBehaviour:
   m_ObjectHideFlags: 1

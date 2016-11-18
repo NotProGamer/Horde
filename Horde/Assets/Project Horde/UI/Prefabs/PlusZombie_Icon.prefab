@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013981733754}
   - 212: {fileID: 212000014262770592}
+  - 114: {fileID: 114000010071437006}
   m_Layer: 0
   m_Name: PlusZombie_Icon
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010071437006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012275987376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865aa12a71151a64d939bfc7c911f244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!212 &212000014262770592
 SpriteRenderer:
   m_ObjectHideFlags: 1

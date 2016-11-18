@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlusZombieIcon : MonoBehaviour
+public class SpawnZombieIcon : MonoBehaviour
 {
     ObjectPoolManager objectPool;
     GameObject manager;
     Health hp;
     bool dead = false;
 
-    int health;
+    //int health;
 
     Vector3 offSet = new Vector3(0, 1, 0);
 
@@ -17,13 +17,13 @@ public class PlusZombieIcon : MonoBehaviour
     {
         manager = GameObject.FindGameObjectWithTag("GameController");
 
-        if (manager)
-        {
-            objectPool = manager.GetComponent<ObjectPoolManager>();
-        }
+        //if (manager)
+        //{
+        //    objectPool = manager.GetComponent<ObjectPoolManager>();
+        //}
 
         hp = GetComponent<Health>();
-        health = hp.m_maxHealth;
+        //health = hp.m_maxHealth;
     }
 	
 	// Update is called once per frame
@@ -32,8 +32,9 @@ public class PlusZombieIcon : MonoBehaviour
         if (hp.IsDead() == true && dead == false)
         {
             dead = true;
-            objectPool.RequestObjectAtPosition("PlusZombieIcon", transform.position + offSet);
-            Debug.Log("PlusZombieIcon");
+            // call PlusZombieManager.SpawnHand(gameObject.transform.position)
+            manager.GetComponent<PlusZombieManager>().SpawnHand(transform.position/* + offSet*/);
+
         }
     }
 }

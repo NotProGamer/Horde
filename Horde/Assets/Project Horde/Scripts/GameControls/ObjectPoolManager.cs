@@ -124,4 +124,16 @@ public class ObjectPoolManager : MonoBehaviour {
         
         return obj;
     }
+    public GameObject RequestObjectAtPosition(string identifer, Vector2 position)
+    {
+        GameObject obj = RequestObject(identifer);
+
+        if (obj != null)
+        {
+            obj.GetComponent<RectTransform>().position = position;
+            obj.SetActive(true);
+        }
+
+        return obj;
+    }
 }

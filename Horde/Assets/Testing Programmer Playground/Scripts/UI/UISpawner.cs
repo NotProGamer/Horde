@@ -23,7 +23,7 @@ public class UISpawner : MonoBehaviour {
     {
         GameObject test = Instantiate(m_zombieHandPrefab, gameObject.transform) as GameObject;
         test.GetComponent<RectTransform>().anchoredPosition = position;
-        test.GetComponent<MoveUISprite>().SetTarget(m_zombieHandTarget);
+        //test.GetComponent<MoveUISprite>().SetTarget(m_zombieHandTarget);
     }
 
     public void GenerateGlob(Vector3 position)

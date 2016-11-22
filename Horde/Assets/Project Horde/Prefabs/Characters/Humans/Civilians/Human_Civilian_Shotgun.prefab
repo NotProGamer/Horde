@@ -1258,10 +1258,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011355652148}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.0569525, y: 0.5348782, z: -4.236605}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013018892918}
   - {fileID: 4000013108673312}
@@ -2320,8 +2320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19bdecec9d1061e4c9ca55c4723d3e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_delay: 0.5
-  m_damage: 40
+  m_delay: 1
+  m_damage: 100
   m_attackRange: 10
   m_anim: {fileID: 95000010719992994}
 --- !u!114 &114000013666022788
@@ -2338,7 +2338,7 @@ MonoBehaviour:
   m_boredom: 29
   m_boredomMaximum: 10
   m_morale:
-    m_fleeOdds: 3
+    m_fleeOdds: 20
   m_sight:
     m_range: 10
     m_mask:

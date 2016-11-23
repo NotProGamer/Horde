@@ -10,13 +10,12 @@ GameObject:
   - 4: {fileID: 465484}
   - 33: {fileID: 3397298}
   - 23: {fileID: 2319078}
-  - 95: {fileID: 9517206}
   m_Layer: 0
   m_Name: Fence_GraveyardStraight_Mod_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 26
   m_IsActive: 1
 --- !u!4 &465484
 Transform:
@@ -24,8 +23,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152694}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 111.08522, y: 0.5, z: -92.82302}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: -35.213, y: 0.496, z: 13.398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -70,23 +69,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152694}
   m_Mesh: {fileID: 4300000, guid: 9de43027dd02cbb48a975f00b081fa05, type: 3}
---- !u!95 &9517206
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 152694}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9de43027dd02cbb48a975f00b081fa05, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -277,7 +277,7 @@ public class AssignmentRequestor : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay/*OnTriggerEnter*/(Collider other)
     {
         if (Labels.Tags.IsHuman(other.gameObject))
         {

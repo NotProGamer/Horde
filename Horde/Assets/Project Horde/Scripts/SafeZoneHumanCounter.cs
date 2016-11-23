@@ -12,6 +12,8 @@ public class SafeZoneHumanCounter : MonoBehaviour
     public bool displaySurvivors;
     public bool survivorsDisplayed;
 
+    public int humansKilled = 0;
+
     WaypointManager wm;
 
 
@@ -32,8 +34,9 @@ public class SafeZoneHumanCounter : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        int humansKilled = 0;
+        humansKilled = 0;
 
+        
         foreach (GameObject item in m_humans)
         {
             Health health = item.GetComponent<Health>();
@@ -43,7 +46,7 @@ public class SafeZoneHumanCounter : MonoBehaviour
                 wm.RemoveTransform(item.transform);
             }
         }
-
+        
         if (humansKilled >= (m_counter*survivingPercentage))
         {
             displaySurvivors = true;

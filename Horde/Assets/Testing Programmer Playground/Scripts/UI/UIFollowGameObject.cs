@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class UIFollowGameObject : MonoBehaviour {
@@ -6,12 +7,18 @@ public class UIFollowGameObject : MonoBehaviour {
     public GameObject m_target = null;
     //public GameObject m_target = null;
 
-
-    // Use this for initialization
-    void Start ()
+    public Sprite m_onScreenSprite = null;
+    public Sprite m_offScreenSprite = null;
+    private Image m_image = null;
+    void Awake()
     {
-	
-	}
+        m_image = GetComponent<Image>();
+        if (m_image == null)
+        {
+            Debug.Log("Image not included.");
+        }
+    }
+
 	
 	// Update is called once per frame
 	void Update ()
@@ -33,6 +40,8 @@ public class UIFollowGameObject : MonoBehaviour {
             {
                 // set onscreen indicator
                 transform.GetComponent<RectTransform>().position = screenPos;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                m_image.sprite = m_onScreenSprite;
             }
             else
             {
@@ -92,6 +101,8 @@ public class UIFollowGameObject : MonoBehaviour {
                 screenPos += screenCentre;
 
                 transform.GetComponent<RectTransform>().position = screenPos;
+                transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
+                m_image.sprite = m_offScreenSprite;
             }
 
             

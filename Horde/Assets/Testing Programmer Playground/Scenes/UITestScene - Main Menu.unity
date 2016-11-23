@@ -872,6 +872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 2072910998}
+  m_onScreenSprite: {fileID: 21300000, guid: 2c261cc7d126c21439fd380696539482, type: 3}
+  m_offScreenSprite: {fileID: 21300000, guid: b5264a2c35df4104ea0853064b5267b2, type: 3}
 --- !u!1 &341218079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,17 +1483,22 @@ Prefab:
     - target: {fileID: 114000012773200628, guid: 704d3a39d7526894dabb4981fc2adb0d,
         type: 2}
       propertyPath: m_Color.r
-      value: 0.11496238
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000012773200628, guid: 704d3a39d7526894dabb4981fc2adb0d,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.60294116
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000012773200628, guid: 704d3a39d7526894dabb4981fc2adb0d,
         type: 2}
       propertyPath: m_Color.b
-      value: 0.09753458
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012773200628, guid: 704d3a39d7526894dabb4981fc2adb0d,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 704d3a39d7526894dabb4981fc2adb0d, type: 2}
@@ -2171,7 +2178,7 @@ GameObject:
   - 222: {fileID: 1024557429}
   - 114: {fileID: 1024557428}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Safe Zone Progress Bar - Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -52,7 +52,15 @@ public class Movement : MonoBehaviour {
             //transform.LookAt(m_currentDestination, Vector3.up);
             if (test)
             {
-                transform.LookAt(m_currentDestination, Vector3.up);
+                if (m_currentDestination != transform.position)
+                {
+                    Vector3 lookTarget = m_currentDestination;
+                    lookTarget.y = transform.position.y;
+
+                    transform.LookAt(lookTarget, Vector3.up);
+                }
+
+                //transform.LookAt(m_currentDestination, Vector3.up);
             }
         }
 

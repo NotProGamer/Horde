@@ -378,6 +378,33 @@ public class ZombieBrain : MonoBehaviour {
         return result;
     }
 
+    public bool CurrentTargetIsExpiredNoise()
+    {
+        bool result = false;
+        object currentTarget = null;
+        if (m_memory.TryGetValue(Labels.Memory.CurrentTarget, out currentTarget))
+        {
+            if (currentTarget != null)
+            {
+                System.Type t = currentTarget.GetType();
+                if (t == typeof(Noise))
+                {
+                    result = ((Noise)currentTarget).IsExpired();
+                }
+            }
+            else
+            {
+                //Debug.Log("memory location '" + Labels.Memory.CurrentTarget + "' set to null");
+            }
+        }
+        else
+        {
+            Debug.Log("Unable to find '" + Labels.Memory.CurrentTarget + "'");
+        }
+        return result;
+    }
+
+
     public bool GetObjectPosition(string memoryLabel, out Vector3 pPosition)
     {
         bool result = false;

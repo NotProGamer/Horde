@@ -43,7 +43,7 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
         if (m_movementScript)
         {
 
-            if (InRangeOfCurrentTarget() || IfStuck())
+            if (CurrentTargetIsExpiredNoise() || InRangeOfCurrentTarget() || IfStuck())
             {
                 m_zombieBrainScript.ClearMemoryLocation(m_memoryLocation);
                 //Debug.Log("Reached Destination Forgetting LastTap");
@@ -94,6 +94,16 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
                 result = true;
             }
         }
+        return result;
+    }
+
+    bool CurrentTargetIsExpiredNoise()
+    {
+        bool result = false;
+
+
+        result = m_zombieBrainScript.CurrentTargetIsExpiredNoise() && m_zombieBrainScript.GetTapInterest() <= 0;
+
         return result;
     }
 }

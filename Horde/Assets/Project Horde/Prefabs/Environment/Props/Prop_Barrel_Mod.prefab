@@ -22,9 +22,13 @@ GameObject:
   - 33: {fileID: 33000011903567586}
   - 23: {fileID: 23000011376666976}
   - 95: {fileID: 95000013038733698}
-  m_Layer: 0
+  - 65: {fileID: 65000012848085400}
+  - 208: {fileID: 208000011927021396}
+  - 114: {fileID: 114000013813633354}
+  - 114: {fileID: 114000014172296752}
+  m_Layer: 2
   m_Name: Prop_Barrel_Mod
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 40
@@ -79,6 +83,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010405072964}
   m_Mesh: {fileID: 4300000, guid: ff01c56112f9cb34793ac07dbc9731f4, type: 3}
+--- !u!65 &65000012848085400
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010405072964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0161972, y: 1.4999999, z: 1.0684927}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95000013038733698
 Animator:
   serializedVersion: 3
@@ -96,3 +112,53 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000013813633354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010405072964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27701eea29a0f4c4981ffae7eaded9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gateParts:
+  - {fileID: 1000010405072964}
+--- !u!114 &114000014172296752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010405072964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 75
+  m_health: 75
+  m_healToFullOnStart: 1
+  m_vulnerable: 1
+  m_disableOnDeath: 0
+  m_enableDamageEffects: 1
+  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
+  m_meshRendererList:
+  - {fileID: 23000011376666976}
+  m_skinnedMeshRendererList: []
+  m_extendTurnTimerIfBeingDevoured: 1
+--- !u!208 &208000011927021396
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010405072964}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.508, y: 0.75000006, z: 0.53400004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

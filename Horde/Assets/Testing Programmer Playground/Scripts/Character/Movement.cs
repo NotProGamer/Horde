@@ -54,10 +54,12 @@ public class Movement : MonoBehaviour {
             {
                 if (m_currentDestination != transform.position)
                 {
-                    Vector3 lookTarget = m_currentDestination;
-                    lookTarget.y = transform.position.y;
+                    //Vector3 lookTarget = m_currentDestination;
+                    //lookTarget.y = transform.position.y;
 
-                    transform.LookAt(lookTarget, Vector3.up);
+                    //transform.LookAt(lookTarget, Vector3.up);
+
+                    FaceMovementDirection();
                 }
 
                 //transform.LookAt(m_currentDestination, Vector3.up);
@@ -229,5 +231,13 @@ public class Movement : MonoBehaviour {
     public bool IsMoving()
     {
         return m_nav.velocity.sqrMagnitude != 0;
+    }
+
+    public void FaceMovementDirection()
+    {
+        Vector3 lookTarget = m_nav.steeringTarget;
+        lookTarget.y = transform.position.y;
+        transform.LookAt(lookTarget, Vector3.up);
+
     }
 }

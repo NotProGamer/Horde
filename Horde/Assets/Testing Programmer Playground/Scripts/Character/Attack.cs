@@ -63,9 +63,10 @@ public class Attack : MonoBehaviour {
 
             if (m_currentTarget.transform.position != transform.position)
             {
-                Vector3 lookTarget = m_currentTarget.transform.position;
-                lookTarget.y = transform.position.y;
-                transform.LookAt(lookTarget, Vector3.up);
+                //Vector3 lookTarget = m_currentTarget.transform.position;
+                //lookTarget.y = transform.position.y;
+                //transform.LookAt(lookTarget, Vector3.up);
+                GetComponent<Movement>().FaceMovementDirection();
             }
 
 

@@ -708,6 +708,7 @@ GameObject:
   - 114: {fileID: 114000013086761540}
   - 114: {fileID: 114000012477912772}
   - 114: {fileID: 114000013142522566}
+  - 114: {fileID: 114000012869976500}
   m_Layer: 8
   m_Name: Screamer
   m_TagString: ZombieScreamer
@@ -5047,6 +5048,19 @@ MonoBehaviour:
     m_value: 0
     m_normalisedValue: 0
     m_normalisationType: 0
+--- !u!114 &114000012869976500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011324950992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b878549bff5b5504090b5853eb083a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cleanUpDelay: 3
+  m_cleanUpTime: 0
 --- !u!114 &114000013040897110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5094,6 +5108,7 @@ MonoBehaviour:
   m_touchRange: 1
   m_minSpeed: 3
   m_maxSpeed: 20
+  m_currentAngle: 0
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000013470087594}

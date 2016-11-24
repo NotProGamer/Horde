@@ -62,6 +62,8 @@ public class ClearMemoryLocationWhenDestinationReached : BaseBehaviour {
     private bool IfStuck()
     {
         bool result = false;
+
+        // changed is moving function from speed != 0 to speed < 1f 
         if (!m_movementScript.IsMoving())
         {
             if (lastPosition == m_parent.transform.position)

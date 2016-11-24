@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour {
     public float m_maxSpeed = 20f; // was 10
     protected float m_currentSpeed = 3f;
 
+    private float m_angularVelocity = 0;
+    public float m_currentAngle = 0;
 
     public enum State
     {
@@ -35,6 +37,7 @@ public class Movement : MonoBehaviour {
         m_currentSpeed = m_minSpeed;
         m_currentDestination = transform.position;
 
+        //m_nav.updateRotation = false;
     }
 
 
@@ -59,7 +62,7 @@ public class Movement : MonoBehaviour {
 
                     //transform.LookAt(lookTarget, Vector3.up);
 
-                    FaceMovementDirection();
+                    //FaceMovementDirection();
                 }
 
                 //transform.LookAt(m_currentDestination, Vector3.up);
@@ -67,6 +70,14 @@ public class Movement : MonoBehaviour {
         }
 
 
+    }
+
+    void LateUpdate()
+    {
+        if (m_currentDestination != transform.position)
+        {
+            FaceMovementDirection();
+        }         
     }
 
     void MoveToPartialPath()
@@ -230,14 +241,50 @@ public class Movement : MonoBehaviour {
 
     public bool IsMoving()
     {
-        return m_nav.velocity.sqrMagnitude != 0;
+        //return m_nav.velocity.sqrMagnitude != 0;
+        return m_nav.velocity.sqrMagnitude > 1f;
     }
 
     public void FaceMovementDirection()
     {
-        Vector3 lookTarget = m_nav.steeringTarget;
+        Vector3 lookTarget;
+        if ((transform.position - m_nav.destination).magnitude <= m_nav.stoppingDistance)
+        {
+            lookTarget = m_nav.destination;
+        }
+        else
+        {
+            lookTarget = m_nav.steeringTarget;
+        }
+
+        //lookTarget = m_nav.steeringTarget;
         lookTarget.y = transform.position.y;
-        transform.LookAt(lookTarget, Vector3.up);
+        //transform.LookAt(lookTarget, Vector3.up);
+
+        
+        lookTarget = lookTarget - transform.position;
+        float desiredAngle = Mathf.Rad2Deg * Mathf.Atan2(lookTarget.x, lookTarget.z);
+        //float currentAngle = transform.eulerAngles.y;
+        //float deltaAngle = desiredAngle - currentAngle;
+        //if (deltaAngle > 180)
+        //    deltaAngle -= 360;
+        //if (deltaAngle < -180)
+        //    deltaAngle += 360;
+
+        //if (deltaAngle > 0)
+        //    currentAngle += Mathf.Min(deltaAngle, 1);
+        //if(deltaAngle < 0)
+        //    currentAngle += Mathf.Max(deltaAngle, -1);
+
+        //currentAngle += Mathf.DeltaAngle(currentAngle, Mathf.Lerp(currentAngle, desiredAngle, 0.1f));
+
+        m_currentAngle = Mathf.SmoothDampAngle(m_currentAngle, desiredAngle, ref m_angularVelocity, 0.25f);
+
+        transform.eulerAngles = new Vector3(0, m_currentAngle, 0);
+
+
+        //Quaternion newRot = Quaternion.LookRotation(lookTarget);
+        //transform.rotation = newRot; // Quaternion.Lerp(transform.rotation, newRot, 0.5f);
 
     }
 }

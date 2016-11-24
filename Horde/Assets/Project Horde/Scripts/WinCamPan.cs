@@ -40,7 +40,7 @@ public class WinCamPan : MonoBehaviour
 
         if (objManager.m_objectives.Count - objManager.completedObjectives == 1)
         {
-            Debug.Log("checking remaininghumans");
+            //Debug.Log("checking remaininghumans");
             for (int i = 0; i < safeZoneHumans.Length; i++)
             {
                 if (safeZoneHumans[i].activeInHierarchy)

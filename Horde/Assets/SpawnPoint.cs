@@ -33,7 +33,7 @@ public class SpawnPoint : MonoBehaviour
             {
                 timeSinceLastSpawn = Time.time;
                 objPool.RequestObjectAtPosition(identifier, transform.position);
-                Debug.Log("spawned a dude");
+                //Debug.Log("spawned a dude");
             }
         }
         else

@@ -1026,8 +1026,6 @@ GameObject:
   - 114: {fileID: 114000013552182424}
   - 114: {fileID: 114000013988066600}
   - 114: {fileID: 114000012225572770}
-  - 114: {fileID: 114000011440053270}
-  - 114: {fileID: 114000011139157280}
   m_Layer: 8
   m_Name: Human_Civilian
   m_TagString: Human
@@ -5289,17 +5287,6 @@ MonoBehaviour:
   m_nearbyNoises: []
   m_nearbyAssignments: []
   m_lookingForAssignments: 1
---- !u!114 &114000011139157280
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011894944338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdfd058dedafa324baf090104d9b0f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011368307860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5309,17 +5296,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df8c34b2e33af894f9427bc60e7a2d11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000011440053270
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011894944338}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c636643b072f6ea4c96b7b562252d55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000011805577942
@@ -5500,6 +5476,7 @@ MonoBehaviour:
   m_touchRange: 1
   m_minSpeed: 3
   m_maxSpeed: 10
+  m_currentAngle: 0
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000012788821872}

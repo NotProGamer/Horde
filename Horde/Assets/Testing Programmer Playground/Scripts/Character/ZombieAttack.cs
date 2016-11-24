@@ -56,11 +56,11 @@ public class ZombieAttack : Attack
                     {
                         m_targetHealthCondition.Infect();
                     }
-                    Debug.Log("Hit");
+                    //Debug.Log("Hit");
                 }
                 else
                 {
-                    Debug.Log("Miss");
+                   // Debug.Log("Miss");
                 }
             }
         }

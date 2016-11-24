@@ -10,6 +10,8 @@ public class GateHealthBar : MonoBehaviour
     Image bar;
     Canvas canvas;
 
+    
+
     public Vector3 m_offset = Vector3.zero;
 
     RectTransform CanvasRect = null;

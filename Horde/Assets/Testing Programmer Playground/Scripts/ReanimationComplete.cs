@@ -10,7 +10,7 @@ public class ReanimationComplete : StateMachineBehaviour {
         if (m_zombieMovementScript)
         {
             m_zombieMovementScript.EndReanimationBehaviour();
-            Debug.Log("reanimating zombie ");
+            //Debug.Log("reanimating zombie ");
         }
     }
 }

@@ -36,7 +36,7 @@ public class BloodRequestor : MonoBehaviour
         {
             objectPool.RequestObjectAtPosition("BloodParticle", transform.position + offSet);
             health = hp.m_health;
-            Debug.Log("bleeddding");
+            //Debug.Log("bleeddding");
         }
 
 

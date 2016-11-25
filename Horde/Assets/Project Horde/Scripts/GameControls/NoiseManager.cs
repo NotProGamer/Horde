@@ -487,6 +487,11 @@ public class NoiseManager : MonoBehaviour
                 {
                     beaconMovementScript.SetNoise(noise);
                 }
+                BrainSquish brainSquishScript = obj.GetComponent<BrainSquish>();
+                if (brainSquishScript != null)
+                {
+                    brainSquishScript.Squish();
+                }
                 //NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
                 //if (noiseVis != null)
                 //{

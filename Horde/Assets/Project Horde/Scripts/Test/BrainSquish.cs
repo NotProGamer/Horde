@@ -6,11 +6,10 @@ public class BrainSquish : MonoBehaviour
 
     private UserController m_userController = null;
     public AudioClip squish;
-    AudioSource audio;
+    private AudioSource m_audio = null;
     public ParticleSystem blood;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
         if (obj)
@@ -21,9 +20,19 @@ public class BrainSquish : MonoBehaviour
                 Debug.Log("User Controller not included");
             }
         }
+        m_audio = GetComponent<AudioSource>();
+        if (m_audio)
+        {
+            Debug.Log("AudioSource not included");
+        }
+        
+    }
+    // Use this for initialization
+    void Start()
+    {
 
-        audio = GetComponent<AudioSource>();
-        audio.clip = squish;
+        //audio = GetComponent<AudioSource>();
+        m_audio.clip = squish;
 
 
 
@@ -36,14 +45,36 @@ public class BrainSquish : MonoBehaviour
         {
             if (m_userController.m_state == UserControllerState.Tapped)
             {
-                float pitch;
-                pitch = Random.Range(1.0f, 2.0f);
-                audio.pitch = pitch;
-                audio.Play();
+                //float pitch;
+                //pitch = Random.Range(1.0f, 2.0f);
+                //audio.pitch = pitch;
+                //audio.Play();
 
-                blood.Emit(10);
+                //blood.Emit(10);
+                if (m_userController.m_tappedObject != null)
+                {
+                    if (m_userController.m_tappedObject.m_gameObject == gameObject)
+                    {
+                        Squish();
+                    }
+                }
             }
-
         }
     }
+
+    public void Squish()
+    {
+        float pitch;
+        pitch = Random.Range(1.0f, 2.0f);
+        m_audio.pitch = pitch;
+        m_audio.Play();
+
+        blood.Emit(10);
+    }
+
+    void OnEnable()
+    {
+        Squish();
+    }
+
 }

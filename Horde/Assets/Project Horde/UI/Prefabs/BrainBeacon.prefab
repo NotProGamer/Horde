@@ -39,8 +39,6 @@ GameObject:
   - 33: {fileID: 33000010297982176}
   - 23: {fileID: 23000012232048420}
   - 95: {fileID: 95000010985098772}
-  - 82: {fileID: 82000012064618894}
-  - 114: {fileID: 114000010603637362}
   m_Layer: 0
   m_Name: Prop_Brain_Mod_01
   m_TagString: Untagged
@@ -57,8 +55,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011191894208}
   - 135: {fileID: 135000012207577170}
-  - 114: {fileID: 114000013421715638}
   - 136: {fileID: 136000013091336752}
+  - 82: {fileID: 82000011158246138}
+  - 114: {fileID: 114000013421715638}
+  - 114: {fileID: 114000010461814136}
   m_Layer: 0
   m_Name: BrainBeacon
   m_TagString: Beacon
@@ -241,12 +241,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013160043112}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &82000012064618894
+--- !u!82 &82000011158246138
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012344901498}
+  m_GameObject: {fileID: 1000012888455640}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -332,12 +332,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010603637362
+--- !u!114 &114000010461814136
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012344901498}
+  m_GameObject: {fileID: 1000012888455640}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1567f5bd51cda34abe6e70d3e2dff59, type: 3}

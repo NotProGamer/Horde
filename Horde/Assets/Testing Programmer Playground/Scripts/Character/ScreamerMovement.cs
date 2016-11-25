@@ -22,7 +22,7 @@ public class ScreamerMovement : ZombieMovement {
     //}
 
     // Update is called once per frame
-    new void Update()
+    new protected void Update()
     {
         base.Update();
 

@@ -95,8 +95,9 @@ public class HumanMovement : Movement {
                 //    break;
                 //case HumanBehaviours.BehaviourNames.MoveToEnemy:
                 //    break;
-                //case HumanBehaviours.BehaviourNames.Flee:
-                //    break;
+                case HumanBehaviours.BehaviourNames.Flee:
+                    m_anim.SetBool("Fleeing", false);
+                    break;
                 //case HumanBehaviours.BehaviourNames.SeekCover:
                 //    break;
                 case HumanBehaviours.BehaviourNames.Idle:
@@ -128,8 +129,9 @@ public class HumanMovement : Movement {
                 //    break;
                 //case HumanBehaviours.BehaviourNames.MoveToEnemy:
                 //    break;
-                //case HumanBehaviours.BehaviourNames.Flee:
-                //    break;
+                case HumanBehaviours.BehaviourNames.Flee:
+                    m_anim.SetBool("Fleeing", true);
+                    break;
                 //case HumanBehaviours.BehaviourNames.SeekCover:
                 //    break;
                 case HumanBehaviours.BehaviourNames.Idle:

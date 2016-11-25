@@ -57,7 +57,7 @@ public class ZombieMovement : Movement
     }
 
     // Update is called once per frame
-    new void Update ()
+    new protected void Update ()
     {
         //UpdateAnimation();
         base.Update();

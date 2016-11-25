@@ -8,9 +8,9 @@ public class ZombieMovement : Movement
 
     // references .. parenting on top of monobehaviour, http://answers.unity3d.com/questions/362575/inheritance-hides-start.html
     public Animator m_anim = null;
-    private ZombieUtilityAI m_zombieUtilityAIScript = null;
+    protected ZombieUtilityAI m_zombieUtilityAIScript = null;
 
-
+    protected ZombieUtilityBehaviours.BehaviourNames m_currentBehaviour = ZombieUtilityBehaviours.BehaviourNames.Idle;
     public bool m_animateReanimation = true; // change this to true
 
     public void EndReanimationBehaviour()
@@ -66,7 +66,7 @@ public class ZombieMovement : Movement
 
     
     
-    void UpdateAnimation()
+    protected virtual void UpdateAnimation()
     {
         if (m_anim != null && m_nav != null)
         {
@@ -96,8 +96,8 @@ public class ZombieMovement : Movement
     }
 
 
-    private ZombieUtilityBehaviours.BehaviourNames m_currentBehaviour = ZombieUtilityBehaviours.BehaviourNames.Idle;
-    void AnimateBehaviour(ZombieUtilityBehaviours.BehaviourNames currentBehaviour)
+    
+    protected virtual void AnimateBehaviour(ZombieUtilityBehaviours.BehaviourNames currentBehaviour)
     {
         if (m_currentBehaviour != currentBehaviour)
         {

@@ -707,8 +707,8 @@ GameObject:
   - 114: {fileID: 114000010557428918}
   - 114: {fileID: 114000013086761540}
   - 114: {fileID: 114000012477912772}
-  - 114: {fileID: 114000013142522566}
   - 114: {fileID: 114000012869976500}
+  - 114: {fileID: 114000013491198690}
   m_Layer: 8
   m_Name: Screamer
   m_TagString: ZombieScreamer
@@ -2683,7 +2683,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013616241078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2837,7 +2837,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.220537, y: 0.30000016, z: -185.96898}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -4712,7 +4712,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012602451956}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   m_screams: 5
   m_screamCounter: 0
   m_screaming: 0
---- !u!114 &114000013142522566
+--- !u!114 &114000013491198690
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -5101,7 +5101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011324950992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e80930cccb92740b5aecaf41f1e183, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e8a3f41a1c2124489f9d9f239ec47d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_currentDestination: {x: 0, y: 0, z: 0}
@@ -5112,7 +5112,7 @@ MonoBehaviour:
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000013470087594}
-  m_animateReanimation: 1
+  m_animateReanimation: 0
 --- !u!114 &114000013919523470
 MonoBehaviour:
   m_ObjectHideFlags: 1

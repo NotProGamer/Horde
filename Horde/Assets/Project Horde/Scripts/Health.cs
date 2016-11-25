@@ -197,6 +197,11 @@ public class Health : MonoBehaviour {
     //    }
     //}
 
+    public float GetPercentageHealth()
+    {
+        return (float) m_maxHealth != 0 && m_health > 0 ? (float)m_health / (float)m_maxHealth : 0;
+    }
+
     IEnumerator MeshRendererFlash(MeshRenderer art)
     {
         if (art)

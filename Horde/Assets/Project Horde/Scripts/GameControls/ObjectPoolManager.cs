@@ -103,7 +103,7 @@ public class ObjectPoolManager : MonoBehaviour {
             obj = pool.GetObject();
             if (obj == null)
             {
-                Debug.Log("No '"+ identifer +"' objects available.");
+                //Debug.Log("No '"+ identifer +"' objects available.");
             }
         }
         else

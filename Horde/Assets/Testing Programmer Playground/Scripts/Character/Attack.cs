@@ -108,7 +108,7 @@ public class Attack : MonoBehaviour {
                 {
                     // apply damage
                     m_currentTargetHealth.ApplyDamage(m_damage);
-                    Debug.Log("Hit");
+                    //Debug.Log("Hit");
                 }
                 else
                 {

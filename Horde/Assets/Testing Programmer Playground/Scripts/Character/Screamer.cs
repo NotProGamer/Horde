@@ -19,6 +19,7 @@ public class Screamer : NoiseGenerator {
         if (obj)
         {
             m_noiseManager = obj.GetComponent<NoiseManager>();
+            m_objectPoolManagerScript = obj.GetComponent<ObjectPoolManager>();
         }
         //else
         //{
@@ -28,6 +29,12 @@ public class Screamer : NoiseGenerator {
         {
             Debug.Log("Noise Manager not included.");
         }
+        if (m_objectPoolManagerScript == null)
+        {
+            Debug.Log("ObjectPoolManager not included");
+        }
+
+
     }
 
     //   // Use this for initialization
@@ -66,12 +73,25 @@ public class Screamer : NoiseGenerator {
 
     }
 
+    private ObjectPoolManager m_objectPoolManagerScript = null;
 
     public void Scream()
     {
         // generate a noise half as long as the delay between noises
-        
-        GenerateNoise(m_volume, m_delay * 0.5f, m_noisIdentifier);
+        Noise noise = GenerateNoise(m_volume, m_delay * 0.5f, m_noisIdentifier);
+
+        if (noise != null)
+        {
+            //GameObject obj = Instantiate(m_noiseTemplate) as GameObject;
+            GameObject obj = m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.NoiseVisualisation, noise.m_position);
+
+            NoiseVisualization noiseVis = obj.GetComponent<NoiseVisualization>();
+            if (noiseVis != null)
+            {
+                noiseVis.SetNoise(noise);
+            }
+        }
+
 
     }
 

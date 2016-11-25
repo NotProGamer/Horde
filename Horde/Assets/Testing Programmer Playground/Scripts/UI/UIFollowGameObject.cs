@@ -10,6 +10,12 @@ public class UIFollowGameObject : MonoBehaviour {
     public Sprite m_onScreenSprite = null;
     public Sprite m_offScreenSprite = null;
     private Image m_image = null;
+
+    public bool m_lerpColor = false;
+    public Color m_start = Color.red;
+    public Color m_finish = Color.green;
+    private Health m_targetHealth = null;
+
     void Awake()
     {
         m_image = GetComponent<Image>();
@@ -17,14 +23,28 @@ public class UIFollowGameObject : MonoBehaviour {
         {
             Debug.Log("Image not included.");
         }
+        if (m_target)
+        {
+            m_targetHealth = m_target.GetComponent<Health>();
+            if (m_targetHealth == null)
+            {
+                Debug.Log("Target Health not included.");
+            }
+        }
     }
 
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         if (m_target)
         {
+            if (m_targetHealth && m_lerpColor)
+            {
+                float test = m_targetHealth.GetPercentageHealth();
+                m_image.color = Color.Lerp(m_finish, m_start, test);
+            }
+
             Vector3 screenPos = Camera.main.WorldToScreenPoint(m_target.transform.position);
             //viewport.z = 0;
             //Debug.Log(viewport);

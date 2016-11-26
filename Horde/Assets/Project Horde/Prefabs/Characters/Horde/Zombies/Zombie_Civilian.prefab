@@ -484,7 +484,6 @@ GameObject:
   - 114: {fileID: 114000011883111136}
   - 114: {fileID: 114000010382734500}
   - 82: {fileID: 82000013224988574}
-  - 114: {fileID: 114000010869099330}
   m_Layer: 8
   m_Name: Zombie_Civilian
   m_TagString: Zombie
@@ -1883,7 +1882,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.837265, y: 0.5, z: -139.03073}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -3429,31 +3428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4cf5559dd753647ac7618472919dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010869099330
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011324950992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da2e5b2fd6c4ad4fbe22bb7a7f08226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_maxHealth: 100
-  m_health: 100
-  m_healToFullOnStart: 1
-  m_vulnerable: 1
-  m_disableOnDeath: 0
-  m_enableDamageEffects: 0
-  m_damageColor: {r: 1, g: 0, b: 0, a: 1}
-  m_meshRendererList: []
-  m_skinnedMeshRendererList:
-  - {fileID: 137000011479172792}
-  m_extendTurnTimerIfBeingDevoured: 1
-  m_sounds:
-    TakeDamage: ZombieTakesDamage
-  m_soundsEnabled: 1
 --- !u!114 &114000011005983630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3617,7 +3591,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
   m_Name: 
@@ -3633,6 +3607,10 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 137000011479172792}
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakesDamage
+    HumanTakeDamage: HumanTakesDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000012730503968
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -175,6 +175,25 @@ public class ZombieAttack : Attack
             m_anim.SetTrigger("Attack");
         }
         base.TriggerAttackAnimation();
-    
+        if (m_soundsEnabled)
+        {
+            SoundLibrary.PlaySound(gameObject, m_sounds.Attack);
+        }
     }
+
+    [System.Serializable]
+    public class SoundsStrings
+    {
+        //public string Idle ="";
+        public string Attack = "ZombieAttack";
+        //public string Investigate = "";
+        //public string Devour = "ZombieDevour";
+        //public string Chase = "";
+        //public string GoToUserTap = "ZombieHearsUserTap";
+        //public string Death = "ZombieDeath";
+        //public string Reanimating = "ZombieReanimating";
+
+    }
+    public SoundsStrings m_sounds;
+    public bool m_soundsEnabled = true;
 }

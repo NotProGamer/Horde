@@ -21,7 +21,7 @@ public class BrainSquish : MonoBehaviour
             }
         }
         m_audio = GetComponent<AudioSource>();
-        if (m_audio)
+        if (m_audio == null)
         {
             Debug.Log("AudioSource not included");
         }

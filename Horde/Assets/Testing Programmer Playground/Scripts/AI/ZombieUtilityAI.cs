@@ -98,7 +98,8 @@ public class ZombieUtilityAI : MonoBehaviour {
             }
 
             // update current behaviour
-            m_currentBehaviour = behaviourWithHighestEvaluation;
+            //m_currentBehaviour = behaviourWithHighestEvaluation;
+            ChangeBehaviour(behaviourWithHighestEvaluation);
             m_zombieBehaviourScript.RunBehaviour(m_currentBehaviour);
         }
 
@@ -107,6 +108,124 @@ public class ZombieUtilityAI : MonoBehaviour {
     public ZombieUtilityBehaviours.BehaviourNames GetCurrentBehaviour()
     {
         return m_currentBehaviour;
+    }
+
+    //[System.Serializable]
+    //public class SoundsStrings
+    //{
+    //    public string Idle = "";
+    //    public string Wander = "";
+    //    public string Investigate = "";
+    //    public string Devour = "";
+    //    public string Chase = "";
+    //    public string GoToUserTap = "";
+    //    public string Death = "";
+    //    public string Reanimating = "";
+
+    //}
+    //public SoundsStrings m_sounds;
+
+    [System.Serializable]
+    public class SoundsStrings
+    {
+        //public string Idle ="";
+        public string Wander = "ZombieWander";
+        //public string Investigate = "";
+        public string Devour = "ZombieDevour";
+        //public string Chase = "";
+        public string GoToUserTap = "ZombieHearsUserTap";
+        public string Death = "ZombieDeath";
+        public string Reanimating = "ZombieReanimating";
+
+    }
+    public SoundsStrings m_sounds;
+    public bool m_soundsEnabled = true;
+    void ChangeBehaviour(ZombieUtilityBehaviours.BehaviourNames behaviour)
+    {
+        //AudioSource test = null;
+
+        if(m_currentBehaviour != behaviour)
+        {
+            // exit
+            //switch (m_currentBehaviour)
+            //{
+            //    case ZombieUtilityBehaviours.BehaviourNames.Idle:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Wander:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Devour:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Chase:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Death:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Reanimating:
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            m_currentBehaviour = behaviour;
+
+            //enter
+            //switch (m_currentBehaviour)
+            //{
+            //    case ZombieUtilityBehaviours.BehaviourNames.Idle:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Wander:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Devour:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Chase:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Death:
+            //        break;
+            //    case ZombieUtilityBehaviours.BehaviourNames.Reanimating:
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            if (m_soundsEnabled)
+            {
+                switch (m_currentBehaviour)
+                {
+                    //case ZombieUtilityBehaviours.BehaviourNames.Idle:
+                    //    break;
+                    case ZombieUtilityBehaviours.BehaviourNames.Wander:
+                        SoundLibrary.PlaySound(gameObject, m_sounds.Wander);
+                        break;
+                    //case ZombieUtilityBehaviours.BehaviourNames.Investigate:
+                    //    break;
+                    case ZombieUtilityBehaviours.BehaviourNames.Devour:
+                        SoundLibrary.PlaySound(gameObject, m_sounds.Devour);
+                        break;
+                    //case ZombieUtilityBehaviours.BehaviourNames.Chase:
+                    //    break;
+                    case ZombieUtilityBehaviours.BehaviourNames.GoToUserTap:
+                        SoundLibrary.PlaySound(gameObject, m_sounds.GoToUserTap);
+                        break;
+                    case ZombieUtilityBehaviours.BehaviourNames.Death:
+                        SoundLibrary.PlaySound(gameObject, m_sounds.Death);
+                        break;
+                    case ZombieUtilityBehaviours.BehaviourNames.Reanimating:
+                        SoundLibrary.PlaySound(gameObject, m_sounds.Reanimating);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
     }
 
 }

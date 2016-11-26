@@ -8,7 +8,7 @@ public class ScreamerMovement : ZombieMovement {
     {
         base.Awake();
         m_screamerScript = GetComponent<Screamer>();
-        if (m_screamerScript)
+        if (m_screamerScript == null)
         {
             Debug.Log("Screamer script not included");
         }

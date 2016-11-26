@@ -80,13 +80,27 @@ public class Health : MonoBehaviour {
 
     }
 
-    public void ApplyDamage(int damage)
+    public virtual void ApplyDamage(int damage)
     {
         if (m_vulnerable)
         {
             m_health -= (Mathf.Abs(damage));
             m_wasDamaged = true;
+
+            if (m_soundsEnabled)
+            {
+                if (Labels.Tags.IsZombie(gameObject))
+                {
+                    SoundLibrary.PlaySound(gameObject, m_sounds.ZombieTakeDamage);
+                }
+                else if (Labels.Tags.IsHuman(gameObject))
+                {
+                    SoundLibrary.PlaySound(gameObject, m_sounds.HumanTakeDamage);
+                }
+                
+            }
         }
+
     }
 
     public void ApplyHeal(int health)
@@ -232,7 +246,22 @@ public class Health : MonoBehaviour {
         }
     }
 
+    [System.Serializable]
+    public class SoundsStrings
+    {
+        //public string Idle ="";
+        public string ZombieTakeDamage = "ZombieTakeDamage";
+        public string HumanTakeDamage = "HumanTakeDamage";
+        //public string Investigate = "";
+        //public string Devour = "ZombieDevour";
+        //public string Chase = "";
+        //public string GoToUserTap = "ZombieHearsUserTap";
+        //public string Death = "ZombieDeath";
+        //public string Reanimating = "ZombieReanimating";
 
+    }
+    public SoundsStrings m_sounds;
+    public bool m_soundsEnabled = true;
 
 
 }

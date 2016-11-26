@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000011330660970}
+  m_IsPrefabParent: 1
+--- !u!1 &1000011330660970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012392490194}
+  - 114: {fileID: 114000012965661834}
+  m_Layer: 0
+  m_Name: SoundLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012392490194
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011330660970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000012965661834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011330660970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa96f64ab10a25b4b9d71230bdd1c627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  categories:
+    UISounds:
+      items:
+      - identifier: BrainSquish
+        clip: {fileID: 8300000, guid: ad844607f8125944c844481d05cc6dcc, type: 3}
+    Environmental:
+      items: []
+    SoundEffects:
+      items: []
+    Zombie:
+      items:
+      - identifier: ZombieAttack
+        clip: {fileID: 8300000, guid: 193a8dd7a3219a94ab560f1373f3d082, type: 3}
+      - identifier: ZombieDeath
+        clip: {fileID: 8300000, guid: e392fb01106eb56469f6d3bc45bfb041, type: 3}
+      - identifier: ZombieDevour
+        clip: {fileID: 8300000, guid: 14f014c6269a78c43911930bf86b2f45, type: 3}
+      - identifier: ZombieWander
+        clip: {fileID: 8300000, guid: b57cf69fc63c2d14682a2f89484620c1, type: 3}
+      - identifier: ZombieHearsUserTap
+        clip: {fileID: 8300000, guid: 625dd4cbac4a4fc4e91b5c3094f3ba2b, type: 3}
+      - identifier: ZombieReanimating
+        clip: {fileID: 8300000, guid: 30c01c78d6332124c89ccbd0eb70c0c1, type: 3}
+      - identifier: ZombieTakeDamage
+        clip: {fileID: 8300000, guid: 899051c9451f7b546bf75ea36b247b90, type: 3}
+    HumanCivilian:
+      items:
+      - identifier: HumanAttackMelee
+        clip: {fileID: 8300000, guid: 219354b36f3978c45ac6776a47447524, type: 3}
+      - identifier: HumanDeath
+        clip: {fileID: 8300000, guid: 2387ec203bb134e48a963f7452421ea6, type: 3}
+      - identifier: HumanIdle
+        clip: {fileID: 8300000, guid: 95498721cd12e974ab89df29e7efd0c8, type: 3}
+      - identifier: HumanWander
+        clip: {fileID: 8300000, guid: e821fe0fddcd90e46a15688779488391, type: 3}
+      - identifier: HumanFlee
+        clip: {fileID: 8300000, guid: 281615acb698f9549838b4a3509e5a1a, type: 3}
+      - identifier: HumanAttackRanged
+        clip: {fileID: 0}
+      - identifier: HumanTakeDamage
+        clip: {fileID: 8300000, guid: cd5a1da4fa11cdb45b08d163a79b39c9, type: 3}
+    AbnormalAbilities:
+      items:
+      - identifier: ZombieScreamerScream
+        clip: {fileID: 8300000, guid: 5090c12798fde4a4883dc56c230c588c, type: 3}

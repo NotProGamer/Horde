@@ -38443,6 +38443,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff2d40969efe99e47822497c9c15a9b2, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &975565696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 975565697}
+  m_Layer: 0
+  m_Name: Humans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975565697
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975565696}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1833740195}
+  m_RootOrder: 5
 --- !u!4 &976091155 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012693136186, guid: d22711b974119a944856b85be6ebfa76,
@@ -53328,6 +53356,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 82000011308914724, guid: 981cdcee8a56313499dd8d454949800b,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000011308914724, guid: 981cdcee8a56313499dd8d454949800b,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 981cdcee8a56313499dd8d454949800b, type: 2}
   m_IsPrefabParent: 0
@@ -66283,6 +66321,12 @@ MonoBehaviour:
     m_size: 20
     m_willGrow: 1
     m_container: {fileID: 509204331}
+  - m_identifier: HumanCivilian
+    m_prefab: {fileID: 1000011894944338, guid: 885696f5d995a734eaf992a1e398d481, type: 2}
+    m_pool: []
+    m_size: 5
+    m_willGrow: 0
+    m_container: {fileID: 975565696}
 --- !u!114 &1754332489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69226,6 +69270,7 @@ Transform:
   - {fileID: 2039835511}
   - {fileID: 1895583277}
   - {fileID: 1570660043}
+  - {fileID: 975565697}
   m_Father: {fileID: 0}
   m_RootOrder: 9
 --- !u!1001 &1834207810

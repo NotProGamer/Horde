@@ -132,11 +132,16 @@ public class UIFollowGameObject : MonoBehaviour {
                 UpdateSprite(screenPos, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg), m_offScreenSprite, m_disableOffScreenImage);
             }
 
-            
-            
 
 
+
+            if (!m_target.activeSelf)
+            {
+                gameObject.SetActive(false);
+            }
         }
+
+
 	}
 
 
@@ -147,5 +152,10 @@ public class UIFollowGameObject : MonoBehaviour {
         m_image.sprite = sprite;
         m_image.enabled = !disableImage;
 
+    }
+
+    void OnDisable()
+    {
+        m_target = null;
     }
 }

@@ -27,6 +27,7 @@ public class Labels : MonoBehaviour {
         public static string DestructibleIndicator = "DestructibleIndicator";
         public static string EnemyIndicator = "EnemyIndicator";
         public static string PlusZombieIndicator = "PlusZombieIndicator";
+        public static string ZombieHandTarget = "ZombieHandTarget";
 
 
         public static bool IsZombie(GameObject other)

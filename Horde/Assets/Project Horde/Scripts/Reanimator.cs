@@ -13,6 +13,7 @@ public class Reanimator : MonoBehaviour {
     private bool m_turned = false;
     private bool m_reanimating = false;
 
+    private GameObject m_zombieHandTargetObj = null;
 
     void Awake()
     {
@@ -43,21 +44,28 @@ public class Reanimator : MonoBehaviour {
         {
             Debug.Log("InfectionStatus not included");
         }
+        
 
-        if (m_HUDIndicatorPrefab == null)
-        {
-            Debug.Log("HUDIndicator not included");
-        }
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.UIController);
         if (obj)
         {
-            m_UIObjectPoolManagerScript = obj.GetComponent<ObjectPoolManager>();
+            m_zombieHandSpawnerScript = obj.GetComponent<ZombieHandSpawner>();
         }
-        if (m_UIObjectPoolManagerScript == null)
+        if (m_zombieHandSpawnerScript == null)
         {
-            Debug.Log("UIObjectPoolManager not included");
+            Debug.Log("ZombieHandSpawner not included");
         }
 
+        //if (m_HUDIndicatorPrefab == null)
+        //{
+        //    Debug.Log("HUDIndicator not included");
+        //}
+        //GameObject m_zombieHandTargetObj = GameObject.FindGameObjectWithTag(Labels.Tags.ZombieHandTarget);
+
+        //if (m_zombieHandTargetObj == null)
+        //{
+        //    Debug.Log("ZombieHandTarget not included");
+        //}
     }
 
     // Use this for initialization
@@ -124,8 +132,10 @@ public class Reanimator : MonoBehaviour {
             {
                 if (!m_healthScript.IsDevoured())
                 {
-                    m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Zombie, transform.position);
-                    RequestZombieHand();
+                    if (m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Zombie, transform.position) != null)
+                    {
+                        RequestZombieHand();
+                    }
                 }
             }
             gameObject.SetActive(false);
@@ -140,22 +150,69 @@ public class Reanimator : MonoBehaviour {
     }
 
 
-    private ObjectPoolManager m_UIObjectPoolManagerScript = null;
-    public GameObject m_HUDIndicatorPrefab = null;
+    private ZombieHandSpawner m_zombieHandSpawnerScript = null;
+
+    //private ObjectPoolManager m_UIObjectPoolManagerScript = null;
+    //private Vector3 m_zombieHandTargetPosition;
+    //public GameObject m_HUDIndicatorPrefab = null;
+
+    //public void RequestZombieHand()
+    //{
+    //    if (m_UIObjectPoolManagerScript)
+    //    {
+    //        GameObject uiObj = m_UIObjectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.PlusZombieIndicator, gameObject.transform.position);
+    //        if (uiObj)
+    //        {
+    //            if (m_zombieHandTargetObj)
+    //            {
+    //                m_zombieHandTargetPosition = m_zombieHandTargetObj.transform.position;
+    //            }
+    //            //else
+    //            //{
+    //            //    Debug.Log("ZombieHandTarget not included");
+    //            //}
+    //            MoveUISprite spriteMoveScript = uiObj.GetComponent<MoveUISprite>();
+
+    //            if (spriteMoveScript)
+    //            {
+    //                spriteMoveScript.SetTarget(m_zombieHandTargetPosition);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            //Debug.Log("error blah");
+    //        }
+
+    //    }
+    //}
 
     public void RequestZombieHand()
     {
-        if (m_UIObjectPoolManagerScript)
+        if (m_zombieHandSpawnerScript)
         {
-            GameObject uiObj = m_UIObjectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.EnemyIndicator, gameObject.transform.position);
-            if (uiObj)
-            {
-                uiObj.GetComponent<UIFollowGameObject>().m_target = gameObject;
-            }
-            else
-            {
-                Debug.Log("error");
-            }
+            m_zombieHandSpawnerScript.SpawnUIAtWorldLocation(gameObject.transform.position);
+            //GameObject uiObj = m_UIObjectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.PlusZombieIndicator, gameObject.transform.position);
+            //if (uiObj)
+            //{
+            //    if (m_zombieHandTargetObj)
+            //    {
+            //        m_zombieHandTargetPosition = m_zombieHandTargetObj.transform.position;
+            //    }
+            //    //else
+            //    //{
+            //    //    Debug.Log("ZombieHandTarget not included");
+            //    //}
+            //    MoveUISprite spriteMoveScript = uiObj.GetComponent<MoveUISprite>();
+
+            //    if (spriteMoveScript)
+            //    {
+            //        spriteMoveScript.SetTarget(m_zombieHandTargetPosition);
+            //    }
+            //}
+            //else
+            //{
+            //    //Debug.Log("error blah");
+            //}
 
         }
     }

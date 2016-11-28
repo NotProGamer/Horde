@@ -2641,6 +2641,7 @@ MonoBehaviour:
   m_touchRange: 1
   m_minSpeed: 3
   m_maxSpeed: 10
+  m_currentAngle: 0
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000012808730114}
@@ -2740,6 +2741,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_reanimationDelay: 3
+  m_HUDIndicatorPrefab: {fileID: 1000012881647894, guid: 431bf423e4e7bb5429835da6ac9c7fb1,
+    type: 2}
 --- !u!114 &114000012018788682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2762,6 +2765,10 @@ MonoBehaviour:
   - {fileID: 23000013312735366}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000012352299246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2833,6 +2840,12 @@ MonoBehaviour:
       m_weight: 60
     - m_name: 6
       m_weight: -60
+  m_sounds:
+    Idle: HumanIdle
+    Wander: HumanWander
+    Flee: HumanFlee
+    Death: HumanDeath
+  m_soundsEnabled: 1
 --- !u!114 &114000013491145318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2867,6 +2880,10 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 0}
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000014071441692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2882,6 +2899,9 @@ MonoBehaviour:
   m_damage: 5
   m_attackRange: 20
   m_anim: {fileID: 95000012808730114}
+  m_sounds:
+    Attack: HumanAttackMelee
+  m_soundsEnabled: 1
 --- !u!136 &136000010789295886
 CapsuleCollider:
   m_ObjectHideFlags: 1

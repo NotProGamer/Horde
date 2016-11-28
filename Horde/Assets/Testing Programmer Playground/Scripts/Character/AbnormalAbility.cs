@@ -6,7 +6,11 @@ public class AbnormalAbility : MonoBehaviour {
     private Screamer m_screamerScript = null;
     private ZombieBrain m_zombieBrainScript = null;
 
-    public bool m_testAbonormalAbility = false;
+    public float m_deactivationDelay = 30.0f;
+    private float m_deactivationTimer = 0f;
+
+    //public bool m_testAbonormalAbility = false;
+    private bool m_abonormalAbilityActivated = false;
     void Awake()
     {
         if (gameObject.CompareTag(Labels.Tags.ZombieScreamer))
@@ -32,27 +36,40 @@ public class AbnormalAbility : MonoBehaviour {
     {
 	
 	}
-	
+    
 	// Update is called once per frame
 	void Update ()
     {
-        if (m_testAbonormalAbility)
-        {
-            Activate();
-        }
-        else
+        //if (m_testAbonormalAbility)
+        //{
+        //    Activate();
+        //}
+        //else
+        //{
+        //    Deactivate();
+        //}
+
+
+        if (m_abonormalAbilityActivated == true 
+            && m_deactivationTimer < Time.time)
         {
             Deactivate();
         }
-	}
+
+
+
+
+    }
 
     public void Activate()
     {
+        
         if (gameObject.CompareTag(Labels.Tags.ZombieScreamer))
         {
             if (m_screamerScript)
             {
                 m_screamerScript.m_screaming = true;
+                m_abonormalAbilityActivated = true;
             }
         }
         else if (gameObject.CompareTag(Labels.Tags.ZombieLittleGirl))
@@ -60,6 +77,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_becomeAggressive = true;
+                m_abonormalAbilityActivated = true;
             }
 
         }
@@ -68,6 +86,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_gluttonSettings.m_vomitToxin = true;
+                m_abonormalAbilityActivated = true;
             }
 
         }
@@ -76,12 +95,15 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_giveSpeedBoost = true;
+                m_abonormalAbilityActivated = true;
             }
         }
         else
         {
             Debug.Log("Unknown Abnormal Activation");
         }
+
+        m_deactivationTimer = Time.time + m_deactivationDelay;
     }
 
     public void Deactivate()
@@ -91,6 +113,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_screamerScript)
             {
                 m_screamerScript.m_screaming = false;
+                m_abonormalAbilityActivated = false;
             }
         }
         else if (gameObject.CompareTag(Labels.Tags.ZombieLittleGirl))
@@ -98,6 +121,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_becomeAggressive = false;
+                m_abonormalAbilityActivated = false;
             }
         }
         else if (gameObject.CompareTag(Labels.Tags.ZombieGlutton))
@@ -105,6 +129,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_gluttonSettings.m_vomitToxin = false;
+                m_abonormalAbilityActivated = false;
             }
         }
         else if (gameObject.CompareTag(Labels.Tags.ZombieDictator))
@@ -112,6 +137,7 @@ public class AbnormalAbility : MonoBehaviour {
             if (m_zombieBrainScript)
             {
                 m_zombieBrainScript.m_giveSpeedBoost = false;
+                m_abonormalAbilityActivated = false;
             }
 
         }

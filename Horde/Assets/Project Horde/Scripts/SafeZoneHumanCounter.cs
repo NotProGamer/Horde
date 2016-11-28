@@ -21,6 +21,10 @@ public class SafeZoneHumanCounter : MonoBehaviour
     {
         m_updater = GetComponent<ObjectiveUpdater>();
         wm = GameObject.FindObjectOfType<WaypointManager>();
+        if (wm == null)
+        {
+            Debug.Log("WaypointManager not included");
+        }
     }
 	// Use this for initialization
 	void Start ()
@@ -80,7 +84,11 @@ public class SafeZoneHumanCounter : MonoBehaviour
                 Transform display = item.transform.FindChild("RemainingHumans");
                 display.gameObject.SetActive(true);
                 */
-                wm.AddTransform(item.transform, HUDIndicator.IndicatorType.Human);
+                if (wm)
+                {
+                    wm.AddTransform(item.transform, HUDIndicator.IndicatorType.Human);
+                }
+                
             }
         }
     }

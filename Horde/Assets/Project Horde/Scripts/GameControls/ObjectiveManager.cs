@@ -37,7 +37,7 @@ public class ObjectiveManager : MonoBehaviour
         {
             DisplayStatusUpdate();
         }
-        UpdateHUDIndicators();
+        //UpdateHUDIndicators();
     }
 
     

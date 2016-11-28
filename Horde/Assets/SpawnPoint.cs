@@ -17,10 +17,14 @@ public class SpawnPoint : MonoBehaviour
         {
             objPool = gameController.GetComponent<ObjectPoolManager>();
         }
+        if (objPool == null)
+        {
+            Debug.Log("no spawner");
+        }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
 	
 	}
@@ -35,10 +39,6 @@ public class SpawnPoint : MonoBehaviour
                 objPool.RequestObjectAtPosition(identifier, transform.position);
                 //Debug.Log("spawned a dude");
             }
-        }
-        else
-        {
-            Debug.Log("no spawner");
         }
 
     }

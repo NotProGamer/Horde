@@ -10,6 +10,9 @@ public class UIFollowGameObject : MonoBehaviour {
     public Sprite m_onScreenSprite = null;
     public Sprite m_offScreenSprite = null;
     private Image m_image = null;
+    public bool m_disableOnScreenImage = false;
+    public bool m_disableOffScreenImage = false;
+
 
     public bool m_lerpColor = false;
     public Color m_start = Color.red;
@@ -59,9 +62,11 @@ public class UIFollowGameObject : MonoBehaviour {
                 && screenPos.y < bounds.y)
             {
                 // set onscreen indicator
-                transform.GetComponent<RectTransform>().position = screenPos;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                m_image.sprite = m_onScreenSprite;
+                //transform.GetComponent<RectTransform>().position = screenPos;
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
+                //m_image.sprite = m_onScreenSprite;
+
+                UpdateSprite(screenPos, Quaternion.Euler(0, 0, 0), m_onScreenSprite, m_disableOnScreenImage);
             }
             else
             {
@@ -120,9 +125,11 @@ public class UIFollowGameObject : MonoBehaviour {
                 // remore coordinate translation
                 screenPos += screenCentre;
 
-                transform.GetComponent<RectTransform>().position = screenPos;
-                transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
-                m_image.sprite = m_offScreenSprite;
+                //transform.GetComponent<RectTransform>().position = screenPos;
+                //transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
+                //m_image.sprite = m_offScreenSprite;
+
+                UpdateSprite(screenPos, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg), m_offScreenSprite, m_disableOffScreenImage);
             }
 
             
@@ -131,4 +138,14 @@ public class UIFollowGameObject : MonoBehaviour {
 
         }
 	}
+
+
+    void UpdateSprite(Vector3 pos, Quaternion quat, Sprite sprite, bool disableImage = false)
+    {
+        transform.GetComponent<RectTransform>().position = pos;
+        transform.rotation = quat;
+        m_image.sprite = sprite;
+        m_image.enabled = !disableImage;
+
+    }
 }

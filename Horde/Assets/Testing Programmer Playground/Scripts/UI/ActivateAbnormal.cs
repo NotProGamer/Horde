@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class ActivateAbnormal : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -12,4 +12,9 @@ public class NewBehaviourScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void Activate()
+    {
+
+    }
 }

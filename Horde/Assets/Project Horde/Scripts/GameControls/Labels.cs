@@ -7,6 +7,7 @@ public class Labels : MonoBehaviour {
     {
         // Controllers
         public static string GameController = "GameController";
+        public static string UIController = "UIController";
         public static string ZombieLure = "ZombieLure";
         public static string Beacon = "Beacon";
         public static string Ground = "Ground";
@@ -21,6 +22,12 @@ public class Labels : MonoBehaviour {
         public static string Human = "Human";
         public static string NoiseVisualisation = "NoiseVisualisation";
         //public static string Player = "Player";
+
+        // UI Elements
+        public static string DestructibleIndicator = "DestructibleIndicator";
+        public static string EnemyIndicator = "EnemyIndicator";
+        public static string PlusZombieIndicator = "PlusZombieIndicator";
+
 
         public static bool IsZombie(GameObject other)
         {

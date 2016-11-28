@@ -12,7 +12,17 @@ public class UISafeZonesCaptured : MonoBehaviour {
 
     public Image[] test;
 
+    private ObjectiveManager m_objectiveManager = null;
 
+    void Awake()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
+        if (obj)
+        {
+            m_objectiveManager = obj.GetComponent<ObjectiveManager>();
+        }
+
+    }
     // Use this for initialization
     void Start ()
     {
@@ -25,6 +35,12 @@ public class UISafeZonesCaptured : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (m_objectiveManager)
+        {
+            m_safeZonesCaptured = m_objectiveManager.completedObjectives;
+        }
+
+
         if (m_safeZoneFree == null || m_safeZoneCaptured == null)
         {
             return;

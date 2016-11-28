@@ -43,6 +43,21 @@ public class Reanimator : MonoBehaviour {
         {
             Debug.Log("InfectionStatus not included");
         }
+
+        if (m_HUDIndicatorPrefab == null)
+        {
+            Debug.Log("HUDIndicator not included");
+        }
+        GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.UIController);
+        if (obj)
+        {
+            m_UIObjectPoolManagerScript = obj.GetComponent<ObjectPoolManager>();
+        }
+        if (m_UIObjectPoolManagerScript == null)
+        {
+            Debug.Log("UIObjectPoolManager not included");
+        }
+
     }
 
     // Use this for initialization
@@ -100,6 +115,7 @@ public class Reanimator : MonoBehaviour {
         m_timeUntilReanimation = Time.time + m_reanimationDelay;
     }
 
+    
     private void Reanimate()
     {
         if (m_objectPoolManagerScript)
@@ -109,10 +125,13 @@ public class Reanimator : MonoBehaviour {
                 if (!m_healthScript.IsDevoured())
                 {
                     m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Zombie, transform.position);
+                    RequestZombieHand();
                 }
             }
             gameObject.SetActive(false);
         }
+
+
     }
 
     public bool IsTurned()
@@ -121,4 +140,23 @@ public class Reanimator : MonoBehaviour {
     }
 
 
+    private ObjectPoolManager m_UIObjectPoolManagerScript = null;
+    public GameObject m_HUDIndicatorPrefab = null;
+
+    public void RequestZombieHand()
+    {
+        if (m_UIObjectPoolManagerScript)
+        {
+            GameObject uiObj = m_UIObjectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.EnemyIndicator, gameObject.transform.position);
+            if (uiObj)
+            {
+                uiObj.GetComponent<UIFollowGameObject>().m_target = gameObject;
+            }
+            else
+            {
+                Debug.Log("error");
+            }
+
+        }
+    }
 }

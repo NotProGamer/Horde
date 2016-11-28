@@ -2195,6 +2195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_reanimationDelay: 3
+  m_HUDIndicatorPrefab: {fileID: 1000012881647894, guid: 431bf423e4e7bb5429835da6ac9c7fb1,
+    type: 2}
 --- !u!114 &114000010340722486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2247,6 +2249,12 @@ MonoBehaviour:
     m_evaluations:
     - m_name: 10
       m_weight: 20
+  m_sounds:
+    Idle: HumanIdle
+    Wander: HumanWander
+    Flee: HumanFlee
+    Death: HumanDeath
+  m_soundsEnabled: 1
 --- !u!114 &114000011147319362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2353,6 +2361,10 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 0}
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000012030224086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2430,6 +2442,9 @@ MonoBehaviour:
   m_damage: 25
   m_attackRange: 25
   m_anim: {fileID: 95000011453605490}
+  m_sounds:
+    Attack: HumanAttackMelee
+  m_soundsEnabled: 1
 --- !u!136 &136000012610246912
 CapsuleCollider:
   m_ObjectHideFlags: 1

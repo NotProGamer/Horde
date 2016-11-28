@@ -71,6 +71,7 @@ GameObject:
   - 224: {fileID: 224000012543167460}
   - 222: {fileID: 222000010471468498}
   - 114: {fileID: 114000012188362382}
+  - 114: {fileID: 114000011054976596}
   m_Layer: 5
   m_Name: Text - Horde
   m_TagString: Untagged
@@ -157,6 +158,7 @@ GameObject:
   - 224: {fileID: 224000012878264720}
   - 222: {fileID: 222000010789992332}
   - 114: {fileID: 114000013083409572}
+  - 114: {fileID: 114000013424403136}
   m_Layer: 5
   m_Name: TopLeftPanel - Horde Score and Details with Dropdown
   m_TagString: Untagged
@@ -208,6 +210,7 @@ GameObject:
   - 224: {fileID: 224000013054167350}
   - 222: {fileID: 222000010210019988}
   - 114: {fileID: 114000010942505620}
+  - 114: {fileID: 114000011627328056}
   m_Layer: 5
   m_Name: Text - Count
   m_TagString: Untagged
@@ -450,6 +453,32 @@ MonoBehaviour:
   m_Text: '999
 
 '
+--- !u!114 &114000011054976596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010581080726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba0d1f6c4f62b24fba54e50eb540165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpStart: {r: 0, g: 0, b: 0, a: 100}
+  lerpEnd: {r: 0.53676474, g: 0, b: 0, a: 1}
+--- !u!114 &114000011627328056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012624592414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba0d1f6c4f62b24fba54e50eb540165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpStart: {r: 0, g: 0, b: 0, a: 100}
+  lerpEnd: {r: 0.53676474, g: 0, b: 0, a: 1}
 --- !u!114 &114000011726945828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -880,6 +909,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000013424403136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010936546084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0667e321bc7924d85f30dc2433be2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hordeCount: {fileID: 114000010942505620}
+  lose: {fileID: 0}
 --- !u!114 &114000013600020964
 MonoBehaviour:
   m_ObjectHideFlags: 1

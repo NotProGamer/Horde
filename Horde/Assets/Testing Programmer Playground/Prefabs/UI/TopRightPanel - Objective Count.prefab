@@ -158,6 +158,7 @@ GameObject:
   - 224: {fileID: 224000012573881504}
   - 222: {fileID: 222000010291507966}
   - 114: {fileID: 114000010102058560}
+  - 114: {fileID: 114000012797963508}
   m_Layer: 5
   m_Name: Text - Safe Zones
   m_TagString: Untagged
@@ -372,6 +373,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: of
+--- !u!114 &114000012797963508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013361301384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba0d1f6c4f62b24fba54e50eb540165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpStart: {r: 0, g: 0, b: 0, a: 100}
+  lerpEnd: {r: 0.53676474, g: 0, b: 0, a: 1}
 --- !u!114 &114000012953833892
 MonoBehaviour:
   m_ObjectHideFlags: 1

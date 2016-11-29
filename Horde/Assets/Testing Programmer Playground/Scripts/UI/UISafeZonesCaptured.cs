@@ -14,6 +14,8 @@ public class UISafeZonesCaptured : MonoBehaviour {
 
     private ObjectiveManager m_objectiveManager = null;
 
+    public GameObject m_win = null;
+
     void Awake()
     {
         GameObject obj = GameObject.FindGameObjectWithTag(Labels.Tags.GameController);
@@ -62,7 +64,17 @@ public class UISafeZonesCaptured : MonoBehaviour {
                 test[i].sprite = m_safeZoneFree;
             }
         }
+        if (m_safeZonesCaptured == m_totalSafeZones)
+        {
+            TriggerWin();
+        }
     }
 
+
+    void TriggerWin()
+    {
+        m_win.SetActive(true);
+        Debug.Log("test");
+    }
 
 }

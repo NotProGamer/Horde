@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class WinCamPan : MonoBehaviour
 {
 
+    public GameObject m_win = null;
     //    public bool panTheCam = false;
     GameObject GameController;
     ObjectiveManager objManager;
@@ -77,9 +79,24 @@ public class WinCamPan : MonoBehaviour
                 {
                     Camera.main.fieldOfView -= 1;
                     currentFov = Camera.main.fieldOfView;
+                    Debug.Log("test12");
                 }
+                else
+                {
+                    TriggerTerritoryInfected();
+                }
+
             }
         }
         
 	}
+
+    private void TriggerTerritoryInfected()
+    {
+        Debug.Log("test");
+        if (m_win)
+        {
+            m_win.SetActive(true);
+        }
+    }
 }

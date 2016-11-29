@@ -47,7 +47,7 @@ public class SafeZoneHumanCounter : MonoBehaviour
             if (health.IsDead())
             {
                 humansKilled++;
-                wm.RemoveTransform(item.transform);
+                //wm.RemoveTransform(item.transform);
             }
         }
         

@@ -2838,7 +2838,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11.220537, y: 0.30000016, z: -185.96898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -4816,7 +4816,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4838,7 +4838,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &95000013470087594
 Animator:
   serializedVersion: 3
@@ -4980,10 +4980,10 @@ MonoBehaviour:
     - m_eval: 19
       m_weight: -40
   m_sounds:
-    Wander: ZombieWander
+    Wander: ScreamerWander
     Devour: ZombieDevour
-    GoToUserTap: ZombieHearsUserTap
-    Death: ZombieDeath
+    GoToUserTap: ScreamerUserTap
+    Death: ScreamerDeath
     Reanimating: ZombieReanimating
   m_soundsEnabled: 1
 --- !u!114 &114000012172297704

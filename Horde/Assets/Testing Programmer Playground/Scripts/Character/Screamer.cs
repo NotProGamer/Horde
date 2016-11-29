@@ -56,6 +56,7 @@ public class Screamer : NoiseGenerator {
             {
                 Scream();
                 m_screamCounter--;
+                PlayScreamSound();
             }
 
             // if out of screams
@@ -103,5 +104,12 @@ public class Screamer : NoiseGenerator {
     public void StopScreaming()
     {
         m_screaming = false;
+    }
+
+    public string m_screamSoundTag = "ScreamerScream";
+
+    void PlayScreamSound()
+    {
+        SoundLibrary.PlaySound(gameObject, m_screamSoundTag);
     }
 }

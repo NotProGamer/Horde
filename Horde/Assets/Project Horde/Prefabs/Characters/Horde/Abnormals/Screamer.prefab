@@ -2838,7 +2838,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011324950992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.220537, y: 0.30000016, z: -185.96898}
+  m_LocalPosition: {x: 1.2072661, y: 0.5, z: -139.9414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -5020,8 +5020,8 @@ MonoBehaviour:
   - {fileID: 137000014229641004}
   m_extendTurnTimerIfBeingDevoured: 1
   m_sounds:
-    ZombieTakeDamage: ZombieTakesDamage
-    HumanTakeDamage: HumanTakesDamage
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
   m_soundsEnabled: 1
 --- !u!114 &114000012477912772
 MonoBehaviour:
@@ -5182,6 +5182,7 @@ MonoBehaviour:
   m_screams: 5
   m_screamCounter: 0
   m_screaming: 0
+  m_screamSoundTag: ScreamerScream
 --- !u!114 &114000013491198690
 MonoBehaviour:
   m_ObjectHideFlags: 1

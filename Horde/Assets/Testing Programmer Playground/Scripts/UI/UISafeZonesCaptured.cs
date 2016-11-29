@@ -74,7 +74,7 @@ public class UISafeZonesCaptured : MonoBehaviour {
     void TriggerWin()
     {
         m_win.SetActive(true);
-        Debug.Log("test");
+        //Debug.Log("test");
     }
 
 }

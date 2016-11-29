@@ -79,7 +79,7 @@ public class WinCamPan : MonoBehaviour
                 {
                     Camera.main.fieldOfView -= 1;
                     currentFov = Camera.main.fieldOfView;
-                    Debug.Log("test12");
+                    //Debug.Log("test12");
                 }
                 else
                 {
@@ -93,7 +93,7 @@ public class WinCamPan : MonoBehaviour
 
     private void TriggerTerritoryInfected()
     {
-        Debug.Log("test");
+        //Debug.Log("test");
         if (m_win)
         {
             m_win.SetActive(true);

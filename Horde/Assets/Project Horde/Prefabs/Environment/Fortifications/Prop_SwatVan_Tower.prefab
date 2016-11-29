@@ -641,6 +641,7 @@ GameObject:
   - 114: {fileID: 114000011301593740}
   - 114: {fileID: 114000014071441692}
   - 114: {fileID: 114000010494723406}
+  - 82: {fileID: 82000013165518488}
   m_Layer: 2
   m_Name: Human_Civilian_Gun (1)
   m_TagString: Human
@@ -1207,10 +1208,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010803120680}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -17.35, y: 1.752472, z: -0.37}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013783267982}
   - {fileID: 4000011698201840}
@@ -2592,6 +2593,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.261687, y: 2.4522734, z: 6.35309}
   m_Center: {x: -0.002154231, y: -0.17991698, z: -0.0010414127}
+--- !u!82 &82000013165518488
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011913181448}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95000010140636630
 Animator:
   serializedVersion: 3
@@ -2641,6 +2716,7 @@ MonoBehaviour:
   m_touchRange: 1
   m_minSpeed: 3
   m_maxSpeed: 10
+  m_currentAngle: 0
   m_state: 0
   m_unableToReachCurrentDestination: 0
   m_anim: {fileID: 95000012808730114}
@@ -2762,6 +2838,10 @@ MonoBehaviour:
   - {fileID: 23000013312735366}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000012352299246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2833,6 +2913,12 @@ MonoBehaviour:
       m_weight: 60
     - m_name: 6
       m_weight: -60
+  m_sounds:
+    Idle: HumanIdle
+    Wander: HumanWander
+    Flee: HumanFlee
+    Death: HumanDeath
+  m_soundsEnabled: 1
 --- !u!114 &114000013491145318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2867,6 +2953,10 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 0}
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000014071441692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2882,6 +2972,9 @@ MonoBehaviour:
   m_damage: 5
   m_attackRange: 20
   m_anim: {fileID: 95000012808730114}
+  m_sounds:
+    Attack: HumanAttackRanged
+  m_soundsEnabled: 1
 --- !u!136 &136000010789295886
 CapsuleCollider:
   m_ObjectHideFlags: 1

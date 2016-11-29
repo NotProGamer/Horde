@@ -22,6 +22,7 @@ GameObject:
   - 33: {fileID: 33000011541757718}
   - 23: {fileID: 23000013121636388}
   - 95: {fileID: 95000013586244396}
+  - 64: {fileID: 64000012832195164}
   m_Layer: 0
   m_Name: Road_CarPark3
   m_TagString: Untagged
@@ -106,6 +107,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010836419932}
+  m_Mesh: {fileID: 4300000, guid: bc2aaed4dfdc468489e7dbdf969b44df, type: 3}
+--- !u!64 &64000012832195164
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010836419932}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: bc2aaed4dfdc468489e7dbdf969b44df, type: 3}
 --- !u!95 &95000013586244396
 Animator:

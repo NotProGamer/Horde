@@ -134,7 +134,7 @@ public class Reanimator : MonoBehaviour {
                 {
                     if (m_objectPoolManagerScript.RequestObjectAtPosition(Labels.Tags.Zombie, transform.position) != null)
                     {
-                        RequestZombieHand();
+                        //RequestZombieHand();
                     }
                 }
             }

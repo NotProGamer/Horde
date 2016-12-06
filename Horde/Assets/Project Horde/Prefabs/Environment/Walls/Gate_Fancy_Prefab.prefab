@@ -82,10 +82,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.5589991, y: -3.7399998, z: -3.5839999}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
   - {fileID: 461760}
   - {fileID: 480680}
@@ -298,8 +298,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.997324, y: 2.9537568, z: 0.8539847}
-  m_Center: {x: 1.4986634, y: -0.00000011920929, z: -0.3258471}
+  m_Size: {x: 2.9973238, y: 2.9537568, z: 1.4305147}
+  m_Center: {x: 1.4986638, y: -0.00000011920929, z: -0.037596256}
 --- !u!65 &65000011860051474
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -310,8 +310,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0149078, y: 2.9537568, z: 0.703421}
-  m_Center: {x: -1.5074544, y: -0.00000011920929, z: -0.25055662}
+  m_Size: {x: 3.0149078, y: 2.9537568, z: 1.4470848}
+  m_Center: {x: -1.5073905, y: -0.00000011920929, z: -0.033981472}
 --- !u!114 &114000010705975488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,6 +334,10 @@ MonoBehaviour:
   - {fileID: 2310046}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000011065076848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,6 +373,10 @@ MonoBehaviour:
   - {fileID: 2340264}
   m_skinnedMeshRendererList: []
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000012436792028
 MonoBehaviour:
   m_ObjectHideFlags: 1

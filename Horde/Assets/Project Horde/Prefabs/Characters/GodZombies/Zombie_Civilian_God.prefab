@@ -2161,8 +2161,8 @@ Transform:
   m_GameObject: {fileID: 1000011598912644}
   m_LocalRotation: {x: 0.00000010430813, y: 0.00000008940697, z: -0.00000006597759,
     w: 1}
-  m_LocalPosition: {x: -0.349, y: 1.306, z: 0.961}
-  m_LocalScale: {x: 0.1000001, y: 0.10000002, z: 0.100000136}
+  m_LocalPosition: {x: -0.19, y: 1.306, z: 0.741}
+  m_LocalScale: {x: 0.1924595, y: 0.19245934, z: 0.19245957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012908796604}
@@ -2191,8 +2191,8 @@ Transform:
   m_GameObject: {fileID: 1000010820098562}
   m_LocalRotation: {x: 0.00000010430813, y: 0.00000008940697, z: -0.00000006597759,
     w: 1}
-  m_LocalPosition: {x: 0.293, y: 1.306, z: 0.961}
-  m_LocalScale: {x: 0.1000001, y: 0.10000002, z: 0.100000136}
+  m_LocalPosition: {x: 0.445, y: 1.306, z: 0.741}
+  m_LocalScale: {x: 0.1924595, y: 0.19245934, z: 0.19245957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012908796604}
@@ -2645,7 +2645,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010025821368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 14.6, y: 52.046, z: -38.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -3528,7 +3528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de5846f9c608fa4d901785add527ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 100
+  m_maxHealth: 200
   m_health: 100
   m_healToFullOnStart: 1
   m_vulnerable: 1
@@ -3555,7 +3555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_delay: 0.5
-  m_damage: 15
+  m_damage: 25
   m_attackRange: 10
   m_anim: {fileID: 95000013327563574}
   m_sounds:
@@ -3902,7 +3902,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1000010025821368}
   m_Enabled: 1
   m_Radius: 0.5
-  m_Speed: 15
+  m_Speed: 5
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 360

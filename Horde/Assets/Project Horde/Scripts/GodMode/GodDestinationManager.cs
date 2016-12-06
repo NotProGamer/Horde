@@ -63,6 +63,8 @@ public class GodDestinationManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Human")
                 {
+                    zombieList.Clear();
+                    zombieList.AddRange(GameObject.FindGameObjectsWithTag("Zombie"));
                     //Set human as target
                     Debug.Log("Human selected");
                     AssignZombieToTarget(hit);

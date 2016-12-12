@@ -63,16 +63,25 @@ public class GodDestinationManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Human")
                 {
-                    zombieList.Clear();
-                    zombieList.AddRange(GameObject.FindGameObjectsWithTag("Zombie"));
-                    //Set human as target
-                    Debug.Log("Human selected");
-                    AssignZombieToTarget(hit);
+                    TargetMarker brainMarker = hit.collider.gameObject.GetComponent<TargetMarker>();
+
+                    if (brainMarker.timesTargeted < 5)
+                    {
+                        //Display Icon above human
+                        brainMarker.timesTargeted++;
+
+
+                        zombieList.Clear();
+                        zombieList.AddRange(GameObject.FindGameObjectsWithTag("Zombie"));
+                        //Set human as target
+                        //Debug.Log("Human selected");
+                        AssignZombieToTarget(hit);
+                    }
                 }
 
                 if (hit.collider.gameObject.tag == "Terrain")
                 {
-                    Debug.Log("Moving lure");
+                    //Debug.Log("Moving lure");
                     zombieLure.position = hit.point;
                 }
             }

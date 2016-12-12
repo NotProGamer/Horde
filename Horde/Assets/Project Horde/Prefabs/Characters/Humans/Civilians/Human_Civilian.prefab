@@ -1027,6 +1027,7 @@ GameObject:
   - 114: {fileID: 114000013988066600}
   - 114: {fileID: 114000012225572770}
   - 82: {fileID: 82000012227703096}
+  - 114: {fileID: 114000012168296972}
   m_Layer: 8
   m_Name: Human_Civilian
   m_TagString: Human
@@ -1209,6 +1210,22 @@ GameObject:
   - 4: {fileID: 4000012928004230}
   m_Layer: 0
   m_Name: Character1_RightHandPinky2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000012095770000
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011297674314}
+  - 212: {fileID: 212000014163763464}
+  m_Layer: 8
+  m_Name: Brain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,6 +2149,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000013283303922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013000298404}
+  - 114: {fileID: 114000012434434790}
+  m_Layer: 8
+  m_Name: BrainMarker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1000013313717416
 GameObject:
   m_ObjectHideFlags: 1
@@ -3266,7 +3299,7 @@ Transform:
   - {fileID: 4000012339588468}
   - {fileID: 4000010285216232}
   m_Father: {fileID: 4000012820859576}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &4000011125373684
 Transform:
   m_ObjectHideFlags: 1
@@ -3365,6 +3398,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010554844844}
   m_RootOrder: 14
+--- !u!4 &4000011297674314
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012095770000}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -179.99998}
+  m_Children: []
+  m_Father: {fileID: 4000013000298404}
+  m_RootOrder: 0
 --- !u!4 &4000011298847604
 Transform:
   m_ObjectHideFlags: 1
@@ -3731,7 +3777,7 @@ Transform:
   - {fileID: 4000012897506854}
   - {fileID: 4000013065128164}
   m_Father: {fileID: 4000012820859576}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &4000011870106498
 Transform:
   m_ObjectHideFlags: 1
@@ -4292,11 +4338,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011894944338}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.013792, y: 0.5000001, z: -4.8445015}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 142.473, y: 12.80737, z: -57.72145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 4000013000298404}
   - {fileID: 4000011111208412}
   - {fileID: 4000011865758140}
   m_Father: {fileID: 0}
@@ -4441,6 +4488,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010554844844}
   m_RootOrder: 16
+--- !u!4 &4000013000298404
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013283303922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 4000011297674314}
+  m_Father: {fileID: 4000012820859576}
+  m_RootOrder: 0
 --- !u!4 &4000013048923446
 Transform:
   m_ObjectHideFlags: 1
@@ -5446,6 +5507,18 @@ MonoBehaviour:
       m_normalisationType: 0
   m_thoughDelay: 0.5
   m_threatDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &114000012168296972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011894944338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6764ac797acb94eb75e3414055d080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brainMarker: {fileID: 1000013283303922}
 --- !u!114 &114000012225572770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5515,6 +5588,18 @@ MonoBehaviour:
     Flee: HumanFlee
     Death: HumanDeath
   m_soundsEnabled: 1
+--- !u!114 &114000012434434790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013283303922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94d76bf976ca9746b17fad047aed425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114000012482754406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5587,8 +5672,8 @@ MonoBehaviour:
   - {fileID: 137000012656725586}
   m_extendTurnTimerIfBeingDevoured: 1
   m_sounds:
-    ZombieTakeDamage: ZombieTakesDamage
-    HumanTakeDamage: HumanTakesDamage
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
   m_soundsEnabled: 1
 --- !u!136 &136000011691019922
 CapsuleCollider:
@@ -5829,3 +5914,36 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!212 &212000014163763464
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012095770000}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 1
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: e3e328efd47c793428960b7cac6f68b2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0

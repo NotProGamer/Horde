@@ -3330,6 +3330,7 @@ MonoBehaviour:
   m_touchRange: 1
   m_minSpeed: 3
   m_maxSpeed: 10
+  m_currentAngle: 0
   m_state: 0
   m_unableToReachCurrentDestination: 0
 --- !u!114 &114000011056984756
@@ -3354,6 +3355,10 @@ MonoBehaviour:
   m_skinnedMeshRendererList:
   - {fileID: 0}
   m_extendTurnTimerIfBeingDevoured: 1
+  m_sounds:
+    ZombieTakeDamage: ZombieTakeDamage
+    HumanTakeDamage: HumanTakeDamage
+  m_soundsEnabled: 1
 --- !u!114 &114000011280492070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3533,6 +3538,12 @@ MonoBehaviour:
       m_weight: 60
     - m_name: 6
       m_weight: -60
+  m_sounds:
+    Idle: HumanIdle
+    Wander: HumanWander
+    Flee: HumanFlee
+    Death: HumanDeath
+  m_soundsEnabled: 1
 --- !u!114 &114000013454511138
 MonoBehaviour:
   m_ObjectHideFlags: 1

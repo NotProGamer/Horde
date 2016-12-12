@@ -25,7 +25,7 @@ public class GodZombieMovement : MonoBehaviour
 
     Transform m_targetDestination;
 
-    public float lookHeight;
+
 
 
 	// Use this for initialization
@@ -49,6 +49,9 @@ public class GodZombieMovement : MonoBehaviour
 
         m_agent = GetComponent<NavMeshAgent>();
 
+
+        m_animator.SetBool("Idle", true);
+
     }
 	
 	// Update is called once per frame
@@ -67,14 +70,17 @@ public class GodZombieMovement : MonoBehaviour
 
         if (!m_humanTarget)
         {
-           // m_agent.destination = m_destinationManager.zombieLure.position;
-
+            // m_agent.destination = m_destinationManager.zombieLure.position;
+            m_agent.speed = 3;
             m_targetDestination = m_destinationManager.zombieLure;
+
         }
 
         if (m_humanTarget)
         {
+            m_agent.speed = 5;
             m_targetDestination = m_humanTarget.transform;
+            transform.LookAt(m_humanTarget.transform);
             m_targetHealth = m_humanTarget.GetComponent<Health>();
 
 
@@ -96,9 +102,9 @@ public class GodZombieMovement : MonoBehaviour
 
         m_agent.destination = m_targetDestination.position;
 
-        
 
-    
+
+        m_animator.SetFloat("Movement", m_agent.velocity.magnitude);
         if (m_agent.velocity != new Vector3(0, 0, 0))
         {
             m_animator.SetBool("Moving", true);
@@ -110,7 +116,7 @@ public class GodZombieMovement : MonoBehaviour
             m_animator.SetBool("Idle", true);
         }
 
-        m_animator.SetFloat("Movement", m_agent.speed);
+        
 	
 	}
 }
